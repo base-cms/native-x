@@ -1,0 +1,29 @@
+{{!-- {{#if session.isAuthenticated}} --}}
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTenant" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      {{#if user.tenant}}
+        <img src="{{user.tenant.photoURL}}" class="icon icon-sm mr-1">
+        {{user.tenant.name}}
+      {{else}}
+        Select tenant
+      {{/if}}
+    </a>
+    <div class="dropdown-menu" aria-labelledby="navbarDropdownTenant">
+      {{#each user.tenants as |tenant|}}
+        <a href="/tenant/{{tenant.id}}" class="dropdown-item">
+          {{tenant.name}}
+          <a href="/tenant/{{tenant.id}}/settings" class="float-right">
+            <i class="material-icons">settings</i>
+          </a>
+          <a href="/tenant/{{tenant.id}}/team" class="float-right">
+            <i class="material-icons">people</i>
+          </a>
+        </a>
+      {{/each}}
+      <div class="dropdown-separator"></div>
+      {{#link-to "tenant-create" class="dropdown-item"}}
+        New Tenant
+      {{/link-to}}
+    </div>
+  </li>
+{{!-- {{/if}} --}}

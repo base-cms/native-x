@@ -1,0 +1,36 @@
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)" role="button">
+      <img src="{{user.tenant.photoURL}}" class="icon icon-sm mr-1">
+        {{#if user.tenant}}
+          {{user.tenant.name}}
+        {{else}}
+          Select tenant
+        {{/if}}
+      </a>
+
+    <div class="dropdown-menu dropdown-menu-right">
+      {{#if user.canManageTenant}}
+        {{#link-to "tenant" user.oid title="Manage" class="dropdown-item"}}
+          <i class="material-icons">settings_applications</i> Manage Organization
+        {{/link-to}}
+      {{/if}}
+      {{#link-to "tenant" user.oid title="Manage" class="dropdown-item"}}
+        <i class="material-icons">people</i> View Team
+      {{/link-to}}
+      <div class="dropdown-divider"></div>
+
+      {{#link-to "tenant.new" title="New" class="dropdown-item"}}
+        <i class="material-icons">create_new_folder</i> New Tenant
+      {{/link-to}}
+
+      <div class="dropdown-divider"></div>
+
+      {{!-- Ensure that org links cause the app to reinitialize and prevent flashes --}}
+      {{#each user.tenants as |tenant|}}
+        <a href="/tenant/{{tenant.id}}" class="dropdown-item">
+          <img src="{{tenant.photoURL}}" class="icon icon-sm mr-1">
+          {{tenant.name}}
+        </a>
+      {{/each}}
+    </div>
+  </li>

@@ -1,0 +1,16 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+  {{#link-to "index" class="navbar-brand"}}[ sc ]{{/link-to}}
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav mr-auto">
+      {{#link-to "story" class="nav-item nav-link"}}Stories{{/link-to}}
+      {{#link-to "docs" class="nav-item nav-link"}}Docs{{/link-to}}
+    </ul>
+    <ul class="navbar-nav ml-auto">
+      {{partial "navigation/tenant"}}
+      {{partial "navigation/user"}}
+    </ul>
+  </div>
+</nav>
