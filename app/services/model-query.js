@@ -43,7 +43,7 @@ export default Service.extend({
     }
 
     const tenant = this.get('user.tid');
-    if (modelType !== 'core-user' && modelType !== 'core-account') {
+    if (!modelType.includes('core-')) {
       criteria.tenant = tenant;
     }
 

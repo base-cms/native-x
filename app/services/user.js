@@ -8,6 +8,7 @@ export default Service.extend({
   store: service(),
   session: service(),
   loading: service(),
+  query: service('model-query'),
 
   /**
    * The Ember data user model.
@@ -21,7 +22,7 @@ export default Service.extend({
    *
    * @type {DS.Model[]}
    */
-  tenants: computed.reads('model.tenants'),
+  tenants: [],
 
   /**
    * The user id. Will be `null` if the there is not authenticated user.
@@ -80,15 +81,25 @@ export default Service.extend({
 
   load() {
     return new Promise((resolve, reject) => {
-      let userId = this.get('session.data.authenticated.id');
-      if (!isEmpty(userId)) {
-        this.get('store').find('core-user', userId).then((user) => {
+      const userId = this.get('session.data.authenticated.id');
+      if (isEmpty(userId)) return resolve();
+
+      const user = this.get('store').find('core-user', userId);
+      const tenants = this.get('query').execute('core-account-user', { user: userId })
+        .then(r => r.map(i => i.get('account')))
+        .then(accounts => {
+          const ids = accounts.map(a => a.get('id'));
+          return this.get('query').execute('core-account', { _id : { $in: ids }})
+        })
+      ;
+      RSVP
+        .hash({ user, tenants })
+        .then(({ user, tenants }) => {
           this.set('model', user);
+          this.set('tenants', tenants);
           resolve();
-        }, reject);
-      } else {
-        resolve();
-      }
+        }, reject)
+      ;
     });
   },
 

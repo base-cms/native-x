@@ -1,0 +1,19 @@
+<div class="row mt-3">
+  <div class="col">
+    <h4 class="mb-0">
+      Tenancy
+    </h4>
+  </div>
+</div>
+<hr>
+
+<div class="row">
+  <div class="col-3">
+    <label for="email">Accounts</label>
+  </div>
+  <div class="col-9">
+    {{#power-select-multiple placeholder="Add an account" selected=selected options=options onchange=(action "onSelect") as |tenant|}}
+      <img src="{{tenant.photoURL}}" class="icon icon-sm mr-1"> {{tenant.name}}
+    {{/power-select-multiple}}
+  </div>
+</div>

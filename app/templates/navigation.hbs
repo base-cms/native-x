@@ -5,8 +5,11 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav mr-auto">
+      {{#link-to "docs" class="nav-item nav-link"}}Documentation{{/link-to}}
+      {{#if session.isAuthenticated}}
       {{#link-to "story" class="nav-item nav-link"}}Stories{{/link-to}}
-      {{#link-to "docs" class="nav-item nav-link"}}Docs{{/link-to}}
+      {{#link-to "user" class="nav-item nav-link"}}Users{{/link-to}}
+      {{/if}}
     </ul>
     <ul class="navbar-nav ml-auto">
       {{partial "navigation/tenant"}}

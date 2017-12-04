@@ -5,7 +5,7 @@ export default Route.extend({
     return this.store.createRecord('core-account');
   },
   afterModel(model) {
-    console.warn(this.user.model, model.get('users'));
+    // console.warn(this.user.model, model.get('users'));
     // model.set('users', [this.user.model]);
   },
   actions: {
