@@ -1,4 +1,4 @@
-{{!-- {{#if session.isAuthenticated}} --}}
+{{#if session.isAuthenticated}}
   <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTenant" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       {{#if user.tenant}}
@@ -9,21 +9,33 @@
       {{/if}}
     </a>
     <div class="dropdown-menu" aria-labelledby="navbarDropdownTenant">
-      {{#each user.tenants as |tenant|}}
-        <a href="/tenant/{{tenant.id}}" class="dropdown-item">
-          {{tenant.name}}
-          <a href="/tenant/{{tenant.id}}/settings" class="float-right">
-            <i class="material-icons">settings</i>
-          </a>
-          <a href="/tenant/{{tenant.id}}/team" class="float-right">
-            <i class="material-icons">people</i>
-          </a>
-        </a>
-      {{/each}}
-      <div class="dropdown-separator"></div>
-      {{#link-to "tenant-create" class="dropdown-item"}}
-        New Tenant
+      {{#link-to "tenant.settings" user.tenant.id class="dropdown-item flex"}}
+        <span>Settings</span>
+        <span class="ml-auto tenant-action">
+          {{-ion "settings"}}
+        </span>
       {{/link-to}}
+      {{#link-to "tenant.team" user.tenant.id class="dropdown-item flex"}}
+        <span>Team</span>
+        <span class="ml-auto tenant-action">
+          {{-ion "ios-people"}}
+        </span>
+      {{/link-to}}
+
+      {{#if (gt user.tenants.length 1)}}
+      <div class="dropdown-divider"></div>
+
+        {{#each user.tenants as |tenant|}}
+          {{#unless (eq tenant.id user.tenant.id)}}
+          {{#link-to 'tenant.index' tenant.id class="dropdown-item" title="Switch to {{tenant.name}}"}}
+            <img src="{{tenant.photoURL}}" class="icon icon-sm mr-1"> {{tenant.name}}
+          {{/link-to}}
+          {{/unless}}
+        {{/each}}
+        {{/if}}
+
+      <div class="dropdown-divider"></div>
+      {{#link-to "tenant.create" class="dropdown-item"}}New Tenant{{/link-to}}
     </div>
   </li>
-{{!-- {{/if}} --}}
+{{/if}}

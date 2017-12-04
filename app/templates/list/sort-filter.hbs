@@ -1,0 +1,18 @@
+<div class="btn-group mr-2" role="group" aria-label="Sort Filter">
+  <button id="dropdown-sort-type" type="button" disabled={{isSortDisabled}} class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <span class="hidden-xs-down">{{selectedSort.label}}</span>
+  </button>
+  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-sort-type">
+    {{#link-to routeName (query-params sort=selectedSort.key) class="dropdown-item hidden-sm-up"}}{{selectedSort.label}}{{/link-to}}
+    {{#each filteredSortOptions as |sortOption|}}
+      {{#link-to routeName (query-params sort=sortOption.key) class="dropdown-item"}}{{sortOption.label}}{{/link-to}}
+    {{/each}}
+  </div>
+  {{#-bs/button "info" size="small" disabled=isSortDisabled click=(action 'toggleDirection')}}
+    {{#if selectedAscending}}
+      {{-ion "arrow-up-c"}}
+    {{else}}
+      {{-ion "arrow-down-c"}}
+    {{/if}}
+  {{/-bs/button}}
+</div>

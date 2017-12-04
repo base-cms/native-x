@@ -1,0 +1,14 @@
+<form {{action "search" on="submit"}}>
+  <div class="input-group">
+    {{input
+      type="text"
+      class="form-control form-control-sm"
+      placeholder="Search..."
+      value=phraseValue
+      focusIn=(action 'selectAll')
+    }}
+    <span class="input-group-btn">
+      {{#-bs/button "primary" type="submit" size="small"}}{{-ion "search"}}{{/-bs/button}}
+    </span>
+  </div>
+</form>

@@ -1,4 +1,47 @@
-@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+@import url('http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css');
 @import "_variables.scss";
 @import "_loading.scss";
 @import "ember-cli-bootstrap-4/bootstrap";
+
+.icon {
+  display: inline-block;
+  overflow: hidden;
+  line-height: 1;
+  vertical-align: middle;
+  border-radius: 3px;
+}
+
+.icon-lg {
+  width: 100px;
+  height: 100px;
+}
+
+.icon-md {
+  width: 50px;
+  height: 50px;
+}
+
+.icon-sm {
+  width: 20px;
+  height: 20px;
+}
+
+.dropdown-item.flex {
+  display: flex !important;
+}
+
+.tenant-action {
+  display: inline-block;
+  vertical-align: bottom;
+  height: 24px;
+}
+
+.fixed-bottom {
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.fixed-bottom.create {
+  left: inherit;
+}

@@ -2,15 +2,22 @@
   <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)" role="button">
       <img src="{{user.model.photoURL}}" class="icon icon-sm mr-1">
-      {{user.model.firstName}} {{user.model.lastName}}
+      {{user.model.givenName}} {{user.model.familyName}}
       </a>
 
     <div class="dropdown-menu dropdown-menu-right">
-      {{#link-to "app.settings" class="dropdown-item" title="Settings"}}Settings{{/link-to}}
+      {{#link-to "settings" class="dropdown-item flex"}}
+        <span>Settings</span>
+        <span class="ml-auto tenant-action">
+          {{-ion "settings"}}
+        </span>
+      {{/link-to}}
       <div class="dropdown-divider"></div>
-      {{#link-to "app.logout" class="dropdown-item" title="Logout"}}
-        <i class="material-icons">power_settings_new</i>
-        Logout
+      {{#link-to "logout" class="dropdown-item flex"}}
+        <span>Logout</span>
+        <span class="ml-auto tenant-action">
+          {{-ion "log-out"}}
+        </span>
       {{/link-to}}
     </div>
   </li>

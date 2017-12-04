@@ -1,12 +1,13 @@
 import Service from '@ember/service';
 import Ember from 'ember';
 
-const { computed, inject: { service }, RSVP, get } = Ember;
+const { computed, inject: { service }, RSVP, get, isEmpty } = Ember;
 const { Promise } = RSVP;
 
 export default Service.extend({
   store: service(),
-  // session: service(),
+  session: service(),
+  loading: service(),
 
   /**
    * The Ember data user model.
@@ -20,7 +21,7 @@ export default Service.extend({
    *
    * @type {DS.Model[]}
    */
-  tenants: [],
+  tenants: computed.reads('model.tenants'),
 
   /**
    * The user id. Will be `null` if the there is not authenticated user.
@@ -77,4 +78,30 @@ export default Service.extend({
     return (activeTenant) ? activeTenant : defaultTenant;
   }),
 
+  load() {
+    return new Promise((resolve, reject) => {
+      let userId = this.get('session.data.authenticated.id');
+      if (!isEmpty(userId)) {
+        this.get('store').find('core-user', userId).then((user) => {
+          this.set('model', user);
+          resolve();
+        }, reject);
+      } else {
+        resolve();
+      }
+    });
+  },
+
+  logout() {
+    const loading = this.get('loading');
+    loading.show();
+    return this.get('session').invalidate()
+      .finally(loading.hide())
+    ;
+  },
+
+  setActiveTenant(tenantId) {
+    this.set('model.activeTenantId', tenantId);
+    return this.get('model').save();
+  }
 });

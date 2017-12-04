@@ -1,0 +1,35 @@
+<div class="row mb-5">
+  <div class="col">
+    <h3 class="mb-3">Edit Story</h3>
+    {{partial "story/form"}}
+  </div>
+</div>
+
+<div class="row mb-5">
+  <div class="col">
+    <h3 class="mb-3">Campaigns</h3>
+
+    <ul class="list-group">
+      {{#each model.campaigns as |campaign|}}
+      <li class="list-group-item text-muted">
+        {{ campaign.name }} -- {{ campaign.medium }}
+      </li>
+      {{else}}
+      <li class="list-group-item text-muted">
+        <small>No campaigns.</small>
+      </li>
+      {{/each}}
+      <li class="list-group-item">
+        {{#link-to "story.edit.campaign.create" model.id class="btn btn-outline-primary"}}Create Campaign{{/link-to}}
+      </li>
+    </ul>
+
+  </div>
+</div>
+
+<div class="row mb-5">
+  <div class="col">
+    <h3 class="mb-3">Reports</h3>
+    {{#link-to "story.report.index" model.id class="btn btn-outline-primary"}} View Story Report {{/link-to}}
+  </div>
+</div>

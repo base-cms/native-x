@@ -1,0 +1,10 @@
+<div class="btn-group" role="group" aria-label="Display Limit Filter">
+  <button id="dropdown-display-limit" type="button" class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <span class="hidden-xs-down">Show: </span>{{limit}}
+  </button>
+  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-display-limit">
+    {{#each filteredLimitOptions as |limitOption|}}
+      {{#link-to routeName (query-params limit=limitOption) class="dropdown-item"}}{{limitOption}}{{/link-to}}
+    {{/each}}
+  </div>
+</div>

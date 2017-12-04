@@ -1,0 +1,66 @@
+{{#link-to "story.create" class="btn btn-success create float-right fixed-bottom"}}
+  {{-ion "android-create"}} Create
+{{/link-to}}
+
+{{!-- {{#-bs/button 'secondary' class='fixed-bottom' click=(route-action 'scrollToTop')}}{{-ion 'chevron-up'}}{{/-bs/button}} --}}
+
+<div class="row">
+  <div class="col">
+    <h3 class="float-left mb-0">Stories</h3>
+  </div>
+</div>
+<hr>
+<div class="row mb-4">
+  <div class="col">
+    <div class="row">
+      <div class="col-8 col-sm-6">
+        {{ partial 'list/search-controls'}}
+      </div>
+      <div class="col-4 col-sm-6">
+        {{ partial 'list/filters' }}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row mb-2">
+  <div class="col">
+    {{#each model as |story|}}
+      <div class="media mb-2">
+      {{!-- {{#each story.images as |image|}}
+        {{#if (eq true image.featured)}}
+          {{#link-to 'story.edit' story.id class='media-left'}}
+            <img class="img-responsive" src="{{image.url}}" alt="{{story.name}} Logo">
+          {{/link-to}}
+        {{/if}}
+      {{/each}} --}}
+      <div class="media-body">
+        <div class="d-flex justify-content-between">
+          {{#link-to 'story.edit' story.id}}
+            <h4 class="media-heading mt-0">{{story.name}}</h4>
+          {{/link-to}}
+          <span class="details">
+            <small>{{#if story.updatedDate}}{{moment-from-now story.updatedDate}}{{/if}}</small>
+          </span>
+        </div>
+        <div class="d-flex">
+          <small>
+            Link <a href="{{story.linkUrl}}" target="_blank" class="text-muted">{{story.linkUrl}}</a>
+          </small>
+        </div>
+      </div>
+    </div>
+    <hr>
+    {{else}}
+      <h5 class="text-primary">No results found.</h5>
+    {{/each}}
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    {{ partial 'list/pagination' }}
+  </div>
+</div>
+
+

@@ -1,0 +1,27 @@
+<div class="card">
+  <div class="card-header">Team Members</div>
+  <div class="card-block">
+    {{#each members as |member|}}
+      <div class="align-items-center mt-1 mb-1 row">
+        <div class="col-1">
+          <img src="{{member.photoURL}}" class="icon icon-md md-3"></div>
+        <div class="col-auto">{{member.email}}</div>
+        <div class="col-auto">{{member.firstName}} {{member.lastName}}</div>
+        <div class="col-1"></div>
+        <div class="col-1">{{member.role}}</div>
+        <div class="col-1 text-right">
+          <div class="dropdown">
+            <button class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown">
+              <i class="material-icons">settings</i>
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              {{!-- <a class="dropdown-item" href="#" {{action "toggleResetPasswordModal" member}}>Reset password</a> --}}
+              <a class="dropdown-item" href="#" {{action "setActiveUser" member "role"}}>Change role</a>
+              <a class="dropdown-item text-danger" href="#" {{action "setActiveUser" member "kick"}}>Remove from organization</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+</div>

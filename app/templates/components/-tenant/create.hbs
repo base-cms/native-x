@@ -1,0 +1,31 @@
+
+<div class="form-group">
+  <label for="create.tenant.name">Tenant Name</label>
+  {{input id="create.tenant.name" class="form-control" type="text" value=tenant.name disabled=isLoading}}
+  <small id="create.tenant.name.help" class="form-text text-muted">A tenant could be a company, a division, or any logical means by which you'd like to seperate your data.</small>
+</div>
+
+<div class="form-group">
+  <label for="create.tenant.key">Tenant Key</label>
+  {{input id="create.tenant.key" class="form-control" type="text" value=tenant.key disabled=isLoading}}
+  <small id="create.tenant.key.help" class="form-text text-muted">A key must be unique and will identify API requests for your tenant.</small>
+</div>
+
+<div class="form-group">
+  <label for="update.tenant.photoURL">Logo URL</label>
+  {{input id="update.tenant.photoURL" class="form-control" type="text" value=tenant.photoURL disabled=isLoading}}
+  <small id="update.tenant.photoURL.help" class="form-text text-muted">A fully-pathed URL for your tenant logo. We recommend a square image at 300x300px.</small>
+</div>
+
+<button class="btn btn-primary" {{action "save" }} disabled={{isLoading}}>Create</button>
+
+{{#if isLoading}}
+  <div class="mt-3">
+    <small class="text-muted">Creating tenant...</small>
+    <div class="progress"><div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div></div>
+  </div>
+{{/if}}
+
+{{#if error}}
+  <div class="alert-danger alert mt-3 mb-0" role="alert"><strong>Oops!</strong> {{error.message}}</div>
+{{/if}}
