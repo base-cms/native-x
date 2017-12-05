@@ -1,7 +1,15 @@
-{{-tenant/-nav tenant=user.tenant}}
+{{-tenant/-nav tenant=model.tenant}}
 
 <div class="row justify-content-center">
   <div class="col">
-    {{-tenant/update tenant=user.tenant}}
+    {{-tenant/update tenant=model.tenant}}
+  </div>
+</div>
+
+<hr>
+
+<div class="row justify-content-center">
+  <div class="col">
+    {{-tenant/team tenant=model.tenant members=model.members options=model.users}}
   </div>
 </div>
