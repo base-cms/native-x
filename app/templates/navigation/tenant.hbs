@@ -15,6 +15,12 @@
           {{-ion "settings"}}
         </span>
       {{/link-to}}
+      {{#link-to "tenant.team" user.tenant.id class="dropdown-item flex"}}
+        <span>Team</span>
+        <span class="ml-auto tenant-action">
+          {{-ion "ios-people"}}
+        </span>
+      {{/link-to}}
 
       {{#if (gt user.tenants.length 1)}}
       <div class="dropdown-divider"></div>

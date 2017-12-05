@@ -3,10 +3,6 @@ import Ember from 'ember';
 
 export default ListRoute.extend({
   model() {
-    Ember.RSVP.hash({
-      user: this.store.createRecord('core-user'),
-      tenants: this.store.findAll('core-account'),
-      selected: [],
-    })
+    return this.store.createRecord('core-user');
   },
 });

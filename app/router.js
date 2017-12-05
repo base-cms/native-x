@@ -28,6 +28,7 @@ Router.map(function() {
     this.route('create', { path: '/new' });
     this.route('index', { path: '/:id' });
     this.route('settings', { path: '/:id/settings' });
+    this.route('team', { path: '/:id/team' });
   })
 
   this.route('user', function() {

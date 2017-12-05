@@ -2,7 +2,7 @@
   <div class="col">
     <div class="form-group">
       <label for="email">Email Address</label>
-      {{input type="email" value=model.user.email class="form-control" id="email" placeholder="Email Address"}}
+      {{input type="email" value=model.email class="form-control" id="email" placeholder="Email Address"}}
     </div>
   </div>
 </div>
@@ -11,13 +11,13 @@
   <div class="col-sm-6">
     <div class="form-group">
       <label for="givenName">First Name</label>
-      {{input type="text" value=model.user.givenName class="form-control" id="givenName" placeholder="First Name"}}
+      {{input type="text" value=model.givenName class="form-control" id="givenName" placeholder="First Name"}}
     </div>
   </div>
   <div class="col-sm-6">
     <div class="form-group">
       <label for="familyName">Last Name</label>
-      {{input type="text" value=model.user.familyName class="form-control" id="familyName" placeholder="Last Name"}}
+      {{input type="text" value=model.familyName class="form-control" id="familyName" placeholder="Last Name"}}
     </div>
   </div>
 </div>
@@ -26,24 +26,22 @@
   <div class="col-sm-6">
     <div class="form-group">
       <label for="password">Password</label>
-      {{input type="password" value=model.user.password class="form-control" id="password" placeholder="Password"}}
+      {{input type="password" value=model.password class="form-control" id="password" placeholder="Password"}}
       <small class="form-text text-muted">Must be at least six characters long.</small>
     </div>
   </div>
   <div class="col-sm-6">
     <div class="form-group">
       <label for="confirmPassword">Confirm Password</label>
-      {{input type="password" value=model.user.confirmPassword class="form-control" id="confirmPassword" placeholder="Confirm Password"}}
+      {{input type="password" value=model.confirmPassword class="form-control" id="confirmPassword" placeholder="Confirm Password"}}
       <small class="form-text text-muted">Must match the inputted password.</small>
     </div>
   </div>
 </div>
 
-{{user-tenancy model=model.user selected=model.selected options=model.tenants}}
-
 <div class="row">
   <div class="col">
-    {{#-bs/button 'success' click=(route-action 'save' model.user 'user') disabled=(eq model.user.canSave false)}}
+    {{#-bs/button 'success' click=(route-action 'save' model 'user') disabled=(eq model.canSave false)}}
       {{-ion 'checkmark-round'}} Save
     {{/-bs/button}}
     {{!-- {{#unless model.canSave}}
