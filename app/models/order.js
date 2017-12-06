@@ -6,6 +6,8 @@ import Timestampable from './mixins/timestampable';
 export default Model.extend(Timestampable, {
   tenant          : attr('string'),
   name            : attr('string'),
+  start           : attr('moment'),
+  end             : attr('moment'),
   advertiser      : belongsTo('advertiser'),
   lineItems       : hasMany('line-item', { inverse: 'order' }),
 });

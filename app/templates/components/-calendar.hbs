@@ -1,0 +1,28 @@
+{{#basic-dropdown as |dropdown|}}
+  <a class="btn btn-block btn-outline-secondary dropdown-toggle" data-ebd-id="{{dropdown.uniqueId}}-trigger" {{action dropdown.actions.toggle}}>
+    {{-ion "calendar"}}
+    <span class="d-none d-lg-inline">{{moment-format currentDay "dddd, MMMM Do, YYYY"}}</span>
+    <span class="d-none d-md-inline d-lg-none">{{moment-format currentDay "MMM Do, YYYY"}}</span>
+    <span class="d-none d-sm-inline d-md-none">{{moment-format currentDay "MM/DD/YYYY"}}</span>
+  </a>
+  {{#dropdown.content}}
+    <div class="card">
+      <div class="card-body">
+        {{#power-calendar
+          center=center
+          selected=selected
+          onCenterChange=(action (mut center) value="moment")
+          onSelect=(action "selectDate" value="moment") as |calendar|
+        }}
+
+          {{calendar.nav}}
+          <button class="btn btn-sm btn-outline-secondary btn-block mt-3" {{action "centerToday"}}>Go to Today</button>
+          <div {{action dropdown.actions.close}}>
+            {{calendar.days showDaysAround=showDaysAround minDate=(readonly minDate) maxDate=(readonly maxDate)}}
+          </div>
+
+        {{/power-calendar}}
+      </div>
+    </div>
+  {{/dropdown.content}}
+{{/basic-dropdown}}
