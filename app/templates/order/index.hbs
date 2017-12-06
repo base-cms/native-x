@@ -7,6 +7,7 @@
   </div>
 </div>
 <hr>
+
 <div class="row mb-4">
   <div class="col">
     <div class="row">
@@ -20,20 +21,15 @@
   </div>
 </div>
 
+{{list-create modelType='order' withAdvertiser=true withDates=true onCreate='onCreate'}}
+
 <div class="row mb-2">
   <div class="col">
     {{#each model as |order|}}
-        {{#link-to 'order.edit' order.id class='list-group-item list-group-item-action flex-column align-items-start'}}
-          <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">{{order.name}}</h5>
-            <small>{{#if order.createdDate}}{{moment-from-now order.createdDate}}{{/if}}</small>
-          </div>
-          <div class="mb-1">{{order.advertiser.name}}</div>
-          <small>{{order.id}}</small>
-        {{/link-to}}
-      {{else}}
-        <h5 class="text-primary">No results found.</h5>
-      {{/each}}
+      {{list-item/order order=order}}
+    {{else}}
+      <h5 class="text-primary">No results found.</h5>
+    {{/each}}
   </div>
 </div>
 
@@ -42,12 +38,3 @@
     {{ partial 'list/pagination' }}
   </div>
 </div>
-
-<div class="row">
-  <div class="col">
-    <h3 class="float-left mb-0">New Order</h3>
-  </div>
-</div>
-<hr>
-
-{{list-create modelType='order' withAdvertiser=true onCreate='onCreate'}}

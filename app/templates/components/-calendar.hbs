@@ -1,10 +1,19 @@
 {{#basic-dropdown as |dropdown|}}
+  <div class="input-group">
   <a class="btn btn-block btn-outline-secondary dropdown-toggle" data-ebd-id="{{dropdown.uniqueId}}-trigger" {{action dropdown.actions.toggle}}>
     {{-ion "calendar"}}
-    <span class="d-none d-lg-inline">{{moment-format currentDay "dddd, MMMM Do, YYYY"}}</span>
-    <span class="d-none d-md-inline d-lg-none">{{moment-format currentDay "MMM Do, YYYY"}}</span>
-    <span class="d-none d-sm-inline d-md-none">{{moment-format currentDay "MM/DD/YYYY"}}</span>
+    {{#if (moment-is-valid currentDay)}}
+      <span class="d-none d-lg-inline">{{moment-format currentDay displayFormat}}</span>
+    {{else}}
+      <span class="d-none d-lg-inline">Never</span>
+    {{/if}}
   </a>
+  {{#if canRemove}}
+  <button class="input-group-addon btn btn-secondary" {{action 'removeDate'}} disabled={{isRemoveDisabled}}>
+    {{-ion "android-close"}}
+  </button>
+  {{/if}}
+  </div>
   {{#dropdown.content}}
     <div class="card">
       <div class="card-body">

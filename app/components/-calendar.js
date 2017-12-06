@@ -7,12 +7,25 @@ export default Component.extend({
   dateUtil: service(),
 
   currentDay: null,
-  showDaysAround: true,
+  canRemove: false,
   minDate: null,
   maxDate: null,
+  displayFormat: 'dddd, MMMM Do, YYYY',
 
-  center: computed('currentDay', function() {
-    return moment(this.get('currentDay'));
+  isRemoveDisabled: computed('canRemove', 'currentDay', function() {
+    return this.get('canRemove') && null === this.get('currentDay');
+  }),
+
+  center: computed('currentDay', 'minDate', function() {
+    const current = this.get('currentDay');
+    const minDate = this.get('minDate');
+    if (null === current) {
+      if (null === minDate) {
+        return moment();
+      }
+      return moment(minDate);
+    }
+    return moment(current);
   }),
 
   selected: computed('currentDay', function() {
@@ -24,6 +37,10 @@ export default Component.extend({
   }),
 
   actions: {
+    removeDate() {
+      this.set('currentDay', null);
+      this.sendAction('onSelect', null);
+    },
     selectDate(selected) {
       this.set('selected', selected);
       this.sendAction('onSelect', selected);

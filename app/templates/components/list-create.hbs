@@ -1,13 +1,25 @@
-<div class="form-group row">
-  <div class="col">
-    {{input type="text" placeholder="Name" class="form-control" value=modelName}}
-  </div>
+<div class="row align-items-end">
+    <div class="form-group col">
+      <label for="name">Name</label>
+      {{input type="text" class="form-control" value=modelName}}
+    </div>
   {{#if withAdvertiser}}
-    <div class="col">
+    <div class="form-group col">
+      <label for="advertiser">Advertiser</label>
       {{autocomplete-advertiser selected=advertiser onSelect=(action (mut advertiser))}}
     </div>
   {{/if}}
-  <div class="col-2">
+  {{#if withDates}}
+    <div class="form-group col">
+      <label for="start">Start</label>
+      {{-calendar displayFormat="MM/DD/YYYY" currentDay=modelStart maxDate=startMax minDate=startMin onSelect=(action (mut modelStart))}}
+    </div>
+    <div class="form-group col">
+      <label for="end">End</label>
+      {{-calendar displayFormat="MM/DD/YYYY" currentDay=modelEnd maxDate=endMax minDate=endMin onSelect=(action (mut modelEnd)) canRemove=true}}
+    </div>
+  {{/if}}
+  <div class="form-group col-2">
     <button type="submit" class="btn btn-primary btn-block" {{action "create"}}>
       {{-ion "android-create"}} Create
     </button>

@@ -26,7 +26,7 @@
   <div class="col">
     <div class="form-group">
       <label for="end">End Date</label>
-      {{-calendar currentDay=model.end maxDate=endMax minDate=endMin onSelect=(action (mut model.end))}}
+      {{-calendar currentDay=model.end maxDate=endMax minDate=endMin onSelect=(action (mut model.end)) canRemove=true}}
     </div>
   </div>
 </div>

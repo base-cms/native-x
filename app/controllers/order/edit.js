@@ -28,4 +28,10 @@ export default Controller.extend({
 
   endMax: null,
 
+  actions: {
+    onCreate(type, model) {
+      this.transitionToRoute('line-item.edit', model.get('id'));
+    }
+  }
+
 });
