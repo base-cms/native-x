@@ -1,0 +1,23 @@
+<div class="form-group row">
+  <div class="col">
+    {{input type="text" placeholder="Name" class="form-control" value=modelName}}
+  </div>
+  {{#if withAdvertiser}}
+    <div class="col">
+    {{#power-select placeholder="Advertiser" selected=advertiser searchField="name" options=advertisers onchange=(action "setAdvertiser") as |advertiser|}}
+      {{advertiser.name}}
+    {{/power-select}}
+    </div>
+  {{/if}}
+  <div class="col-2">
+    <button type="submit" class="btn btn-primary btn-block" {{action "create"}}>
+      {{-ion "android-create"}} Create
+    </button>
+  </div>
+</div>
+
+{{#if error}}
+<div class="alert alert-danger">
+  {{error}}
+</div>
+{{/if}}

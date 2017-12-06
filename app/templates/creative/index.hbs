@@ -1,0 +1,52 @@
+{{!-- {{#-bs/button 'success' class='create float-right fixed-bottom' click=(route-action 'linkTo' 'creative.create')}}{{-ion 'android-create'}} Create{{/-bs/button}} --}}
+{{#-bs/button 'secondary' class='fixed-bottom' click=(route-action 'scrollToTop')}}{{-ion 'chevron-up'}}{{/-bs/button}}
+
+<div class="row">
+  <div class="col">
+    <h3 class="float-left mb-0">Creatives</h3>
+  </div>
+</div>
+<hr>
+<div class="row mb-4">
+  <div class="col">
+    <div class="row">
+      <div class="col-8 col-sm-6">
+        {{ partial 'list/search-controls'}}
+      </div>
+      <div class="col-4 col-sm-6">
+        {{ partial 'list/filters' }}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row mb-2">
+  <div class="col">
+    {{#each model as |creative|}}
+        {{#link-to 'creative.edit' creative.id class='list-group-item list-group-item-action flex-column align-items-start'}}
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">{{creative.name}}</h5>
+            <small>{{#if creative.createdDate}}{{moment-from-now creative.createdDate}}{{/if}}</small>
+          </div>
+          <div class="mb-1">{{creative.advertiser.name}}</div>
+          <small>{{creative.id}}</small>
+        {{/link-to}}
+      {{else}}
+        <h5 class="text-primary">No results found.</h5>
+      {{/each}}
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    {{ partial 'list/pagination' }}
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <h3 class="float-left mb-0">New Creative</h3>
+  </div>
+</div>
+<hr>
+{{list-create modelType='creative' onCreate='onCreate'}}

@@ -80,6 +80,9 @@ export default Controller.extend({
   }),
 
   actions: {
+    onCreate(modelType, model) {
+      this.transitionToRoute(`${modelType}.edit`, model.get('id'));
+    },
     clearSearch() {
       this.set('phrase', '');
       this.set('phraseInput', '');

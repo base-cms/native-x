@@ -31,14 +31,19 @@ Router.map(function() {
     this.route('team', { path: '/:id/team' });
   })
 
-  this.route('user', function() {
-    this.route('create', { path: '/new' });
-    this.route('edit', { path: '/:id/edit' });
+  const listableModels = ['user', 'advertiser', 'creative', 'creative-template', 'line-item', 'order', 'placement'];
+  listableModels.forEach(model => {
+    this.route(model, function() {
+      this.route('create', { path: 'new' });
+      this.route('edit', { path: '/:id/edit' });
+    })
   })
 
   this.route('login');
   this.route('logout');
   this.route('docs');
+  this.route('reports');
+  this.route('about');
 });
 
 export default Router;

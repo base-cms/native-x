@@ -33,10 +33,11 @@ export default Service.extend({
 
   execute(modelType, criteria, limit, offset, sort, showLoading = true) {
     if (!modelType) {
-      throw new Error('No model type specified. Unable to perfrom query');
+      throw new Error('No model type specified. Unable to perform query');
     }
 
     let loading = this.get('loading');
+    criteria = criteria || {};
 
     if (showLoading) {
       loading.show();

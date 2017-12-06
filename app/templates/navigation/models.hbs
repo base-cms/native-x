@@ -1,0 +1,16 @@
+{{#if session.isAuthenticated}}
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownManage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      {{-ion "settings"}} Manage
+    </a>
+    <div class="dropdown-menu" aria-labelledby="navbarDropdownManage">
+      {{#link-to "advertiser" class="dropdown-item"}}Advertisers{{/link-to}}
+      {{#link-to "creative" class="dropdown-item"}}Creatives{{/link-to}}
+      {{#link-to "creative-template" class="dropdown-item"}}Templates{{/link-to}}
+      {{#link-to "line-item" class="dropdown-item"}}Line Items{{/link-to}}
+      {{#link-to "placement" class="dropdown-item"}}Placements{{/link-to}}
+      <div class="dropdown-divider"></div>
+      {{#link-to "user" class="dropdown-item"}}Users{{/link-to}}
+    </div>
+  </li>
+{{/if}}
