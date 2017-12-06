@@ -4,9 +4,7 @@
   </div>
   {{#if withAdvertiser}}
     <div class="col">
-    {{#power-select placeholder="Advertiser" selected=advertiser searchField="name" options=advertisers onchange=(action "setAdvertiser") as |advertiser|}}
-      {{advertiser.name}}
-    {{/power-select}}
+      {{autocomplete-advertiser selected=advertiser onSelect=(action (mut advertiser))}}
     </div>
   {{/if}}
   <div class="col-2">

@@ -11,7 +11,7 @@
   <div class="col">
     <div class="form-group">
       <label for="advertiser">Advertiser</label>
-      {{input type="advertiser" value=model.advertiser class="form-control" id="advertiser" placeholder="Advertiser"}}
+      {{autocomplete-advertiser selected=model.advertiser onSelect=(action (mut model.advertiser))}}
     </div>
   </div>
 </div>
