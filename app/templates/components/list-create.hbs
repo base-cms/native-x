@@ -6,7 +6,7 @@
   {{#if withAdvertiser}}
     <div class="form-group col">
       <label for="advertiser">Advertiser</label>
-      {{autocomplete-advertiser selected=advertiser onSelect=(action (mut advertiser))}}
+      {{autocomplete-single type="advertiser" selected=advertiser onSelect=(action (mut advertiser))}}
     </div>
   {{/if}}
   {{#if withDates}}

@@ -62,6 +62,7 @@ export default Component.extend({
       const advertiser = this.get('advertiser');
       const type = this.get('modelType');
       const order = this.get('order');
+      const lineItem = this.get('lineItem');
       const start = this.get('modelStart');
       const end = this.get('modelEnd');
 
@@ -83,8 +84,15 @@ export default Component.extend({
         return loading.hide();
       }
 
-      const model = this.get('store').createRecord(type, { name, tenant, advertiser, order, start, end });
+      const model = this.get('store').createRecord(type, { name, tenant, advertiser, order, start, end, lineItem });
       model.save()
+        .then(model => {
+          if (isPresent(lineItem)) {
+            lineItem.get('creatives').pushObject(model);
+            return lineItem.save().then(model => model);
+          }
+          return model;
+        })
         .then(model => this.sendAction('onCreate', type, model))
         .then(() => this.set('modelName', null))
         .catch(e => this.set('error', e))
