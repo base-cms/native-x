@@ -22,24 +22,6 @@
   </div>
 </div>
 
-<fieldset class="row form-group bg-secondary m-auto p-3 text-light">
-  <label>Relationships <span class="text-warning">DEV Testing</span></label>
-  <div class="row">
-    <div class="col-4">
-      <label for="advertiser">Advertiser</label>
-      {{autocomplete-single type="advertiser" selected=model.advertiser onSelect=(action (mut model.advertiser))}}
-    </div>
-    <div class="col-4">
-      <label for="advertorderiser">Order</label>
-      {{!-- {{autocomplete-single type="order" selected=model.order onSelect=(action (mut model.order))}} --}}
-    </div>
-    <div class="col-4">
-      <label for="advertorderiser">Line Item</label>
-      {{!-- {{autocomplete-single type="line-item" selected=model.lineItem onSelect=(action (mut model.lineItem))}} --}}
-    </div>
-  </div>
-</fieldset>
-
 <div class="row mt-3">
   <div class="col">
     {{#-bs/button 'success' click=(route-action 'save' model 'creative') disabled=(eq model.canSave false)}}
