@@ -8,6 +8,7 @@ export default Component.extend({
 
   type: null,
   selected: null,
+  placeholder: null,
 
   search: task(function* (term) {
     yield timeout(600);

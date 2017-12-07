@@ -9,8 +9,7 @@ export default Route.extend({
   model(params) {
     return Ember.RSVP.hash({
       tenant: this.store.findRecord('core-account', params.id),
-      members: this.get('query').execute('core-account-user', { account: params.id }),
-      users: this.store.findAll('core-user'),
+      members: this.get('query').execute('core-account-user', { account: params.id })
     })
   },
 })

@@ -21,8 +21,7 @@
   {{!-- <div class="card-header">Team Members</div> --}}
   <div class="card-body">
 
-    {{#power-select placeholder="Add a user" searchField="name" options=users onchange=(action "create") as |tenant|}}
-      <img src="{{tenant.photoURL}}" class="icon icon-sm mr-1"> {{tenant.name}}
-    {{/power-select}}
+    {{autocomplete-single placeholder="Add to team" type="core-user" onSelect=(action "create")}}
+
   </div>
 </div>
