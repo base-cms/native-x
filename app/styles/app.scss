@@ -61,3 +61,15 @@
 .card .ember-power-calendar {
   min-height: 300px;
 }
+
+fieldset {
+  border: 1px solid $gray-400;
+  padding: 1em;
+  position: relative;
+}
+
+legend {
+  display: inline-block;
+  width: auto;
+  font-size: inherit;
+}
