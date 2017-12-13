@@ -6,7 +6,39 @@
     </div>
   </div>
 </div>
+<div class="row">
+  <div class="col">
+    <div class="form-group">
+      <label for="teaser">Teaser</label>
+      {{input type="text" value=model.teaser class="form-control" id="teaser" placeholder="Short description"}}
+    </div>
+  </div>
+</div>
 
+<div class="row">
+  <div class="col">
+    <div class="form-group">
+      <label for="linkUrl">Link URL</label>
+      {{input type="text" value=model.linkUrl class="form-control" id="linkUrl" placeholder="https://..."}}
+    </div>
+  </div>
+  <div class="col">
+    <div class="form-group">
+      <label for="linktTitle">Link Title</label>
+      {{input type="text" value=model.linktTitle class="form-control" id="linktTitle" placeholder="Alternative text for link"}}
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <div class="form-group">
+      <label for="imageUrl">Image URL</label>
+      {{input type="text" value=model.imageUrl class="form-control" id="imageUrl" placeholder="https://..."}}
+      <img class="w-100 mt-3" src="{{model.imageUrl}}" alt="{{model.linkTitle}}" />
+    </div>
+  </div>
+</div>
 <div class="row">
   <div class="col">
     <div class="form-group">

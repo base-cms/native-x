@@ -27,6 +27,8 @@
 
   <div class="row">
     <div class="form-group col">
+      <label for="placements">Placements</label>
+      {{autocomplete-multiple type="placement" selected=model.placements onSelect=(action (mut model.placements))}}
     </div>
   </div>
 

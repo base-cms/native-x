@@ -1,0 +1,8 @@
+{{#power-select-multiple
+  search=(perform search)
+  selected=selected
+  placeholder=placeholder
+  onchange=(action (mut selected))
+  as |model|}}
+    {{model.name}}
+{{/power-select-multiple}}
