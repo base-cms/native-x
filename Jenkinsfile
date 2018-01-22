@@ -1,21 +1,36 @@
 node {
+  docker.withRegistry('https://registry.hub.docker.com', 'docker-registry-login') {
+    def nodeBuilder = docker.image("limit0/node-build:latest")
+    nodeBuilder.pull()
+  }
+
   try {
-    docker.withRegistry('https://registry.hub.docker.com', 'docker-registry-login') {
-      stage('Checkout') {
-        checkout scm
+    stage('Checkout') {
+      checkout scm
+    }
+    stage('Yarn') {
+      nodeBuilder.inside("-v ${env.WORKSPACE}:/var/www/html -u 0:0") {
+        sh 'yarn'
       }
-      def myDocker = docker.image("limit0/node-build:latest")
-      myDocker.pull()
-      myDocker.inside("-v ${env.WORKSPACE}:/var/www/html -u 0:0") {
-        stage('Yarn') {
-          sh 'yarn'
-        }
-        stage('Ember') {
-          sh 'ember build --environment=production'
-        }
-        stage('Cleanup') {
-          sh 'rm -rf node_modules bower_components tmp'
-        }
+    }
+    stage('Test') {
+      nodeBuilder.inside("-v ${env.WORKSPACE}:/var/www/html -u 0:0") {
+        // sh 'npm run test'
+        // @todo probably test stuff.
+      }
+    }
+  } catch (e) {
+    slackSend color: 'bad', channel: '#codebot', message: "Failed testing ${env.JOB_NAME} #${env.BUILD_NUMBER} (<${env.BUILD_URL}|View>)"
+    process.exit(1)
+  }
+
+  try {
+    nodeBuilder.inside("-v ${env.WORKSPACE}:/var/www/html -u 0:0") {
+      stage('Ember') {
+        sh 'ember build --environment=production'
+      }
+      stage('Cleanup') {
+        sh 'rm -rf node_modules bower_components tmp'
       }
     }
 
