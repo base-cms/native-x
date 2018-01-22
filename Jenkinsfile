@@ -1,6 +1,6 @@
 node {
+  def nodeBuilder = docker.image("limit0/node-build:latest")
   docker.withRegistry('https://registry.hub.docker.com', 'docker-registry-login') {
-    def nodeBuilder = docker.image("limit0/node-build:latest")
     nodeBuilder.pull()
   }
 
