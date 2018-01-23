@@ -1,5 +1,6 @@
 import Service from '@ember/service';
 import Ember from 'ember';
+import currentUser from 'fortnight/gql/queries/current-user';
 
 const { computed, inject: { service }, RSVP, get, isEmpty } = Ember;
 const { Promise } = RSVP;
@@ -7,6 +8,7 @@ const { Promise } = RSVP;
 export default Service.extend({
   store: service(),
   session: service(),
+  apollo: service(),
   loading: service(),
   query: service('model-query'),
 
@@ -84,21 +86,13 @@ export default Service.extend({
       const userId = this.get('session.data.authenticated.id');
       if (isEmpty(userId)) return resolve();
 
-      const user = this.get('store').find('core-user', userId);
-      const tenants = this.get('query').execute('core-account-user', { user: userId })
-        .then(r => r.map(i => i.get('account')))
-        .then(accounts => {
-          const ids = accounts.map(a => a.get('id'));
-          return this.get('query').execute('core-account', { _id : { $in: ids }})
-        })
-      ;
-      RSVP
-        .hash({ user, tenants })
-        .then(({ user, tenants }) => {
+      // @todo Should this just store the user in the session data via `currentUser` or `loginUser` queries?
+      return this.get('apollo').watchQuery({ query: currentUser }, "currentUser")
+        .then(user => {
           this.set('model', user);
-          this.set('tenants', tenants);
+          // this.set('tenants', []);
           resolve();
-        }, reject)
+        })
       ;
     });
   },

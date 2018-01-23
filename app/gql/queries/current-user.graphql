@@ -4,5 +4,6 @@ query currentUser {
     email
     familyName
     givenName
+    photoURL
   }
 }
