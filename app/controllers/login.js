@@ -18,7 +18,7 @@ export default Controller.extend({
       let { username, password } = this.getProperties('username', 'password');
       this.get('session')
         .authenticate('authenticator:application', username, password)
-        .catch((error) => this.set('errorMessage', error.detail || error + ''))
+        .catch((error) => this.set('errorMessage', error.errors.length ? error.errors[0].message : 'An unknown error has occurred.'))
         .finally(() => loading.hide())
       ;
     }
