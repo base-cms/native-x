@@ -5,7 +5,7 @@
         <img src="{{user.tenant.photoURL}}" class="icon icon-sm mr-1">
         {{user.tenant.name}}
       {{else}}
-        Select tenant
+        Select account
       {{/if}}
     </a>
     <div class="dropdown-menu" aria-labelledby="navbarDropdownTenant">
@@ -21,15 +21,15 @@
 
         {{#each user.tenants as |tenant|}}
           {{#unless (eq tenant.id user.tenant.id)}}
-          {{#link-to 'tenant.index' tenant.id class="dropdown-item" title="Switch to {{tenant.name}}"}}
+          {{#link-to 'tenant.index' tenant.id class="dropdown-item" title="Switch to this account"}}
             <img src="{{tenant.photoURL}}" class="icon icon-sm mr-1"> {{tenant.name}}
           {{/link-to}}
           {{/unless}}
         {{/each}}
         {{/if}}
 
-      <div class="dropdown-divider"></div>
-      {{#link-to "tenant.create" class="dropdown-item"}}New Tenant{{/link-to}}
+      {{!-- <div class="dropdown-divider"></div>
+      {{#link-to "tenant.create" class="dropdown-item"}}New Tenant{{/link-to}} --}}
     </div>
   </li>
 {{/if}}

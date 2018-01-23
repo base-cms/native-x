@@ -5,5 +5,15 @@ query currentUser {
     familyName
     givenName
     photoURL
+    activeAccount {
+      id
+      name
+      photoURL
+    }
+    accounts {
+      id
+      name
+      photoURL
+    }
   }
 }

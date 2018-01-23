@@ -24,7 +24,12 @@ export default Service.extend({
    *
    * @type {DS.Model[]}
    */
-  tenants: [],
+  accounts: computed.reads('model.accounts'),
+
+  /**
+   * @deprecated
+   */
+  tenants: computed.reads('accounts'),
 
   /**
    * The user id. Will be `null` if the there is not authenticated user.
@@ -71,14 +76,10 @@ export default Service.extend({
    *
    * @type {DS.Model}
    */
-  tenant: computed('tenants.firstObject', 'model.activeTenantId', function() {
-    const defaultTenant = this.get('tenants.firstObject');
-    const activeTenantId = this.get('model.activeTenantId');
-    if (!activeTenantId) {
-      return defaultTenant;
-    }
-    const activeTenant = this.get('tenants').findBy('id', activeTenantId);
-    return (activeTenant) ? activeTenant : defaultTenant;
+  tenant: computed('tenants.firstObject', 'model.activeAccount', function() {
+    const defaultAccount = this.get('tenants.firstObject');
+    const activeAccount = this.get('model.activeAccount');
+    return activeAccount || defaultAccount;
   }),
 
   load() {
@@ -88,11 +89,10 @@ export default Service.extend({
 
       // @todo Should this just store the user in the session data via `currentUser` or `loginUser` queries?
       return this.get('apollo').watchQuery({ query: currentUser }, "currentUser")
-        .then(user => {
-          this.set('model', user);
-          // this.set('tenants', []);
-          resolve();
-        })
+      .then(user => {
+        this.set('model', user);
+        resolve();
+      })
       ;
     });
   },
