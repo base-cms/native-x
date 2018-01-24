@@ -58,7 +58,6 @@ export default Component.extend({
     create() {
       const loading = this.get('loading');
       const name = this.get('modelName');
-      const tenant = this.get('user.tid');
       const advertiser = this.get('advertiser');
       const type = this.get('modelType');
       const order = this.get('order');
@@ -84,7 +83,7 @@ export default Component.extend({
         return loading.hide();
       }
 
-      const model = this.get('store').createRecord(type, { name, tenant, advertiser, order, start, end, lineItem });
+      const model = this.get('store').createRecord(type, { name, advertiser, order, start, end, lineItem });
       model.save()
         .then(model => {
           if (isPresent(lineItem)) {

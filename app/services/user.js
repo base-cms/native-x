@@ -20,16 +20,14 @@ export default Service.extend({
   model: {},
 
   /**
-   * Organizations that this user is a user of.
-   *
-   * @type {DS.Model[]}
+   *  @deprecated
    */
-  accounts: computed.reads('model.accounts'),
+  accounts: [],
 
   /**
    * @deprecated
    */
-  tenants: computed.reads('accounts'),
+  tenants: [],
 
   /**
    * The user id. Will be `null` if the there is not authenticated user.
@@ -41,9 +39,10 @@ export default Service.extend({
   /**
    * The active user tenant id.
    *
+   *  @deprecated
    * @type {?string}
    */
-  tid: computed.reads('tenant.id'),
+  tid: null,
 
   /**
    * The Firebase Auth object, or `null` if not authenticated.
@@ -59,9 +58,10 @@ export default Service.extend({
 
   /**
    * Determines if the user has any organizations.
+   *  @deprecated
    * @type {boolean}
    */
-  hasTenants: computed.bool('tenants.length'),
+  hasTenants: false,
 
   /**
    * Determines if the user is authenticated, based on the session.
@@ -73,26 +73,19 @@ export default Service.extend({
 
   /**
    * Determines the user's active organization.
-   *
+   *  @deprecated
    * @type {DS.Model}
    */
-  tenant: computed('tenants.firstObject', 'model.activeAccount', function() {
-    const defaultAccount = this.get('tenants.firstObject');
-    const activeAccount = this.get('model.activeAccount');
-    return activeAccount || defaultAccount;
-  }),
+  tenant: null,
 
   load() {
     return new Promise((resolve, reject) => {
       const userId = this.get('session.data.authenticated.id');
       if (isEmpty(userId)) return resolve();
 
-      // @todo Should this just store the user in the session data via `currentUser` or `loginUser` queries?
       return this.get('apollo').watchQuery({ query: currentUser }, "currentUser")
-      .then(user => {
-        this.set('model', user);
-        resolve();
-      })
+        .then(user => this.set('model', user))
+        .then(() => resolve())
       ;
     });
   },
@@ -105,8 +98,10 @@ export default Service.extend({
     ;
   },
 
+  /**
+   * @deprecated
+   */
   setActiveTenant(tenantId) {
-    this.set('model.activeTenantId', tenantId);
-    return this.get('model').save();
+
   }
 });
