@@ -1,0 +1,6 @@
+query advertiser($input: ModelIdInput!) {
+  advertiser(input: $input) {
+    id
+    name
+  }
+}

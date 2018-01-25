@@ -81,7 +81,7 @@ export default Controller.extend({
 
   actions: {
     onCreate(modelType, model) {
-      this.transitionToRoute(`${modelType}.edit`, model.get('id'));
+      this.transitionToRoute(`${modelType}.edit`, model.id);
     },
     clearSearch() {
       this.set('phrase', '');

@@ -1,0 +1,6 @@
+mutation updateAdvertiser($input: UpdateAdvertiserInput!) {
+	updateAdvertiser(input: $input) {
+    id
+		name
+	}
+}

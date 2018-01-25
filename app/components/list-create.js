@@ -1,17 +1,18 @@
 import Ember from 'ember';
 import moment from 'moment';
 
+import CreateAdvertiser from 'fortnight/gql/mutations/create-advertiser';
+
 const { Component, inject: { service }, computed, isPresent } = Ember;
 
 export default Component.extend({
-  store: service(),
+  apollo: service(),
   loading: service(),
   user: service(),
-  query: service('model-query'),
   dateUtil: service(),
-  error: null,
+  errorProcessor: service(),
 
-  advertiser: null,
+  // advertiser: null,
   advertisers: [],
 
   modelType: null,
@@ -54,9 +55,19 @@ export default Component.extend({
     this._super();
   },
 
+  getGraphQuery(type) {
+    switch (type) {
+      case 'advertiser':
+        return { mutation: CreateAdvertiser, resultKey: 'createAdvertiser' };
+    }
+    throw new Error(`No GraphQL query defined for "${type}"!`);
+  },
+
   actions: {
     create() {
       const loading = this.get('loading');
+      const error = this.get('errorProcessor');
+
       const name = this.get('modelName');
       const advertiser = this.get('advertiser');
       const type = this.get('modelType');
@@ -66,35 +77,28 @@ export default Component.extend({
       const end = this.get('modelEnd');
 
       loading.show();
-      this.set('error', null);
 
       if (Ember.isEmpty(name)) {
-        this.set('error', 'You must specify a name.');
+        error.show(new Error('You must specify a name.'));
         return loading.hide();
       }
 
       if (Ember.isEmpty(advertiser) && this.get('withAdvertiser')) {
-        this.set('error', 'You must specify an advertiser.');
+        error.show(new Error('You must specify an advertiser.'));
         return loading.hide();
       }
 
       if (this.get('withDates') && false === moment(start).isValid()) {
-        this.set('error', 'You must specify a valid start date.');
+        error.show(new Error('You must specify a valid start date.'));
         return loading.hide();
       }
 
-      const model = this.get('store').createRecord(type, { name, advertiser, order, start, end, lineItem });
-      model.save()
-        .then(model => {
-          if (isPresent(lineItem)) {
-            lineItem.get('creatives').pushObject(model);
-            return lineItem.save().then(model => model);
-          }
-          return model;
-        })
+      const { mutation, resultKey } = this.getGraphQuery(type);
+      const variables = { input: { name, advertiser, order, start, end, lineItem } };
+      return this.get('apollo').mutate({ mutation, variables }, resultKey)
         .then(model => this.sendAction('onCreate', type, model))
         .then(() => this.set('modelName', null))
-        .catch(e => this.set('error', e))
+        .catch(e => error.show(e))
         .finally(() => loading.hide())
       ;
     },

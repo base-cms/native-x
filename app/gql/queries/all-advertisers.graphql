@@ -1,0 +1,7 @@
+
+query allAdvertisers($pagination: PaginationInput!) {
+  allAdvertisers(pagination: $pagination) {
+    id
+    name
+  }
+}

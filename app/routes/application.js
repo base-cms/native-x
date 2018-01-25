@@ -1,11 +1,15 @@
 import Ember from 'ember';
 import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mixin';
 
+import UpdateAdvertiser from 'fortnight/gql/mutations/update-advertiser';
+
 const { Route, inject: { service } } = Ember;
 
 export default Route.extend(ApplicationRouteMixin, {
   loading: service(),
   session: service('session'),
+  apollo: service(),
+  errorProcessor: service(),
 
   navItems: [],
 
@@ -30,23 +34,28 @@ export default Route.extend(ApplicationRouteMixin, {
     return this.user.load();
   },
 
+  getGraphQuery(type) {
+    switch (type) {
+      case 'advertiser':
+        return { mutation: UpdateAdvertiser, resultKey: 'updateAdvertiser' };
+    }
+    throw new Error(`No GraphQL query defined for "${type}"!`);
+  },
+
   actions: {
     linkTo(name) {
       this.transitionTo(name);
     },
-    save(record, routeName) {
+    save(record, type) {
       const loading = this.get('loading');
-      const isNew = record.get('isNew');
-
       loading.show();
-      record.save()
-        .then(result => {
-          if (isNew) {
-            const editRoute = (typeof routeName === 'string') ? `${routeName}.edit` : `${record.constructor.modelName}.edit`;
-            this.transitionTo(editRoute, result.get('id'));
-          }
-        })
-        // .catch(adapterError => this.get('errorProcessor').notify(adapterError.errors))
+
+      const { name } = record;
+      const { mutation, resultKey } = this.getGraphQuery(type);
+      const variables = { input: { name } };
+      console.warn({ mutation, variables }, resultKey);
+      return this.get('apollo').mutate({ mutation, variables }, resultKey)
+        .catch(e => this.get('errorProcessor').show(e))
         .finally(() => loading.hide())
       ;
     },

@@ -8,7 +8,7 @@ const Router = EmberRouter.extend({
 
 Router.map(function() {
 
-  const listableModels = ['user', 'advertiser', 'publisher', 'campaign', 'placement', 'schedule', 'template'];
+  const listableModels = ['user', 'advertiser', 'publisher', 'campaign', 'placement', 'schedule'];
   listableModels.forEach(model => {
     this.route(model, function() {
       this.route('create', { path: 'new' });
