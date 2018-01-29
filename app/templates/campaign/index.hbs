@@ -3,7 +3,7 @@
 
 <div class="row">
   <div class="col">
-    <h3 class="float-left mb-0">Orders</h3>
+    <h3 class="float-left mb-0">Campaigns</h3>
   </div>
 </div>
 <hr>
@@ -21,12 +21,10 @@
   </div>
 </div>
 
-{{list-create modelType='order' withAdvertiser=true withDates=true onCreate='onCreate'}}
-
 <div class="row mb-2">
   <div class="col">
-    {{#each model as |order|}}
-      {{list-item/order order=order}}
+    {{#each model as |campaign|}}
+      {{list-item/campaign campaign=campaign}}
     {{else}}
       <h5 class="text-primary">No results found.</h5>
     {{/each}}

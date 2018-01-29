@@ -8,7 +8,19 @@ const Router = EmberRouter.extend({
 
 Router.map(function() {
 
-  const listableModels = ['user', 'advertiser', 'publisher', 'campaign', 'placement', 'schedule'];
+  this.route('advertiser', function() {
+    this.route('create', { path: 'new' });
+    this.route('edit', { path: ':id' });
+  })
+
+  this.route('campaign', function() {
+    this.route('create', { path: 'new' }, function() {
+      this.route('advertiser', { path: ':aid' });
+    });
+    this.route('edit', { path: ':cid' });
+  })
+
+  const listableModels = ['user', 'publisher', 'placement', 'schedule'];
   listableModels.forEach(model => {
     this.route(model, function() {
       this.route('create', { path: 'new' });
