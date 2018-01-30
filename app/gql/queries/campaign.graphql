@@ -9,5 +9,13 @@ query campaign($input: ModelIdInput!) {
     deleted
     draft
     paused
+    creatives {
+      id
+      name
+      url
+      title
+      teaser
+      image
+    }
   }
 }

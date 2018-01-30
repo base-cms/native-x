@@ -1,0 +1,6 @@
+mutation addCampaignCreative($input: AddCampaignCreativeInput!) {
+	addCampaignCreative(input: $input) {
+    id
+		cid
+	}
+}

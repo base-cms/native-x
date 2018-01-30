@@ -15,54 +15,6 @@
 
 {{partial "campaign/form"}}
 
+{{campaign-schedules campaign=model}}
+{{campaign-creatives campaign=model}}
 
-<fieldset class="mt-3">
-  <legend>Criteria</legend>
-
-  <div class="row">
-    <div class="col">
-      <div class="form-group">
-        <label for="start">Start Date</label>
-        {{-calendar currentDay=model.start maxDate=startMax minDate=startMin onSelect=(action (mut model.end))}}
-      </div>
-    </div>
-    <div class="col">
-      <div class="form-group">
-        <label for="end">End Date</label>
-        {{-calendar currentDay=model.end maxDate=endMax minDate=endMin onSelect=(action (mut model.end)) canRemove=true}}
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="form-group col">
-      <label for="placements">Placements</label>
-      {{autocomplete-multiple type="placement" selected=model.placements onSelect=(action (mut model.placements))}}
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="form-group col">
-      {{key-values values=model.criteria}}
-    </div>
-  </div>
-
-</fieldset>
-
-{{partial 'list/controls'}}
-
-<div class="row mb-4">
-  <div class="col">
-    {{#each model.creatives as |creative|}}
-      {{#link-to 'creative.edit' creative.id class='list-group-item list-group-item-action flex-column align-items-start'}}
-        <div class="d-flex w-100 justify-content-between">
-          <h5 class="mb-1">{{creative.name}}</h5>
-          <small>{{moment creative.start}} - {{moment creative.end}}</small>
-        </div>
-        <small>{{creative.id}}</small>
-      {{/link-to}}
-    {{else}}
-      <h5 class="text-primary">No creatives found.</h5>
-    {{/each}}
-  </div>
-</div>
