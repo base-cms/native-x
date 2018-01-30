@@ -1,38 +1,38 @@
-{{!-- {{#-bs/button 'success' class='create float-right fixed-bottom' click=(route-action 'linkTo' 'order.create')}}{{-ion 'android-create'}} Create{{/-bs/button}} --}}
-{{#-bs/button 'secondary' class='fixed-bottom' click=(route-action 'scrollToTop')}}{{-ion 'chevron-up'}}{{/-bs/button}}
-
 <div class="row">
   <div class="col">
-    <h3 class="float-left mb-0">Campaigns</h3>
+    <h3 class="mb-0">
+      Campaigns
+      <div class="float-right">
+        {{#link-to 'campaign.create' class='btn btn-outline-primary btn-sm'}}
+          {{-ion 'android-create'}} Create
+        {{/link-to}}
+      </div>
+    </h3>
   </div>
 </div>
 <hr>
-
-<div class="row mb-4">
-  <div class="col">
-    <div class="row">
-      <div class="col-8 col-sm-6">
-        {{ partial 'list/search-controls'}}
-      </div>
-      <div class="col-4 col-sm-6">
-        {{ partial 'list/filters' }}
-      </div>
-    </div>
-  </div>
-</div>
+{{partial 'list/controls'}}
 
 <div class="row mb-2">
   <div class="col">
     {{#each model as |campaign|}}
-      {{list-item/campaign campaign=campaign}}
-    {{else}}
-      <h5 class="text-primary">No results found.</h5>
-    {{/each}}
-  </div>
-</div>
+      {{#link-to 'campaign.edit' campaign.id class='list-group-item list-group-item-action flex-column align-items-start'}}
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">{{campaign.name}}</h5>
 
-<div class="row">
-  <div class="col">
-    {{ partial 'list/pagination' }}
+          <div class="btn-group float-right" role="group" aria-label="Campaign Status">
+            {{campaign-status-button type='deleted' value=campaign.deleted}}
+            {{campaign-status-button type='draft' value=campaign.draft}}
+            {{campaign-status-button type='paused' value=campaign.paused}}
+          </div>
+
+        </div>
+        <div class="mb-1">{{campaign.advertiser.name}}</div>
+        <small>{{campaign.id}}</small>
+
+      {{/link-to}}
+      {{else}}
+        <h5 class="text-primary">No results found.</h5>
+      {{/each}}
   </div>
 </div>

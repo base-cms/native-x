@@ -1,0 +1,14 @@
+
+query allCampaigns($pagination: PaginationInput!) {
+  allCampaigns(pagination: $pagination) {
+    id
+    name
+    advertiser {
+      id
+      name
+    }
+    deleted
+    draft
+    paused
+  }
+}

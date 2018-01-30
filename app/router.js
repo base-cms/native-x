@@ -15,9 +15,9 @@ Router.map(function() {
 
   this.route('campaign', function() {
     this.route('create', { path: 'new' }, function() {
-      this.route('advertiser', { path: ':aid' });
+      this.route('advertiser', { path: ':id' });
     });
-    this.route('edit', { path: ':cid' });
+    this.route('edit', { path: ':id' });
   })
 
   const listableModels = ['user', 'publisher', 'placement', 'schedule'];

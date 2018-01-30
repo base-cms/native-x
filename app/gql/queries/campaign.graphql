@@ -1,0 +1,13 @@
+query campaign($input: ModelIdInput!) {
+  campaign(input: $input) {
+    id
+    name
+    advertiser {
+      id
+      name
+    }
+    deleted
+    draft
+    paused
+  }
+}

@@ -3,51 +3,66 @@
     <h3 class="mb-0 float-left">
       Modify {{ model.name }}
     </h3>
-    {{#-bs/button "danger" class="float-right" size="small" outline=true click=(route-action 'hardDelete' model 'order.index')}}{{-ion 'android-close'}} Delete{{/-bs/button}}
+    {{#-bs/button 'success' class="float-right" size="small" outline=true click=(route-action 'update' model 'campaign') disabled=(eq model.canSave false)}}
+      {{-ion 'checkmark-round'}} Save
+    {{/-bs/button}}
+    {{#-bs/button "danger"  class="float-right mr-1" size="small" outline=true click=(route-action 'hardDelete' model 'campaign.index')}}
+      {{-ion 'android-close'}} Delete
+    {{/-bs/button}}
   </div>
 </div>
 <hr>
 
-{{partial "order/form"}}
+{{partial "campaign/form"}}
 
-<div class="row mt-4">
-  <div class="col">
-    <h4 class="mb-0">Line Items</h4>
+
+<fieldset class="mt-3">
+  <legend>Criteria</legend>
+
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label for="start">Start Date</label>
+        {{-calendar currentDay=model.start maxDate=startMax minDate=startMin onSelect=(action (mut model.end))}}
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-group">
+        <label for="end">End Date</label>
+        {{-calendar currentDay=model.end maxDate=endMax minDate=endMin onSelect=(action (mut model.end)) canRemove=true}}
+      </div>
+    </div>
   </div>
-</div>
-<hr>
-<div class="row mt-4">
-  <div class="col">
-    {{list-create
-      modelType='line-item'
-      advertiser=model.advertiser
-      order=model
-      withDates=true
-      start=model.start
-      end=model.end
-      onCreate='onCreate'
-    }}
+
+  <div class="row">
+    <div class="form-group col">
+      <label for="placements">Placements</label>
+      {{autocomplete-multiple type="placement" selected=model.placements onSelect=(action (mut model.placements))}}
+    </div>
   </div>
-</div>
-<div class="row">
+
+  <div class="row">
+    <div class="form-group col">
+      {{key-values values=model.criteria}}
+    </div>
+  </div>
+
+</fieldset>
+
+{{partial 'list/controls'}}
+
+<div class="row mb-4">
   <div class="col">
-    {{#each model.lineItems as |item|}}
-        {{#link-to 'line-item.edit' item.id class='list-group-item list-group-item-action flex-column align-items-start'}}
-          <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">{{item.name}}</h5>
-            <small>
-              {{moment-format item.start "MMMM Do YYYY h:mm a"}} -
-              {{#if item.end}}
-              {{moment-format item.end "MMMM Do YYYY h:mm a"}}
-              {{else}}
-              {{-ion "ios-infinite"}}
-              {{/if}}
-            </small>
-          </div>
-          <small>{{item.id}}</small>
-        {{/link-to}}
+    {{#each model.creatives as |creative|}}
+      {{#link-to 'creative.edit' creative.id class='list-group-item list-group-item-action flex-column align-items-start'}}
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">{{creative.name}}</h5>
+          <small>{{moment creative.start}} - {{moment creative.end}}</small>
+        </div>
+        <small>{{creative.id}}</small>
+      {{/link-to}}
     {{else}}
-    <h5 class="text-primary">No line items found.</h5>
+      <h5 class="text-primary">No creatives found.</h5>
     {{/each}}
   </div>
 </div>

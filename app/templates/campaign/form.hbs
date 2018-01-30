@@ -10,25 +10,13 @@
 <div class="row">
   <div class="col">
     <div class="form-group">
-      <label for="start">Start Date</label>
-      {{-calendar currentDay=model.start maxDate=startMax minDate=startMin onSelect=(action (mut model.end))}}
-    </div>
-  </div>
-  <div class="col">
-    <div class="form-group">
-      <label for="end">End Date</label>
-      {{-calendar currentDay=model.end maxDate=endMax minDate=endMin onSelect=(action (mut model.end)) canRemove=true}}
-    </div>
-  </div>
-</div>
+      <label for="name">Advertiser</label>
+      {{#unless model.advertiser.id}}
 
-<div class="row mt-3">
-  <div class="col">
-    {{#-bs/button 'success' click=(route-action 'save' model 'order') disabled=(eq model.canSave false)}}
-      {{-ion 'checkmark-round'}} Save
-    {{/-bs/button}}
-    {{!-- {{#unless model.canSave}}
-      <small class="form-text text-info">In order to save, {{model.reasonForPreventSave}}</small>
-    {{/unless}} --}}
+        {{input type="text" value=model.advertiserId class="form-control" id="advertiser" placeholder="Advertiser"}}
+      {{else}}
+        {{input type="text" readonly=true class="form-control-plaintext" value=model.advertiser.name}}
+      {{/unless}}
+    </div>
   </div>
 </div>

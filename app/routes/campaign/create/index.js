@@ -3,24 +3,21 @@ import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-rout
 import RouteQueryManager from 'ember-apollo-client/mixins/route-query-manager';
 import { inject } from '@ember/service';
 
-import query from 'fortnight/gql/queries/campaign';
-import mutation from 'fortnight/gql/mutations/update-campaign';
+import mutation from 'fortnight/gql/mutations/create-campaign';
 
 export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
   errorProcessor: inject(),
 
-  model({ id }) {
-    const resultKey = 'campaign';
-    const variables = { input: { id } };
-    return this.apollo.watchQuery({ query, variables }, resultKey);
+  model() {
+    const start = this.get('dateUtil').getToday();
+    return { name: '' };
   },
-
   actions: {
-    update({ id, name }) {
-      const resultKey = 'updateCampaign';
-      const variables = { input: { id, name } };
+    create({ name, advertiserId }) {
+      const variables = { input: { name, advertiserId } };
+      const resultKey = 'createCampaign';
       return this.get('apollo').mutate({ mutation, variables }, resultKey)
-        .then(() => this.refresh())
+        .then(response => this.transitionTo('campaign.edit', response.id))
         .catch(e => this.get('errorProcessor').show(e))
       ;
     }
