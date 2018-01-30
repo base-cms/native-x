@@ -14,7 +14,7 @@
 <div class="row mb-4">
   <div class="col">
     {{#each creatives as |creative|}}
-      {{campaign-creative campaign=campaign creative=creative}}
+      {{campaign-creative cid=campaign.id creative=creative onRemove='onRemove'}}
     {{/each}}
   </div>
 </div>

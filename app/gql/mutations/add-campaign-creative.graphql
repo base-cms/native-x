@@ -1,6 +1,10 @@
 mutation addCampaignCreative($input: AddCampaignCreativeInput!) {
 	addCampaignCreative(input: $input) {
     id
-		cid
+		name
+		url
+		title
+		teaser
+		image
 	}
 }

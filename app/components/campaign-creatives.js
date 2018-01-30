@@ -20,14 +20,19 @@ export default Component.extend(ComponentQueryManager, {
   actions: {
     add() {
       const { id } = this.get('campaign');
-      const variables = { input: { id } };
+      const variables = { input: { cid: id } };
       const resultKey = 'addCampaignCreative';
       console.warn('campaign-creatives.add()', { mutation, variables }, resultKey);
       return this.apollo.mutate({ mutation, variables }, resultKey)
         // .then(this.sendAction(this.get('onAdd')))
+        .then(r => this.get('campaign.creatives').pushObject(r))
         .catch(e => this.get('errorProcessor').show(e))
       ;
     },
+    onRemove(creative) {
+      console.warn('onRemove', creative);
+      this.get('campaign.creatives').removeObject(creative);
+    }
   },
 
 });
