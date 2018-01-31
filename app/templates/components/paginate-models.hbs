@@ -16,19 +16,7 @@
   <div class="col-2 text-right">
     {{#link-to routeName (query-params after=endCursor) disabled=(not hasNextPage) class=nextClass}} Next Page &raquo;{{/link-to}}
   </div>
-  {{!-- <div class="col-6">
-    {{ partial 'list/search-controls'}}
-  </div> --}}
 </div>
-{{!--
-<div class="row mb-2">
-  <div class="col-3 text-left">
-    {{#link-to routeName (query-params after=null) disabled=(not hasPreviousPage) class=previousClass}}&laquo; Previous Page {{/link-to}}
-  </div>
-  <div class="col-3 text-right">
-    {{#link-to routeName (query-params after=endCursor) disabled=(not hasNextPage) class=nextClass}} Next Page &raquo;{{/link-to}}
-  </div>
-</div> --}}
 </fieldset>
 
 <div class="row mb-2">
@@ -40,17 +28,3 @@
     {{/each}}
   </div>
 </div>
-
-<nav style="position: fixed; right: 1em; bottom: 2em; background: rgba(0,0,0,0.25); padding: 1em;">
-  <hr>
-  {{!-- <dt>routeName</dt><dd><kbd>{{ routeName }}</kbd></dd> --}}
-  {{!-- <dt>totalCount</dt><dd><kbd>{{ totalCount }}</kbd></dd> --}}
-  <dt>hasPreviousPage</dt><dd><kbd>{{ hasPreviousPage }}</kbd></dd>
-  <dt>hasNextPage</dt><dd><kbd>{{ hasNextPage }}</kbd></dd>
-  <dt>endCursor</dt><dd><kbd>{{ endCursor }}</kbd></dd>
-  {{!-- <dt>first</dt><dd><kbd>{{ first }}</kbd></dd> --}}
-  <dt>after</dt><dd><kbd>{{ after }}</kbd></dd>
-  {{!-- <dt>sortDirection</dt><dd><kbd>{{ sortDirection }}</kbd></dd> --}}
-  {{!-- <dt>sortField</dt><dd><kbd>{{ sortField }}</kbd></dd> --}}
-  {{!-- <dt>sortOptions</dt><dd><kbd>{{ sortOptions }}</kbd></dd> --}}
-</nav>
