@@ -7,11 +7,11 @@ export default Component.extend({
 
   textClass: computed('value', function() {
     switch (this.get('value')) {
-      case 'draft':
+      case 'Draft':
         return 'text-warning';
-      case 'paused':
+      case 'Paused':
         return 'text-muted';
-      case 'active':
+      case 'Active':
         return 'text-primary';
     }
     return 'text-danger';
