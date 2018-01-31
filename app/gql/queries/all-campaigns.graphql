@@ -1,14 +1,22 @@
 
-query allCampaigns($pagination: PaginationInput!) {
-  allCampaigns(pagination: $pagination) {
-    id
-    name
-    advertiser {
-      id
-      name
+query allCampaigns($pagination: PaginationInput, $sort: CampaignSortInput) {
+  allCampaigns(pagination: $pagination, sort: $sort) {
+    totalCount
+    edges {
+      node {
+        id
+        name
+        createdAt
+        updatedAt
+        advertiser {
+          name
+        }
+      }
+      cursor
     }
-    deleted
-    draft
-    paused
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
   }
 }

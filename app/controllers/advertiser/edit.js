@@ -1,2 +1,2 @@
-import AdvertiserList from './index';
-export default AdvertiserList.extend();
+import AdvertiserController from './index';
+export default AdvertiserController.extend();

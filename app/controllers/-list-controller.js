@@ -3,10 +3,11 @@ import Ember from 'ember';
 const { Controller, computed } = Ember;
 
 export default Controller.extend({
-  queryParams: ['limit', 'sort', 'ascending', 'phrase', 'page'],
-  limit: 25,
-  ascending: false,
-  sort: 'updatedDate',
+  queryParams: ['first', 'after', 'sortField', 'phrase', 'sortDirection'],
+  first: 5,
+  after: null,
+  sortDirection: -1,
+  sortField: 'updatedAt',
   phrase: '',
   page: 1,
 

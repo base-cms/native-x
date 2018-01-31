@@ -1,31 +1,53 @@
-import ListController from '../-list-controller';
-import { inject } from '@ember/service';
-import { computed } from '@ember/object';
-import { isPresent } from '@ember/utils';
+import Ember from 'ember';
 
-export default ListController.extend({
-  dateUtil: inject(),
+const { Controller, computed } = Ember;
 
-  now: computed(function() {
-    return this.get('dateUtil').getToday();
-  }),
+export default Controller.extend({
+  /**
+   * Query params
+   */
+  queryParams: ['first', 'after', 'sortBy', 'ascending'],
+  first: 5,
+  after: null,
+  ascending: false,
+  sortBy: null,
 
-  startMin: computed.reads('now'),
-  startMax: computed('model.end', function() {
-    const end = this.get('model.end');
-    if (isPresent(end)) {
-      return end;
-    }
-    return this.get('now');
-  }),
+  /**
+   * Pagination
+   */
+  totalCount: 0,
+  hasNextPage: false,
+  endCursor: null,
 
-  endMin: computed('model.start', function() {
-    const start = this.get('model.start');
-    if (isPresent(start)) {
-      return start;
-    }
-    return this.get('now');
-  }),
+  // Sort options are specific to the model in question.
+  sortOptions: [
+    { key: null, label: 'Created' },
+    { key: 'updatedAt', label: 'Updated' },
+    { key: 'name', label: 'Name' },
+  ],
 
-  endMax: null,
+  // dateUtil: inject(),
+
+  // now: computed(function() {
+  //   return this.get('dateUtil').getToday();
+  // }),
+
+  // startMin: computed.reads('now'),
+  // startMax: computed('model.end', function() {
+  //   const end = this.get('model.end');
+  //   if (isPresent(end)) {
+  //     return end;
+  //   }
+  //   return this.get('now');
+  // }),
+
+  // endMin: computed('model.start', function() {
+  //   const start = this.get('model.start');
+  //   if (isPresent(start)) {
+  //     return start;
+  //   }
+  //   return this.get('now');
+  // }),
+
+  // endMax: null,
 });
