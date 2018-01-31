@@ -1,10 +1,20 @@
 
-query allAdvertisers($pagination: PaginationInput!) {
-  allAdvertisers(pagination: $pagination) {
-    id
-    name
-    campaignCount
-    createdAt
-    updatedAt
+query allAdvertisers($pagination: PaginationInput, $sort: AdvertiserSortInput) {
+  allAdvertisers(pagination: $pagination, sort: $sort) {
+    totalCount
+    edges {
+      node {
+        id
+        name
+        createdAt
+        updatedAt
+        campaignCount
+      }
+      cursor
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
   }
 }

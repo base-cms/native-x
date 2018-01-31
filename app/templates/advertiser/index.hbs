@@ -10,32 +10,19 @@
     </h3>
   </div>
 </div>
-<hr>
-{{partial 'list/controls'}}
 
-<div class="row mb-2">
-  <div class="col">
-    {{#each model as |advertiser|}}
-      {{#link-to 'advertiser.edit' advertiser.id class='list-group-item list-group-item-action flex-column align-items-start'}}
-        <div class="d-flex w-100 justify-content-between">
-          <h5 class="mb-1">{{advertiser.name}}</h5>
-          <small>Modified {{moment-from-now advertiser.updatedAt}}</small>
-        </div>
-
-        <div class="float-right">
-          <button type="button" class="btn btn-sm btn-light">
-            Campaigns <span class="badge badge-light">{{ advertiser.campaignCount }}</span>
-            <span class="sr-only">existing campaigns</span>
-          </button>
-        </div>
-
-      <small>
-        {{advertiser.id}}
-      </small>
-
-      {{/link-to}}
-      {{else}}
-        <h5 class="text-primary">No results found.</h5>
-      {{/each}}
-  </div>
-</div>
+{{#paginate-models
+  models=model
+  routeName='advertiser.index'
+  totalCount=totalCount
+  hasNextPage=hasNextPage
+  endCursor=endCursor
+  first=first
+  after=after
+  ascending=ascending
+  sortBy=sortBy
+  sortOptions=sortOptions
+  as |model|
+}}
+  {{partial 'advertiser/list'}}
+{{/paginate-models}}

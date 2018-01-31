@@ -1,3 +1,2 @@
-import ListController from '../-list-controller';
-
-export default ListController.extend({});
+import AdvertiserList from './index';
+export default AdvertiserList.extend();
