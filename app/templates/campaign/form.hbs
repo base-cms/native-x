@@ -12,7 +12,6 @@
     <div class="form-group">
       <label for="name">Advertiser</label>
       {{#unless model.advertiser.id}}
-
         {{input type="text" value=model.advertiserId class="form-control" id="advertiser" placeholder="Advertiser"}}
       {{else}}
         {{input type="text" readonly=true class="form-control-plaintext" value=model.advertiser.name}}

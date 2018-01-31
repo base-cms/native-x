@@ -2,14 +2,11 @@
   <div class="d-flex w-100 justify-content-between">
     <h5 class="mb-1">{{model.name}}</h5>
 
-    <div class="btn-group float-right" role="group" aria-label="Campaign Status">
-      {{campaign-status-button type='deleted' value=model.deleted}}
-      {{campaign-status-button type='draft' value=model.draft}}
-      {{campaign-status-button type='paused' value=model.paused}}
-    </div>
 
   </div>
   <div class="mb-1">{{model.advertiser.name}}</div>
   <small>{{model.id}}</small>
+  {{campaign-status value=model.status}}
+
 
 {{/link-to}}

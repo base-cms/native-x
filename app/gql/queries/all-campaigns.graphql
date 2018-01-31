@@ -8,6 +8,7 @@ query allCampaigns($pagination: PaginationInput, $sort: CampaignSortInput) {
         name
         createdAt
         updatedAt
+        status
         advertiser {
           name
         }
