@@ -11,10 +11,41 @@
   },
   "repository": "",
   "scripts": {
-    "build": "ember build",
-    "lint:js": "eslint ./*.js app config lib server tests",
-    "start": "ember serve --proxy http://localhost:8100/",
-    "test": "ember test"
+    "pretest": "yarn run posttest && $npm_package_docker_test_install",
+    "posttest": "$npm_package_docker_test_down && $npm_package_docker_test_prune",
+    "test": "$npm_package_docker_test_test",
+
+    "prestart": "$npm_package_docker_dev_install",
+    "start": "$npm_package_docker_dev_up",
+    "stop": "$npm_package_docker_dev_down",
+
+    "prelint": "$npm_package_docker_test_install",
+    "lint": "$npm_package_docker_test_lint",
+    "postlint": "$npm_package_docker_test_down",
+
+    "precoverage": "yarn run postcoverage && $npm_package_docker_test_install",
+    "coverage": "$npm_package_docker_test_coverage",
+    "postcoverage": "$npm_package_docker_test_down && $npm_package_docker_test_prune",
+
+    "test:ci": "yarn run lint:run && ./node_modules/.bin/ember test --reporter xunit",
+    "test:run": "yarn run lint:run && ./node_modules/.bin/ember test",
+    "lint:run": "./node_modules/.bin/eslint ./*.js app config lib server tests",
+    "coverage:run": "./node_modules/.bin/nyc yarn run test:ci"
+  },
+  "docker": {
+    "dev": {
+      "install": "docker-compose -p fortnightapp run --no-deps --entrypoint yarn app install",
+      "up": "docker-compose -p fortnightapp up",
+      "down": "docker-compose -p fortnightapp down"
+    },
+    "test": {
+      "install": "docker-compose -p fortnightapptest -f tests/docker-compose.yml run --no-deps --entrypoint yarn test",
+      "test": "docker-compose -p fortnightapptest -f tests/docker-compose.yml run test",
+      "coverage": "docker-compose -p fortnightapptest -f tests/docker-compose.yml run --entrypoint yarn test run coverage:run",
+      "lint": "docker-compose -p fortnightapptest -f tests/docker-compose.yml run --entrypoint yarn test run lint:run",
+      "down": "docker-compose -p fortnightapptest -f tests/docker-compose.yml down",
+      "prune": "docker volume prune --filter label=io.as3.appname=fortnight-graph --filter label=io.as3.env=test --filter label=io.as3.discard=true --force"
+    }
   },
   "devDependencies": {
     "bootstrap": "^4.0.0-beta.2",
@@ -29,6 +60,9 @@
     "ember-power-select": "^1.10.4",
     "ember-route-action-helper": "^2.0.6",
     "ember-simple-auth": "^1.4.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "nyc": "^11.4.1",
     "popper.js": "^1.12.9",
 
     "broccoli-asset-rev": "^2.4.5",
