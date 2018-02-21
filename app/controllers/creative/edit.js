@@ -1,9 +1,10 @@
-import Ember from 'ember';
-
-const { Controller, computed, isPresent, inject: { service} } = Ember;
+import Controller from '@ember/controller';
+import { inject } from '@ember/service';
+import { isPresent } from '@ember/utils';
+import { computed } from '@ember/object';
 
 export default Controller.extend({
-  dateUtil: service(),
+  dateUtil: inject(),
 
   now: computed(function() {
     return this.get('dateUtil').getToday();

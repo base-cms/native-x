@@ -1,15 +1,15 @@
-import Ember from 'ember';
+import { camelize } from '@ember/string';
 import JSONAPISerializer from 'ember-data/serializers/json-api';
 
 export default JSONAPISerializer.extend({
   keyForAttribute(attr) {
-    return Ember.String.camelize(attr);
+    return camelize(attr);
   },
   keyForLink(attr) {
-    return Ember.String.camelize(attr);
+    return camelize(attr);
   },
   keyForRelationship(attr) {
-    return Ember.String.camelize(attr);
+    return camelize(attr);
   },
   payloadKeyFromModelName(modelName) {
     return modelName;

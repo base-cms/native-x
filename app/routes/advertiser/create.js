@@ -11,7 +11,7 @@ export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
   },
   actions: {
     create({ name }) {
-      const variables = { input: { name } };
+      const variables = { input: { payload: { name } } };
       const resultKey = 'createAdvertiser';
       return this.get('apollo').mutate({ mutation, variables }, resultKey)
         .then(response => this.transitionTo('advertiser.edit', response.id))

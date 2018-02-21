@@ -1,33 +1,35 @@
 import Service from '@ember/service';
-import Ember from 'ember';
+import { inject } from '@ember/service';
+import { computed } from '@ember/object';
+import RSVP from 'rsvp';
+import { isEmpty } from '@ember/utils';
 import currentUser from 'fortnight/gql/queries/current-user';
 
-const { computed, inject: { service }, RSVP, get, isEmpty } = Ember;
 const { Promise } = RSVP;
 
 export default Service.extend({
-  store: service(),
-  session: service(),
-  apollo: service(),
-  loading: service(),
-  query: service('model-query'),
+  store: inject(),
+  session: inject(),
+  apollo: inject(),
+  loading: inject(),
+  query: inject('model-query'),
 
   /**
    * The Ember data user model.
    *
    * @type {DS.Model}
    */
-  model: {},
+  model: null,
 
   /**
    *  @deprecated
    */
-  accounts: [],
+  accounts: null,
 
   /**
    * @deprecated
    */
-  tenants: [],
+  tenants: null,
 
   /**
    * The user id. Will be `null` if the there is not authenticated user.
@@ -79,7 +81,7 @@ export default Service.extend({
   tenant: null,
 
   load() {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       const userId = this.get('session.data.authenticated.id');
       if (isEmpty(userId)) return resolve();
 
@@ -96,12 +98,5 @@ export default Service.extend({
     return this.get('session').invalidate()
       .finally(loading.hide())
     ;
-  },
-
-  /**
-   * @deprecated
-   */
-  setActiveTenant(tenantId) {
-
   }
 });

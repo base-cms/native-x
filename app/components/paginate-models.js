@@ -3,7 +3,7 @@ import { computed } from '@ember/object';
 
 export default Component.extend({
 
-  models: [],
+  models: null,
   routeName: null,
   totalCount: 0,
   hasNextPage: false,
@@ -12,8 +12,13 @@ export default Component.extend({
   after: null,
   ascending: false,
   sortBy: null,
-  sortOptions: [],
-  limitOptions: [5, 25, 50, 100, 200],
+  sortOptions: null,
+  limitOptions: null,
+
+  init() {
+    this.set('limitOptions', [5, 25, 50, 100, 200]);
+    this._super(...arguments);
+  },
 
   phrase: '',
   phraseInput: '',

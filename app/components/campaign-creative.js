@@ -15,8 +15,6 @@ export default Component.extend(ComponentQueryManager, {
   onRemove: 'onRemove',
   onUpdate: 'onUpdate',
 
-  props: [ 'id', 'name', 'title', 'url', 'teaser', 'image' ],
-
   id: null,
   name: null,
   title: null,
@@ -26,7 +24,7 @@ export default Component.extend(ComponentQueryManager, {
 
   isModified: computed('id', 'name', 'title', 'url', 'teaser', 'image', 'creative', function() {
     const c = this.get('creative');
-    return this.get('props').some(k => this.get(k) !== get(c, k))
+    return [ 'id', 'name', 'title', 'url', 'teaser', 'image' ].some(k => this.get(k) !== get(c, k))
   }),
 
   canSave: computed.reads('isModified'),
@@ -35,7 +33,7 @@ export default Component.extend(ComponentQueryManager, {
   init() {
     const { id, name, url, title, teaser, image } = this.get('creative');
     this.setProperties({ id, name, url, title, teaser, image });
-    return this._super(...arguments);
+    this._super(...arguments);
   },
 
   /**
@@ -44,20 +42,20 @@ export default Component.extend(ComponentQueryManager, {
    * @param {*} w
    * @return -1/0/1
    */
-  compareObjects(v, w) {
-    for (const p in v) {
-      if (!v.hasOwnProperty(p)) continue;
-      if (!w.hasOwnProperty(p)) return 1;
-      if (v[p] === w[p]) continue;
-      if (typeof(v[p]) !== 'object') return 1;
-      const c = compare(v[p], w[p]);
-      if (c) return c;
-    }
-    for (const p in w) {
-      if (w.hasOwnProperty(p) && !v.hasOwnProperty(p)) return -1;
-    }
-    return 0;
-  },
+  // compareObjects(v, w) {
+  //   for (const p in v) {
+  //     if (!v.hasOwnProperty(p)) continue;
+  //     if (!w.hasOwnProperty(p)) return 1;
+  //     if (v[p] === w[p]) continue;
+  //     if (typeof(v[p]) !== 'object') return 1;
+  //     const c = compare(v[p], w[p]);
+  //     if (c) return c;
+  //   }
+  //   for (const p in w) {
+  //     if (w.hasOwnProperty(p) && !v.hasOwnProperty(p)) return -1;
+  //   }
+  //   return 0;
+  // },
 
   actions: {
     remove() {
@@ -68,6 +66,7 @@ export default Component.extend(ComponentQueryManager, {
       const resultKey = 'removeCampaignCreative';
       // console.warn('campaign-creative.remove()', { mutation, variables }, resultKey);
       return this.apollo.mutate({ mutation, variables }, resultKey)
+        // eslint-disable-next-line
         .then(() => this.sendAction(this.get('onRemove'), this.get('creative')))
         .catch(e => this.get('errorProcessor').show(e))
       ;

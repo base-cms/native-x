@@ -1,17 +1,15 @@
-import Ember from 'ember';
+import Route from '@ember/routing/route';
+import { inject } from '@ember/service';
 import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mixin';
-
 import UpdateAdvertiser from 'fortnight/gql/mutations/update-advertiser';
 
-const { Route, inject: { service } } = Ember;
-
 export default Route.extend(ApplicationRouteMixin, {
-  loading: service(),
-  session: service('session'),
-  apollo: service(),
-  errorProcessor: service(),
+  loading: inject(),
+  session: inject('session'),
+  apollo: inject(),
+  errorProcessor: inject(),
 
-  navItems: [],
+  navItems: null,
 
   beforeModel() {
     return this._loadCurrentUser();
@@ -20,7 +18,7 @@ export default Route.extend(ApplicationRouteMixin, {
   sessionAuthenticated() {
     this._super(...arguments);
     this._loadCurrentUser().catch((e) => {
-      console.error(e);
+      this.get('errorProcessor').show(e);
       this.get('session').invalidate();
     });
   },
@@ -53,14 +51,14 @@ export default Route.extend(ApplicationRouteMixin, {
       const { name } = record;
       const { mutation, resultKey } = this.getGraphQuery(type);
       const variables = { input: { name } };
-      console.warn({ mutation, variables }, resultKey);
+      // console.warn({ mutation, variables }, resultKey);
       return this.get('apollo').mutate({ mutation, variables }, resultKey)
         .catch(e => this.get('errorProcessor').show(e))
         .finally(() => loading.hide())
       ;
     },
     scrollToTop() {
-      console.info('scrollToTop');
+      // console.info('scrollToTop');
       window.scrollTo(0, 0);
     },
     hardDelete(model, routeName) {

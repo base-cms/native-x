@@ -1,6 +1,6 @@
 import Route from '@ember/routing/route';
-import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 import RouteQueryManager from 'ember-apollo-client/mixins/route-query-manager';
+import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 import { inject } from '@ember/service';
 
 import mutation from 'fortnight/gql/mutations/create-campaign';
@@ -9,7 +9,6 @@ export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
   errorProcessor: inject(),
 
   model() {
-    const start = this.get('dateUtil').getToday();
     return { name: '' };
   },
   actions: {

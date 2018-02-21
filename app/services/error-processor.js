@@ -1,17 +1,16 @@
 import Service from '@ember/service';
-import Ember from 'ember';
-// import { inject } from '@ember/service';
-const { inject: { service } } = Ember;
+import { inject } from '@ember/service';
+import { isPresent } from '@ember/utils';
 
 export default Service.extend({
-  notify: service(),
+  notify: inject(),
 
   handle(e) {
-    console.error(e);
-    if (Ember.isPresent(e.errors) && Ember.isPresent(e.errors[0]) && Ember.isPresent(e.errors[0].message)) {
+    console.error(e); // eslint-disable-line no-console
+    if (isPresent(e.errors) && isPresent(e.errors[0]) && isPresent(e.errors[0].message)) {
       return new Error(e.errors[0].message);
     }
-    if (Ember.isPresent(e.message)) {
+    if (isPresent(e.message)) {
       return e;
     }
     return new Error('Some error happen.');

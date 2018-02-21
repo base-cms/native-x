@@ -1,7 +1,5 @@
-import Ember from 'ember';
 import attr  from 'ember-data/attr';
-
-const { Mixin } = Ember;
+import Mixin from '@ember/object/mixin';
 
 export default Mixin.create({
   createdDate: attr('moment'),

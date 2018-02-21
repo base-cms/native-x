@@ -1,6 +1,5 @@
 import Base from 'ember-simple-auth/authenticators/base';
 import { inject } from '@ember/service';
-import Service from '@ember/service';
 
 
 export default Base.extend({

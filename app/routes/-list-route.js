@@ -1,9 +1,6 @@
 import Route from '@ember/routing/route';
 import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 import RouteQueryManager from "ember-apollo-client/mixins/route-query-manager";
-import Ember from 'ember';
-
-const { inject: { service } } = Ember;
 
 export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
 
@@ -30,7 +27,7 @@ export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
     return this.apollo.watchQuery({ query, variables }, resultKey);
   },
 
-  retrieveModel(query, resultKey, params, criteria = {}) {
+  retrieveModel(query, resultKey, params, /* criteria = {} */) {
     let { limit, sort, page } = params;
     if (!params.ascending) {
       sort = `-${sort}`;

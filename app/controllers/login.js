@@ -1,13 +1,12 @@
-import Ember from 'ember';
-
-const { Controller, inject: { service } } = Ember;
+import Controller from '@ember/controller';
+import { inject } from '@ember/service';
 
 export default Controller.extend({
   username: null,
   password: null,
   errorMessage: null,
-  session: service('session'),
-  loading: service('loading'),
+  session: inject('session'),
+  loading: inject('loading'),
 
   actions: {
     authenticate() {

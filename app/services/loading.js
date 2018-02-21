@@ -1,13 +1,13 @@
 import Service from '@ember/service';
-import Ember from 'ember';
+import $ from 'jquery';
 
 const target = '#loading-trigger';
 
 export default Service.extend({
   show() {
-    Ember.$(target).show();
+    $(target).show();
   },
   hide() {
-    window.setTimeout(() => Ember.$(target).hide(), 250);
+    window.setTimeout(() => $(target).hide(), 250);
   },
 });

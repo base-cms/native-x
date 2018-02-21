@@ -1,19 +1,21 @@
-import Ember from 'ember';
+import Component from '@ember/component';
+import { inject } from '@ember/service';
+import { computed } from '@ember/object';
+import { isEmpty, isPresent } from '@ember/utils'
+
 import moment from 'moment';
 
 import CreateAdvertiser from 'fortnight/gql/mutations/create-advertiser';
 
-const { Component, inject: { service }, computed, isPresent } = Ember;
-
 export default Component.extend({
-  apollo: service(),
-  loading: service(),
-  user: service(),
-  dateUtil: service(),
-  errorProcessor: service(),
+  apollo: inject(),
+  loading: inject(),
+  user: inject(),
+  dateUtil: inject(),
+  errorProcessor: inject(),
 
   // advertiser: null,
-  advertisers: [],
+  advertisers: null,
 
   modelType: null,
   modelName: null,
@@ -78,12 +80,12 @@ export default Component.extend({
 
       loading.show();
 
-      if (Ember.isEmpty(name)) {
+      if (isEmpty(name)) {
         error.show(new Error('You must specify a name.'));
         return loading.hide();
       }
 
-      if (Ember.isEmpty(advertiser) && this.get('withAdvertiser')) {
+      if (isEmpty(advertiser) && this.get('withAdvertiser')) {
         error.show(new Error('You must specify an advertiser.'));
         return loading.hide();
       }
@@ -96,6 +98,7 @@ export default Component.extend({
       const { mutation, resultKey } = this.getGraphQuery(type);
       const variables = { input: { name, advertiser, order, start, end, lineItem } };
       return this.get('apollo').mutate({ mutation, variables }, resultKey)
+        // eslint-disable-next-line
         .then(model => this.sendAction('onCreate', type, model))
         .then(() => this.set('modelName', null))
         .catch(e => error.show(e))

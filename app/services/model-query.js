@@ -1,13 +1,14 @@
-import Ember from 'ember';
-
-const { Service, typeOf, inject: { service }, isArray } = Ember;
+import Service from '@ember/service';
+import { inject } from '@ember/service';
+import { typeOf } from '@ember/utils';
+import { isArray } from '@ember/array';
 
 export default Service.extend({
 
-  store: service(),
-  loading : service(),
-  user: service(),
-  // errorProcessor: service('error-processor'),
+  store: inject(),
+  loading : inject(),
+  user: inject(),
+  errorProcessor: inject('error-processor'),
 
   buildParams(criteria, limit, offset, sort) {
     criteria = ('object' === typeOf(criteria)) ? criteria : {};
@@ -52,7 +53,7 @@ export default Service.extend({
     let promise = this.get('store').query(modelType, params);
 
     promise.then((results) => { return results; });
-    // promise.catch(adapterError => this.get('errorProcessor').notify(adapterError.errors));
+    promise.catch(adapterError => this.get('errorProcessor').show(adapterError.errors));
     promise.finally(() => loading.hide());
     return promise;
   },

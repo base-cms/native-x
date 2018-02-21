@@ -1,12 +1,10 @@
-import Ember from 'ember';
-
-const { Controller, computed } = Ember;
+import Controller from '@ember/controller';
 
 export default Controller.extend({
   /**
    * Query params
    */
-  queryParams: ['first', 'after', 'sortBy', 'ascending'],
+  queryParams: null,
   first: 5,
   after: null,
   ascending: false,
@@ -20,11 +18,17 @@ export default Controller.extend({
   endCursor: null,
 
   // Sort options are specific to the model in question.
-  sortOptions: [
-    { key: null, label: 'Created' },
-    { key: 'updatedAt', label: 'Updated' },
-    { key: 'name', label: 'Name' },
-  ],
+  sortOptions: null,
+
+  init() {
+    this.set('queryParams', ['first', 'after', 'sortBy', 'ascending']);
+    this.set('sortOptions', [
+      { key: null, label: 'Created' },
+      { key: 'updatedAt', label: 'Updated' },
+      { key: 'name', label: 'Name' },
+    ]);
+    this._super(...arguments);
+  },
 
   // dateUtil: inject(),
 
