@@ -1,10 +1,8 @@
 import Route from '@ember/routing/route';
 import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
-import Ember from 'ember';
+import RouteQueryManager from "ember-apollo-client/mixins/route-query-manager";
 
-const { inject: { service } } = Ember;
-
-export default Route.extend(AuthenticatedRouteMixin, {
+export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
 
   queryParams: {
     limit: {
@@ -24,18 +22,22 @@ export default Route.extend(AuthenticatedRouteMixin, {
     },
   },
 
-  query: service('model-query'),
+  retrieveRecord(query, resultKey, id) {
+    const variables = { input: { id } };
+    return this.apollo.watchQuery({ query, variables }, resultKey);
+  },
 
-  retrieveModel(modelType, params, criteria = {}) {
-    let sort = params.sort;
+  retrieveModel(query, resultKey, params, /* criteria = {} */) {
+    let { limit, sort, page } = params;
     if (!params.ascending) {
       sort = `-${sort}`;
     }
-    const offset = (params.page - 1) * params.limit;
     if (params.phrase && params.phrase.length) {
-      criteria['$text'] = { '$search' : params.phrase };
+      // criteria['$text'] = { '$search' : params.phrase };
     }
-    return this.get('query').execute(modelType, criteria, params.limit, offset, sort);
+    const pagination = { size: limit, page, sort };
+    const variables = { pagination };
+    return this.apollo.watchQuery({ query, variables }, resultKey);
   },
 
   setupController(controller, model) {

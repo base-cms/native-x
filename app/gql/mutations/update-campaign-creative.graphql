@@ -1,0 +1,10 @@
+mutation updateCampaignCreative($input: UpdateCampaignCreativeInput!) {
+	updateCampaignCreative(input: $input) {
+    id
+		cid
+		name
+		url
+		title
+		teaser
+	}
+}

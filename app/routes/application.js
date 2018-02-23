@@ -1,13 +1,15 @@
-import Ember from 'ember';
+import Route from '@ember/routing/route';
+import { inject } from '@ember/service';
 import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mixin';
-
-const { Route, inject: { service } } = Ember;
+import UpdateAdvertiser from 'fortnight/gql/mutations/update-advertiser';
 
 export default Route.extend(ApplicationRouteMixin, {
-  loading: service(),
-  session: service('session'),
+  loading: inject(),
+  session: inject('session'),
+  apollo: inject(),
+  errorProcessor: inject(),
 
-  navItems: [],
+  navItems: null,
 
   beforeModel() {
     return this._loadCurrentUser();
@@ -16,7 +18,7 @@ export default Route.extend(ApplicationRouteMixin, {
   sessionAuthenticated() {
     this._super(...arguments);
     this._loadCurrentUser().catch((e) => {
-      console.error(e);
+      this.get('errorProcessor').show(e);
       this.get('session').invalidate();
     });
   },
@@ -30,28 +32,33 @@ export default Route.extend(ApplicationRouteMixin, {
     return this.user.load();
   },
 
+  getGraphQuery(type) {
+    switch (type) {
+      case 'advertiser':
+        return { mutation: UpdateAdvertiser, resultKey: 'updateAdvertiser' };
+    }
+    throw new Error(`No GraphQL query defined for "${type}"!`);
+  },
+
   actions: {
     linkTo(name) {
       this.transitionTo(name);
     },
-    save(record, routeName) {
+    save(record, type) {
       const loading = this.get('loading');
-      const isNew = record.get('isNew');
-
       loading.show();
-      record.save()
-        .then(result => {
-          if (isNew) {
-            const editRoute = (typeof routeName === 'string') ? `${routeName}.edit` : `${record.constructor.modelName}.edit`;
-            this.transitionTo(editRoute, result.get('id'));
-          }
-        })
-        // .catch(adapterError => this.get('errorProcessor').notify(adapterError.errors))
+
+      const { name } = record;
+      const { mutation, resultKey } = this.getGraphQuery(type);
+      const variables = { input: { name } };
+      // console.warn({ mutation, variables }, resultKey);
+      return this.get('apollo').mutate({ mutation, variables }, resultKey)
+        .catch(e => this.get('errorProcessor').show(e))
         .finally(() => loading.hide())
       ;
     },
     scrollToTop() {
-      console.info('scrollToTop');
+      // console.info('scrollToTop');
       window.scrollTo(0, 0);
     },
     hardDelete(model, routeName) {

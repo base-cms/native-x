@@ -7,31 +7,20 @@ const Router = EmberRouter.extend({
 });
 
 Router.map(function() {
-  this.route('story', function() {
-    this.route('create', { path: '/new' });
 
-    this.route('edit', function() {
-      this.route('index', { path: '/:id' });
-      this.route('campaign', function() {
-        this.route('create', { path: '/:id/new' });
-        this.route('edit', { path: '/:id/:cid' });
-      })
-    })
-
-    this.route('report', function() {
-      this.route('index', { path: '/:id' });
-      this.route('campaign', { path: '/:id/:cid' });
-    });
-  });
-
-  this.route('tenant', function() {
-    this.route('create', { path: '/new' });
-    this.route('index', { path: '/:id' });
-    this.route('settings', { path: '/:id/settings' });
-    this.route('team', { path: '/:id/team' });
+  this.route('advertiser', function() {
+    this.route('create', { path: 'new' });
+    this.route('edit', { path: ':id' });
   })
 
-  const listableModels = ['user', 'advertiser', 'creative', 'creative-template', 'line-item', 'order', 'placement'];
+  this.route('campaign', function() {
+    this.route('create', { path: 'new' }, function() {
+      this.route('advertiser', { path: ':id' });
+    });
+    this.route('edit', { path: ':id' });
+  })
+
+  const listableModels = ['user', 'publisher', 'placement', 'schedule'];
   listableModels.forEach(model => {
     this.route(model, function() {
       this.route('create', { path: 'new' });
@@ -41,7 +30,6 @@ Router.map(function() {
 
   this.route('login');
   this.route('logout');
-  this.route('docs');
   this.route('reports');
   this.route('about');
 });

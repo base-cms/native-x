@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="col">
+    <h3 class="mb-0 float-left">
+      Modify {{ model.name }}
+    </h3>
+    {{#-bs/button 'success' class="float-right" size="small" outline=true click=(route-action 'update' model 'campaign') disabled=(eq model.canSave false)}}
+      {{-ion 'checkmark-round'}} Save
+    {{/-bs/button}}
+    {{#-bs/button "danger"  class="float-right mr-1" size="small" outline=true click=(route-action 'hardDelete' model 'campaign.index')}}
+      {{-ion 'android-close'}} Delete
+    {{/-bs/button}}
+  </div>
+</div>
+<hr>
+
+{{partial "campaign/form"}}
+
+{{campaign-schedules campaign=model}}
+{{campaign-creatives campaign=model}}
+

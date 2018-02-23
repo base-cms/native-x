@@ -22,3 +22,5 @@ testem.log
 bower.json.ember-try
 package.json.ember-try
 .DS_Store
+coverage
+.nyc_output

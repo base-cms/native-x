@@ -1,18 +1,21 @@
-import Ember from 'ember';
+import Component from '@ember/component';
+import { inject } from '@ember/service';
+import { computed } from '@ember/object';
+import { isEmpty, isPresent } from '@ember/utils'
+
 import moment from 'moment';
 
-const { Component, inject: { service }, computed, isPresent } = Ember;
+import CreateAdvertiser from 'fortnight/gql/mutations/create-advertiser';
 
 export default Component.extend({
-  store: service(),
-  loading: service(),
-  user: service(),
-  query: service('model-query'),
-  dateUtil: service(),
-  error: null,
+  apollo: inject(),
+  loading: inject(),
+  user: inject(),
+  dateUtil: inject(),
+  errorProcessor: inject(),
 
-  advertiser: null,
-  advertisers: [],
+  // advertiser: null,
+  advertisers: null,
 
   modelType: null,
   modelName: null,
@@ -54,11 +57,20 @@ export default Component.extend({
     this._super();
   },
 
+  getGraphQuery(type) {
+    switch (type) {
+      case 'advertiser':
+        return { mutation: CreateAdvertiser, resultKey: 'createAdvertiser' };
+    }
+    throw new Error(`No GraphQL query defined for "${type}"!`);
+  },
+
   actions: {
     create() {
       const loading = this.get('loading');
+      const error = this.get('errorProcessor');
+
       const name = this.get('modelName');
-      const tenant = this.get('user.tid');
       const advertiser = this.get('advertiser');
       const type = this.get('modelType');
       const order = this.get('order');
@@ -67,35 +79,29 @@ export default Component.extend({
       const end = this.get('modelEnd');
 
       loading.show();
-      this.set('error', null);
 
-      if (Ember.isEmpty(name)) {
-        this.set('error', 'You must specify a name.');
+      if (isEmpty(name)) {
+        error.show(new Error('You must specify a name.'));
         return loading.hide();
       }
 
-      if (Ember.isEmpty(advertiser) && this.get('withAdvertiser')) {
-        this.set('error', 'You must specify an advertiser.');
+      if (isEmpty(advertiser) && this.get('withAdvertiser')) {
+        error.show(new Error('You must specify an advertiser.'));
         return loading.hide();
       }
 
       if (this.get('withDates') && false === moment(start).isValid()) {
-        this.set('error', 'You must specify a valid start date.');
+        error.show(new Error('You must specify a valid start date.'));
         return loading.hide();
       }
 
-      const model = this.get('store').createRecord(type, { name, tenant, advertiser, order, start, end, lineItem });
-      model.save()
-        .then(model => {
-          if (isPresent(lineItem)) {
-            lineItem.get('creatives').pushObject(model);
-            return lineItem.save().then(model => model);
-          }
-          return model;
-        })
+      const { mutation, resultKey } = this.getGraphQuery(type);
+      const variables = { input: { name, advertiser, order, start, end, lineItem } };
+      return this.get('apollo').mutate({ mutation, variables }, resultKey)
+        // eslint-disable-next-line
         .then(model => this.sendAction('onCreate', type, model))
         .then(() => this.set('modelName', null))
-        .catch(e => this.set('error', e))
+        .catch(e => error.show(e))
         .finally(() => loading.hide())
       ;
     },

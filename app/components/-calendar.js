@@ -1,10 +1,10 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
-import { inject as service } from '@ember/service';
+import { inject } from '@ember/service';
 import moment from 'moment';
 
 export default Component.extend({
-  dateUtil: service(),
+  dateUtil: inject(),
 
   currentDay: null,
   canRemove: false,
@@ -39,10 +39,12 @@ export default Component.extend({
   actions: {
     removeDate() {
       this.set('currentDay', null);
+      // eslint-disable-next-line
       this.sendAction('onSelect', null);
     },
     selectDate(selected) {
       this.set('selected', selected);
+      // eslint-disable-next-line
       this.sendAction('onSelect', selected);
     },
     centerToday() {

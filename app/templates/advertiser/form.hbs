@@ -2,18 +2,8 @@
   <div class="col">
     <div class="form-group">
       <label for="name">Name</label>
-      {{input type="text" value=model.name class="form-control" id="name" placeholder="Name"}}
+      {{input type="text" value=model.name class="form-control" id="name" placeholder="Name" autofocus=true}}
     </div>
   </div>
 </div>
 
-<div class="row mt-3">
-  <div class="col">
-    {{#-bs/button 'success' click=(route-action 'save' model 'advertiser') disabled=(eq model.canSave false)}}
-      {{-ion 'checkmark-round'}} Save
-    {{/-bs/button}}
-    {{!-- {{#unless model.canSave}}
-      <small class="form-text text-info">In order to save, {{model.reasonForPreventSave}}</small>
-    {{/unless}} --}}
-  </div>
-</div>

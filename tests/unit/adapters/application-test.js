@@ -2,7 +2,7 @@ import { moduleFor, test } from 'ember-qunit';
 
 moduleFor('adapter:application', 'Unit | Adapter | application', {
   // Specify the other units that are required for this test.
-  // needs: ['serializer:foo']
+  needs: ['service:session', 'service:model-query']
 });
 
 // Replace this with your real tests.

@@ -1,0 +1,5 @@
+fragment PaginationInput on Input {
+  size
+  page
+  sort
+}

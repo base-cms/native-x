@@ -1,7 +1,7 @@
 import Application from '@ember/application';
 import { run } from '@ember/runloop';
 
-import { initialize } from 'sc/initializers/user';
+import { initialize } from 'fortnight/initializers/user';
 import { module, test } from 'qunit';
 import destroyApp from '../../helpers/destroy-app';
 

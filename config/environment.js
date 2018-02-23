@@ -3,7 +3,7 @@
 
 module.exports = function(environment) {
   let ENV = {
-    modulePrefix: 'sc',
+    modulePrefix: 'fortnight',
     environment,
     rootURL: '/',
     locationType: 'auto',
@@ -21,7 +21,11 @@ module.exports = function(environment) {
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
-    }
+    },
+
+    apollo: {
+      apiURL: '/graph',
+    },
   };
 
   if (environment === 'development') {
@@ -30,6 +34,7 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
+    // ENV.apollo.apiURL = 'http://localhost:8100/graph';
   }
 
   if (environment === 'test') {
@@ -41,6 +46,7 @@ module.exports = function(environment) {
     ENV.APP.LOG_VIEW_LOOKUPS = false;
 
     ENV.APP.rootElement = '#ember-testing';
+    ENV.APP.autoboot = false;
   }
 
   if (environment === 'production') {

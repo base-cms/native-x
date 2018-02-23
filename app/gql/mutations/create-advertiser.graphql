@@ -1,0 +1,6 @@
+mutation createAdvertiser($input: CreateAdvertiserInput!) {
+	createAdvertiser(input: $input) {
+    id
+		name
+	}
+}

@@ -1,23 +1,29 @@
-import Ember from 'ember';
-
-const { Controller, computed } = Ember;
+import Controller from '@ember/controller';
+import { computed } from '@ember/object';
 
 export default Controller.extend({
-  queryParams: ['limit', 'sort', 'ascending', 'phrase', 'page'],
-  limit: 25,
-  ascending: false,
-  sort: 'updatedDate',
+  queryParams: ['first', 'after', 'sortField', 'phrase', 'sortDirection'],
+  first: 5,
+  after: null,
+  sortDirection: -1,
+  sortField: 'updatedAt',
   phrase: '',
   page: 1,
 
   phraseInput: '',
-  limitOptions: [25, 50, 100, 200],
-  sortOptions: [
-    { key: 'updatedDate', label: 'Updated' },
-    { key: 'createdDate', label: 'Created' },
-    { key: 'name', label: 'Name' },
-    { key: 'relevance', label: 'Relevance' },
-  ],
+  limitOptions: null,
+  sortOptions: null,
+
+  init() {
+    this.set('limitOptions', [25, 50, 100, 200]);
+    this.set('sortOptions', [
+      { key: 'updatedDate', label: 'Updated' },
+      { key: 'createdDate', label: 'Created' },
+      { key: 'name', label: 'Name' },
+      { key: 'relevance', label: 'Relevance' },
+    ]);
+    this._super(...arguments);
+  },
 
   filteredSortOptions: computed('sortOptions', 'sort', 'isSortDisabled', function() {
     let filtered = this.get('sortOptions').rejectBy('key', this.get('sort'));
@@ -81,7 +87,7 @@ export default Controller.extend({
 
   actions: {
     onCreate(modelType, model) {
-      this.transitionToRoute(`${modelType}.edit`, model.get('id'));
+      this.transitionToRoute(`${modelType}.edit`, model.id);
     },
     clearSearch() {
       this.set('phrase', '');

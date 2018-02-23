@@ -1,0 +1,5 @@
+mutation removeCampaignCreative($input: RemoveCampaignCreativeInput!) {
+	removeCampaignCreative(input: $input) {
+		id
+	}
+}

@@ -1,28 +1,35 @@
 import Service from '@ember/service';
-import Ember from 'ember';
+import { inject } from '@ember/service';
+import { computed } from '@ember/object';
+import RSVP from 'rsvp';
+import { isEmpty } from '@ember/utils';
+import currentUser from 'fortnight/gql/queries/current-user';
 
-const { computed, inject: { service }, RSVP, get, isEmpty } = Ember;
 const { Promise } = RSVP;
 
 export default Service.extend({
-  store: service(),
-  session: service(),
-  loading: service(),
-  query: service('model-query'),
+  store: inject(),
+  session: inject(),
+  apollo: inject(),
+  loading: inject(),
+  query: inject('model-query'),
 
   /**
    * The Ember data user model.
    *
    * @type {DS.Model}
    */
-  model: {},
+  model: null,
 
   /**
-   * Organizations that this user is a user of.
-   *
-   * @type {DS.Model[]}
+   *  @deprecated
    */
-  tenants: [],
+  accounts: null,
+
+  /**
+   * @deprecated
+   */
+  tenants: null,
 
   /**
    * The user id. Will be `null` if the there is not authenticated user.
@@ -34,9 +41,10 @@ export default Service.extend({
   /**
    * The active user tenant id.
    *
+   *  @deprecated
    * @type {?string}
    */
-  tid: computed.reads('tenant.id'),
+  tid: null,
 
   /**
    * The Firebase Auth object, or `null` if not authenticated.
@@ -52,9 +60,10 @@ export default Service.extend({
 
   /**
    * Determines if the user has any organizations.
+   *  @deprecated
    * @type {boolean}
    */
-  hasTenants: computed.bool('tenants.length'),
+  hasTenants: false,
 
   /**
    * Determines if the user is authenticated, based on the session.
@@ -66,39 +75,19 @@ export default Service.extend({
 
   /**
    * Determines the user's active organization.
-   *
+   *  @deprecated
    * @type {DS.Model}
    */
-  tenant: computed('tenants.firstObject', 'model.activeTenantId', function() {
-    const defaultTenant = this.get('tenants.firstObject');
-    const activeTenantId = this.get('model.activeTenantId');
-    if (!activeTenantId) {
-      return defaultTenant;
-    }
-    const activeTenant = this.get('tenants').findBy('id', activeTenantId);
-    return (activeTenant) ? activeTenant : defaultTenant;
-  }),
+  tenant: null,
 
   load() {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       const userId = this.get('session.data.authenticated.id');
       if (isEmpty(userId)) return resolve();
 
-      const user = this.get('store').find('core-user', userId);
-      const tenants = this.get('query').execute('core-account-user', { user: userId })
-        .then(r => r.map(i => i.get('account')))
-        .then(accounts => {
-          const ids = accounts.map(a => a.get('id'));
-          return this.get('query').execute('core-account', { _id : { $in: ids }})
-        })
-      ;
-      RSVP
-        .hash({ user, tenants })
-        .then(({ user, tenants }) => {
-          this.set('model', user);
-          this.set('tenants', tenants);
-          resolve();
-        }, reject)
+      return this.get('apollo').watchQuery({ query: currentUser }, "currentUser")
+        .then(user => this.set('model', user))
+        .then(() => resolve())
       ;
     });
   },
@@ -109,10 +98,5 @@ export default Service.extend({
     return this.get('session').invalidate()
       .finally(loading.hide())
     ;
-  },
-
-  setActiveTenant(tenantId) {
-    this.set('model.activeTenantId', tenantId);
-    return this.get('model').save();
   }
 });

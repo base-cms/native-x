@@ -1,22 +1,17 @@
-import Ember            from 'ember';
+import { inject }       from '@ember/service';
+import { dasherize }    from '@ember/string';
 import JSONAPIAdapter   from 'ember-data/adapters/json-api';
 import DataAdapterMixin from 'ember-simple-auth/mixins/data-adapter-mixin';
-import Inflector from 'ember-inflector';
-
-const { inject: { service } } = Ember;
+import Inflector        from 'ember-inflector';
 
 export default JSONAPIAdapter.extend(DataAdapterMixin, {
-
-  queryService: service('model-query'),
-
+  queryService: inject('model-query'),
   authorizer: 'authorizer:application',
-
   coalesceFindRequests: true,
-
   namespace: 'api/rest',
 
   pathForType(type) {
-    return Inflector.inflector.singularize(Ember.String.dasherize(type));
+    return Inflector.inflector.singularize(dasherize(type));
   },
 
   findMany(store, type, ids, snapshots) {

@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
-  {{#link-to "index" class="navbar-brand"}}[ sc ]{{/link-to}}
+  {{#link-to "index" class="navbar-brand"}}[ fn ]{{/link-to}}
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -7,17 +7,17 @@
     <ul class="navbar-nav mr-auto">
     {{#unless session.isAuthenticated}}
       {{#link-to "about" class="nav-item nav-link"}}About{{/link-to}}
-      {{#link-to "docs" class="nav-item nav-link"}}Documentation{{/link-to}}
+      <a href="https://docs.fortnight.as3.io" title="Documentation" class="nav-item nav-link" target="_blank">Documentation {{-ion "link"}}</a>
     {{else}}
       {{#link-to "index" class="nav-item nav-link"}}Dashboard{{/link-to}}
       {{#link-to "reports" class="nav-item nav-link"}}Reports{{/link-to}}
-      {{#link-to "order" class="nav-item nav-link"}}Orders{{/link-to}}
-      {{#link-to "docs" class="nav-item nav-link"}}Documentation{{/link-to}}
+      {{#link-to "campaign" class="nav-item nav-link"}}Campaigns{{/link-to}}
+      {{#link-to "advertiser" class="nav-item nav-link"}}Advertisers{{/link-to}}
+      <a href="https://docs.fortnight.as3.io" title="Documentation" class="nav-item nav-link" target="_blank">Documentation {{-ion "link"}}</a>
     {{/unless}}
     </ul>
     <ul class="navbar-nav ml-auto">
       {{partial "navigation/models"}}
-      {{partial "navigation/tenant"}}
       {{partial "navigation/user"}}
     </ul>
   </div>

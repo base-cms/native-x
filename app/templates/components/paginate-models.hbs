@@ -1,0 +1,30 @@
+<fieldset class="mb-4 mt-4">
+  <legend>Total Results: {{ totalCount }}</legend>
+<div class="row">
+  <div class="col-4">
+    {{ partial 'list/search-controls'}}
+  </div>
+  <div class="col-4">
+    <div class="btn-toolbar float-right" role="toolbar" aria-label="Filter Toolbar">
+      {{ partial 'list/sort-filter' }}
+      {{ partial 'list/limit-filter' }}
+    </div>
+  </div>
+  <div class="col-2 text-left">
+    {{#link-to routeName (query-params after=null) disabled=(not hasPreviousPage) class=previousClass}}&laquo; Previous Page {{/link-to}}
+  </div>
+  <div class="col-2 text-right">
+    {{#link-to routeName (query-params after=endCursor) disabled=(not hasNextPage) class=nextClass}} Next Page &raquo;{{/link-to}}
+  </div>
+</div>
+</fieldset>
+
+<div class="row mb-2">
+  <div class="col">
+    {{#each models as |model|}}
+      {{yield model}}
+    {{else}}
+      <p class="text-muted">No results.</p>
+    {{/each}}
+  </div>
+</div>

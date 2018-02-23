@@ -1,10 +1,9 @@
-import Ember from 'ember';
+import Component from '@ember/component';
+import { inject } from '@ember/service';
 import { task, timeout } from 'ember-concurrency';
 
-const { Component, inject: { service }, computed } = Ember;
-
 export default Component.extend({
-  modelQuery: service(),
+  modelQuery: inject(),
 
   type: null,
   selected: null,
