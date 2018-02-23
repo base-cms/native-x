@@ -10,7 +10,8 @@ export default Component.extend(ComponentQueryManager, {
 
   errorProcessor: inject(),
 
-  cid: null,
+  campaignId: null,
+  creativeId: computed.reads('creative.id'),
   creative: null,
   onRemove: 'onRemove',
   onUpdate: 'onUpdate',
@@ -59,10 +60,10 @@ export default Component.extend(ComponentQueryManager, {
 
   actions: {
     remove() {
-      const { id } = this.get('creative');
-      const cid = this.get('cid');
+      const campaignId = this.get('campaignId');
+      const creativeId = this.get('creativeId');
       const mutation = RemoveMutation;
-      const variables = { input: { id, cid } };
+      const variables = { input: { campaignId, creativeId } };
       const resultKey = 'removeCampaignCreative';
       // console.warn('campaign-creative.remove()', { mutation, variables }, resultKey);
       return this.apollo.mutate({ mutation, variables }, resultKey)
@@ -73,10 +74,12 @@ export default Component.extend(ComponentQueryManager, {
     },
     update() {
       if (!this.get('canSave')) return;
-      const { id, name, url, title, teaser, image } = this.getProperties();
-      const { cid } = this.get('campaign.id');
+      const { title, teaser } = this.getProperties(['title', 'teaser']);
+      const campaignId = this.get('campaignId');
+      const creativeId = this.get('creativeId');
       const mutation = UpdateMutation;
-      const variables = { input: { cid, id, name, url, title, teaser, image } };
+      const payload = { title, teaser };
+      const variables = { input: { campaignId, creativeId, payload } };
       const resultKey = 'updateCampaignCreative';
       // console.warn('campaign-creative.save()', { mutation, variables }, resultKey);
       return this.apollo.mutate({ mutation, variables }, resultKey)
