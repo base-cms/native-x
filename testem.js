@@ -1,6 +1,7 @@
 module.exports = {
   test_page: 'tests/index.html?hidepassed',
   disable_watching: true,
+  report_file: "coverage/test-results.xml",
   launch_in_ci: [
     'Chrome'
   ],

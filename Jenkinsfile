@@ -1,35 +1,34 @@
 node {
-  def nodeBuilder = docker.image("limit0/node-build:latest")
-  docker.withRegistry('https://registry.hub.docker.com', 'docker-registry-login') {
-    nodeBuilder.pull()
-  }
+  def nodeBuilder = docker.image("danlynn/ember-cli:2.18.2")
+  nodeBuilder.pull()
 
   try {
     stage('Checkout') {
       checkout scm
     }
-    stage('Yarn') {
-      nodeBuilder.inside("-v ${env.WORKSPACE}:/var/www/html -u 0:0") {
-        sh 'yarn'
-      }
-    }
     stage('Test') {
-      nodeBuilder.inside("-v ${env.WORKSPACE}:/var/www/html -u 0:0") {
-        // sh 'npm run test'
-        // @todo probably test stuff.
+      try {
+        sh 'yarn run coverage'
+        junit 'coverage/test-results.xml'
+        cobertura autoUpdateHealth: false, autoUpdateStability: false, coberturaReportFile: 'coverage/cobertura-coverage.xml', conditionalCoverageTargets: '70, 0, 0', failUnhealthy: false, failUnstable: false, lineCoverageTargets: '80, 0, 0', maxNumberOfBuilds: 0, methodCoverageTargets: '80, 0, 0', onlyStable: false, sourceEncoding: 'ASCII', zoomCoverageChart: false
+      } catch (e) {
+        junit 'coverage/test-results.xml'
+        cobertura autoUpdateHealth: false, autoUpdateStability: false, coberturaReportFile: 'coverage/cobertura-coverage.xml', conditionalCoverageTargets: '70, 0, 0', failUnhealthy: false, failUnstable: false, lineCoverageTargets: '80, 0, 0', maxNumberOfBuilds: 0, methodCoverageTargets: '80, 0, 0', onlyStable: false, sourceEncoding: 'ASCII', zoomCoverageChart: false
+        slackSend color: 'bad', channel: '#codebot', message: "Failed testing ${env.JOB_NAME} #${env.BUILD_NUMBER} (<${env.BUILD_URL}|View>)"
+        sh 'yarn run postcoverage'
+        throw e
       }
     }
   } catch (e) {
     slackSend color: 'bad', channel: '#codebot', message: "Failed testing ${env.JOB_NAME} #${env.BUILD_NUMBER} (<${env.BUILD_URL}|View>)"
-    process.exit(1)
+    throw e
   }
 
   try {
-    nodeBuilder.inside("-v ${env.WORKSPACE}:/var/www/html -u 0:0") {
-      stage('Ember') {
+    stage('Yarn Production Install') {
+      nodeBuilder.inside("-v ${env.WORKSPACE}:/app -u 0:0") {
+        sh 'yarn install'
         sh 'ember build --environment=production'
-      }
-      stage('Cleanup') {
         sh 'rm -rf node_modules bower_components tmp'
       }
     }
@@ -51,7 +50,7 @@ node {
         }
       }
       stage('Upgrade Container') {
-        rancher confirm: true, credentialId: 'rancher', endpoint: 'https://rancher.as3.io/v2-beta', environmentId: '1a18', image: "664537616798.dkr.ecr.us-east-1.amazonaws.com/fortnight-app:v${env.BUILD_NUMBER}", service: 'fortnight/app', environments: '', ports: '', timeout: 30
+        rancher confirm: true, credentialId: 'rancher', endpoint: 'https://rancher.as3.io/v2-beta', environmentId: '1a18', image: "664537616798.dkr.ecr.us-east-1.amazonaws.com/fortnight-app:v${env.BUILD_NUMBER}", service: 'fortnight/app', environments: '', ports: '', timeout: 60
       }
       stage('Notify Upgrade') {
         slackSend color: 'good', message: "Finished deploying ${env.JOB_NAME} #${env.BUILD_NUMBER} (<${env.BUILD_URL}|View>)"

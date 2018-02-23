@@ -7,7 +7,7 @@ services:
       - "${EMBER_LIVER_PORT-8106}:${EMBER_LIVER_PORT-8106}"
       - "${EMBER_TESTS_PORT-8107}:${EMBER_TESTS_PORT-8107}"
     volumes:
-      - ../:/myapp
+      - ../:/myapp:cached
       - node_modules:/myapp/node_modules
       - tmp:/myapp/tmp
     entrypoint: yarn run test:run
