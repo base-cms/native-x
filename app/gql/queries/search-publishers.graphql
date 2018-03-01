@@ -1,0 +1,17 @@
+
+query searchPublishers($pagination: PaginationInput, $search: PublisherSearchInput!) {
+  searchPublishers(pagination: $pagination, search: $search) {
+    totalCount
+    edges {
+      node {
+        id
+        name
+      }
+      cursor
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}

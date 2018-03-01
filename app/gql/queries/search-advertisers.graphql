@@ -1,0 +1,17 @@
+
+query searchAdvertisers($pagination: PaginationInput, $search: AdvertiserSearchInput!) {
+  searchAdvertisers(pagination: $pagination, search: $search) {
+    totalCount
+    edges {
+      node {
+        id
+        name
+      }
+      cursor
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}
