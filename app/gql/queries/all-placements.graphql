@@ -1,0 +1,21 @@
+query AllPlacements($pagination: PaginationInput, $sort: PlacementSortInput) {
+  allPlacements(pagination: $pagination, sort: $sort) {
+    totalCount
+    edges {
+      node {
+        id
+        name
+        createdAt
+        updatedAt
+        publisher {
+          name
+        }
+      }
+      cursor
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}

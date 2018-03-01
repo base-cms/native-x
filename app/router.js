@@ -20,7 +20,7 @@ Router.map(function() {
     this.route('edit', { path: ':id' });
   })
 
-  const listableModels = ['user', 'publisher', 'placement', 'schedule'];
+  const listableModels = [ 'placement', 'publisher', 'template', 'schedule', 'user' ];
   listableModels.forEach(model => {
     this.route(model, function() {
       this.route('create', { path: 'new' });

@@ -3,7 +3,12 @@
     <h3 class="mb-0 float-left">
       Modify {{ model.name }}
     </h3>
-    {{#-bs/button "danger" class="float-right" size="small" outline=true click=(route-action 'hardDelete' model 'placement.index')}}{{-ion 'android-close'}} Delete{{/-bs/button}}
+    {{#-bs/button 'success' class="float-right" size="small" outline=true click=(route-action 'update' model 'placement') disabled=(eq model.canSave false)}}
+      {{-ion 'checkmark-round'}} Save
+    {{/-bs/button}}
+    {{#-bs/button "danger"  class="float-right mr-1" size="small" outline=true click=(route-action 'hardDelete' model 'placement.index')}}
+      {{-ion 'android-close'}} Delete
+    {{/-bs/button}}
   </div>
 </div>
 <hr>
