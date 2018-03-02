@@ -1,27 +1,9 @@
-import Controller from '@ember/controller';
+import Paginable from '../-paginable';
 
-export default Controller.extend({
-  /**
-   * Query params
-   */
-  queryParams: null,
-  first: 5,
-  after: null,
-  ascending: false,
-  sortBy: null,
-
-  /**
-   * Pagination
-   */
-  totalCount: 0,
-  hasNextPage: false,
-  endCursor: null,
-
-  // Sort options are specific to the model in question.
-  sortOptions: null,
-
+export default Paginable.extend({
   init() {
     this.set('queryParams', ['first', 'after', 'sortBy', 'ascending']);
+    // Sort options are specific to the model in question.
     this.set('sortOptions', [
       { key: null, label: 'Created' },
       { key: 'updatedAt', label: 'Updated' },
@@ -29,5 +11,4 @@ export default Controller.extend({
     ]);
     this._super(...arguments);
   },
-
 });
