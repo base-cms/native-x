@@ -1,0 +1,17 @@
+<div class="row">
+  <div class="col">
+    <h3 class="mb-0 float-left">
+      New Template
+    </h3>
+    {{#-bs/button 'success' class="float-right" size="small" outline=true click=(route-action 'create' model) disabled=(eq model.canSave false)}}
+      {{-ion 'checkmark-round'}} Create
+    {{/-bs/button}}
+    {{#-bs/button "muted"  class="float-right mr-1" size="small" outline=true click=(route-action 'linkTo' 'template.index')}}
+      {{-ion 'android-close'}} Cancel
+    {{/-bs/button}}
+  </div>
+</div>
+<hr>
+
+{{partial "template/form"}}
+
