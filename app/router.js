@@ -20,16 +20,24 @@ Router.map(function() {
     this.route('edit', { path: ':id' });
   })
 
-  const listableModels = ['user', 'publisher', 'placement', 'schedule'];
-  listableModels.forEach(model => {
-    this.route(model, function() {
-      this.route('create', { path: 'new' });
-      this.route('edit', { path: '/:id/edit' });
-    })
+  this.route('placement', function() {
+    this.route('create', { path: 'new' });
+    this.route('edit', { path: ':id' });
+  })
+
+  this.route('publisher', function() {
+    this.route('create', { path: 'new' });
+    this.route('edit', { path: ':id' });
+  })
+
+  this.route('template', function() {
+    this.route('create', { path: 'new' });
+    this.route('edit', { path: ':id' });
   })
 
   this.route('login');
   this.route('logout');
+  this.route('user-settings');
   this.route('reports');
   this.route('about');
 });

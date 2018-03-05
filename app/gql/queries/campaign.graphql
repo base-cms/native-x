@@ -6,14 +6,16 @@ query campaign($input: ModelIdInput!) {
       id
       name
     }
+    url
     status
     creatives {
       id
-      name
-      url
       title
       teaser
-      image
+      image {
+        id
+        src
+      }
     }
   }
 }

@@ -16,8 +16,8 @@ export default Component.extend(ComponentQueryManager, {
 
   actions: {
     add() {
-      const { id } = this.get('campaign');
-      const variables = { input: { cid: id } };
+      const campaignId = this.get('campaign').id;
+      const variables = { input: { campaignId } };
       const resultKey = 'addCampaignCreative';
       // console.warn('campaign-creatives.add()', { mutation, variables }, resultKey);
       return this.apollo.mutate({ mutation, variables }, resultKey)

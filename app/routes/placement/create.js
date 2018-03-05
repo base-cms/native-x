@@ -1,7 +1,27 @@
-import ListRoute from '../-list-route';
+import Route from '@ember/routing/route';
+import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
+import RouteQueryManager from 'ember-apollo-client/mixins/route-query-manager';
 
-export default ListRoute.extend({
+import mutation from 'fortnight/gql/mutations/create-placement';
+
+export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
+
   model() {
-    return this.store.createRecord('placement');
+    return { name: '' };
   },
-});
+  actions: {
+    create({ name, publisher }) {
+      const resultKey = 'createPlacement';
+      if (!publisher) {
+        return this.get('errorProcessor').show(new Error('You must specify a publisher.'));
+      }
+      const publisherId = publisher.id;
+      const payload = { name, publisherId };
+      const variables = { input: { payload } };
+      return this.get('apollo').mutate({ mutation, variables }, resultKey)
+        .then(response => this.transitionTo('placement.edit', response.id))
+        .catch(e => this.get('errorProcessor').show(e))
+      ;
+    }
+  }
+})

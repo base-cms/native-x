@@ -1,0 +1,10 @@
+mutation CreateTemplate($input: CreateTemplateInput!) {
+  createTemplate(input: $input) {
+    id
+    name
+    html
+    fallback
+    createdAt
+    updatedAt
+  }
+}

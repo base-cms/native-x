@@ -8,11 +8,9 @@ import currentUser from 'fortnight/gql/queries/current-user';
 const { Promise } = RSVP;
 
 export default Service.extend({
-  store: inject(),
   session: inject(),
   apollo: inject(),
   loading: inject(),
-  query: inject('model-query'),
 
   /**
    * The Ember data user model.

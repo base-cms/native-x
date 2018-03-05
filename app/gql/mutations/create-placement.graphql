@@ -1,0 +1,12 @@
+mutation CreatePlacement($input: CreatePlacementInput!) {
+  createPlacement(input: $input) {
+    id
+    name
+    publisher {
+      id
+      name
+    }
+    createdAt
+    updatedAt
+  }
+}

@@ -11,11 +11,21 @@
   <div class="col">
     <div class="form-group">
       <label for="name">Advertiser</label>
-      {{#unless model.advertiser.id}}
-        {{input type="text" value=model.advertiserId class="form-control" id="advertiser" placeholder="Advertiser"}}
-      {{else}}
-        {{input type="text" readonly=true class="form-control-plaintext" value=model.advertiser.name}}
-      {{/unless}}
+      {{autocomplete-single
+        placeholder="Select an advertiser"
+        type="advertiser"
+        selected=model.advertiser
+        onSelect=(action (mut model.advertiser))
+      }}
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <div class="form-group">
+      <label for="name">URL</label>
+      {{input type="text" value=model.url class="form-control" id="url" placeholder="URL"}}
     </div>
   </div>
 </div>

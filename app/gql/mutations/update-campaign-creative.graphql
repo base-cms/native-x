@@ -1,10 +1,11 @@
-mutation updateCampaignCreative($input: UpdateCampaignCreativeInput!) {
+mutation UpdateCampaignCreative($input: UpdateCampaignCreativeInput!) {
 	updateCampaignCreative(input: $input) {
-    id
-		cid
-		name
-		url
+		id
 		title
 		teaser
+		image {
+			id
+			src
+		}
 	}
 }
