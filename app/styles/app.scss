@@ -1,7 +1,8 @@
-@import url('https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css');
-@import "_variables.scss";
+@import "node_modules/bootswatch/dist/flatly/variables";
+@import "node_modules/bootstrap/scss/bootstrap";
+@import "node_modules/ionicons/css/ionicons";
+@import "node_modules/bootswatch/dist/flatly/bootswatch";
 @import "_loading.scss";
-@import "ember-cli-bootstrap-4/bootstrap";
 
 .icon {
   display: inline-block;
