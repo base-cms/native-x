@@ -8,7 +8,7 @@ Include the following Javascript before the closing `<head>` tag on all pages yo
 ```html
 <html>
   <head>
-    <script src="https://fortnight.as3.io/lib/fortnight.min.js"></script>
+    <script src="https://fortnight.as3.io/lib/0.1.0/fortnight.min.js"></script>
   </head>
 </html>
 ```
