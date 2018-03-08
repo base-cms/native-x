@@ -15,14 +15,4 @@ export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
     return this.apollo.watchQuery({ query, variables }, resultKey);
   },
 
-  actions: {
-    update({ id, name }) {
-      const resultKey = 'updateCampaign';
-      const variables = { input: { id, name } };
-      return this.get('apollo').mutate({ mutation, variables }, resultKey)
-        .then(() => this.refresh())
-        .catch(e => this.get('errorProcessor').show(e))
-      ;
-    }
-  }
 })

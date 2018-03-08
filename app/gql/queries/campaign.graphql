@@ -8,6 +8,18 @@ query campaign($input: ModelIdInput!) {
     }
     url
     status
+    criteria {
+      start
+      end
+      placements {
+        id
+        name
+      }
+      kvs {
+        key
+        value
+      }
+    }
     creatives {
       id
       title

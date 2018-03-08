@@ -7,9 +7,14 @@ export default Component.extend({
   key: '',
   val: '',
 
+  init() {
+    this.set('values', this.get('values') || []);
+    this._super(...arguments);
+  },
+
   actions: {
     add() {
-      this.get('values').createFragment({
+      this.get('values').pushObject({
         key: this.get('key'),
         val: this.get('val'),
       });
@@ -17,7 +22,7 @@ export default Component.extend({
       this.set('val', '');
     },
     remove(kv) {
-      this.get('values').removeFragment(kv);
+      this.get('values').removeObject(kv);
     }
   }
 

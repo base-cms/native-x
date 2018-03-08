@@ -1,0 +1,15 @@
+<div class="row">
+  <div class="col">
+    {{#each model.creatives as |creative|}}
+      {{campaign-creative campaignId=model.id creative=creative onRemove='onRemove'}}
+    {{/each}}
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+      <button type="button" class="float-right btn btn-outline-primary btn-sm" {{action "add"}}>
+        {{-ion 'android-add'}} Add
+      </button>
+  </div>
+</div>

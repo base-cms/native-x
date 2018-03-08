@@ -1,0 +1,14 @@
+mutation SetCampaignCriteria($input: SetCampaignCriteriaInput!) {
+  setCampaignCriteria(input: $input) {
+    start
+    end
+    placements {
+      id
+      name
+    }
+    kvs {
+      key
+      value
+    }
+  }
+}
