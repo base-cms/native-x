@@ -6,6 +6,9 @@ query searchPlacements($pagination: PaginationInput, $search: PlacementSearchInp
       node {
         id
         name
+        publisher {
+          name
+        }
       }
       cursor
     }

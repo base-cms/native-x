@@ -14,6 +14,9 @@ query campaign($input: ModelIdInput!) {
       placements {
         id
         name
+        publisher {
+          name
+        }
       }
       kvs {
         key

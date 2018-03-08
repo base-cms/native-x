@@ -4,5 +4,9 @@
   placeholder=placeholder
   onchange=(action (mut selected))
   as |model|}}
-    {{model.name}}
+  {{#if (has-block)}}
+    {{ yield model }}
+  {{else}}
+    {{ model.name }}
+  {{/if}}
 {{/power-select-multiple}}

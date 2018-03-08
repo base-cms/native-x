@@ -16,12 +16,15 @@
   <div class="row">
     <div class="form-group col">
       <label for="placements">Placements</label>
-        {{autocomplete-multiple
-          placeholder="Select a placement"
-          type="placement"
-          selected=model.placements
-          onSelect=(action (mut model.placements))
-        }}
+      {{#autocomplete-multiple
+        placeholder="Select an placement"
+        type="placement"
+        selected=model.placements
+        onSelect=(action (mut model.placements))
+        as |model|
+      }}
+        {{ model.name }} ({{ model.publisher.name }})
+      {{/autocomplete-multiple}}
     </div>
   </div>
 
