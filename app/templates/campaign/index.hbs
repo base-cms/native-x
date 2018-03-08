@@ -3,9 +3,9 @@
     <h3 class="mb-0">
       Campaigns
       <div class="float-right">
-        {{#link-to 'campaign.create' class='btn btn-outline-primary btn-sm'}}
-          {{-ion 'android-create'}} Create
-        {{/link-to}}
+        {{#-bs/button "primary"  class="float-right mr-1" size="small" outline=true click=(route-action "linkTo" "campaign.create")}}
+          {{-ion "android-create"}} Create
+        {{/-bs/button}}
       </div>
     </h3>
   </div>

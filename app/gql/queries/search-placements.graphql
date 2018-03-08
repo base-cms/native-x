@@ -1,0 +1,20 @@
+
+query searchPlacements($pagination: PaginationInput, $search: PlacementSearchInput!) {
+  searchPlacements(pagination: $pagination, search: $search) {
+    totalCount
+    edges {
+      node {
+        id
+        name
+        publisher {
+          name
+        }
+      }
+      cursor
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}

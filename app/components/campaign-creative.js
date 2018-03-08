@@ -10,11 +10,15 @@ export default Component.extend(ComponentQueryManager, {
 
   errorProcessor: inject(),
 
+  classNames: [ 'card', 'mh-100' ],
+
   campaignId: null,
   creativeId: computed.reads('creative.id'),
   creative: null,
   onRemove: 'onRemove',
   onUpdate: 'onUpdate',
+
+  loading: false,
 
   id: null,
   name: null,
@@ -34,6 +38,7 @@ export default Component.extend(ComponentQueryManager, {
   init() {
     const { id, name, url, title, teaser, image } = this.get('creative');
     this.setProperties({ id, name, url, title, teaser, image });
+    this.set('image', this.get('image') || {});
     this._super(...arguments);
   },
 
@@ -60,6 +65,7 @@ export default Component.extend(ComponentQueryManager, {
 
   actions: {
     remove() {
+      this.set('loading', true);
       const campaignId = this.get('campaignId');
       const creativeId = this.get('creativeId');
       const mutation = RemoveMutation;
@@ -70,10 +76,12 @@ export default Component.extend(ComponentQueryManager, {
         // eslint-disable-next-line
         .then(() => this.sendAction(this.get('onRemove'), this.get('creative')))
         .catch(e => this.get('errorProcessor').show(e))
+        .then(() => this.set('loading', false))
       ;
     },
     update() {
       if (!this.get('canSave')) return;
+      this.set('loading', true);
       const { title, teaser } = this.getProperties(['title', 'teaser']);
       const campaignId = this.get('campaignId');
       const creativeId = this.get('creativeId');
@@ -85,6 +93,7 @@ export default Component.extend(ComponentQueryManager, {
       return this.apollo.mutate({ mutation, variables }, resultKey)
         // .then(() => this.sendAction(this.get('onUpdate')))
         .catch(e => this.get('errorProcessor').show(e))
+        .then(() => this.set('loading', false))
       ;
     },
   },

@@ -6,6 +6,13 @@ const Funnel = require('broccoli-funnel');
 module.exports = function(defaults) {
   let app = new EmberApp(defaults, {
     // Add options here
+    ace: {
+      modes: ['handlebars'],
+      themes: ['monokai'],
+      useSoftTabs: true,
+      tabSize: 2,
+      useWrapMode: false,
+    },
   });
 
   // Bootstrap JS and source maps.

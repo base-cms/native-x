@@ -1,14 +1,19 @@
 <div class="row">
   <div class="col">
-    <h3 class="mb-0 float-left">
-      Modify {{ model.name }}
+    <h3 class="mb-0">
+      Modify Advertiser
+      <div class="float-right">
+        {{#-bs/button "success" class="float-right" size="small" outline=true click=(route-action "update" model "advertiser") disabled=(eq canSave false)}}
+          {{-ion "checkmark-round"}} Save
+        {{/-bs/button}}
+        {{#-bs/button "danger"  class="float-right mr-1" size="small" outline=true click=(route-action "hardDelete" model "advertiser.index")}}
+          {{-ion "android-close"}} Delete
+        {{/-bs/button}}
+        {{#-bs/button "secondary"  class="float-right mr-1" size="small" outline=true click=(route-action "linkTo" "advertiser.index")}}
+          {{-ion "android-arrow-back"}} Back
+        {{/-bs/button}}
+      </div>
     </h3>
-    {{#-bs/button 'success' class="float-right" size="small" outline=true click=(route-action 'update' model 'advertiser') disabled=(eq model.canSave false)}}
-      {{-ion 'checkmark-round'}} Save
-    {{/-bs/button}}
-    {{#-bs/button "danger"  class="float-right mr-1" size="small" outline=true click=(route-action 'hardDelete' model 'advertiser.index')}}
-      {{-ion 'android-close'}} Delete
-    {{/-bs/button}}
   </div>
 </div>
 <hr>
@@ -19,11 +24,6 @@
   <div class="col">
     <h4 class="mb-0">
       Campaigns
-      <div class="float-right">
-        {{#link-to 'campaign.create.advertiser' model.id class='btn btn-outline-primary btn-sm'}}
-          {{-ion 'android-create'}} Create
-        {{/link-to}}
-      </div>
     </h4>
   </div>
 </div>

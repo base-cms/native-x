@@ -9,11 +9,13 @@ export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
   errorProcessor: inject(),
 
   model() {
-    return { name: '' };
+    return {};
   },
   actions: {
-    create({ name, advertiserId, url }) {
-      const variables = { input: { payload: { url, name, advertiserId } } };
+    create({ name, advertiser, url }) {
+      const advertiserId = advertiser.id;
+      const payload = { url, name, advertiserId };
+      const variables = { input: { payload } };
       const resultKey = 'createCampaign';
       return this.get('apollo').mutate({ mutation, variables }, resultKey)
         .then(response => this.transitionTo('campaign.edit', response.id))

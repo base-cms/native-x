@@ -1,23 +1,15 @@
 import Component from '@ember/component';
+import { later } from '@ember/runloop';
 
 export default Component.extend({
-
   values: null,
-
-  key: '',
-  val: '',
-
   actions: {
     add() {
-      this.get('values').createFragment({
-        key: this.get('key'),
-        val: this.get('val'),
-      });
-      this.set('key', '');
-      this.set('val', '');
+      this.get('values').pushObject({ key: '', value: '' });
+      later(this, () => this.$('input.key').last().focus())
     },
     remove(kv) {
-      this.get('values').removeFragment(kv);
+      this.get('values').removeObject(kv);
     }
   }
 
