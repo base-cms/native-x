@@ -1,0 +1,34 @@
+{
+  "name": "fortnight-js",
+  "version": "0.1.0",
+  "description": "Fortnight native ad delivery library",
+  "main": "dist/fortnight.min.js",
+  "repository": "https://github.com/cygnusb2b/fortnight-js.git",
+  "author": "Jacob Bare <jacob@limit0.io>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "webpack-dev-server --mode=development --env.dev --hot --inline",
+    "build": "NODE_ENV=production webpack --mode=production --env.prod -p",
+    "test": "echo \"Error: no test specified\" && exit 0",
+    "lint": "./node_modules/.bin/eslint src/**/*.js"
+  },
+  "dependencies": {
+    "in-view": "^0.6.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.6.1",
+    "eslint": "^4.18.2",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-loader": "^2.0.0",
+    "eslint-plugin-import": "^2.9.0",
+    "html-webpack-plugin": "^3.0.6",
+    "uglifyjs-webpack-plugin": "^1.2.2",
+    "webpack": "^4.1.1",
+    "webpack-cli": "^2.0.10",
+    "webpack-config-utils": "^2.3.0",
+    "webpack-dev-server": "^3.1.0"
+  }
+}
