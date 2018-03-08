@@ -2,8 +2,49 @@
 <html>
   <head>
     <title>FortnightJS Examples</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script>
+      const loadMore = (withBeacon) => {
+        const now = Date.now();
+        const p = document.createElement('p');
+        if (withBeacon) {
+          p.setAttribute('data-fortnight-beacon', 'https://picsum.photos/10/10/?random&' + now);
+          p.setAttribute('data-fortnight-view', 'pending');
+        }
+        p.textContent = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id facilisis urna.';
+        document.getElementById('list').appendChild(p);
+      };
+    </script>
   </head>
   <body>
-    <h1>FortnightJS Examples</h1>
+    <nav class="navbar navbar-dark bg-primary sticky-top">
+      <a class="navbar-brand" href="#">FortnightJS Example</a>
+    </nav>
+    <div class="container my-3">
+      <div class="row">
+        <div id="list" class="col">
+          <h1>Aenean Eget Dui Et</h1>
+          <h3>Nulla ultricies tincidunt lacus, id gravida sem volutpat at. Proin quam lectus, luctus vitae maximus et, ornare rutrum justo.</h3>
+          <hr>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed id facilisis urna. Vivamus nec nisl non arcu viverra efficitur. Cras ultricies nisi nec elit ultrices, et ornare arcu lacinia. Ut a mi lacinia, feugiat magna ut, pretium ante. Proin a varius ex, in accumsan ipsum. Cras tempus risus nec mauris venenatis imperdiet. Aliquam finibus ligula nec efficitur euismod. Mauris vehicula nec nunc ac volutpat.</p>
+          <p>Maecenas a suscipit nisl. Praesent bibendum felis sit amet dignissim porttitor. Nulla interdum felis mattis libero mollis, in tincidunt orci imperdiet. Proin semper sodales dolor consequat fringilla. Sed lacinia aliquam est, sit amet gravida elit ultrices in. In hendrerit magna ex, a volutpat nulla sodales in. Maecenas dictum leo ac tincidunt mattis. Etiam pharetra bibendum ipsum, ultricies commodo sem rutrum a. Duis sed porttitor diam.</p>
+          <p>Suspendisse lacus purus, luctus eget felis faucibus, sagittis fringilla dolor. Curabitur quis placerat elit. Etiam quis lectus sit amet nisi pharetra dictum in ut odio. Mauris blandit vulputate imperdiet. Aenean viverra elit turpis. Proin lorem metus, maximus ac sodales in, faucibus et eros. Aenean lacinia hendrerit leo, et luctus purus gravida vel. Proin quis sapien orci. Praesent fermentum metus sagittis aliquam auctor. Suspendisse congue elementum lobortis.</p>
+          <p>Maecenas placerat, augue a luctus commodo, augue tortor consequat odio, sit amet aliquam sem ipsum ac mi. Vestibulum porta nulla feugiat lorem tempor, ac porttitor quam fermentum. Integer dignissim lacinia lectus volutpat consequat. Sed euismod aliquet est, sit amet commodo purus ultrices eget. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam imperdiet euismod pharetra. Proin elementum nulla id enim venenatis, in ornare lacus imperdiet. Pellentesque sagittis nisl cursus nisi finibus fermentum. Maecenas eget tempor sapien, a tempor ex. Quisque vehicula, libero vitae blandit ullamcorper, magna ipsum cursus dolor, fringilla sollicitudin augue diam dapibus ex.</p>
+          <p data-fortnight-view="pending" data-fortnight-beacon="https://picsum.photos/10/10/?random"><strong>Curabitur vitae venenatis lectus.</strong> Suspendisse volutpat, justo et pellentesque aliquam, velit nulla vestibulum ante, vitae rutrum velit massa id mi. Maecenas volutpat lobortis tellus non imperdiet. Vivamus viverra massa vel justo ultricies, in elementum est viverra. Maecenas vel lorem eget sem aliquet convallis. Mauris rutrum euismod mollis. Aenean ut orci in orci luctus tristique. Nulla fringilla luctus est nec placerat. Etiam sed orci vel lorem condimentum faucibus.</p>
+          <p>Donec quis urna in nisl egestas blandit. Pellentesque sagittis metus ipsum, non pretium ligula pellentesque id. Fusce pulvinar ex nec ex hendrerit tempus. In vel volutpat libero. Vivamus et turpis erat. Nullam volutpat posuere elit sit amet egestas. Nulla porttitor sed velit nec tristique. Proin nec hendrerit justo. Nullam vel consequat ante. Cras ac egestas ligula. Aliquam molestie felis non vulputate suscipit. Nunc congue pretium ante ut eleifend.</p>
+          <p>Sed ut lectus id nisi auctor facilisis non vitae ligula. Nullam imperdiet enim ut semper pretium. Sed pulvinar urna vitae ex blandit gravida. Nulla libero lorem, mollis id finibus sed, sodales eget enim. Praesent condimentum, risus id posuere bibendum, metus metus egestas magna, consequat sollicitudin lectus ante sed quam. Aenean vehicula mauris sed enim elementum vestibulum. Nunc scelerisque vel odio at dapibus. Cras tincidunt convallis justo, et tristique lacus eleifend non. Sed porta diam sit amet varius malesuada. Integer vel vulputate elit, nec scelerisque nulla. Maecenas dictum porta lectus eu pretium. Duis et velit non neque molestie pellentesque vitae ac metus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
+          <p>Aenean ut leo nec lorem elementum suscipit ut nec lorem. Aenean mattis nibh lectus, at facilisis ex tempor et. Sed dolor ex, consectetur ut turpis vehicula, mattis aliquam tortor. Sed consectetur orci risus, hendrerit bibendum felis iaculis hendrerit. Quisque ullamcorper eleifend magna, vitae congue dolor. Donec suscipit justo quis sollicitudin facilisis. Curabitur eu dapibus nunc, in semper dolor. Ut ut placerat leo. Vestibulum blandit, augue vitae placerat tristique, diam erat auctor massa, quis faucibus ipsum libero vel mauris.</p>
+          <p>In vehicula dui sed eros tempus, et iaculis arcu mattis. Aenean quam enim, porta at commodo eget, pellentesque a ex. Vestibulum dapibus suscipit nibh, quis volutpat ex mollis at. Sed facilisis vel nisl sit amet volutpat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Morbi accumsan, velit sagittis faucibus hendrerit, leo lectus cursus nibh, eu rutrum nunc mi non arcu. Aenean enim nisi, auctor vitae ante sit amet, luctus fringilla ligula. Etiam ac tempor turpis. Morbi iaculis sagittis nisi et pulvinar. Nam sodales erat nec nunc eleifend sollicitudin. Mauris iaculis tortor at velit tincidunt vehicula quis quis magna.</p>
+          <p data-fortnight-view="pending" data-fortnight-beacon="https://picsum.photos/10/10/?random"><strong>Nam in rutrum dolor, non egestas odio.</strong> Nullam eu mi elit. Cras porta imperdiet odio, quis pharetra enim lobortis eu. Aliquam id tempor tellus. Ut non tempor lectus. Ut condimentum risus at neque interdum varius. In at placerat ipsum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Proin pretium eu tortor a dapibus. Ut ut consectetur lacus, at tincidunt massa. Pellentesque lectus libero, eleifend eu feugiat lacinia, venenatis et sem. Nulla eget turpis in libero vestibulum fringilla. Ut eleifend velit velit, ut imperdiet nunc efficitur sit amet. Vivamus massa lacus, mollis et quam nec, consequat pharetra dolor. Vestibulum ac tellus eu urna posuere faucibus ac eget risus. Duis fermentum turpis a erat aliquam dignissim.</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <button onclick="javascript:loadMore(1)" class="btn btn-primary">Load More (With Beacon)</button>
+          <button onclick="javascript:loadMore(0)" class="btn btn-secondary">Load More (Without Beacon)</button>
+        </div>
+      </div>
+    </div>
+
   </body>
 </html>

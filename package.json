@@ -14,7 +14,8 @@
     "lint": "./node_modules/.bin/eslint src/**/*.js"
   },
   "dependencies": {
-    "in-view": "^0.6.1"
+    "element-in-view": "^0.1.0",
+    "lodash.throttle": "^4.1.1"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
