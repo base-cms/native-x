@@ -1,15 +1,21 @@
-<div class="row">
-  <div class="col">
-    {{#each model.creatives as |creative|}}
+{{#each groups as |group|}}
+<div class="row mb-3">
+  {{#each group as |creative|}}
+    <div class="col-4">
       {{campaign-creative campaignId=model.id creative=creative onRemove='onRemove'}}
-    {{/each}}
-  </div>
+    </div>
+  {{/each}}
 </div>
+{{/each}}
 
 <div class="row">
-  <div class="col">
-      <button type="button" class="float-right btn btn-outline-primary btn-sm" {{action "add"}}>
-        {{-ion 'android-add'}} Add
-      </button>
+  <div class="form-group col">
+    <div class="row align-items-end">
+      <div class="form-group col-2 offset-10 text-right">
+        <button type="submit" class="btn btn-primary btn-block" {{action (route-action "add")}}>
+          {{-ion "android-add"}} Add
+        </button>
+      </div>
+    </div>
   </div>
 </div>

@@ -10,6 +10,8 @@ export default Component.extend(ComponentQueryManager, {
 
   errorProcessor: inject(),
 
+  classNames: [ 'card', 'mh-100' ],
+
   campaignId: null,
   creativeId: computed.reads('creative.id'),
   creative: null,

@@ -1,66 +1,63 @@
-<fieldset class="mb-1">
-  <legend class="text-muted small">{{id}}</legend>
 
-  {{!-- <div class="form-row mb-1">
-    <div class="form-group col-md-6">
-      <label>Name</label>
-      {{input type="text" class="form-control form-control-sm" value=name placeholder="e.g, Something Cool"}}
-      <small id="nameHelpBlock" class="form-text text-muted">
-        A memorable name that identifies this creative in this interface, and in reports.
-      </small>
-    </div>
-    <div class="form-group col-md-6">
-      <label>Link URL</label>
-      {{input type="text" class="form-control form-control-sm" value=url placeholder="https://my.cool.tld/track"}}
-      <small id="urlHelpBlock" class="form-text text-muted">
-        The external URL that visitors will be directed to after clicking your link.
-      </small>
-    </div>
-  </div> --}}
+  <img class="card-img-top" src="{{image.src}}" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">{{ title }}</h5>
 
-  <div class="form-row mb-1">
-    <div class="form-group col-md-6">
+    <div class="form-group">
       <label>Title Text</label>
       {{input type="text" class="form-control form-control-sm" value=title placeholder="Click here for awesome"}}
       <small id="titleHelpBlock" class="form-text text-muted">
         The clickable text that will display in the advertisement. This should be 8-20 characters long, and must be less than 40.
       </small>
     </div>
-    <div class="form-group col-md-6">
+    <div class="form-group">
       <label>Teaser</label>
       {{input type="text" class="form-control form-control-sm" value=teaser placeholder="A short description of your awesome link"}}
       <small id="titleHelpBlock" class="form-text text-muted">
         A short description for your link. This should be 40-60 characters long, and must be less than 140.
       </small>
     </div>
-  </div>
 
-  <div class="form-row mb-1">
-    <div class="form-group col-md-6">
+    <div class="form-group">
       <label>Image URL</label>
       {{input type="text" class="form-control form-control-sm" value=image.src placeholder="https://my.domain/image.jpg"}}
       <small id="titleHelpBlock" class="form-text text-muted">
         A fully qualified url to the image that will be displayed. This image must be loaded via SSL, and should be within [IMAGE DIMENSIONS RANGE].
       </small>
     </div>
-    <div class="form-group col-md-6">
-      <label>Image Preview</label>
-      <img class="img-fluid" src="{{image.src}}" alt="Image Preview" />
-      <small id="titleHelpBlock" class="form-text text-muted">
-        A preview of your creative
+
+  {{!--
+    <div class="form-group">
+      <label>Name</label>
+      {{input type="text" class="form-control form-control-sm" value=name placeholder="e.g, Something Cool"}}
+      <small id="nameHelpBlock" class="form-text text-muted">
+        A memorable name that identifies this creative in this interface, and in reports.
       </small>
     </div>
-  </div>
-
-  <div class="form-row">
-    <div class="col">
-      {{#-bs/button "success" class="float-right" size="small" outline=true click=(action "update") disabled=disableSave}}
-        {{-ion "checkmark-round"}} Save
-      {{/-bs/button}}
-      {{#-bs/button "danger"  class="float-right mr-1" size="small" outline=true click=(action "remove")}}
-        {{-ion "android-close"}} Delete
-      {{/-bs/button}}
+    <div class="form-group">
+      <label>Link URL</label>
+      {{input type="text" class="form-control form-control-sm" value=url placeholder="https://my.cool.tld/track"}}
+      <small id="urlHelpBlock" class="form-text text-muted">
+        The external URL that visitors will be directed to after clicking your link.
+      </small>
     </div>
-  </div>
+  --}}
 
-</fieldset>
+
+    </div>
+
+    <div class="card-footer text-right">
+      <div class="col">
+        {{#if loading}}
+        LOADING
+        {{else}}
+        {{#-bs/button "danger"  class=" mr-1" size="small" outline=true click=(action "remove")}}
+          {{-ion "android-close"}} Delete
+        {{/-bs/button}}
+        {{#-bs/button "success" class="" size="small" outline=true click=(action "update") disabled=disableSave}}
+          {{-ion "checkmark-round"}} Save
+        {{/-bs/button}}
+        {{/if}}
+      </div>
+    </div>
+
