@@ -14,3 +14,13 @@ Include the following Javascript before the closing `<head>` tag on all pages yo
 ```
 ### Initialization
 Once the library source has been included, you can access the library via the `Fortnight` global window object.
+
+## Beacon In-View Tracking
+A becon element _must_ cotain two data attributes:
+ - `data-fortnight-view` set to `pending`
+ - `data-fortnight-beacon` set to the fully-qualified in-view image URL
+
+For example:
+```html
+<img src="https://fortnight.as3.io/t/{token}/load.gif" data-fortnight-view="pending" data-fortnight-beacon="https://fortnight.as3.io/t/{token}/view.gif">
+```
