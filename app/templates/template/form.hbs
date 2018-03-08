@@ -11,7 +11,16 @@
   <div class="col">
     <div class="form-group">
       <label for="name">Template</label>
-      {{textarea class="form-control" value=model.html}}
+      {{ember-ace
+        lines=20
+        value=model.html
+        theme="ace/theme/monokai"
+        mode="ace/mode/handlebars"
+        useSoftTabs=true
+        tabSize=2
+        useWrapMode=false
+        update=(action (mut model.html))
+      }}
     </div>
   </div>
 </div>
@@ -20,7 +29,16 @@
   <div class="col">
     <div class="form-group">
       <label for="name">Fallback Template</label>
-      {{textarea class="form-control" value=model.fallback}}
+      {{ember-ace
+        lines=20
+        value=model.fallback
+        theme="ace/theme/monokai"
+        mode="ace/mode/handlebars"
+        useSoftTabs=true
+        tabSize=2
+        useWrapMode=false
+        update=(action (mut model.fallback))
+      }}
     </div>
   </div>
 </div>
