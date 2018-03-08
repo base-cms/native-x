@@ -1,7 +1,7 @@
 {{#each groups as |group|}}
 <div class="row mb-3">
   {{#each group as |creative|}}
-    <div class="col-4">
+    <div class="col-lg-4 mb-3">
       {{campaign-creative campaignId=model.id creative=creative onRemove='onRemove'}}
     </div>
   {{/each}}

@@ -2,8 +2,6 @@ import Route from '@ember/routing/route';
 import RouteQueryManager from 'ember-apollo-client/mixins/route-query-manager';
 import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 import { inject } from '@ember/service';
-import { set } from '@ember/object';
-import moment from 'moment';
 
 import mutation from 'fortnight/gql/mutations/create-campaign';
 

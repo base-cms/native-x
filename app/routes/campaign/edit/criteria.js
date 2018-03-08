@@ -4,6 +4,7 @@ import RouteQueryManager from 'ember-apollo-client/mixins/route-query-manager';
 import { inject } from '@ember/service';
 import { get, set } from '@ember/object';
 import { isPresent } from '@ember/utils';
+import moment from 'moment';
 
 import mutation from 'fortnight/gql/mutations/set-campaign-criteria';
 
