@@ -13,7 +13,8 @@ export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
       const advertiserId = advertiser.id;
       const payload = { name, url, status, advertiserId };
       const variables = { input: { id, payload } };
-      return this.get('apollo').mutate({ mutation, variables }, resultKey)
+      const refetchQueries = ['campaign', 'allCampaigns'];
+      return this.apollo.mutate({ mutation, variables, refetchQueries }, resultKey)
         .then(() => this.refresh())
         .catch(e => this.get('errorProcessor').show(e))
       ;

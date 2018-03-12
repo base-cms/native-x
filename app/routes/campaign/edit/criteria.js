@@ -29,15 +29,18 @@ export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
   actions: {
     update({ criteria }) {
       const { start, end, kvs, placements } = criteria;
+      const keyValues = kvs.map(({ key, value }) => {
+        return { key, value };
+      });
       const campaignId = this.get('campaignId');
       const placementIds = placements.map(p => p.id);
       const startDate = moment(start).format('x');
       const endDate = isPresent(end) ? moment(end).format('x') : null;
-      const payload = { start: startDate, end: endDate, placementIds, kvs };
+      const payload = { start: startDate, end: endDate, placementIds, kvs: keyValues };
       const variables = { input: { campaignId, payload } };
       const resultKey = 'setCampaignCriteria';
-      return this.get('apollo').mutate({ mutation, variables }, resultKey)
-        .then(() => this.refresh())
+      const refetchQueries = ['campaign'];
+      return this.apollo.mutate({ mutation, variables, refetchQueries }, resultKey)
         .catch(e => this.get('errorProcessor').show(e))
       ;
     }

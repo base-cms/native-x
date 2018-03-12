@@ -1,0 +1,16 @@
+
+<div class="row">
+  <div class="focal-point-wrapper col">
+    {{campaign-creative/image-focal-point src=src on-click=(action "setFocalPoint")}}
+    {{#if isFocalPointModified}}
+
+    {{#-bs/button "danger" class="float-right t-0 mr-3 r-0 position-absolute" title="Clear Focal Point" size="small" click=(action "clearFocalPoint")}}
+      {{-ion 'close'}}
+    {{/-bs/button}}
+
+    {{/if}}
+    <small class="position-absolute b-0 l-0 r-0 mb-1 text-light text-center pe-none background-trans-black">
+      Click in the image to set the focal point
+    </small>
+  </div>
+</div>

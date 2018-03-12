@@ -9,20 +9,17 @@ export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
 
   actions: {
     update() {
-      this.get('notify').info('Changes are saved automatically on this screen.')
+      this.get('notify').info('Changes to creatives are saved using the buttons below.')
     },
     add() {
       const model = this.modelFor('campaign.edit');
       const campaignId = model.get('id');
       const variables = { input: { campaignId } };
       const resultKey = 'addCampaignCreative';
-      return this.apollo.mutate({ mutation, variables }, resultKey)
-        .then(r => model.get('creatives').pushObject(r))
+      const refetchQueries = ['campaign'];
+      return this.apollo.mutate({ mutation, variables, refetchQueries }, resultKey)
         .catch(e => this.get('errorProcessor').show(e))
       ;
     },
-    onRemove(creative) {
-      this.modelFor('campaign.edit').get('creatives').removeObject(creative);
-    }
   }
 })

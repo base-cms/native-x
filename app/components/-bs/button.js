@@ -5,7 +5,7 @@ const ButtonComponent = Component.extend({
   tagName: 'button',
   classNames: ['btn'],
   classNameBindings: ['_typeClass', 'role', '_sizeClass', '_blockClass', '_disabledClass'],
-  attributeBindings: ['disabled', 'disabled:aria-disabled', 'type', 'toggle:data-toggle'],
+  attributeBindings: ['disabled', 'disabled:aria-disabled', 'type', 'title', 'toggle:data-toggle'],
   role: 'button',
   type: 'button',
 

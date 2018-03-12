@@ -6,6 +6,10 @@ mutation UpdateCampaignCreative($input: UpdateCampaignCreativeInput!) {
 		image {
 			id
 			src
+			focalPoint {
+				x
+				y
+			}
 		}
 	}
 }
