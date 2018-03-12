@@ -11,8 +11,13 @@ const loadBeacon = (node) => {
     node.setAttribute(attr, 'sent');
     const src = node.getAttribute('data-fortnight-beacon');
     if (src) {
+      const a = document.createElement('a');
+      a.href = src;
+      const now = Date.now();
+      const qs = (a.search) ? `${a.search}&_=${now}` : `?_=${now}`;
+      a.search = qs;
       const img = new Image();
-      img.src = src;
+      img.src = a.href;
     }
   }
 };
