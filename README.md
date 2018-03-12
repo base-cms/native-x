@@ -8,7 +8,7 @@ This project requires [Docker Compose](https://docs.docker.com/compose/overview/
 1. Clone repository
 2. Override any applicable development environment variables (see [Environment Variables](#environment-variables) below)
 3. In the project root, run `yarn run start`
-4. The server is now accessible on `localhost:8105` (or whatever port you configure)
+4. The server is now accessible on `http://localhost:8105/manage/` (or whatever port you configure)
 
 ## Interactive Terminal
 You can load an interactive terminal for the app container via `yarn run terminal`. This will allow you to add, remove, or upgrade project dependencies using Yarn (among other things). Note: _the application instance must be running via `yarn run start` for the terminal to load._
