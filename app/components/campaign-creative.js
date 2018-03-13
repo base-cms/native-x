@@ -64,7 +64,7 @@ export default Component.extend(ComponentQueryManager, {
     const focalPoint = { x, y };
     const imageProps = [ 'filePath', 'fileSize', 'height', 'mimeType', 'src', 'width' ];
     const { filePath, fileSize, height, mimeType, src, width } = getProperties(image, imageProps);
-    if (!x || !y || !src) return null;
+    if (!src) return null;
     return { filePath, fileSize, focalPoint, height, mimeType, src, width };
   },
 
@@ -87,7 +87,7 @@ export default Component.extend(ComponentQueryManager, {
       const campaignId = this.get('campaignId');
       const creativeId = this.get('creativeId');
       const mutation = UpdateMutation;
-      let payload = { title, teaser };
+      let payload = { title, teaser, image };
       if (image) payload.image = image;
       const variables = { input: { campaignId, creativeId, payload } };
       const resultKey = 'updateCampaignCreative';
