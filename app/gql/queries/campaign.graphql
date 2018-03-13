@@ -30,6 +30,15 @@ query campaign($input: ModelIdInput!) {
       image {
         id
         src
+        fileSize
+        filePath
+        height
+        width
+        mimeType
+        focalPoint {
+          x
+          y
+        }
       }
     }
   }

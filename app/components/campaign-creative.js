@@ -1,6 +1,7 @@
 import Component from '@ember/component';
 import ComponentQueryManager from 'ember-apollo-client/mixins/component-query-manager';
-import { computed, get } from '@ember/object';
+import { computed, get, getProperties } from '@ember/object';
+import { copy } from '@ember/object/internals';
 import { inject } from '@ember/service';
 
 import RemoveMutation from 'fortnight/gql/mutations/remove-campaign-creative';
@@ -11,6 +12,7 @@ export default Component.extend(ComponentQueryManager, {
   errorProcessor: inject(),
 
   classNames: [ 'card', 'mh-100' ],
+  collapsed: true,
 
   campaignId: null,
   creativeId: computed.reads('creative.id'),
@@ -27,9 +29,22 @@ export default Component.extend(ComponentQueryManager, {
   teaser: null,
   image: null,
 
-  isModified: computed('id', 'name', 'title', 'url', 'teaser', 'image', 'creative', function() {
+  src: computed('image.{src,focalPoint.x,focalPoint.y}', function() {
+    const { src, focalPoint } = this.get('image');
+    const { x, y } = focalPoint || {};
+    if (!src) return 'https://via.placeholder.com/300x169?text=+';
+    return `${src}?w=300&h=169&crop=focalpoint&fit=crop&dpr=1&fp-x=${x}&fp-y=${y}`
+  }),
+
+  isModified: computed('{title,teaser,image.src}', 'image.focalPoint.{x,y}', 'creative', function() {
     const c = this.get('creative');
-    return [ 'id', 'name', 'title', 'url', 'teaser', 'image' ].some(k => this.get(k) !== get(c, k))
+    return [
+      'title',
+      'teaser',
+      'image.src',
+      'image.focalPoint.x',
+      'image.focalPoint.y'
+    ].some(k => this.get(k) !== get(c, k))
   }),
 
   canSave: computed.reads('isModified'),
@@ -37,64 +52,52 @@ export default Component.extend(ComponentQueryManager, {
 
   init() {
     const { id, name, url, title, teaser, image } = this.get('creative');
-    this.setProperties({ id, name, url, title, teaser, image });
-    this.set('image', this.get('image') || {});
+    this.setProperties({ id, name, url, title, teaser });
+    this.set('image', copy(image || {}));
+    if (!this.get('image.src')) this.set('collapsed', false);
     this._super(...arguments);
   },
 
-  /**
-   * Performs deep comparison of objects
-   * @param {*} v
-   * @param {*} w
-   * @return -1/0/1
-   */
-  // compareObjects(v, w) {
-  //   for (const p in v) {
-  //     if (!v.hasOwnProperty(p)) continue;
-  //     if (!w.hasOwnProperty(p)) return 1;
-  //     if (v[p] === w[p]) continue;
-  //     if (typeof(v[p]) !== 'object') return 1;
-  //     const c = compare(v[p], w[p]);
-  //     if (c) return c;
-  //   }
-  //   for (const p in w) {
-  //     if (w.hasOwnProperty(p) && !v.hasOwnProperty(p)) return -1;
-  //   }
-  //   return 0;
-  // },
+  getPayloadImage() {
+    const image = this.get('image') || {};
+    const { x, y } = this.get('image.focalPoint') || {};
+    const focalPoint = { x, y };
+    const imageProps = [ 'filePath', 'fileSize', 'height', 'mimeType', 'src', 'width' ];
+    const { filePath, fileSize, height, mimeType, src, width } = getProperties(image, imageProps);
+    if (!src) return null;
+    return { filePath, fileSize, focalPoint, height, mimeType, src, width };
+  },
 
   actions: {
     remove() {
-      this.set('loading', true);
       const campaignId = this.get('campaignId');
       const creativeId = this.get('creativeId');
       const mutation = RemoveMutation;
       const variables = { input: { campaignId, creativeId } };
       const resultKey = 'removeCampaignCreative';
-      // console.warn('campaign-creative.remove()', { mutation, variables }, resultKey);
-      return this.apollo.mutate({ mutation, variables }, resultKey)
-        // eslint-disable-next-line
-        .then(() => this.sendAction(this.get('onRemove'), this.get('creative')))
+      const refetchQueries = ['campaign'];
+      return this.apollo.mutate({ mutation, variables, refetchQueries }, resultKey)
         .catch(e => this.get('errorProcessor').show(e))
-        .then(() => this.set('loading', false))
       ;
     },
     update() {
-      if (!this.get('canSave')) return;
       this.set('loading', true);
       const { title, teaser } = this.getProperties(['title', 'teaser']);
+      const image = this.getPayloadImage();
       const campaignId = this.get('campaignId');
       const creativeId = this.get('creativeId');
       const mutation = UpdateMutation;
-      const payload = { title, teaser };
+      let payload = { title, teaser, image };
+      if (image) payload.image = image;
       const variables = { input: { campaignId, creativeId, payload } };
       const resultKey = 'updateCampaignCreative';
-      // console.warn('campaign-creative.save()', { mutation, variables }, resultKey);
-      return this.apollo.mutate({ mutation, variables }, resultKey)
-        // .then(() => this.sendAction(this.get('onUpdate')))
+      const refetchQueries = ['campaign'];
+      return this.apollo.mutate({ mutation, variables, refetchQueries }, resultKey)
         .catch(e => this.get('errorProcessor').show(e))
-        .then(() => this.set('loading', false))
       ;
+    },
+    toggleCollapse() {
+      this.set('collapsed', !this.get('collapsed'));
     },
   },
 

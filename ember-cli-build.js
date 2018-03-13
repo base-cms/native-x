@@ -23,6 +23,18 @@ module.exports = function(defaults) {
   app.import('node_modules/ionicons/css/ionicons.min.css');
   app.import('node_modules/ionicons/css/ionicons.min.css.map', { destDir: 'assets' });
 
+  app.import('node_modules/fraction.js/fraction.min.js', {
+    using: [
+      { transformation: 'amd', as: 'fraction.js' }
+    ]
+  });
+
+  app.import('node_modules/filesize/lib/filesize.js', {
+    using: [
+      { transformation: 'amd', as: 'filesize' }
+    ]
+  });
+
   var ionicons = new Funnel('node_modules/ionicons/fonts', {
     srcDir: '/',
     include: [ '*.*' ],
