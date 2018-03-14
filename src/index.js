@@ -35,7 +35,7 @@ const handler = throttle(() => {
   /**
    * Find all out-of-view, sent elements and mark as pending
    */
-  getSentElements().forEach(clearBeacon);
+  // getSentElements().forEach(clearBeacon);
 }, 200);
 
 document.addEventListener('DOMContentLoaded', () => {
