@@ -4,7 +4,6 @@ import throttle from 'lodash.throttle';
 const attr = 'data-fortnight-view';
 
 const getPendingElements = () => document.querySelectorAll(`[${attr}="pending"]`);
-const getSentElements = () => document.querySelectorAll(`[${attr}="sent"]`);
 
 const loadBeacon = (node) => {
   if (inView(node)) {
@@ -22,20 +21,11 @@ const loadBeacon = (node) => {
   }
 };
 
-const clearBeacon = (node) => {
-  if (!inView(node)) node.setAttribute(attr, 'pending');
-};
-
 const handler = throttle(() => {
   /**
    * Find all in-view, pending elements and send
    */
   getPendingElements().forEach(loadBeacon);
-
-  /**
-   * Find all out-of-view, sent elements and mark as pending
-   */
-  getSentElements().forEach(clearBeacon);
 }, 200);
 
 document.addEventListener('DOMContentLoaded', () => {
