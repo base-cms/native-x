@@ -1,3 +1,4 @@
+/* eslint-env browser */
 import inView from 'element-in-view';
 import throttle from 'lodash.throttle';
 
@@ -43,6 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
       mutations.forEach((mutation) => {
         if (mutation.type === 'childList') {
           Array.prototype.slice.call(mutation.addedNodes)
+            .filter(node => node.nodeType === Node.ELEMENT_NODE)
             .filter(node => node.getAttribute(attr) === 'pending')
             .forEach(loadBeacon);
         }

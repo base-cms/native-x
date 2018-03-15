@@ -1,6 +1,6 @@
 {
   "name": "fortnight-js",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Fortnight native ad delivery library",
   "main": "dist/fortnight.min.js",
   "repository": "https://github.com/cygnusb2b/fortnight-js.git",
