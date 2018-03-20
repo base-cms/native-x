@@ -9,12 +9,15 @@ export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
   errorProcessor: inject(),
 
   model() {
-    return {};
+    return {
+      externalLinks: [],
+    };
   },
   actions: {
-    create({ name, advertiser, url }) {
+    create({ name, advertiser, url, externalLinks }) {
       const advertiserId = advertiser.id;
-      const payload = { url, name, advertiserId };
+      const links = externalLinks.map(({ label, url }) => Object.assign({}, { label, url }));
+      const payload = { url, name, advertiserId, externalLinks: links };
       const variables = { input: { payload } };
       const resultKey = 'createCampaign';
       const refetchQueries = ['campaign', 'allCampaigns'];
