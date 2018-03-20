@@ -10,6 +10,7 @@ export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
 
   model() {
     return {
+      status: 'Draft',
       externalLinks: [],
     };
   },

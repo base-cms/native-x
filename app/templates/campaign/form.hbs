@@ -30,6 +30,19 @@
   </div>
 </div>
 
+{{#if canChangeStatus}}
+<div class="row">
+  <div class="col">
+    <div class="form-group">
+      <label for="name">Status</label>
+      {{#power-select options=statii selected=model.status onchange=(action (mut model.status)) as |status|}}
+        {{ status }}
+      {{/power-select}}
+    </div>
+  </div>
+</div>
+{{/if}}
+
 <div class="row">
   <div class="form-group col">
     <label for="placements">External Links</label>
