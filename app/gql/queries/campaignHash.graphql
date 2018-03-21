@@ -1,0 +1,9 @@
+query CampaignHash($input: CampaignHashInput!) {
+  campaignHash(input: $input) {
+    name
+    hash
+    advertiser {
+      name
+    }
+  }
+}

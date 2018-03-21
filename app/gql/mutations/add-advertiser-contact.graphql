@@ -1,0 +1,5 @@
+mutation AddAdvertiserContact($input: AddContactInput!) {
+	addAdvertiserContact(input: $input) {
+		id
+	}
+}

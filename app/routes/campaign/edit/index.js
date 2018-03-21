@@ -8,10 +8,11 @@ export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
   errorProcessor: inject(),
 
   actions: {
-    update({ id, url, status, advertiser, name }) {
+    update({ id, url, status, advertiser, name, externalLinks }) {
       const resultKey = 'updateCampaign';
       const advertiserId = advertiser.id;
-      const payload = { name, url, status, advertiserId };
+      const links = externalLinks.map(({ label, url }) => Object.assign({}, { label, url }));
+      const payload = { url, name, status, advertiserId, externalLinks: links };
       const variables = { input: { id, payload } };
       const refetchQueries = ['campaign', 'allCampaigns'];
       return this.apollo.mutate({ mutation, variables, refetchQueries }, resultKey)

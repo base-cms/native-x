@@ -7,7 +7,8 @@ export default Route.extend(AuthenticatedRouteMixin, {
 
   beforeModel() {
     if (!this.get('session.isAuthenticated')) {
-      this.transitionTo('about');
+      this.transitionTo('login');
     }
+    this.transitionTo('campaign');
   }
 })

@@ -1,0 +1,106 @@
+<h5>Campaign Summary</h5>
+
+<hr>
+<div class="row">
+  <div class="col-1 text-center">{{-ion "calendar"}}</div>
+  <div class="col-auto">
+    Starts on {{moment-format model.criteria.start "MM-DD-YYYY"}}, ends {{if model.criteria.end (moment-format model.criteria.end "MM-DD-YYYY") "never"}}
+  </div>
+</div>
+<div class="row">
+  <div class="col-1 text-center">{{-ion "ios-flag"}}</div>
+  <div class="col-auto">
+    {{model.status}}
+  </div>
+</div>
+
+<hr>
+<h6>External Links</h6>
+<div class="row">
+  <div class="col-1 text-center">{{-ion "link"}}</div>
+  <div class="col-auto">
+    <a href="https://materials.fortnight.as3.io/creative/{{model.hash}}" target="_blank">Material Collection Link</a>
+  </div>
+</div>
+<div class="row">
+  <div class="col-1 text-center">{{-ion "link"}}</div>
+  <div class="col-auto">
+    <a href="/manage/reports/campaign/{{model.hash}}" target="_blank">Report Link</a>
+  </div>
+</div>
+{{#each model.externalLinks as |link|}}
+  <div class="row">
+    <div class="col-1 text-center">{{-ion "link"}}</div>
+    <div class="col-auto">
+      <a href="{{link.url}}" target="_blank">{{if link.label link.label link.url}}</a>
+    </div>
+  </div>
+{{else}}
+  <div class="row">
+    <div class="col-1 text-center">{{-ion "link"}}</div>
+    <div class="col-auto">
+      <i>No external links for this campaign.</i>
+    </div>
+  </div>
+{{/each}}
+
+<hr>
+<h6>Internal Notifications</h6>
+{{#each model.notify.internal as |contact|}}
+  <div class="row">
+    <div class="col-1 text-center">{{-ion "ios-email"}}</div>
+    <div class="col-auto">
+      {{#link-to 'contact.edit' contact.id}}
+        {{ contact.name }}
+      {{/link-to}}
+    </div>
+  </div>
+{{else}}
+  <div class="row">
+    <div class="col-1 text-center">{{-ion "ios-email"}}</div>
+    <div class="col-auto">
+      <i>No internal notifications for this campaign.</i>
+    </div>
+  </div>
+{{/each}}
+
+<hr>
+<h6>External Notifications</h6>
+{{#each model.notify.external as |contact|}}
+  <div class="row">
+    <div class="col-1 text-center">{{-ion "ios-email"}}</div>
+    <div class="col-auto">
+      {{#link-to 'contact.edit' contact.id}}
+        {{ contact.name }}
+      {{/link-to}}
+    </div>
+  </div>
+{{else}}
+  <div class="row">
+    <div class="col-1 text-center">{{-ion "ios-email-outline"}}</div>
+    <div class="col-auto">
+      <i>No external notifications for this campaign.</i>
+    </div>
+  </div>
+{{/each}}
+
+<hr>
+<h6>Targeting Criteria</h6>
+<ul class="list-unstyled small">
+  <li>Placements</li>
+  <ul>
+    {{#each model.criteria.placements as |placement|}}
+    <li>{{ placement.name }} ({{ placement.publisher.name }})</li>
+    {{ else }}
+    <li class="text-warning">None</li>
+    {{/each}}
+  </ul>
+  <li>Custom Values</li>
+  <ul>
+    {{#each model.criteria.kvs as |kv|}}
+    <li><code>{{ kv.key }} = {{ kv.value }}</code></li>
+    {{ else }}
+    <li class="text-muted">None</li>
+    {{/each}}
+  </ul>
+</ul>

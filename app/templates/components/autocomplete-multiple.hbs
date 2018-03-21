@@ -2,7 +2,7 @@
   search=(perform search)
   selected=selected
   placeholder=placeholder
-  onchange=(action (mut selected))
+  onchange=(if onChange onChange (action (mut selected)))
   as |model|}}
   {{#if (has-block)}}
     {{ yield model }}

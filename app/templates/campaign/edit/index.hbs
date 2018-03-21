@@ -1,13 +1,9 @@
 
-{{partial "campaign/form"}}
-
 <div class="row">
-  <div class="col">
-    <div class="form-group">
-      <label for="name">Status</label>
-      {{#power-select options=statii selected=model.status onchange=(action (mut model.status)) as |status|}}
-        {{ status }}
-      {{/power-select}}
-    </div>
+  <div class="col-8 pt-2">
+    {{partial "campaign/form"}}
+  </div>
+  <div class="col-4 pt-2 bg-light">
+    {{partial "campaign/summary"}}
   </div>
 </div>

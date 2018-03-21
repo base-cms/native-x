@@ -2,6 +2,7 @@ query campaign($input: ModelIdInput!) {
   campaign(input: $input) {
     id
     name
+    hash
     advertiser {
       id
       name
@@ -39,6 +40,22 @@ query campaign($input: ModelIdInput!) {
           x
           y
         }
+      }
+    }
+    externalLinks {
+      label
+      url
+    }
+    notify {
+      internal {
+        id
+        name
+        email
+      }
+      external {
+        id
+        name
+        email
       }
     }
   }

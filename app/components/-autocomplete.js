@@ -7,6 +7,7 @@ import ComponentQueryManager from 'ember-apollo-client/mixins/component-query-ma
 import advertiserQuery from 'fortnight/gql/queries/search-advertisers';
 import publisherQuery from 'fortnight/gql/queries/search-publishers';
 import placementQuery from 'fortnight/gql/queries/search-placements';
+import contactQuery from 'fortnight/gql/queries/search-contacts';
 
 export default Component.extend(ComponentQueryManager, {
   errorProcessor: inject(),
@@ -25,6 +26,8 @@ export default Component.extend(ComponentQueryManager, {
         return { query: publisherQuery, resultKey: 'searchPublishers.edges' };
       case 'placement':
         return { query: placementQuery, resultKey: 'searchPlacements.edges' };
+      case 'contact':
+        return { query: contactQuery, resultKey: 'searchContacts.edges' };
     }
     this.get('errorProcessor').show(new Error(`The model type ${type} is not searchable.`));
   }),
