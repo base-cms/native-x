@@ -3,6 +3,7 @@ const { resolve } = require('path');
 const { getIfUtils, removeEmpty } = require('webpack-config-utils');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const pkg = require('./package');
 
 const srcDir = resolve(__dirname, 'src');
 
@@ -72,13 +73,18 @@ module.exports = function(env) {
         inject: true,
       })),
 
-      ifProd(new webpack.LoaderOptionsPlugin({
-        minimize: true,
-        debug: true
+      ifProd(new webpack.BannerPlugin({
+        entryOnly: true,
+        banner: `/*! FortnightJS v${pkg.version} */`,
+        raw: true,
       })),
 
       ifProd(new UglifyJsPlugin({
-        sourceMap: true
+        sourceMap: true,
+        extractComments: {
+          condition: /^\**!|@preserve|@license|@cc_on/,
+          filename: (file) => `${file}.info`,
+        },
       })),
 
     ]),
