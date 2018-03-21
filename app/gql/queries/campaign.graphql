@@ -46,5 +46,17 @@ query campaign($input: ModelIdInput!) {
       label
       url
     }
+    notify {
+      internal {
+        id
+        name
+        email
+      }
+      external {
+        id
+        name
+        email
+      }
+    }
   }
 }

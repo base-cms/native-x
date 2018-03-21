@@ -1,0 +1,9 @@
+query contact($input: ModelIdInput!) {
+  contact(input: $input) {
+    id
+    name
+    email
+    givenName
+    familyName
+  }
+}

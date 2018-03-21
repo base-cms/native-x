@@ -45,6 +45,46 @@
 {{/each}}
 
 <hr>
+<h6>Internal Notifications</h6>
+{{#each model.notify.internal as |contact|}}
+  <div class="row">
+    <div class="col-1 text-center">{{-ion "ios-email"}}</div>
+    <div class="col-auto">
+      {{#link-to 'contact.edit' contact.id}}
+        {{ contact.name }}
+      {{/link-to}}
+    </div>
+  </div>
+{{else}}
+  <div class="row">
+    <div class="col-1 text-center">{{-ion "ios-email"}}</div>
+    <div class="col-auto">
+      <i>No internal notifications for this campaign.</i>
+    </div>
+  </div>
+{{/each}}
+
+<hr>
+<h6>External Notifications</h6>
+{{#each model.notify.external as |contact|}}
+  <div class="row">
+    <div class="col-1 text-center">{{-ion "ios-email"}}</div>
+    <div class="col-auto">
+      {{#link-to 'contact.edit' contact.id}}
+        {{ contact.name }}
+      {{/link-to}}
+    </div>
+  </div>
+{{else}}
+  <div class="row">
+    <div class="col-1 text-center">{{-ion "ios-email-outline"}}</div>
+    <div class="col-auto">
+      <i>No external notifications for this campaign.</i>
+    </div>
+  </div>
+{{/each}}
+
+<hr>
 <h6>Targeting Criteria</h6>
 <ul class="list-unstyled small">
   <li>Placements</li>

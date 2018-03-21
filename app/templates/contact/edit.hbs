@@ -1,0 +1,21 @@
+<div class="row">
+  <div class="col">
+    <h3 class="mb-0">
+      Modify Contact
+      <div class="float-right">
+        {{#-bs/button "success" class="float-right" size="small" outline=true click=(route-action "update" model "contact") disabled=(eq canSave false)}}
+          {{-ion "checkmark-round"}} Save
+        {{/-bs/button}}
+        {{#-bs/button "danger"  class="float-right mr-1" size="small" outline=true click=(route-action "hardDelete" model "contact.index")}}
+          {{-ion "android-close"}} Delete
+        {{/-bs/button}}
+        {{#-bs/button "secondary"  class="float-right mr-1" size="small" outline=true click=(route-action "linkTo" "contact.index")}}
+          {{-ion "android-arrow-back"}} Back
+        {{/-bs/button}}
+      </div>
+    </h3>
+  </div>
+</div>
+<hr>
+
+{{partial "contact/form"}}

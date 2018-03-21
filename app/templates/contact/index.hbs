@@ -1,0 +1,28 @@
+<div class="row">
+  <div class="col">
+    <h3 class="mb-0">
+      Contacts
+      <div class="float-right">
+        {{#-bs/button "primary"  class="float-right mr-1" size="small" outline=true click=(route-action "linkTo" "contact.create")}}
+          {{-ion "android-create"}} Create
+        {{/-bs/button}}
+      </div>
+    </h3>
+  </div>
+</div>
+
+{{#paginate-models
+  models=model
+  routeName='contact.index'
+  totalCount=totalCount
+  hasNextPage=hasNextPage
+  endCursor=endCursor
+  first=first
+  after=after
+  ascending=ascending
+  sortBy=sortBy
+  sortOptions=sortOptions
+  as |model|
+}}
+  {{partial 'contact/list'}}
+{{/paginate-models}}

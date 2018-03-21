@@ -18,10 +18,16 @@ Router.map(function() {
     this.route('edit', { path: '/:id' }, function() {
       this.route('criteria');
       this.route('creatives');
+      this.route('notifications');
     });
   })
 
   this.route('placement', function() {
+    this.route('create', { path: 'new' });
+    this.route('edit', { path: ':id' });
+  })
+
+  this.route('contact', function() {
     this.route('create', { path: 'new' });
     this.route('edit', { path: ':id' });
   })

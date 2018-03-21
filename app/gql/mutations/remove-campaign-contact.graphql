@@ -1,0 +1,5 @@
+mutation RemoveCampaignContact($input: RemoveContactInput!) {
+	removeCampaignContact(input: $input) {
+		id
+	}
+}

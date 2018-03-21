@@ -1,0 +1,18 @@
+
+query searchContacts($pagination: PaginationInput, $search: ContactSearchInput!) {
+  searchContacts(pagination: $pagination, search: $search) {
+    totalCount
+    edges {
+      node {
+        id
+        name
+        email
+      }
+      cursor
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}

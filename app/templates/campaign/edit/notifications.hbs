@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="form-group col">
+    <label for="placements">Internal Notifications</label>
+    {{#autocomplete-multiple
+      placeholder="Select a contact"
+      type="contact"
+      selected=model.notify.internal
+      onChange=(action "setContacts" "internal")
+      as |model|
+    }}
+      {{ model.name }} &lsaquo; {{ model.email }} &rsaquo;
+    {{/autocomplete-multiple}}
+  </div>
+</div>
+
+<div class="row">
+  <div class="form-group col">
+    <label for="placements">External Notifications</label>
+    {{#autocomplete-multiple
+      placeholder="Select a contact"
+      type="contact"
+      selected=model.notify.external
+      onChange=(action "setContacts" "external")
+      as |model|
+    }}
+      {{ model.name }} &lsaquo; {{ model.email }} &rsaquo;
+    {{/autocomplete-multiple}}
+  </div>
+</div>

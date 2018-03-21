@@ -2,6 +2,7 @@ import Route from '@ember/routing/route';
 import RouteQueryManager from 'ember-apollo-client/mixins/route-query-manager';
 import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 import { inject } from '@ember/service';
+import { getProperties } from '@ember/object';
 
 import mutation from 'fortnight/gql/mutations/create-campaign';
 
@@ -9,9 +10,18 @@ export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
   errorProcessor: inject(),
 
   model() {
+    const { givenName, familyName, email } = getProperties(this.get('user.model'), ['givenName', 'familyName', 'email']);
+    const user = {
+      name: `${givenName} ${familyName}`,
+      value: email,
+    };
     return {
       status: 'Draft',
       externalLinks: [],
+      notify: {
+        internal: [user],
+        external: [],
+      },
     };
   },
   actions: {
