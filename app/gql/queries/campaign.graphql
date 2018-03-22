@@ -2,6 +2,7 @@ query campaign($input: ModelIdInput!) {
   campaign(input: $input) {
     id
     name
+    description
     hash
     advertiser {
       id

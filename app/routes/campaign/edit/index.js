@@ -15,9 +15,9 @@ export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
       const links = externalLinks.map(({ label, url }) => Object.assign({}, { label, url }));
       const payload = { url, name, description, status, advertiserId, publisherId, externalLinks: links };
       const variables = { input: { id, payload } };
-      const refetchQueries = ['campaign', 'allCampaigns'];
+      const refetchQueries = ['campaign', 'AllCampaigns'];
       return this.apollo.mutate({ mutation, variables, refetchQueries }, resultKey)
-        .then(() => this.refresh())
+        .then(() => this.get('notify').info('Campaign saved.'))
         .catch(e => this.get('errorProcessor').show(e))
       ;
     }

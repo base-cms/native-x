@@ -39,8 +39,9 @@ export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
       const payload = { start: startDate, end: endDate, placementIds, kvs: keyValues };
       const variables = { input: { campaignId, payload } };
       const resultKey = 'setCampaignCriteria';
-      const refetchQueries = ['campaign'];
+      const refetchQueries = ['campaign', 'AllCampaigns'];
       return this.apollo.mutate({ mutation, variables, refetchQueries }, resultKey)
+        .then(() => this.get('notify').info('Campaign saved.'))
         .catch(e => this.get('errorProcessor').show(e))
       ;
     }
