@@ -6,19 +6,18 @@ export default Controller.extend({
   password: null,
   errorMessage: null,
   session: inject('session'),
-  loading: inject('loading'),
 
   actions: {
     authenticate() {
-      let loading = this.get('loading');
+      let loader = this.get('loader');
 
-      loading.show();
+      loader.show();
       this.set('errorMessage', null);
       let { username, password } = this.getProperties('username', 'password');
       this.get('session')
         .authenticate('authenticator:application', username, password)
         .catch((error) => this.set('errorMessage', error.errors.length ? error.errors[0].message : 'An unknown error has occurred.'))
-        .finally(() => loading.hide())
+        .finally(() => loader.hide())
       ;
     }
   }
