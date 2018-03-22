@@ -1,21 +1,24 @@
 import { assign } from '../utils';
 import LinkListener from './link-listener';
+import EventTransport from './event-transport';
 
-const domain = 'https://fortnight.as3.io';
 const listeners = [];
 
 export default class Tracker {
   constructor(options = {}) {
     const defaults = {
-      domain,
       trackLinks: true,
     };
     const opts = assign(defaults, options);
+    this.options = opts;
+
+    const transport = new EventTransport({ domain: opts.domain });
+
+    this.commands = {
+      event: transport.send,
+    };
 
     listeners.push(new LinkListener(this, { enabled: opts.trackLinks }));
-
-    this.options = opts;
-    this.commands = {};
   }
 
   /**
@@ -28,25 +31,5 @@ export default class Tracker {
     if (this.commands[command]) {
       this.commands[command](...args);
     }
-  }
-
-  /**
-   * Configures the domain name for sending events.
-   *
-   * @return string
-   */
-  get domain() {
-    if (!this.options.domain) return '';
-    return `${this.options.domain.replace(/\/+$/, '')}`;
-  }
-
-  /**
-   * Creates a URL using the provided endoint with the configured domain.
-   *
-   * @param {string} endpoint
-   * @return {string}
-   */
-  createUrl(endpoint) {
-    return `${this.domain}/${endpoint.replace(/^\/+/)}`;
   }
 }
