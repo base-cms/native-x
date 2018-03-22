@@ -1,11 +1,35 @@
-<img class="mx-auto my-3 d-block" src="{{ brandingLogo }}" />
+<div class="mx-auto my-3 text-center">
+  <img class="mx-3 mxh-30" src="{{ publisherLogo }}" />
+  <img class="mx-3 mxh-30" src="{{ advertiserLogo }}" />
+  <p class="text-muted mt-2">Native Ad Campaign Report</p>
+</div>
 
-<h1 class="display-5 mt-4">{{ model.advertiser.name }}</h1>
-<hr>
-
+<h1 class="display-4 mt-4">{{ model.advertiser.name }}</h1>
 <p class="lead text-justify">{{ model.description }}</p>
 <hr>
 
+<style>
+  span.metric {
+    font-size: 3em;
+  }
+</style>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm mx-3">
+      <span class="metric">{{ impressions }}</span> Impressions
+    </div>
+    <div class="col-sm mx-3">
+        <span class="metric">{{ clicks }}</span> Clicks
+    </div>
+    <div class="col-sm mx-3">
+        <span class="metric">{{ ctr }}%</span> CTR
+    </div>
+  </div>
+</div>
+
+
+<hr>
 <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi non felis sit amet quam scelerisque fringilla. Aliquam condimentum dapibus elit, sed tempor magna euismod in. Proin eget nibh ut purus ultricies eleifend. Nunc quis purus vel ipsum semper aliquet non id diam. Vivamus tincidunt vulputate pharetra. Donec vel erat lacus. Etiam pulvinar turpis eget semper imperdiet. In semper, tortor nec tempus bibendum, arcu purus venenatis ligula, in mollis massa ante sit amet dolor. Suspendisse ut ligula feugiat, sollicitudin purus vestibulum, accumsan ex. Vestibulum quis congue ipsum. Nam tristique enim nec vehicula commodo. In venenatis orci erat, in rhoncus quam euismod et. Nunc et nisl scelerisque, rhoncus metus id, luctus mi.</p>
 <p class="text-justify">Aliquam erat volutpat. Suspendisse dui odio, mattis ac placerat sed, venenatis id neque. Vivamus porta facilisis eros id consequat. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nam elementum ante nec turpis gravida, ut venenatis erat consectetur. Aliquam convallis augue vel dapibus ultrices. Nunc pulvinar lectus a dolor scelerisque, non porta ante gravida. Ut commodo diam ac orci pharetra consequat.</p>
 <p class="text-justify">Praesent porttitor gravida nisi. Aenean finibus scelerisque elit eu tincidunt. Nulla at nisi rhoncus, congue sem id, sodales eros. Aliquam erat volutpat. Fusce placerat nisi sapien, quis aliquet tortor malesuada eu. Aliquam faucibus leo pellentesque nisi semper ornare. Morbi tellus orci, feugiat non dignissim placerat, commodo id est. Vivamus rhoncus ante vitae viverra euismod.</p>

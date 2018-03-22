@@ -32,6 +32,12 @@ export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
     return pagination.edges.map(node => node.node);
   },
 
+  resetController(_controller, isExiting, transition) {
+    if (isExiting && transition && transition.targetName !== 'error') {
+      this.get('apollo').unsubscribeAll();
+    }
+  },
+
   model({ first, after, sortBy, ascending }) {
     const pagination = { first, after };
     const sort = { field: sortBy, order: ascending ? 1 : -1 };
