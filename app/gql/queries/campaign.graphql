@@ -7,6 +7,10 @@ query campaign($input: ModelIdInput!) {
       id
       name
     }
+    publisher {
+      id
+      name
+    }
     url
     status
     criteria {
