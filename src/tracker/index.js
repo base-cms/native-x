@@ -1,10 +1,20 @@
 import { assign } from '../utils';
+import LinkListener from './link-listener';
 
 const domain = 'https://fortnight.as3.io';
+const listeners = [];
 
 export default class Tracker {
   constructor(options = {}) {
-    this.options = assign({ domain }, options);
+    const defaults = {
+      domain,
+      trackLinks: true,
+    };
+    const opts = assign(defaults, options);
+
+    listeners.push(new LinkListener(this, { enabled: opts.trackLinks }));
+
+    this.options = opts;
     this.commands = {};
   }
 
