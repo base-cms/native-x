@@ -2,5 +2,6 @@ mutation updatePublisher($input: UpdatePublisherInput!) {
 	updatePublisher(input: $input) {
     id
 		name
+		logo
 	}
 }

@@ -2,5 +2,6 @@ query publisher($input: ModelIdInput!) {
   publisher(input: $input) {
     id
     name
+    logo
   }
 }

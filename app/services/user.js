@@ -10,7 +10,7 @@ const { Promise } = RSVP;
 export default Service.extend({
   session: inject(),
   apollo: inject(),
-  loading: inject(),
+  loader: inject(),
 
   /**
    * The Ember data user model.
@@ -91,10 +91,10 @@ export default Service.extend({
   },
 
   logout() {
-    const loading = this.get('loading');
-    loading.show();
+    const loader = this.get('loader');
+    loader.show();
     return this.get('session').invalidate()
-      .finally(loading.hide())
+      .finally(loader.hide())
     ;
   }
 });

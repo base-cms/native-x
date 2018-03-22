@@ -2,13 +2,13 @@
     <div class="col">
       <div class="form-group">
         <label for="start">Starts On</label>
-        {{-calendar currentDay=model.start maxDate=startMax minDate=startMin onSelect=(action (mut model.start))}}
+        {{-calendar currentDay=model.start maxDate=startMax minDate=startMin truncDay='start' onSelect=(action (mut model.start))}}
       </div>
     </div>
     <div class="col">
       <div class="form-group">
         <label for="end">Ends On</label>
-        {{-calendar currentDay=model.end maxDate=endMax minDate=endMin onSelect=(action (mut model.end)) canRemove=true}}
+        {{-calendar currentDay=model.end maxDate=endMax minDate=endMin truncDay='end' onSelect=(action (mut model.end)) canRemove=true}}
       </div>
     </div>
   </div>
