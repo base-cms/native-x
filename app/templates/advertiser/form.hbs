@@ -4,6 +4,13 @@
       <label for="name">Name</label>
       {{input type="text" value=model.name class="form-control" id="name" placeholder="Name" autofocus=true}}
     </div>
+    <div class="form-group">
+      <label for="logo">Logo Url</label>
+      {{input type="text" value=model.logo class="form-control" id="logo" placeholder="Logo Url" autofocus=true}}
+      {{#if model.logo}}
+        <img src="{{ model.logo }}" />
+      {{/if}}
+    </div>
   </div>
 </div>
 

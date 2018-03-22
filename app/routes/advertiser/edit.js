@@ -19,9 +19,9 @@ export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
   },
 
   actions: {
-    update({ id, name }) {
+    update({ id, name, logo }) {
       const resultKey = 'updateAdvertiser';
-      const variables = { input: { id, name } };
+      const variables = { input: { id, payload: { name, logo } } };
       const refetchQueries = ['advertiser', 'AllAdvertisers'];
       return this.apollo.mutate({ mutation, variables, refetchQueries }, resultKey)
         .then(() => this.get('notify').info('Advertiser saved.'))
