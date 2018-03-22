@@ -60,10 +60,10 @@ export default Route.extend(ApplicationRouteMixin, {
       // console.info('scrollToTop');
       window.scrollTo(0, 0);
     },
-    hardDelete(model, routeName) {
+    hardDelete() {
       this.get('notify').warning('Sorry, this item cannot be deleted.');
     },
-    softDelete(model, routeName) {
+    softDelete() {
       this.get('notify').warning('Sorry, this item cannot be deleted.');
     },
   }

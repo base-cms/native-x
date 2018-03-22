@@ -15,14 +15,13 @@ export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
 
   actions: {
     hardDelete({ id, name }) {
-      const loader = this.get('loader');
       if (window.confirm('Are you sure you want to delete this item?')) {
         const resultKey = 'updateCampaign';
         const payload = { name, status: 'Deleted' };
         const variables = { input: { id, payload } };
         const refetchQueries = ['campaign', 'AllCampaigns'];
         return this.apollo.mutate({ mutation, variables, refetchQueries }, resultKey)
-          .then(response => this.transitionTo('campaign.index'))
+          .then(() => this.transitionTo('campaign.index'))
           .then(() => this.get('notify').warning('Campaign deleted.'))
           .catch(e => this.get('errorProcessor').show(e))
         ;
