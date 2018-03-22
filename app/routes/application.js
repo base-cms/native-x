@@ -61,31 +61,10 @@ export default Route.extend(ApplicationRouteMixin, {
       window.scrollTo(0, 0);
     },
     hardDelete(model, routeName) {
-      const loader = this.get('loader');
-
-      // @todo Should use a more elegant confirmation.
-      if (window.confirm('Are you sure you want to delete this item? It will be permanently removed.')) {
-        loader.show();
-        model.destroyRecord()
-          .then(() => this.transitionTo(routeName))
-          // .catch(adapterError => this.get('errorProcessor').notify(adapterError.errors))
-          .finally(() => loader.hide())
-        ;
-      }
+      this.get('notify').warning('Sorry, this item cannot be deleted.');
     },
     softDelete(model, routeName) {
-      const loader = this.get('loader');
-
-      // @todo Should use a more elegant confirmation.
-      if (window.confirm('Are you sure you want to delete this item?')) {
-        loader.show();
-        model.set('deleted', true);
-        model.save()
-          .then(() => this.transitionTo(routeName))
-          // .catch(adapterError => this.get('errorProcessor').notify(adapterError.errors))
-          .finally(() => loader.hide())
-        ;
-      }
+      this.get('notify').warning('Sorry, this item cannot be deleted.');
     },
   }
 });
