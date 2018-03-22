@@ -4,7 +4,7 @@ import moment from 'moment';
 
 export default Controller.extend({
   startMax: computed.reads('model.end'),
-  startMin: moment(),
+  startMin: moment().startOf('day'),
   endMin: computed.reads('model.start'),
   endMax: null,
 });

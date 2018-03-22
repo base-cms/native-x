@@ -3,15 +3,18 @@
 <hr>
 <div class="row">
   <div class="col-1 text-center">{{-ion "calendar"}}</div>
-  <div class="col-auto">
-    Starts on {{moment-format model.criteria.start "MM-DD-YYYY"}}, ends {{if model.criteria.end (moment-format model.criteria.end "MM-DD-YYYY") "never"}}
-  </div>
+  <div class="col-3">Starts</div>
+  <div class="col">{{moment-format model.criteria.start "MM-DD-YYYY h:mm:ss a"}}</div>
+</div>
+<div class="row">
+  <div class="col-1 text-center">{{-ion "calendar"}}</div>
+  <div class="col-3">Ends</div>
+  <div class="col">{{if model.criteria.end (moment-format model.criteria.end "MM-DD-YYYY h:mm:ss a") "never"}}</div>
 </div>
 <div class="row">
   <div class="col-1 text-center">{{-ion "ios-flag"}}</div>
-  <div class="col-auto">
-    {{model.status}}
-  </div>
+  <div class="col-3">Status</div>
+  <div class="col">{{model.status}}</div>
 </div>
 
 <hr>
