@@ -6,5 +6,10 @@ query CampaignHash($input: CampaignHashInput!) {
     advertiser {
       name
     }
+    placements {
+      publisher {
+        logo
+      }
+    }
   }
 }

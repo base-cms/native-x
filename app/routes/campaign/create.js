@@ -25,11 +25,10 @@ export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
     };
   },
   actions: {
-    create({ name, description, advertiser, publisher, url, externalLinks }) {
+    create({ name, description, advertiser, url, externalLinks }) {
       const advertiserId = advertiser.id;
-      const publisherId = publisher.id;
       const links = externalLinks.map(({ label, url }) => Object.assign({}, { label, url }));
-      const payload = { url, name, description, advertiserId, publisherId, externalLinks: links };
+      const payload = { url, name, description, advertiserId, externalLinks: links };
       const variables = { input: { payload } };
       const resultKey = 'createCampaign';
       const refetchQueries = ['campaign', 'allCampaigns'];
