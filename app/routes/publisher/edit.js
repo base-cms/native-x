@@ -14,12 +14,13 @@ export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
   },
 
   actions: {
-    update({ id, name, html, fallback }) {
+    update({ id, name, logo }) {
       const resultKey = 'updatePublisher';
-      const payload = { name, html, fallback };
+      const payload = { name, logo };
       const variables = { input: { id, payload } };
-      return this.get('apollo').mutate({ mutation, variables }, resultKey)
-        .then(() => this.refresh())
+      const refetchQueries = ['publisher', 'AllPublishers'];
+      return this.apollo.mutate({ mutation, variables, refetchQueries }, resultKey)
+        .then(() => this.get('notify').info('Publisher saved.'))
         .catch(e => this.get('errorProcessor').show(e))
       ;
     }

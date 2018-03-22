@@ -4,7 +4,6 @@ import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mi
 import UpdateAdvertiser from 'fortnight/gql/mutations/update-advertiser';
 
 export default Route.extend(ApplicationRouteMixin, {
-  loading: inject(),
   session: inject('session'),
   apollo: inject(),
   errorProcessor: inject(),
@@ -45,8 +44,8 @@ export default Route.extend(ApplicationRouteMixin, {
       this.transitionTo(name);
     },
     save(record, type) {
-      const loading = this.get('loading');
-      loading.show();
+      const loader = this.get('loader');
+      loader.show();
 
       const { name } = record;
       const { mutation, resultKey } = this.getGraphQuery(type);
@@ -54,7 +53,7 @@ export default Route.extend(ApplicationRouteMixin, {
       // console.warn({ mutation, variables }, resultKey);
       return this.get('apollo').mutate({ mutation, variables }, resultKey)
         .catch(e => this.get('errorProcessor').show(e))
-        .finally(() => loading.hide())
+        .finally(() => loader.hide())
       ;
     },
     scrollToTop() {
@@ -62,29 +61,29 @@ export default Route.extend(ApplicationRouteMixin, {
       window.scrollTo(0, 0);
     },
     hardDelete(model, routeName) {
-      const loading = this.get('loading');
+      const loader = this.get('loader');
 
       // @todo Should use a more elegant confirmation.
       if (window.confirm('Are you sure you want to delete this item? It will be permanently removed.')) {
-        loading.show();
+        loader.show();
         model.destroyRecord()
           .then(() => this.transitionTo(routeName))
           // .catch(adapterError => this.get('errorProcessor').notify(adapterError.errors))
-          .finally(() => loading.hide())
+          .finally(() => loader.hide())
         ;
       }
     },
     softDelete(model, routeName) {
-      const loading = this.get('loading');
+      const loader = this.get('loader');
 
       // @todo Should use a more elegant confirmation.
       if (window.confirm('Are you sure you want to delete this item?')) {
-        loading.show();
+        loader.show();
         model.set('deleted', true);
         model.save()
           .then(() => this.transitionTo(routeName))
           // .catch(adapterError => this.get('errorProcessor').notify(adapterError.errors))
-          .finally(() => loading.hide())
+          .finally(() => loader.hide())
         ;
       }
     },

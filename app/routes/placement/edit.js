@@ -19,8 +19,9 @@ export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
       const publisherId = publisher.id;
       const payload = { name, publisherId };
       const variables = { input: { id, payload } };
-      return this.get('apollo').mutate({ mutation, variables }, resultKey)
-        .then(() => this.refresh())
+      const refetchQueries = ['placement', 'AllPlacements'];
+      return this.apollo.mutate({ mutation, variables, refetchQueries }, resultKey)
+        .then(() => this.get('notify').info('Placement saved.'))
         .catch(e => this.get('errorProcessor').show(e))
       ;
     }

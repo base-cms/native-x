@@ -10,12 +10,14 @@ export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
     return { name: '' };
   },
   actions: {
-    create({ name, html, fallback }) {
+    create({ name, logo }) {
       const resultKey = 'createPublisher';
-      const payload = { name, html, fallback };
+      const payload = { name, logo };
       const variables = { input: { payload } };
-      return this.get('apollo').mutate({ mutation, variables }, resultKey)
+      const refetchQueries = ['publisher', 'AllPublishers'];
+      return this.apollo.mutate({ mutation, variables, refetchQueries }, resultKey)
         .then(response => this.transitionTo('publisher.edit', response.id))
+        .then(() => this.get('notify').info('Publisher created.'))
         .catch(e => this.get('errorProcessor').show(e))
       ;
     }

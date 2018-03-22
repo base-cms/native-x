@@ -18,9 +18,9 @@ export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
       const resultKey = 'updateContact';
       const payload = { email, givenName, familyName };
       const variables = { input: { id, payload } };
-      const refetchQueries = ['contact', 'allContacts'];
-      return this.get('apollo').mutate({ mutation, variables, refetchQueries }, resultKey)
-        .then(() => this.refresh())
+      const refetchQueries = ['contact', 'AllContacts'];
+      return this.apollo.mutate({ mutation, variables, refetchQueries }, resultKey)
+        .then(() => this.get('notify').info('Contact saved.'))
         .catch(e => this.get('errorProcessor').show(e))
       ;
     }

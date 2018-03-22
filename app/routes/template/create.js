@@ -14,8 +14,10 @@ export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
       const resultKey = 'createTemplate';
       const payload = { name, html, fallback };
       const variables = { input: { payload } };
-      return this.get('apollo').mutate({ mutation, variables }, resultKey)
+      const refetchQueries = ['template', 'AllTemplates'];
+      return this.apollo.mutate({ mutation, variables, refetchQueries }, resultKey)
         .then(response => this.transitionTo('template.edit', response.id))
+        .then(() => this.get('notify').info('Template created.'))
         .catch(e => this.get('errorProcessor').show(e))
       ;
     }
