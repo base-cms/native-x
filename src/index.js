@@ -1,4 +1,3 @@
-/* eslint-env browser */
 import inView from 'element-in-view';
 import throttle from 'lodash.throttle';
 
