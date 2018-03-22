@@ -6,6 +6,10 @@ mutation updateCampaign($input: UpdateCampaignInput!) {
       id
       name
     }
+    publisher {
+      id
+      name
+    }
     status
 	}
 }

@@ -6,5 +6,9 @@ mutation createCampaign($input: CreateCampaignInput!) {
       id
       name
     }
+    publisher {
+      id
+      name
+    }
 	}
 }
