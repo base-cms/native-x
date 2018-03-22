@@ -12,9 +12,6 @@ query allCampaigns($pagination: PaginationInput, $sort: CampaignSortInput) {
         advertiser {
           name
         }
-        publisher {
-          name
-        }
       }
       cursor
     }
