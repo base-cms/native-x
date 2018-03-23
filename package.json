@@ -16,6 +16,7 @@
   "dependencies": {
     "dom-utils": "^0.9.0",
     "element-in-view": "^0.1.0",
+    "intersection-observer": "^0.5.0",
     "lodash.throttle": "^4.1.1"
   },
   "devDependencies": {
