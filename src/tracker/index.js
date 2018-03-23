@@ -1,6 +1,7 @@
 import { assign } from '../utils';
 import LinkListener from './link-listener';
 import EventTransport from './event-transport';
+import ViewListener from './view-listener';
 
 const listeners = [];
 
@@ -27,6 +28,7 @@ export default class Tracker {
       enabled: opts.trackLinks,
       callback: opts.onLinkTrack,
     }));
+    listeners.push(new ViewListener(this, {}));
   }
 
   /**
@@ -37,6 +39,7 @@ export default class Tracker {
    */
   execute(command, ...args) {
     if (this.commands[command]) {
+      console.info('execute', command, ...args);
       this.commands[command](...args);
     }
   }
