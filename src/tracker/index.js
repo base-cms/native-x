@@ -5,6 +5,12 @@ import EventTransport from './event-transport';
 const listeners = [];
 
 export default class Tracker {
+  /**
+   * Constructor.
+   *
+   * @param {?object} options
+   * @param {boolean} [options.trackLinks=true] Whether to track links.
+   */
   constructor(options = {}) {
     const defaults = {
       trackLinks: true,
@@ -13,16 +19,14 @@ export default class Tracker {
     this.options = opts;
 
     const transport = new EventTransport({ domain: opts.domain });
-
     this.commands = {
-      event: transport.send,
+      event: transport.send.bind(transport),
     };
-
     listeners.push(new LinkListener(this, { enabled: opts.trackLinks }));
   }
 
   /**
-   * Excutes a command on the tracker.
+   * Executes a command on the tracker.
    *
    * @param {string} command
    * @param {...object} args
@@ -31,5 +35,13 @@ export default class Tracker {
     if (this.commands[command]) {
       this.commands[command](...args);
     }
+  }
+
+  /**
+   * The tracker instance is being destroyed.
+   * Destroy all event listeners.
+   */
+  destroy() { // eslint-disable-line class-methods-use-this
+    listeners.forEach(listener => listener.destroy());
   }
 }

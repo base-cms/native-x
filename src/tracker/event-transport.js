@@ -1,11 +1,79 @@
-import { assign } from '../utils';
+import { assign, buildQuery } from '../utils';
 
 const domain = 'https://fortnight.as3.io';
 
 export default class EventTransport {
+  /**
+   * Constructor.
+   *
+   * @param {?object} options
+   * @param {?string} options.domain The backend domain.
+   */
   constructor(options = {}) {
     const defaults = { domain };
     this.options = assign(defaults, options);
+  }
+
+  /**
+   * Sends an event to the backend.
+   *
+   * @param {string} action The event action, e.g. `view`, `load` or `click`
+   * @param {object} fields The event fields
+   * @param {string} fields.pid The placement ID
+   * @param {string} fields.cid The campaign ID
+   * @param {?object} options The event options
+   * @param {?string} options.transport The transport type. Image is the default.
+   * @param {?Function} options.callback The callback to fire once complete.
+   */
+  send(
+    action,
+    { pid, cid } = {},
+    { transport, callback } = {},
+  ) {
+    const act = String(action).trim().toLowerCase();
+    if (!act) return;
+    const _ = (new Date()).getTime();
+    const query = buildQuery({ pid, cid, _ });
+    const endpoint = `/e/${act}.gif?${query}`;
+    const url = this.createUrl(endpoint);
+
+    if (transport === 'beacon') {
+      this.sendBeacon(url, callback);
+    } else {
+      this.sendImage(url, callback);
+    }
+  }
+
+  /**
+   * Fires an event using an `img` element.
+   *
+   * @private
+   * @param {string} url
+   * @param {Function} cb
+   */
+  sendImage(url, cb) {
+    const img = document.createElement('img');
+    if (typeof cb === 'function') {
+      img.onload = cb;
+      img.onerror = cb;
+    }
+    img.src = this.createUrl(url);
+  }
+
+  /**
+   * Fires an event using the Beacon API.
+   *
+   * @private
+   * @param {string} url
+   * @param {Function} cb
+   */
+  sendBeacon(url, cb) {
+    if (!navigator.sendBeacon) {
+      this.sendImage(url, cb);
+    } else {
+      navigator.sendBeacon(url);
+      if (typeof cb === 'function') cb();
+    }
   }
 
   /**
@@ -25,6 +93,6 @@ export default class EventTransport {
    * @return {string}
    */
   createUrl(endpoint) {
-    return `${this.domain}/${endpoint.replace(/^\/+/)}`;
+    return `${this.domain}/${endpoint.replace(/^\/+/, '')}`;
   }
 }
