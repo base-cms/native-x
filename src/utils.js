@@ -47,8 +47,5 @@ export const assign = Object.assign || function assign(target, ...sources) {
  * @return {string}
  */
 export function buildQuery(obj) {
-  return Object.keys(obj).map((k) => {
-    const v = obj[k] || '';
-    return `${encodeURIComponent(k)}=${encodeURIComponent(v)}`;
-  }).join('&');
+  return Object.keys(obj).filter(k => obj[k]).map(k => `${encodeURIComponent(k)}=${encodeURIComponent(obj[k])}`).join('&');
 }
