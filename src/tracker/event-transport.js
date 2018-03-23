@@ -27,13 +27,18 @@ export default class EventTransport {
    */
   send(
     action,
-    { pid, cid } = {},
+    { pid, cid, uuid } = {},
     { transport, callback } = {},
   ) {
     const act = String(action).trim().toLowerCase();
     if (!act) return;
     const _ = (new Date()).getTime();
-    const params = { pid, cid, _ };
+    const params = {
+      pid,
+      cid,
+      uuid,
+      _,
+    };
     const query = buildQuery(params);
     const endpoint = `/e/${act}.gif?${query}`;
     const url = this.createUrl(endpoint);
