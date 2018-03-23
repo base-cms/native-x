@@ -46,6 +46,7 @@ export default Component.extend(ComponentQueryManager, {
     yield timeout(600);
     return this.apollo.watchQuery({ query, variables }, resultKey)
       .then(r => r.map(i => i.node))
+      .then(r => r.filter(i => this.get('selected').filterBy('id', i.id).length === 0))
       .catch(e => this.get('errorProcessor').show(e))
     ;
   }),
