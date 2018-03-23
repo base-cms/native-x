@@ -33,46 +33,21 @@ export default class EventTransport {
     const act = String(action).trim().toLowerCase();
     if (!act) return;
     const _ = (new Date()).getTime();
-    const query = buildQuery({ pid, cid, _ });
+    const params = { pid, cid, _ };
+    const query = buildQuery(params);
     const endpoint = `/e/${act}.gif?${query}`;
     const url = this.createUrl(endpoint);
 
-    if (transport === 'beacon') {
-      this.sendBeacon(url, callback);
-    } else {
-      this.sendImage(url, callback);
-    }
-  }
-
-  /**
-   * Fires an event using an `img` element.
-   *
-   * @private
-   * @param {string} url
-   * @param {Function} cb
-   */
-  sendImage(url, cb) {
-    const img = document.createElement('img');
-    if (typeof cb === 'function') {
-      img.onload = () => cb(url);
-      img.onerror = () => cb(url);
-    }
-    img.src = this.createUrl(url);
-  }
-
-  /**
-   * Fires an event using the Beacon API.
-   *
-   * @private
-   * @param {string} url
-   * @param {Function} cb
-   */
-  sendBeacon(url, cb) {
-    if (!navigator.sendBeacon) {
-      this.sendImage(url, cb);
-    } else {
-      if (typeof cb === 'function') cb(url);
+    if (transport === 'beacon' && navigator.sendBeacon) {
+      if (typeof callback === 'function') callback(act, params);
       navigator.sendBeacon(url);
+    } else {
+      const img = document.createElement('img');
+      if (typeof callback === 'function') {
+        img.onload = () => callback(act, params);
+        img.onerror = () => callback(act, params);
+      }
+      img.src = url;
     }
   }
 

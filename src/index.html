@@ -16,7 +16,11 @@
           console.info('onLinkTrack', ...args)
         },
       });
-      fortnight('event', 'load', { pid: '1234' });
+      fortnight('event', 'load', { pid: '1234' }, {
+        callback: (...args) => {
+          console.info('event callback', ...args);
+        }
+      });
 
       const loadMore = (withBeacon) => {
         const now = Date.now();

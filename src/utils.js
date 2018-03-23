@@ -10,10 +10,10 @@
  */
 export function withTimeout(callback, wait = 2000) {
   let wasCalled = false;
-  const fn = () => {
+  const fn = (...args) => {
     if (!wasCalled) {
       wasCalled = true;
-      callback();
+      callback(...args);
     }
   };
   setTimeout(fn, wait);

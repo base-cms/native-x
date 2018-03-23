@@ -74,9 +74,13 @@ export default class LinkListener {
           if (!event.defaultPrevented) {
             event.preventDefault();
 
+            // @todo What happens when the user-land code already does something similar?
+            // For example, an event listener is previously attached to the link, that also
+            // triggers a window.location call. Wouldn't that prevent the event from
+            // being tracked?
             const original = eventOpts.callback;
-            eventOpts.callback = withTimeout(() => {
-              if (typeof original === 'function') original();
+            eventOpts.callback = withTimeout((...args) => {
+              if (typeof original === 'function') original(...args);
               window.location.href = href;
             });
           }
