@@ -59,6 +59,14 @@ export default class LinkListener {
   handleInteractions(event, link) {
     if (this.opts.shouldTrackLink(link, parseUrl)) {
       const href = link.getAttribute('href');
+      const attr = link.getAttribute('data-fortnight-click');
+
+      let fields;
+      try {
+        fields = JSON.parse(decodeURIComponent(attr));
+      } catch (e) {
+        fields = {};
+      }
 
       const eventOpts = {
         transport: 'beacon',
@@ -84,12 +92,12 @@ export default class LinkListener {
               window.location.href = href;
             });
           }
-          this.tracker.execute('event', 'click', {}, eventOpts);
+          this.tracker.execute('event', 'click', fields, eventOpts);
         };
         window.addEventListener('click', handler);
       } else {
         // Send the event directly.
-        this.tracker.execute('event', 'click', {}, eventOpts);
+        this.tracker.execute('event', 'click', fields, eventOpts);
       }
     }
   }
@@ -104,8 +112,10 @@ export default class LinkListener {
   static shouldTrackLink(element, urlParser) {
     const href = element.getAttribute('href');
     const url = urlParser(href);
+    const attr = element.getAttribute('data-fortnight-click');
+    const isTrackable = typeof attr === 'string' && attr.length;
     // @todo Limit by selectors?
-    return url.protocol.slice(0, 4) === 'http';
+    return url.protocol.slice(0, 4) === 'http' && isTrackable;
   }
 
   /**
