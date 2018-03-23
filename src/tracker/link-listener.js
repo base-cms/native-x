@@ -58,32 +58,24 @@ export default class LinkListener {
   handleInteractions(event, link) {
     if (this.opts.shouldTrackLink(link, parseUrl)) {
       const href = link.getAttribute('href');
-      const endpoint = `/e/collect.gif?t=click&href=${encodeURIComponent(href)}`;
 
       const supportsBeacon = navigator.sendBeacon || false;
-      if (supportsBeacon) {
-        // Supports beacons. Send the event using it.
-        navigator.sendBeacon(endpoint);
-      } else if (linkWillUnloadPage(event, link)) {
+      if (!supportsBeacon && linkWillUnloadPage(event, link)) {
         // The page will unload. Pause the transition and send the event.
         const handler = () => {
           window.removeEventListener('click', handler);
           if (!event.defaultPrevented) {
             event.preventDefault();
           }
-          const redirect = withTimeout(() => {
+          const callback = withTimeout(() => {
             window.location.href = href;
           });
-          const img = new Image();
-          img.onerror = redirect;
-          img.onload = redirect;
-          img.src = endpoint;
+          this.tracker.execute('event', 'click', {}, { transport: 'img', callback });
         };
         window.addEventListener('click', handler);
       } else {
         // Send the event directly.
-        const img = new Image();
-        img.src = endpoint;
+        this.tracker.execute('event', 'click', {}, { transport: 'beacon' });
       }
     }
   }
