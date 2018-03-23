@@ -39,3 +39,16 @@ export const assign = Object.assign || function assign(target, ...sources) {
   }
   return target;
 };
+
+/**
+ * Builds a simply query string from object.
+ *
+ * @param {object} obj
+ * @return {string}
+ */
+export function buildQuery(obj) {
+  return Object.keys(obj).map((k) => {
+    const v = obj[k] || '';
+    return `${encodeURIComponent(k)}=${encodeURIComponent(v)}`;
+  }).join('&');
+}
