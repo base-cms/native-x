@@ -14,6 +14,7 @@ export default class Tracker {
   constructor(options = {}) {
     const defaults = {
       trackLinks: true,
+      onLinkTrack: undefined,
     };
     const opts = assign(defaults, options);
     this.options = opts;
@@ -22,7 +23,10 @@ export default class Tracker {
     this.commands = {
       event: transport.send.bind(transport),
     };
-    listeners.push(new LinkListener(this, { enabled: opts.trackLinks }));
+    listeners.push(new LinkListener(this, {
+      enabled: opts.trackLinks,
+      callback: opts.onLinkTrack,
+    }));
   }
 
   /**

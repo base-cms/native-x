@@ -38,6 +38,7 @@ export default class LinkListener {
       events: ['click'],
       selector: 'a',
       shouldTrackLink: LinkListener.shouldTrackLink,
+      callback: undefined,
     };
     this.opts = assign(defaults, options);
 
@@ -59,23 +60,32 @@ export default class LinkListener {
     if (this.opts.shouldTrackLink(link, parseUrl)) {
       const href = link.getAttribute('href');
 
+      const eventOpts = {
+        transport: 'beacon',
+        callback: this.opts.callback,
+      };
+
       const supportsBeacon = navigator.sendBeacon || false;
       if (!supportsBeacon && linkWillUnloadPage(event, link)) {
         // The page will unload. Pause the transition and send the event.
         const handler = () => {
           window.removeEventListener('click', handler);
+
           if (!event.defaultPrevented) {
             event.preventDefault();
+
+            const original = eventOpts.callback;
+            eventOpts.callback = withTimeout(() => {
+              if (typeof original === 'function') original();
+              window.location.href = href;
+            });
           }
-          const callback = withTimeout(() => {
-            window.location.href = href;
-          });
-          this.tracker.execute('event', 'click', {}, { transport: 'img', callback });
+          this.tracker.execute('event', 'click', {}, eventOpts);
         };
         window.addEventListener('click', handler);
       } else {
         // Send the event directly.
-        this.tracker.execute('event', 'click', {}, { transport: 'beacon' });
+        this.tracker.execute('event', 'click', {}, eventOpts);
       }
     }
   }

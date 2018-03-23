@@ -54,8 +54,8 @@ export default class EventTransport {
   sendImage(url, cb) {
     const img = document.createElement('img');
     if (typeof cb === 'function') {
-      img.onload = cb;
-      img.onerror = cb;
+      img.onload = () => cb(url);
+      img.onerror = () => cb(url);
     }
     img.src = this.createUrl(url);
   }
@@ -71,8 +71,8 @@ export default class EventTransport {
     if (!navigator.sendBeacon) {
       this.sendImage(url, cb);
     } else {
+      if (typeof cb === 'function') cb(url);
       navigator.sendBeacon(url);
-      if (typeof cb === 'function') cb();
     }
   }
 
