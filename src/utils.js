@@ -49,3 +49,20 @@ export const assign = Object.assign || function assign(target, ...sources) {
 export function buildQuery(obj) {
   return Object.keys(obj).filter(k => obj[k]).map(k => `${encodeURIComponent(k)}=${encodeURIComponent(obj[k])}`).join('&');
 }
+
+/**
+ * Will invoke the provided function when the DOM is ready.
+ * If already ready, the callback will be invoked immediately.
+ *
+ * @param {Function} callback The ready callback.
+ */
+export function domReady(callback) {
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function fn() {
+      document.removeEventListener('DOMContentLoaded', fn);
+      callback();
+    });
+  } else {
+    callback();
+  }
+}
