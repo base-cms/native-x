@@ -12,6 +12,7 @@
       })(window, document, 'script', 'fortnight.min.js', 'fortnight');
       fortnight('init', {
         domain: undefined,
+        debug: true,
         onLinkTrack: (...args) => {
           // console.info('onLinkTrack', ...args)
         },
@@ -31,7 +32,7 @@
           p.setAttribute('data-fortnight-fields', encodeURIComponent(JSON.stringify({ uuid: '1234', pid: '789' })));
           p.setAttribute('data-fortnight-action', 'view');
           const script = document.createElement('script');
-          script.textContent = "fortnight('event', 'load', { pid: '6789' });"
+          script.textContent = "fortnight('event', 'load', { pid: '6789' }, { transport: 'beacon' });"
           p.appendChild(script);
         }
 

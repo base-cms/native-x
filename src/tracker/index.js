@@ -15,10 +15,11 @@ export default class Tracker {
   constructor(options = {}) {
     const defaults = {
       trackLinks: true,
+      debug: false,
       onLinkTrack: undefined,
     };
     const opts = assign(defaults, options);
-    this.options = opts;
+    this.opts = opts;
 
     const transport = new EventTransport({ domain: opts.domain });
     this.commands = {
@@ -39,7 +40,10 @@ export default class Tracker {
    */
   execute(command, ...args) {
     if (this.commands[command]) {
-      console.info('execute', command, ...args);
+      if (this.opts.debug) {
+        // eslint-disable-next-line no-console
+        console.info('FORTNIGHT', 'Tracker.execute', command, ...args);
+      }
       this.commands[command](...args);
     }
   }
