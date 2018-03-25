@@ -27,19 +27,12 @@ module.exports = function(env) {
     output: {
       filename: '[name].min.js',
       path: resolve(__dirname, 'dist'),
-      library: 'Fortnight',
-      libraryTarget: 'umd',
-      // umdNamedDefine: true,
     },
     devServer: {
       port: process.env.SERVER_PORT || 3081,
-      // proxy: {
-      //   '/component': {
-      //     target: serverUrl,
-      //     secure: false,
-      //     changeOrigin: true,
-      //   },
-      // },
+      proxy: {
+        '*': 'http://localhost:8100',
+      },
     },
     module: {
       rules: removeEmpty([
@@ -70,7 +63,7 @@ module.exports = function(env) {
 
       ifNotProd(new HtmlWebpackPlugin({
         template: resolve(__dirname, 'src/index.html'),
-        inject: true,
+        inject: false,
       })),
 
       ifProd(new webpack.BannerPlugin({

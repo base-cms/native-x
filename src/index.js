@@ -1,56 +1,21 @@
-import inView from 'element-in-view';
-import throttle from 'lodash.throttle';
+import app from './app';
 
-const attr = 'data-fortnight-view';
+// Find the command queue in the `window` object.
+const WINDOW_VAR_NAME = 'FortnightObject';
+const queueName = window[WINDOW_VAR_NAME];
+if (!queueName || !window[queueName]) {
+  throw new Error(`No ${WINDOW_VAR_NAME} object was found or initialized. Was the proper JavaScript included on the page?`);
+}
+const commandQueue = window[queueName];
 
-const getPendingElements = () => document.querySelectorAll(`[${attr}="pending"]`);
+// Apply the queue to the app.
+const queue = commandQueue.q;
+if (Array.isArray(queue)) {
+  // Find and send the init commands first, in case the user sent the commands out of order.
+  queue.filter(args => args[0] === 'init').forEach(args => app(...args));
+  // Send all other commands.
+  queue.filter(args => args[0] !== 'init').forEach(args => app(...args));
+}
 
-const loadBeacon = (node) => {
-  if (inView(node)) {
-    node.setAttribute(attr, 'sent');
-    const src = node.getAttribute('data-fortnight-beacon');
-    if (src) {
-      const a = document.createElement('a');
-      a.href = src;
-      const now = Date.now();
-      const qs = (a.search) ? `${a.search}&_=${now}` : `?_=${now}`;
-      a.search = qs;
-      const img = new Image();
-      img.src = a.href;
-    }
-  }
-};
-
-const handler = throttle(() => {
-  /**
-   * Find all in-view, pending elements and send
-   */
-  getPendingElements().forEach(loadBeacon);
-}, 200);
-
-document.addEventListener('DOMContentLoaded', () => {
-  /**
-   * On initial page load, find all pending elements and load the beacon, if in view.
-   */
-  getPendingElements().forEach(loadBeacon);
-
-  if (window.MutationObserver) {
-    /**
-     * When new nodes are added, check for pending attribute.
-     * If in-view, fire.
-     */
-    new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.type === 'childList') {
-          Array.prototype.slice.call(mutation.addedNodes)
-            .filter(node => node.nodeType === Node.ELEMENT_NODE)
-            .filter(node => node.getAttribute(attr) === 'pending')
-            .forEach(loadBeacon);
-        }
-      });
-    }).observe(document.body, { childList: true, subtree: true });
-  }
-});
-
-window.addEventListener('scroll', handler);
-window.addEventListener('resize', handler);
+// Replace the queue with the app.
+window[queueName] = app;
