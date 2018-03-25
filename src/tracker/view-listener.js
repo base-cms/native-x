@@ -1,4 +1,9 @@
-import { domReady, assign } from '../utils';
+import {
+  domReady,
+  assign,
+  extractFieldsFrom,
+  isTrackable,
+} from '../utils';
 
 require('intersection-observer');
 
@@ -18,7 +23,7 @@ function isVisible(threshold, record) {
 }
 
 /**
- * @todo We mant to explore including a MutationObserver polyfill.
+ * @todo We may want to explore including a MutationObserver polyfill.
  */
 export default class ViewListener {
   constructor(tracker, options = {}) {
@@ -41,7 +46,6 @@ export default class ViewListener {
     this.mutationObserver = null;
     this.intersectionObserver = null;
 
-    this.elementMap = {};
     this.tracker = tracker;
 
     domReady(() => {
@@ -49,10 +53,10 @@ export default class ViewListener {
     });
   }
 
-  static getElementIds() {
-    const ids = [];
-    document.querySelectorAll('[id^="fortnight-"]').forEach(ele => ids.push(ele.id));
-    return ids;
+  static getElements() {
+    const nodes = [];
+    document.querySelectorAll('[data-fortnight-action="view"]').forEach(node => nodes.push(node));
+    return nodes;
   }
 
   observeElements() {
@@ -62,12 +66,8 @@ export default class ViewListener {
         rootMargin: this.opts.rootMargin,
         threshold: this.opts.threshold,
       });
-      const ids = ViewListener.getElementIds();
-      ids.forEach((id) => {
-        const element = document.getElementById(id);
-        this.elementMap[id] = element;
-        if (element) this.intersectionObserver.observe(element);
-      });
+      const elements = ViewListener.getElements();
+      elements.forEach(element => this.intersectionObserver.observe(element));
     }
 
     // Setup mutation observer.
@@ -97,10 +97,10 @@ export default class ViewListener {
     for (let i = 0; i < records.length; i += 1) {
       const record = records[i];
       if (isVisible(this.opts.threshold, record)) {
-        const { id } = record.target;
-        this.sendEvent(id);
+        const node = record.target;
+        this.sendEvent(node);
         if (this.opts.trackOnce) {
-          this.handleRemovedElement(id);
+          this.handleRemovedElement(node);
         }
       }
     }
@@ -120,25 +120,21 @@ export default class ViewListener {
     });
   }
 
-  handleAddedElement(id) {
-    const element = this.elementMap[id] || document.getElementById(id);
-    if (element) {
-      this.intersectionObserver.observe(element);
+  handleAddedElement(node) {
+    if (node) {
+      this.intersectionObserver.observe(node);
     }
-    this.elementMap[id] = element;
   }
 
-  handleRemovedElement(id) {
-    const element = this.elementMap[id] || document.getElementById(id);
-    if (element) {
-      this.intersectionObserver.unobserve(element);
+  handleRemovedElement(node) {
+    if (node) {
+      this.intersectionObserver.unobserve(node);
     }
-    this.elementMap[id] = null;
   }
 
   walkTree(node, callback) {
-    if (node.nodeType === 1 && node.id.indexOf('fortnight-') === 0) {
-      callback(node.id);
+    if (isTrackable(node, 'view')) {
+      callback(node);
     }
     for (let i = 0; i < node.childNodes.length; i += 1) {
       const child = node.childNodes[i];
@@ -146,9 +142,9 @@ export default class ViewListener {
     }
   }
 
-  sendEvent(id) {
-    const element = this.elementMap[id] || document.getElementById(id);
-    this.tracker.execute('event', 'view', { id: element.id }, { transport: 'beacon' });
+  sendEvent(node) {
+    const fields = extractFieldsFrom(node);
+    this.tracker.execute('event', 'view', fields, { transport: 'beacon' });
   }
 
   destroy() {
