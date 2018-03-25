@@ -66,3 +66,20 @@ export function domReady(callback) {
     callback();
   }
 }
+
+/**
+ * Extracts an event fields object from a node's attribute.
+ *
+ * @param {DOMNode} node
+ * @param {string} attrName
+ * @return {object}
+ */
+export function extractFieldsFrom(node, attrName) {
+  const data = node.getAttribute(attrName);
+  if (!data) return {};
+  try {
+    return JSON.parse(decodeURIComponent(data)) || {};
+  } catch (e) {
+    return {};
+  }
+}

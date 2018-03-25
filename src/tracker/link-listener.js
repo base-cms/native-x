@@ -1,5 +1,5 @@
 import { delegate, parseUrl } from 'dom-utils';
-import { withTimeout, assign } from '../utils';
+import { withTimeout, assign, extractFieldsFrom } from '../utils';
 
 /**
  * Determines if a link click event will cause the current page to unload.
@@ -59,14 +59,7 @@ export default class LinkListener {
   handleInteractions(event, link) {
     if (this.opts.shouldTrackLink(link, parseUrl)) {
       const href = link.getAttribute('href');
-      const attr = link.getAttribute('data-fortnight-click');
-
-      let fields;
-      try {
-        fields = JSON.parse(decodeURIComponent(attr));
-      } catch (e) {
-        fields = {};
-      }
+      const fields = extractFieldsFrom(link, 'data-fortnight-click');
 
       const eventOpts = {
         transport: 'beacon',
