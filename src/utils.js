@@ -68,18 +68,32 @@ export function domReady(callback) {
 }
 
 /**
- * Extracts an event fields object from a node's attribute.
+ * Extracts an event fields object from a node.
  *
  * @param {DOMNode} node
  * @param {string} attrName
  * @return {object}
  */
-export function extractFieldsFrom(node, attrName) {
-  const data = node.getAttribute(attrName);
+export function extractFieldsFrom(node) {
+  if (node.nodeType !== 1) return {};
+  const data = node.getAttribute('data-fortnight-fields');
   if (!data) return {};
   try {
     return JSON.parse(decodeURIComponent(data)) || {};
   } catch (e) {
     return {};
   }
+}
+
+/**
+ * Determines if a node is trackable for the provided action.
+ *
+ * @param {DOMNode} node
+ * @param {string} action
+ * @return {boolean}
+ */
+export function isTrackable(node, action) {
+  if (node.nodeType !== 1) return false;
+  const value = node.getAttribute('data-fortnight-action');
+  return action === value;
 }

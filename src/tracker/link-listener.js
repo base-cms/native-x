@@ -1,5 +1,10 @@
 import { delegate, parseUrl } from 'dom-utils';
-import { withTimeout, assign, extractFieldsFrom } from '../utils';
+import {
+  withTimeout,
+  assign,
+  extractFieldsFrom,
+  isTrackable,
+} from '../utils';
 
 /**
  * Determines if a link click event will cause the current page to unload.
@@ -59,7 +64,7 @@ export default class LinkListener {
   handleInteractions(event, link) {
     if (this.opts.shouldTrackLink(link, parseUrl)) {
       const href = link.getAttribute('href');
-      const fields = extractFieldsFrom(link, 'data-fortnight-click');
+      const fields = extractFieldsFrom(link);
 
       const eventOpts = {
         transport: 'beacon',
@@ -105,10 +110,7 @@ export default class LinkListener {
   static shouldTrackLink(element, urlParser) {
     const href = element.getAttribute('href');
     const url = urlParser(href);
-    const attr = element.getAttribute('data-fortnight-click');
-    const isTrackable = typeof attr === 'string' && attr.length;
-    // @todo Limit by selectors?
-    return url.protocol.slice(0, 4) === 'http' && isTrackable;
+    return url.protocol.slice(0, 4) === 'http' && isTrackable(element, 'click');
   }
 
   /**
