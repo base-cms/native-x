@@ -1,4 +1,8 @@
 import app from './app';
+import legacy from './legacy';
+
+// Execute legacy tracker. Remove once tested.
+legacy();
 
 // Find the command queue in the `window` object.
 const WINDOW_VAR_NAME = 'FortnightObject';
