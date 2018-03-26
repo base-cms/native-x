@@ -10,7 +10,7 @@ export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
     return { name: '' };
   },
 
-  renderTemplate(controller, model) {
+  renderTemplate() {
     this.render();
     this.render('advertiser.actions.create', { outlet: 'actions', into: 'application' });
   },

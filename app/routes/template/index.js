@@ -32,7 +32,7 @@ export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
     return pagination.edges.map(node => node.node);
   },
 
-  renderTemplate(controller, model) {
+  renderTemplate() {
     this.render();
     this.render('template.actions.index', { outlet: 'actions', into: 'application' });
   },

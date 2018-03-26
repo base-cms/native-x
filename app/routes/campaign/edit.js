@@ -3,7 +3,6 @@ import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-rout
 import RouteQueryManager from 'ember-apollo-client/mixins/route-query-manager';
 
 import query from 'fortnight/gql/queries/campaign';
-import mutation from 'fortnight/gql/mutations/update-campaign';
 
 export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
 

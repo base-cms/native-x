@@ -38,7 +38,7 @@ export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
     }
   },
 
-  renderTemplate(controller, model) {
+  renderTemplate() {
     this.render();
     this.render('advertiser.actions.index', { outlet: 'actions', into: 'application' });
   },

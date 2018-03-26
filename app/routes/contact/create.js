@@ -10,7 +10,7 @@ export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
     return { email: '' };
   },
 
-  renderTemplate(controller, model) {
+  renderTemplate() {
     this.render();
     this.render('contact.actions.create', { outlet: 'actions', into: 'application' });
   },

@@ -25,7 +25,7 @@ export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
     };
   },
 
-  renderTemplate(controller, model) {
+  renderTemplate() {
     this.render();
     this.render('campaign.actions.create', { outlet: 'actions', into: 'application' });
   },

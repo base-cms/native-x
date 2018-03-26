@@ -14,7 +14,7 @@ export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
     return this.apollo.watchQuery({ query, variables }, resultKey);
   },
 
-  renderTemplate(controller, model) {
+  renderTemplate() {
     this.render();
     this.render('campaign.actions.edit.creatives', { outlet: 'actions', into: 'application' });
   },
