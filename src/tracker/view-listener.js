@@ -55,7 +55,10 @@ export default class ViewListener {
 
   static getElements() {
     const nodes = [];
-    document.querySelectorAll('[data-fortnight-action="view"]').forEach(node => nodes.push(node));
+    const elements = document.querySelectorAll('[data-fortnight-action="view"]');
+    for (let i = 0; i < elements.length; i += 1) {
+      nodes.push(elements[i]);
+    }
     return nodes;
   }
 
