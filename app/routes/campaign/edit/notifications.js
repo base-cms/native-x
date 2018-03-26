@@ -5,17 +5,10 @@ import RouteQueryManager from "ember-apollo-client/mixins/route-query-manager";
 import query from 'fortnight/gql/queries/campaign-notifications';
 
 export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
-
   model() {
     const { id } = this.modelFor('campaign.edit');
     const resultKey = 'campaign';
     const variables = { input: { id } };
     return this.apollo.watchQuery({ query, variables }, resultKey);
-  },
-
-  actions: {
-    update() {
-      this.get('notify').info('Changes to contacts are saved automatically.')
-    },
   },
 });

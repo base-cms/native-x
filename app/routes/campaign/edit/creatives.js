@@ -14,10 +14,12 @@ export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
     return this.apollo.watchQuery({ query, variables }, resultKey);
   },
 
+  renderTemplate(controller, model) {
+    this.render();
+    this.render('campaign.actions.edit.creatives', { outlet: 'actions', into: 'application' });
+  },
+
   actions: {
-    update() {
-      this.get('notify').info('Changes to creatives are saved using the buttons below.')
-    },
     add() {
       const model = this.modelFor('campaign.edit.creatives');
       const campaignId = model.get('id');

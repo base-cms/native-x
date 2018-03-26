@@ -28,6 +28,11 @@ export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
     if (!get(model, 'criteria')) model.criteria = criteria;
   },
 
+  renderTemplate(controller, model) {
+    this.render();
+    this.render('campaign.actions.edit.criteria', { outlet: 'actions', into: 'application' });
+  },
+
   actions: {
     update() {
       const model = this.modelFor('campaign.edit.criteria');
