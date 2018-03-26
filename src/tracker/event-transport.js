@@ -62,7 +62,7 @@ export default class EventTransport {
    * @return string
    */
   get domain() {
-    if (!this.options.domain) return '';
+    if (!this.options.domain) return domain;
     return `${this.options.domain.replace(/\/+$/, '')}`;
   }
 
