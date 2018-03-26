@@ -9,6 +9,12 @@ export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
   model() {
     return { email: '' };
   },
+
+  renderTemplate(controller, model) {
+    this.render();
+    this.render('contact.actions.create', { outlet: 'actions', into: 'application' });
+  },
+
   actions: {
     create({ email, givenName, familyName }) {
       const resultKey = 'createContact';
