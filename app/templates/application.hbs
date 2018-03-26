@@ -2,7 +2,7 @@
   {{partial "navigation"}}
 {{/if}}
 
-<div class="container mt-4 mb-4">
+<div class="container my-5">
   {{outlet}}
 </div>
 
@@ -11,4 +11,7 @@
 </div>
 
 {{ember-notify messageStyle='bootstrap'}}
-{{#-bs/button 'secondary' class='fixed-bottom' click=(route-action 'scrollToTop')}}{{-ion 'chevron-up'}}{{/-bs/button}}
+
+{{#if displayNav}}
+  {{partial "navigation/footer"}}
+{{/if}}
