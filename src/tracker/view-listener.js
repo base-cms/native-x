@@ -3,6 +3,7 @@ import {
   assign,
   extractFieldsFrom,
   isTrackable,
+  logSupport,
 } from '../utils';
 
 require('intersection-observer');
@@ -28,6 +29,8 @@ function isVisible(threshold, record) {
 export default class ViewListener {
   constructor(tracker, options = {}) {
     // Disable if the browser does not support the required features.
+    logSupport(!window.IntersectionObserver, 'IntersectionObserver is not supported.');
+    logSupport(!window.MutationObserver, 'MutationObserver is not supported.');
     if (!(window.IntersectionObserver && window.MutationObserver)) return;
 
     const defaults = {

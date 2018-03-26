@@ -4,6 +4,7 @@ import {
   assign,
   extractFieldsFrom,
   isTrackable,
+  logSupport,
 } from '../utils';
 
 /**
@@ -36,6 +37,8 @@ export default class LinkListener {
    */
   constructor(tracker, options = {}) {
     // Prevent execution when disabled or unsupported
+    logSupport(!options.enabled, 'LinkListener is disabled.');
+    logSupport(!window.addEventListener, 'addEventListener is not supported.');
     if (!options.enabled || !window.addEventListener) return;
 
     this.tracker = tracker;
