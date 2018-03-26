@@ -38,6 +38,11 @@ export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
     }
   },
 
+  renderTemplate(controller, model) {
+    this.render();
+    this.render('advertiser.actions.index', { outlet: 'actions', into: 'application' });
+  },
+
   model({ first, after, sortBy, ascending }) {
     const pagination = { first, after };
     const sort = { field: sortBy, order: ascending ? 1 : -1 };
