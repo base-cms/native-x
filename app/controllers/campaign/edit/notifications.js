@@ -12,7 +12,7 @@ export default Controller.extend({
       const contactIds = contacts.map(contact => contact.id);
       const variables = { input: { id, type, contactIds } };
       const resultKey = 'setCampaignContacts';
-      const refetchQueries = ['campaign'];
+      const refetchQueries = ['campaignNotifications'];
       return this.get('apollo').mutate({ mutation, variables, refetchQueries }, resultKey)
         .catch(e => this.get('errorProcessor').show(e))
       ;

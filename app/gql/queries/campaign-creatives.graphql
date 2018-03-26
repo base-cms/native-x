@@ -1,0 +1,23 @@
+query campaignCreatives($input: ModelIdInput!) {
+  campaign(input: $input) {
+    id
+    creatives {
+      id
+      title
+      teaser
+      image {
+        id
+        src
+        fileSize
+        filePath
+        height
+        width
+        mimeType
+        focalPoint {
+          x
+          y
+        }
+      }
+    }
+  }
+}

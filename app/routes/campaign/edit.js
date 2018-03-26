@@ -14,7 +14,12 @@ export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
   },
 
   actions: {
-    hardDelete({ id, name }) {
+    update(){
+      console.warn('why does this have to exist here?');
+    },
+    hardDelete() {
+      const { id, name } = this.modelFor('campaign.edit');
+      console.warn(id, name);
       if (window.confirm('Are you sure you want to delete this item?')) {
         const resultKey = 'updateCampaign';
         const payload = { name, status: 'Deleted' };
