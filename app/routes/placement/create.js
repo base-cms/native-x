@@ -9,6 +9,12 @@ export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
   model() {
     return { name: '' };
   },
+
+  renderTemplate(controller, model) {
+    this.render();
+    this.render('placement.actions.create', { outlet: 'actions', into: 'application' });
+  },
+
   actions: {
     create({ name, publisher }) {
       const resultKey = 'createPlacement';

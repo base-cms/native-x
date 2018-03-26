@@ -13,6 +13,11 @@ export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
     return this.apollo.watchQuery({ query, variables }, resultKey);
   },
 
+  renderTemplate(controller, model) {
+    this.render();
+    this.render('placement.actions.edit', { outlet: 'actions', into: 'application' });
+  },
+
   actions: {
     update({ id, name, publisher }) {
       const resultKey = 'updatePlacement';
