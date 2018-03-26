@@ -16,8 +16,8 @@ export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
   },
 
   actions: {
-    create({ name }) {
-      const variables = { input: { payload: { name } } };
+    create({ name, logo }) {
+      const variables = { input: { payload: { name, logo } } };
       const resultKey = 'createAdvertiser';
       const refetchQueries = ['advertiser', 'AllAdvertisers'];
       return this.apollo.mutate({ mutation, variables, refetchQueries }, resultKey)
