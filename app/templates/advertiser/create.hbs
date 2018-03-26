@@ -2,17 +2,6 @@
   <div class="col">
     <h3 class="mb-0">
       Create Advertiser
-      <div class="float-right">
-        {{#-bs/button 'success' class="float-right" size="small" outline=true click=(route-action 'create' model) disabled=(eq canSave false)}}
-          {{-ion 'checkmark-round'}} Create
-        {{/-bs/button}}
-        {{#-bs/button "danger"  class="float-right mr-1" size="small" outline=true disabled=true}}
-          {{-ion "android-close"}} Delete
-        {{/-bs/button}}
-        {{#-bs/button "secondary"  class="float-right mr-1" size="small" outline=true click=(route-action "linkTo" "advertiser.index")}}
-          {{-ion "android-arrow-back"}} Back
-        {{/-bs/button}}
-      </div>
     </h3>
   </div>
 </div>

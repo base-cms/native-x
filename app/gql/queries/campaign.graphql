@@ -25,24 +25,6 @@ query campaign($input: ModelIdInput!) {
         value
       }
     }
-    creatives {
-      id
-      title
-      teaser
-      image {
-        id
-        src
-        fileSize
-        filePath
-        height
-        width
-        mimeType
-        focalPoint {
-          x
-          y
-        }
-      }
-    }
     externalLinks {
       label
       url

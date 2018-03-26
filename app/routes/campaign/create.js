@@ -24,6 +24,12 @@ export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
       },
     };
   },
+
+  renderTemplate() {
+    this.render();
+    this.render('campaign.actions.create', { outlet: 'actions', into: 'application' });
+  },
+
   actions: {
     create({ name, description, advertiser, url, externalLinks }) {
       const advertiserId = advertiser.id;

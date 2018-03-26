@@ -2,13 +2,13 @@
     <div class="col">
       <div class="form-group">
         <label for="start">Starts On</label>
-        {{-calendar currentDay=model.start maxDate=startMax minDate=startMin truncDay='start' onSelect=(action (mut model.start))}}
+        {{-calendar currentDay=model.criteria.start maxDate=startMax minDate=startMin truncDay='start' onSelect=(action (mut model.criteria.start))}}
       </div>
     </div>
     <div class="col">
       <div class="form-group">
         <label for="end">Ends On</label>
-        {{-calendar currentDay=model.end maxDate=endMax minDate=endMin truncDay='end' onSelect=(action (mut model.end)) canRemove=true}}
+        {{-calendar currentDay=model.criteria.end maxDate=endMax minDate=endMin truncDay='end' onSelect=(action (mut model.criteria.end)) canRemove=true}}
       </div>
     </div>
   </div>
@@ -17,10 +17,10 @@
     <div class="form-group col">
       <label for="placements">Placements</label>
       {{#autocomplete-multiple
-        placeholder="Select an placement"
+        placeholder="Select placements"
         type="placement"
-        selected=model.placements
-        onSelect=(action (mut model.placements))
+        selected=model.criteria.placements
+        onSelect=(action (mut model.criteria.placements))
         as |model|
       }}
         {{ model.name }} ({{ model.publisher.name }})
@@ -31,6 +31,6 @@
   <div class="row">
     <div class="form-group col">
       <label for="placements">Custom Variables</label>
-      {{key-values values=model.kvs}}
+      {{key-values values=model.criteria.kvs}}
     </div>
   </div>

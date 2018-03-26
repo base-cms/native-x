@@ -3,6 +3,7 @@
   selected=selected
   placeholder=placeholder
   onchange=(if onChange onChange (action (mut selected)))
+  closeOnSelect=false
   as |model|}}
   {{#if (has-block)}}
     {{ yield model }}

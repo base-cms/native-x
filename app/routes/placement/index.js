@@ -32,6 +32,11 @@ export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
     return pagination.edges.map(node => node.node);
   },
 
+  renderTemplate() {
+    this.render();
+    this.render('placement.actions.index', { outlet: 'actions', into: 'application' });
+  },
+
   resetController(_controller, isExiting, transition) {
     if (isExiting && transition && transition.targetName !== 'error') {
       this.get('apollo').unsubscribeAll();

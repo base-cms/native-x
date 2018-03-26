@@ -75,7 +75,7 @@ export default Component.extend(ComponentQueryManager, {
       const mutation = RemoveMutation;
       const variables = { input: { campaignId, creativeId } };
       const resultKey = 'removeCampaignCreative';
-      const refetchQueries = ['campaign'];
+      const refetchQueries = ['campaignCreatives'];
       return this.apollo.mutate({ mutation, variables, refetchQueries }, resultKey)
         .catch(e => this.get('errorProcessor').show(e))
       ;
@@ -91,7 +91,7 @@ export default Component.extend(ComponentQueryManager, {
       if (image) payload.image = image;
       const variables = { input: { campaignId, creativeId, payload } };
       const resultKey = 'updateCampaignCreative';
-      const refetchQueries = ['campaign'];
+      const refetchQueries = ['campaignCreatives'];
       return this.apollo.mutate({ mutation, variables, refetchQueries }, resultKey)
         .catch(e => this.get('errorProcessor').show(e))
       ;

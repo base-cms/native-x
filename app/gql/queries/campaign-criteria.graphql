@@ -1,0 +1,20 @@
+query campaignCriteria($input: ModelIdInput!) {
+  campaign(input: $input) {
+    id
+    criteria {
+      start
+      end
+      placements {
+        id
+        name
+        publisher {
+          name
+        }
+      }
+      kvs {
+        key
+        value
+      }
+    }
+  }
+}
