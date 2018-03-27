@@ -1,6 +1,5 @@
 import {
   domReady,
-  assign,
   extractFieldsFrom,
   isTrackable,
   logSupport,
@@ -38,7 +37,7 @@ export default class ViewListener {
       threshold: 0.25,
       rootMargin: '0px',
     };
-    this.opts = assign(defaults, options);
+    this.opts = Object.assign(defaults, options);
 
     // Bind methods.
     this.handleIntersection = this.handleIntersection.bind(this);

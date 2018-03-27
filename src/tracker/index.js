@@ -1,4 +1,3 @@
-import { assign } from '../utils';
 import LinkListener from './link-listener';
 import EventTransport from './event-transport';
 import ViewListener from './view-listener';
@@ -18,7 +17,7 @@ export default class Tracker {
       debug: false,
       onLinkTrack: undefined,
     };
-    const opts = assign(defaults, options);
+    const opts = Object.assign(defaults, options);
     this.opts = opts;
 
     const transport = new EventTransport({ domain: opts.domain });

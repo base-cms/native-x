@@ -56,6 +56,7 @@ module.exports = function(env) {
                   debug: true,
                 }],
               ],
+              plugins: [require('babel-plugin-transform-object-assign')],
             },
           },
         },

@@ -1,7 +1,6 @@
 import { delegate, parseUrl } from 'dom-utils';
 import {
   withTimeout,
-  assign,
   extractFieldsFrom,
   isTrackable,
   logSupport,
@@ -48,7 +47,7 @@ export default class LinkListener {
       shouldTrackLink: LinkListener.shouldTrackLink,
       callback: undefined,
     };
-    this.opts = assign(defaults, options);
+    this.opts = Object.assign(defaults, options);
 
     this.handleInteractions = this.handleInteractions.bind(this);
 
