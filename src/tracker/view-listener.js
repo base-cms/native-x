@@ -56,12 +56,7 @@ export default class ViewListener {
   }
 
   static getElements() {
-    const nodes = [];
-    const elements = document.querySelectorAll('[data-fortnight-action="view"]');
-    for (let i = 0; i < elements.length; i += 1) {
-      nodes.push(elements[i]);
-    }
-    return nodes;
+    return document.querySelectorAll('[data-fortnight-action="view"]');
   }
 
   observeElements() {
@@ -72,7 +67,10 @@ export default class ViewListener {
         threshold: this.opts.threshold,
       });
       const elements = ViewListener.getElements();
-      elements.forEach(element => this.intersectionObserver.observe(element));
+      for (let i = 0; i < elements.length; i += 1) {
+        const element = elements[i];
+        this.intersectionObserver.observe(element);
+      }
     }
 
     // Setup mutation observer.
@@ -112,7 +110,8 @@ export default class ViewListener {
   }
 
   handleMutations(mutations) {
-    mutations.forEach((mutation) => {
+    for (let i = 0; i < mutations.length; i += 1) {
+      const mutation = mutations[i];
       const { addedNodes, removedNodes } = mutation;
       for (let r = 0; r < removedNodes.length; r += 1) {
         const removed = removedNodes[r];
@@ -122,7 +121,7 @@ export default class ViewListener {
         const added = addedNodes[a];
         this.walkTree(added, this.handleAddedElement);
       }
-    });
+    }
   }
 
   handleAddedElement(node) {

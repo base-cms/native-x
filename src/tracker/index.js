@@ -52,6 +52,9 @@ export default class Tracker {
    * Destroy all event listeners.
    */
   destroy() { // eslint-disable-line class-methods-use-this
-    listeners.forEach(listener => listener.destroy());
+    for (let i = 0; i < listeners.length; i += 1) {
+      const listener = listeners[i];
+      listener.destroy();
+    }
   }
 }

@@ -52,7 +52,8 @@ export default class LinkListener {
     this.handleInteractions = this.handleInteractions.bind(this);
 
     this.delegates = {};
-    this.opts.events.forEach((event) => {
+    for (let i = 0; i < this.opts.events.length; i += 1) {
+      const event = this.opts.events[i];
       this.delegates[event] = delegate(
         document,
         event,
@@ -60,7 +61,7 @@ export default class LinkListener {
         this.handleInteractions,
         { composed: true, useCapture: true },
       );
-    });
+    }
   }
 
   handleInteractions(event, link) {
@@ -119,6 +120,10 @@ export default class LinkListener {
    * Destroys all event listeners.
    */
   destroy() {
-    Object.keys(this.delegates).forEach(key => this.delegates[key].destroy());
+    const keys = Object.keys(this.delegates);
+    for (let i = 0; i < keys.length; i += 1) {
+      const key = keys[i];
+      this.delegates[key].destroy();
+    }
   }
 }
