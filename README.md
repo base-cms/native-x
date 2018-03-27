@@ -12,7 +12,7 @@ Include the following Javascript before the closing `<head>` tag on all pages yo
         i['FortnightObject'] = r; i[r] = i[r] || function () {
           (i[r].q = i[r].q || []).push(arguments)
         }, a = s.createElement(o),
-        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; a.crossOrigin = 'anonymous'; m.parentNode.insertBefore(a, m)
       })(window, document, 'script', 'https://fortnight.as3.io/lib/fortnight.min.js', 'fortnight');
 
       // Now init the tracker.
@@ -30,7 +30,7 @@ If you're using a custom domain name (CNAME), you must specify it as both the li
         i['FortnightObject'] = r; i[r] = i[r] || function () {
           (i[r].q = i[r].q || []).push(arguments)
         }, a = s.createElement(o),
-        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; a.crossOrigin = 'anonymous'; m.parentNode.insertBefore(a, m)
       })(window, document, 'script', 'https://your-host.your-domain.com/lib/fortnight.min.js', 'fortnight');
 
       fortnight('init', {
