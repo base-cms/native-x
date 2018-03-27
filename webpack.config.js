@@ -7,6 +7,7 @@ const CompressionPlugin = require('compression-webpack-plugin');
 const pkg = require('./package');
 
 const srcDir = resolve(__dirname, 'src');
+const nodeModules = resolve(__dirname, 'node_modules');
 
 module.exports = function(env) {
   const { ifProd, ifNotProd } = getIfUtils(env);
@@ -22,7 +23,7 @@ module.exports = function(env) {
       extensions: ['.js', '.json'],
       modules: [
         srcDir,
-        resolve(__dirname, 'node_modules'),
+        nodeModules,
       ],
     },
     output: {
@@ -45,7 +46,7 @@ module.exports = function(env) {
         },
         {
           test: /\.jsx?$/,
-          include: [ srcDir ],
+          include: [ srcDir, resolve(nodeModules, 'dom-utils'), resolve(nodeModules, 'intersection-observer') ],
           use: {
             loader: 'babel-loader',
             options: {
