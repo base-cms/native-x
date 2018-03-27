@@ -3,6 +3,7 @@ const { resolve } = require('path');
 const { getIfUtils, removeEmpty } = require('webpack-config-utils');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const CompressionPlugin = require('compression-webpack-plugin');
 const pkg = require('./package');
 
 const srcDir = resolve(__dirname, 'src');
@@ -78,6 +79,14 @@ module.exports = function(env) {
           condition: /^\**!|@preserve|@license|@cc_on/,
           filename: (file) => `${file}.info`,
         },
+      })),
+
+      ifProd(new CompressionPlugin({
+        asset: "[path].gz[query]",
+        algorithm: "gzip",
+        test: /\.js$/,
+        threshold: 10240,
+        minRatio: 0.8
       })),
 
     ]),
