@@ -49,7 +49,12 @@ module.exports = function(env) {
           use: {
             loader: 'babel-loader',
             options: {
-              presets: ['env'],
+              presets: [
+                ['env', {
+                  modules: false,
+                  debug: true,
+                }],
+              ],
             },
           },
         },
