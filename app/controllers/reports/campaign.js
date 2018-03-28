@@ -1,6 +1,5 @@
 import Controller from '@ember/controller';
 import { computed } from '@ember/object';
-import moment from 'moment';
 
 export default Controller.extend({
   advertiserLogo: computed.reads('model.campaignHash.advertiser.logo'),
