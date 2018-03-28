@@ -35,6 +35,9 @@ module.exports = function(defaults) {
     ]
   });
 
+  app.import('node_modules/highcharts/highcharts.js');
+  app.import('node_modules/highcharts/modules/exporting.js');
+
   var ionicons = new Funnel('node_modules/ionicons/fonts', {
     srcDir: '/',
     include: [ '*.*' ],

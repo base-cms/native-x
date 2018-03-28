@@ -76,6 +76,7 @@
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-ember": "^5.0.0",
     "eslint-plugin-import": "^2.8.0",
+    "highcharts": "^6.0.7",
     "loader.js": "^4.2.3",
     "nyc": "^11.4.1",
     "popper.js": "^1.12.9"
