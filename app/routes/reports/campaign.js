@@ -14,4 +14,15 @@ export default Route.extend(RouteQueryManager, {
     this._super(...arguments);
     this.controllerFor('application').set('hideNav', true);
   },
+
+  renderTemplate: function () {
+
+    this.render();
+
+    this.render('reports.branding', {
+        into: 'application',
+        outlet: 'branding'
+    });
+  },
+
 })
