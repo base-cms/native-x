@@ -8,16 +8,35 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "./node_modules/.bin/webpack-dev-server --mode=development --env.dev --hot --inline",
-    "test": "yarn lint",
+    "prestart": "$npm_package_docker_dev_install",
+    "start": "$npm_package_docker_dev_up",
+    "stop": "$npm_package_docker_dev_down",
+    "poststart": "yarn stop",
+
+    "pretest": "yarn run posttest && $npm_package_docker_test_install",
+    "posttest": "$npm_package_docker_test_down",
+    "test": "$npm_package_docker_test_test",
+    "test:run": "yarn lint",
+
     "lint": "./node_modules/.bin/eslint src/**/*.js",
+    "terminal": "docker exec -it fortnightjstest_app_1 /bin/bash",
 
     "prebuild": "$npm_package_docker_prod_install",
-    "postbuild": "$npm_package_docker_prod_clean && $npm_package_docker_prod_down",
+    "postbuild": "$npm_package_docker_prod_clean && $npm_package_docker_dev_down",
     "build": "$npm_package_docker_prod_build",
     "build:run": "NODE_ENV=production ./node_modules/.bin/webpack --mode=production --env.prod -p"
   },
   "docker": {
+    "dev": {
+      "install": "docker-compose -p fortnightjs run --no-deps --entrypoint yarn app install",
+      "up": "docker-compose -p fortnightjs up",
+      "down": "docker-compose -p fortnightjs down"
+    },
+    "test": {
+      "install": "docker-compose -p fortnightjstest -f test/docker-compose.yml run --no-deps --entrypoint yarn test",
+      "test": "docker-compose -p fortnightjstest -f test/docker-compose.yml run test",
+      "down": "docker-compose -p fortnightjstest -f test/docker-compose.yml down"
+    },
     "prod": {
       "install": "docker-compose -p fortnightjs run --no-deps --entrypoint yarn app install",
       "build": "docker-compose -p fortnightjs run --no-deps --entrypoint yarn app run build:run",

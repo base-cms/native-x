@@ -31,9 +31,8 @@ module.exports = function(env) {
       path: resolve(__dirname, 'dist'),
     },
     devServer: {
-      port: process.env.SERVER_PORT || 3081,
       proxy: {
-        '*': process.env.PROXY || 'http://localhost:8100',
+        '*': process.env.PROXY,
       },
     },
     module: {
