@@ -33,7 +33,7 @@ module.exports = function(env) {
     devServer: {
       port: process.env.SERVER_PORT || 3081,
       proxy: {
-        '*': 'http://localhost:8100',
+        '*': process.env.PROXY || 'http://localhost:8100',
       },
     },
     module: {
