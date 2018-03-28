@@ -21,26 +21,6 @@ export function withTimeout(callback, wait = 2000) {
 }
 
 /**
- * A simplified shim of Object.assign.
- *
- * @param {Object} target
- * @param {...Object} sources
- * @return {Object}
- */
-export const assign = Object.assign || function assign(target, ...sources) {
-  for (let i = 0, len = sources.length; i < len; i += 1) {
-    const source = Object(sources[i]);
-    Object.keys(source).forEach((key) => {
-      if (Object.prototype.hasOwnProperty.call(source, key)) {
-        // eslint-disable-next-line no-param-reassign
-        target[key] = source[key];
-      }
-    });
-  }
-  return target;
-};
-
-/**
  * Builds a simply query string from object.
  *
  * @param {object} obj
@@ -96,4 +76,10 @@ export function isTrackable(node, action) {
   if (node.nodeType !== 1) return false;
   const value = node.getAttribute('data-fortnight-action');
   return action === value;
+}
+
+export function logSupport(test, message) {
+  if (window.Raven && test) {
+    window.Raven.captureMessage(message, { level: 'warning' });
+  }
 }

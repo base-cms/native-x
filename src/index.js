@@ -8,13 +8,29 @@ if (!queueName || !window[queueName]) {
 }
 const commandQueue = window[queueName];
 
+const execute = (stack) => {
+  for (let i = 0; i < stack.length; i += 1) {
+    const args = stack[i];
+    app(...args);
+  }
+};
+
 // Apply the queue to the app.
 const queue = commandQueue.q;
 if (Array.isArray(queue)) {
-  // Find and send the init commands first, in case the user sent the commands out of order.
-  queue.filter(args => args[0] === 'init').forEach(args => app(...args));
-  // Send all other commands.
-  queue.filter(args => args[0] !== 'init').forEach(args => app(...args));
+  // Find and send the init command first, in case the user sent the commands out of order.
+  const first = [];
+  const next = [];
+  for (let i = 0; i < queue.length; i += 1) {
+    const args = queue[i];
+    if (args[0] === 'init') {
+      first.push(args);
+    } else {
+      next.push(args);
+    }
+  }
+  execute(first);
+  execute(next);
 }
 
 // Replace the queue with the app.

@@ -3,9 +3,11 @@ const { resolve } = require('path');
 const { getIfUtils, removeEmpty } = require('webpack-config-utils');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const CompressionPlugin = require('compression-webpack-plugin');
 const pkg = require('./package');
 
 const srcDir = resolve(__dirname, 'src');
+const nodeModules = resolve(__dirname, 'node_modules');
 
 module.exports = function(env) {
   const { ifProd, ifNotProd } = getIfUtils(env);
@@ -21,7 +23,7 @@ module.exports = function(env) {
       extensions: ['.js', '.json'],
       modules: [
         srcDir,
-        resolve(__dirname, 'node_modules'),
+        nodeModules,
       ],
     },
     output: {
@@ -29,9 +31,8 @@ module.exports = function(env) {
       path: resolve(__dirname, 'dist'),
     },
     devServer: {
-      port: process.env.SERVER_PORT || 3081,
       proxy: {
-        '*': 'http://localhost:8100',
+        '*': process.env.PROXY,
       },
     },
     module: {
@@ -44,11 +45,17 @@ module.exports = function(env) {
         },
         {
           test: /\.jsx?$/,
-          include: [ srcDir ],
+          include: [ srcDir, resolve(nodeModules, 'dom-utils'), resolve(nodeModules, 'intersection-observer') ],
           use: {
             loader: 'babel-loader',
             options: {
-              presets: ['env'],
+              presets: [
+                ['env', {
+                  modules: false,
+                  debug: true,
+                }],
+              ],
+              plugins: [require('babel-plugin-transform-object-assign')],
             },
           },
         },
@@ -78,6 +85,14 @@ module.exports = function(env) {
           condition: /^\**!|@preserve|@license|@cc_on/,
           filename: (file) => `${file}.info`,
         },
+      })),
+
+      ifProd(new CompressionPlugin({
+        asset: "[path].gz[query]",
+        algorithm: "gzip",
+        test: /\.js$/,
+        threshold: 10240,
+        minRatio: 0.8
       })),
 
     ]),

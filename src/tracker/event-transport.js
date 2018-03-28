@@ -1,4 +1,4 @@
-import { assign, buildQuery } from '../utils';
+import { buildQuery } from '../utils';
 
 const domain = 'https://fortnight.as3.io';
 
@@ -11,7 +11,7 @@ export default class EventTransport {
    */
   constructor(options = {}) {
     const defaults = { domain };
-    this.options = assign(defaults, options);
+    this.options = Object.assign(defaults, options);
   }
 
   /**
