@@ -3,9 +3,6 @@ node {
     stage('Checkout') {
       checkout scm
     }
-    stage('Install') {
-      sh 'yarn'
-    }
     stage('Test') {
       sh 'yarn test'
     }
