@@ -1,0 +1,13 @@
+version: '3'
+services:
+  app:
+    tty: true
+    image: node:8
+    working_dir: /app
+    volumes:
+      - .:/app:cached
+      - node_modules:/app/node_modules
+    restart: on-failure
+    entrypoint: yarn
+volumes:
+  node_modules: {}
