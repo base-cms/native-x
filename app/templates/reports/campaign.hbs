@@ -4,8 +4,8 @@
   <p class="text-muted mt-2">Native Ad Campaign Report</p>
 </div>
 
-<h1 class="display-4 mt-4">{{ model.advertiser.name }}</h1>
-<p class="lead text-justify">{{ model.description }}</p>
+{{!-- <h1 class="display-4 mt-4">{{ model.campaignHash.advertiser.name }}</h1> --}}
+<p class="lead text-justify">{{ model.campaignHash.description }}</p>
 <hr>
 
 <style>
@@ -15,7 +15,7 @@
 </style>
 
 <div class="container">
-  <div class="row">
+  <div class="row text-center">
     <div class="col-sm mx-3">
       <span class="metric">{{ impressions }}</span> Impressions
     </div>
@@ -28,6 +28,8 @@
   </div>
 </div>
 
+<hr>
+{{high-charts series=impressionSummary.data options=impressionSummary.options}}
 
 <hr>
 <p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi non felis sit amet quam scelerisque fringilla. Aliquam condimentum dapibus elit, sed tempor magna euismod in. Proin eget nibh ut purus ultricies eleifend. Nunc quis purus vel ipsum semper aliquet non id diam. Vivamus tincidunt vulputate pharetra. Donec vel erat lacus. Etiam pulvinar turpis eget semper imperdiet. In semper, tortor nec tempus bibendum, arcu purus venenatis ligula, in mollis massa ante sit amet dolor. Suspendisse ut ligula feugiat, sollicitudin purus vestibulum, accumsan ex. Vestibulum quis congue ipsum. Nam tristique enim nec vehicula commodo. In venenatis orci erat, in rhoncus quam euismod et. Nunc et nisl scelerisque, rhoncus metus id, luctus mi.</p>
