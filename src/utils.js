@@ -78,8 +78,8 @@ export function isTrackable(node, action) {
   return action === value;
 }
 
-export function logSupport(test, message) {
+export function logSupport(test, message, level = 'warning', extra) {
   if (window.Raven && test) {
-    window.Raven.captureMessage(message, { level: 'warning' });
+    window.Raven.captureMessage(message, { level, extra });
   }
 }

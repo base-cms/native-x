@@ -1,4 +1,4 @@
-import { buildQuery } from '../utils';
+import { buildQuery, logSupport } from '../utils';
 
 const domain = 'https://fortnight.as3.io';
 
@@ -10,6 +10,7 @@ export default class EventTransport {
    * @param {?string} options.domain The backend domain.
    */
   constructor(options = {}) {
+    logSupport(navigator.sendBeacon, 'Beacon API not supported.', 'info');
     const defaults = { domain };
     this.options = Object.assign(defaults, options);
   }
@@ -45,12 +46,16 @@ export default class EventTransport {
 
     if (transport === 'beacon' && navigator.sendBeacon) {
       if (typeof callback === 'function') callback(act, params);
-      navigator.sendBeacon(url);
+      const queued = navigator.sendBeacon(url);
+      logSupport(!queued, 'The Beacon API was unable to queue.', 'warning', { act, params });
     } else {
       const img = document.createElement('img');
       if (typeof callback === 'function') {
         img.onload = () => callback(act, params);
-        img.onerror = () => callback(act, params);
+        img.onerror = () => {
+          logSupport(true, 'The image beacon failed to load.', 'warning', { act, params });
+          callback(act, params);
+        };
       }
       img.src = url;
     }
