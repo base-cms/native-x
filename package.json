@@ -1,6 +1,6 @@
 {
   "name": "fortnight-js",
-  "version": "1.0.0-rc.1",
+  "version": "1.0.0-rc.2",
   "description": "Fortnight native ad delivery library",
   "main": "dist/fortnight.min.js",
   "repository": "https://github.com/cygnusb2b/fortnight-js.git",
@@ -12,15 +12,12 @@
     "start": "$npm_package_docker_dev_up",
     "stop": "$npm_package_docker_dev_down",
     "poststart": "yarn stop",
-
     "pretest": "yarn run posttest && $npm_package_docker_test_install",
     "posttest": "$npm_package_docker_test_down",
     "test": "$npm_package_docker_test_test",
     "test:run": "yarn lint",
-
     "lint": "./node_modules/.bin/eslint src/**/*.js",
-    "terminal": "docker exec -it fortnightjstest_app_1 /bin/bash",
-
+    "terminal": "docker exec -it fortnightjs_app_1 /bin/bash",
     "prebuild": "$npm_package_docker_prod_install",
     "postbuild": "$npm_package_docker_prod_clean && $npm_package_docker_dev_down",
     "build": "$npm_package_docker_prod_build",
@@ -45,13 +42,14 @@
     }
   },
   "dependencies": {
+    "babel-runtime": "^6.26.0",
     "dom-utils": "^0.9.0",
     "intersection-observer": "^0.5.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.4",
-    "babel-plugin-transform-object-assign": "^6.22.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.1",
     "compression-webpack-plugin": "^1.1.11",
     "eslint": "^4.18.2",
