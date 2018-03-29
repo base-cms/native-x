@@ -86,7 +86,9 @@ export default class ViewListener {
     }
 
     // https://bugs.chromium.org/p/chromium/issues/detail?id=612323
-    requestAnimationFrame(() => {});
+    if (typeof requestAnimationFrame === 'function') {
+      requestAnimationFrame(() => {});
+    }
   }
 
   unobserveAllElements() {
