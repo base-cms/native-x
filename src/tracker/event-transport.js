@@ -32,7 +32,10 @@ export default class EventTransport {
     { transport, callback } = {},
   ) {
     const act = String(action).trim().toLowerCase();
-    if (!act) return;
+    if (!act) {
+      logSupport(true, 'No event action was provided. Preventing send.', 'warning');
+      return;
+    }
     const _ = (new Date()).getTime();
     const params = {
       pid,
