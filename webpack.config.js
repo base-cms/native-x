@@ -2,9 +2,7 @@ const webpack = require('webpack');
 const { resolve } = require('path');
 const { getIfUtils, removeEmpty } = require('webpack-config-utils');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const CompressionPlugin = require('compression-webpack-plugin');
-const pkg = require('./package');
 
 const srcDir = resolve(__dirname, 'src');
 const nodeModules = resolve(__dirname, 'node_modules');
@@ -62,29 +60,9 @@ module.exports = function(env) {
       ]),
     },
     plugins: removeEmpty([
-      new webpack.DefinePlugin({
-        'process.env': {
-          NODE_ENV: ifProd('"production"', '"development"')
-        }
-      }),
-
       ifNotProd(new HtmlWebpackPlugin({
         template: resolve(__dirname, 'src/index.html'),
         inject: false,
-      })),
-
-      ifProd(new webpack.BannerPlugin({
-        entryOnly: true,
-        banner: `/*! FortnightJS v${pkg.version} */`,
-        raw: true,
-      })),
-
-      ifProd(new UglifyJsPlugin({
-        sourceMap: true,
-        extractComments: {
-          condition: /^\**!|@preserve|@license|@cc_on/,
-          filename: (file) => `${file}.info`,
-        },
       })),
 
       ifProd(new CompressionPlugin({
