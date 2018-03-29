@@ -19,7 +19,7 @@
     "test:run": "yarn lint",
 
     "lint": "./node_modules/.bin/eslint src/**/*.js",
-    "terminal": "docker exec -it fortnightjstest_app_1 /bin/bash",
+    "terminal": "docker exec -it fortnightjs_app_1 /bin/bash",
 
     "prebuild": "$npm_package_docker_prod_install",
     "postbuild": "$npm_package_docker_prod_clean && $npm_package_docker_dev_down",
