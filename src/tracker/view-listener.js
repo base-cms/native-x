@@ -5,6 +5,7 @@ import {
   logSupport,
 } from '../utils';
 
+logSupport(!window.IntersectionObserver, 'IntersectionObserver is not supported, polyfilling.', 'info');
 require('intersection-observer');
 
 /**
@@ -27,8 +28,8 @@ function isVisible(threshold, record) {
  */
 export default class ViewListener {
   constructor(tracker, options = {}) {
-    logSupport(!window.IntersectionObserver, 'IntersectionObserver is not supported.');
-    logSupport(!window.MutationObserver, 'MutationObserver is not supported.');
+    logSupport(!window.IntersectionObserver, 'IntersectionObserver polyfilling failed.');
+    logSupport(!window.MutationObserver, 'MutationObserver is not supported, however initial elements will be fired.', 'info');
 
     // Disable if the browser does not support the required features.
     // Do not disable if mutations are not supported - just don't use it.
