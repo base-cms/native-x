@@ -40,25 +40,69 @@ export default class EventTransport {
       uuid,
       _,
     };
+
+    if (transport === 'beacon') {
+      this.sendBeacon(act, params, callback);
+    } else {
+      this.sendImage(act, params, callback);
+    }
+  }
+
+  /**
+   * Sends the event an `img` element.
+   *
+   * @private
+   * @param {string} act
+   * @param {object} params
+   * @param {?Function} callback
+   */
+  sendImage(act, params, callback) {
+    const url = this.buildEventUrl(act, params);
+    const img = document.createElement('img');
+    if (typeof callback === 'function') {
+      img.onload = () => callback(act, params);
+      img.onerror = () => {
+        logSupport(true, 'The image beacon failed to load.', 'warning', { act, params });
+        callback(act, params);
+      };
+    }
+    img.src = url;
+  }
+
+  /**
+   * Sends the event using the Beacon API.
+   * Will fallback with an `img` element if the beacon wasn't queued.
+   *
+   * @private
+   * @param {string} act
+   * @param {object} params
+   * @param {?Function} callback
+   */
+  sendBeacon(act, params, callback) {
+    if (!navigator.sendBeacon) {
+      this.sendImage(act, params, callback);
+    } else {
+      const url = this.buildEventUrl(act, params);
+      const queued = navigator.sendBeacon(url);
+      if (queued) {
+        if (typeof callback === 'function') callback(act, params);
+      } else {
+        this.sendImage(act, params, callback);
+      }
+    }
+  }
+
+  /**
+   * Builds an fully-qualified event URL for the provided action and paramaters
+   *
+   * @private
+   * @param {string} action
+   * @param {object} params
+   */
+  buildEventUrl(act, params) {
     const query = buildQuery(params);
     const endpoint = `/e/${act}.gif?${query}`;
-    const url = this.createUrl(endpoint);
-
-    if (transport === 'beacon' && navigator.sendBeacon) {
-      if (typeof callback === 'function') callback(act, params);
-      const queued = navigator.sendBeacon(url);
-      logSupport(!queued, 'The Beacon API was unable to queue.', 'warning', { act, params });
-    } else {
-      const img = document.createElement('img');
-      if (typeof callback === 'function') {
-        img.onload = () => callback(act, params);
-        img.onerror = () => {
-          logSupport(true, 'The image beacon failed to load.', 'warning', { act, params });
-          callback(act, params);
-        };
-      }
-      img.src = url;
-    }
+    return this.createUrl(endpoint);
   }
 
   /**
