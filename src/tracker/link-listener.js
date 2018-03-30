@@ -42,7 +42,6 @@ export default class LinkListener {
 
     this.tracker = tracker;
     const defaults = {
-      events: ['click'],
       selector: 'a',
       shouldTrackLink: LinkListener.shouldTrackLink,
       callback: undefined,
@@ -50,17 +49,35 @@ export default class LinkListener {
     this.opts = Object.assign(defaults, options);
 
     this.handleInteractions = this.handleInteractions.bind(this);
+    this.handleContextMenu = this.handleContextMenu.bind(this);
 
     this.delegates = {};
-    for (let i = 0; i < this.opts.events.length; i += 1) {
-      const event = this.opts.events[i];
-      this.delegates[event] = delegate(
+
+    const eventHandlers = [
+      { event: 'click', fn: this.handleInteractions },
+      { event: 'contextmenu', fn: this.handleContextMenu },
+    ];
+    for (let i = 0; i < eventHandlers.length; i += 1) {
+      const handler = eventHandlers[i];
+      this.delegates[handler.event] = delegate(
         document,
-        event,
+        handler.event,
         this.opts.selector,
-        this.handleInteractions,
+        handler.fn,
         { composed: true, useCapture: true },
       );
+    }
+  }
+
+  handleContextMenu(event, link) {
+    if (this.opts.shouldTrackLink(link, parseUrl)) {
+      const fields = extractFieldsFrom(link);
+
+      const eventOpts = {
+        transport: 'beacon',
+        callback: this.opts.callback,
+      };
+      this.tracker.execute('event', 'contextmenu', fields, eventOpts);
     }
   }
 
