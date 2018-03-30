@@ -4,6 +4,7 @@ import {
   extractFieldsFrom,
   isTrackable,
   logSupport,
+  supportsBeaconApi,
 } from '../utils';
 
 /**
@@ -91,8 +92,8 @@ export default class LinkListener {
         callback: this.opts.callback,
       };
 
-      const supportsBeacon = navigator.sendBeacon || false;
-      if (!supportsBeacon && linkWillUnloadPage(event, link)) {
+      if (!supportsBeaconApi() && linkWillUnloadPage(event, link)) {
+        logSupport(true, 'Falling back to click event listener. Beacon API unavailable.', 'info');
         // The page will unload. Pause the transition and send the event.
         const handler = () => {
           window.removeEventListener('click', handler);

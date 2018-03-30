@@ -1,4 +1,4 @@
-import { buildQuery, logSupport } from '../utils';
+import { buildQuery, logSupport, supportsBeaconApi } from '../utils';
 
 const domain = 'https://fortnight.as3.io';
 
@@ -82,7 +82,7 @@ export default class EventTransport {
    */
   sendBeacon(act, params, callback) {
     logSupport(!window.navigator, 'The window.navigator object is not defined.', 'warning');
-    if (!window.navigator || typeof window.navigator.sendBeacon !== 'function') {
+    if (!supportsBeaconApi()) {
       logSupport(true, 'Falling back to image transport. Beacon API unavailable.', 'info', { act, params });
       this.sendImage(act, params, callback);
     } else {
