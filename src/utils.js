@@ -83,3 +83,12 @@ export function logSupport(test, message, level = 'warning', extra) {
     window.Raven.captureMessage(message, { level, extra });
   }
 }
+
+/**
+ * Determines if the browser supports the Beacon API.
+ *
+ * @return {boolean}
+ */
+export function supportsBeaconApi() {
+  return window.navigator && typeof window.navigator.sendBeacon === 'function';
+}
