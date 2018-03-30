@@ -10,7 +10,6 @@ export default class EventTransport {
    * @param {?string} options.domain The backend domain.
    */
   constructor(options = {}) {
-    logSupport(navigator.sendBeacon, 'Beacon API not supported.', 'info');
     const defaults = { domain };
     this.options = Object.assign(defaults, options);
   }
@@ -82,7 +81,9 @@ export default class EventTransport {
    * @param {?Function} callback
    */
   sendBeacon(act, params, callback) {
-    if (!navigator.sendBeacon) {
+    logSupport(!window.navigator, 'The window.navigator object is not defined.', 'warning');
+    if (!window.navigator || typeof window.navigator.sendBeacon !== 'function') {
+      logSupport(true, 'Falling back to image transport. Beacon API unavailable.', 'info', { act, params });
       this.sendImage(act, params, callback);
     } else {
       const url = this.buildEventUrl(act, params);
