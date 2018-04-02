@@ -57,6 +57,15 @@ module.exports = function(env) {
               loader: 'css-loader',
             },
             {
+              loader: 'postcss-loader',
+              options: {
+                sourceMap: true,
+                plugins: function() {
+                  return [require('precss'), require('autoprefixer')];
+                },
+              },
+            },
+            {
               loader: 'sass-loader',
               options: {
                 sourceMap: true,
