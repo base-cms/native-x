@@ -2,16 +2,19 @@ const webpack = require('webpack');
 const { resolve } = require('path');
 const { getIfUtils, removeEmpty } = require('webpack-config-utils');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const srcDir = resolve(__dirname, 'src');
+const nodeModules = resolve(__dirname, 'node_modules');
 
 module.exports = function(env) {
   const { ifProd, ifNotProd } = getIfUtils(env);
   return {
     cache: ifNotProd(),
     entry: {
-      'fortnight-web': [
-        resolve(srcDir, 'index.js'),
+      app: [
+        resolve(srcDir, 'App.jsx'),
+        resolve(srcDir, 'styles/app.scss'),
       ],
     },
     devtool: ifProd('source-map', 'cheap-eval-source-map'),
@@ -19,15 +22,17 @@ module.exports = function(env) {
       extensions: ['.js', '.jsx', '.json'],
       modules: [
         srcDir,
-        resolve(__dirname, 'node_modules'),
+        nodeModules,
       ],
     },
     output: {
-      filename: '[name].min.js',
+      filename: '[name].[hash].min.js',
       path: resolve(__dirname, 'dist'),
       publicPath: '/',
     },
-    // devServer: {},
+    devServer: {
+      historyApiFallback: true,
+    },
     module: {
       rules: removeEmpty([
         {
@@ -46,9 +51,35 @@ module.exports = function(env) {
             },
           },
         },
+        {
+          test: /\.(s*)css$/,
+          use: [
+            MiniCssExtractPlugin.loader,
+            {
+              loader: 'css-loader',
+            },
+            {
+              loader: 'postcss-loader',
+              options: {
+                sourceMap: true,
+                plugins: function() {
+                  return [require('precss'), require('autoprefixer')];
+                },
+              },
+            },
+            {
+              loader: 'sass-loader',
+              options: {
+                sourceMap: true,
+              },
+            },
+          ],
+        },
       ]),
     },
     plugins: removeEmpty([
+      new MiniCssExtractPlugin(),
+
       new HtmlWebpackPlugin({
         template: resolve(__dirname, 'src/index.html'),
         inject: true,
