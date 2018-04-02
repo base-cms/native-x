@@ -12,6 +12,19 @@
   border-radius: 3px;
 }
 
+.brand-logo {
+  height: 25px;
+}
+
+.icon-100px svg {
+height:100px
+}
+
+.filter-grayscale {
+  -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+  filter: grayscale(100%);
+}
+
 .icon-lg {
   width: 100px;
   height: 100px;

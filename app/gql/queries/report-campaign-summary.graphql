@@ -8,6 +8,8 @@ query ReportCampaignSummary($input: CampaignHashInput!) {
 			logo
     }
     criteria {
+      start
+      end
       placements {
         publisher {
           logo

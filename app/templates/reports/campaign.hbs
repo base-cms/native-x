@@ -1,25 +1,8 @@
 <style>
-  span.metric {
-    font-size: 3em;
-  }
   body {
     background:#cbcbd226;
     font-family: 'Roboto', sans-serif;
-
   }
-  .navbar-white {
-    background: #fff;
-  }
-  .brand-logo {
-    max-height: 25px;
-    margin: 5px 0px;
-    -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
-    filter: grayscale(100%);
-  }
-  .icon-big svg {
-    height:100px
-  }
-
 </style>
 <div class="container my-3">
         <div class="row mb-3">
@@ -34,7 +17,14 @@
             <div class="col">
                 <div class="card">
                     <div class="card-body">
-                        <span class="text-danger"><strong>CAMPAIGN </strong> </span><span class="text-muted">Samsung | 03/01/18 to 03/31/18 | Officer.com - ‘On The Street’</span>
+                        <span class="text-danger">
+                            <strong>CAMPAIGN </strong>
+                        </span>
+                        <span class="text-muted">
+                            {{ model.campaignHash.advertiser.name }} |
+                            {{moment-format model.campaignHash.criteria.start "MM/DD/YYYY"}}{{#if model.campaignHash.criteria.end}} - {{moment-format model.campaignHash.criteria.end "MM/DD/YYYY"}}{{/if}}
+                            {{#if model.campaignHash.description}} | {{ model.campaignHash.description }} {{/if}}
+                        </span>
                     </div>
                 </div>
             </div>
@@ -44,11 +34,11 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-5 col-xs-5">
-                            <div class="icon-big text-center text-info">
-                                <svg class="svg-inline--fa fa-eye fa-w-18" aria-hidden="true" data-prefix="fa" data-icon="eye" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" data-fa-i2svg=""><path fill="currentColor" d="M569.354 231.631C512.969 135.949 407.81 72 288 72 168.14 72 63.004 135.994 6.646 231.631a47.999 47.999 0 0 0 0 48.739C63.031 376.051 168.19 440 288 440c119.86 0 224.996-63.994 281.354-159.631a47.997 47.997 0 0 0 0-48.738zM288 392c-75.162 0-136-60.827-136-136 0-75.162 60.826-136 136-136 75.162 0 136 60.826 136 136 0 75.162-60.826 136-136 136zm104-136c0 57.438-46.562 104-104 104s-104-46.562-104-104c0-17.708 4.431-34.379 12.236-48.973l-.001.032c0 23.651 19.173 42.823 42.824 42.823s42.824-19.173 42.824-42.823c0-23.651-19.173-42.824-42.824-42.824l-.032.001C253.621 156.431 270.292 152 288 152c57.438 0 104 46.562 104 104z"></path></svg><!-- <i class="fa fa-eye"></i> -->
+                            <div class="icon-100px text-center text-info">
+                                <svg class="mw-100 svg-inline--fa fa-eye fa-w-18" aria-hidden="true" data-prefix="fa" data-icon="eye" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" data-fa-i2svg=""><path fill="currentColor" d="M569.354 231.631C512.969 135.949 407.81 72 288 72 168.14 72 63.004 135.994 6.646 231.631a47.999 47.999 0 0 0 0 48.739C63.031 376.051 168.19 440 288 440c119.86 0 224.996-63.994 281.354-159.631a47.997 47.997 0 0 0 0-48.738zM288 392c-75.162 0-136-60.827-136-136 0-75.162 60.826-136 136-136 75.162 0 136 60.826 136 136 0 75.162-60.826 136-136 136zm104-136c0 57.438-46.562 104-104 104s-104-46.562-104-104c0-17.708 4.431-34.379 12.236-48.973l-.001.032c0 23.651 19.173 42.823 42.824 42.823s42.824-19.173 42.824-42.823c0-23.651-19.173-42.824-42.824-42.824l-.032.001C253.621 156.431 270.292 152 288 152c57.438 0 104 46.562 104 104z"></path></svg><!-- <i class="fa fa-eye"></i> -->
                             </div>
                         </div>
-                        <div class="col-7 col-xs-7 text-right">
+                        <div class="col-7 text-right">
                                 <p class="mb-0">IMPRESSIONS</p>
                                 <span class="h4 text-info">{{ impressions }}</span>
 
@@ -64,11 +54,11 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-5 col-xs-5">
-                            <div class="icon-big text-center text-warning">
-                                <svg class="svg-inline--fa fa-hand-point-up fa-w-12" aria-hidden="true" data-prefix="fa" data-icon="hand-point-up" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" data-fa-i2svg=""><path fill="currentColor" d="M135.652 0c23.625 0 43.826 20.65 43.826 44.8v99.851c17.048-16.34 49.766-18.346 70.944 6.299 22.829-14.288 53.017-2.147 62.315 16.45C361.878 158.426 384 189.346 384 240c0 2.746-.203 13.276-.195 16 .168 61.971-31.065 76.894-38.315 123.731C343.683 391.404 333.599 400 321.786 400H150.261l-.001-.002c-18.366-.011-35.889-10.607-43.845-28.464C93.421 342.648 57.377 276.122 29.092 264 10.897 256.203.008 242.616 0 224c-.014-34.222 35.098-57.752 66.908-44.119 8.359 3.583 16.67 8.312 24.918 14.153V44.8c0-23.45 20.543-44.8 43.826-44.8zM136 416h192c13.255 0 24 10.745 24 24v48c0 13.255-10.745 24-24 24H136c-13.255 0-24-10.745-24-24v-48c0-13.255 10.745-24 24-24zm168 28c-11.046 0-20 8.954-20 20s8.954 20 20 20 20-8.954 20-20-8.954-20-20-20z"></path></svg><!-- <i class="fa fa-hand-point-up"></i> -->
+                            <div class="icon-100px text-center text-warning">
+                                <svg class="mw-100 svg-inline--fa fa-hand-point-up fa-w-12" aria-hidden="true" data-prefix="fa" data-icon="hand-point-up" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" data-fa-i2svg=""><path fill="currentColor" d="M135.652 0c23.625 0 43.826 20.65 43.826 44.8v99.851c17.048-16.34 49.766-18.346 70.944 6.299 22.829-14.288 53.017-2.147 62.315 16.45C361.878 158.426 384 189.346 384 240c0 2.746-.203 13.276-.195 16 .168 61.971-31.065 76.894-38.315 123.731C343.683 391.404 333.599 400 321.786 400H150.261l-.001-.002c-18.366-.011-35.889-10.607-43.845-28.464C93.421 342.648 57.377 276.122 29.092 264 10.897 256.203.008 242.616 0 224c-.014-34.222 35.098-57.752 66.908-44.119 8.359 3.583 16.67 8.312 24.918 14.153V44.8c0-23.45 20.543-44.8 43.826-44.8zM136 416h192c13.255 0 24 10.745 24 24v48c0 13.255-10.745 24-24 24H136c-13.255 0-24-10.745-24-24v-48c0-13.255 10.745-24 24-24zm168 28c-11.046 0-20 8.954-20 20s8.954 20 20 20 20-8.954 20-20-8.954-20-20-20z"></path></svg><!-- <i class="fa fa-hand-point-up"></i> -->
                             </div>
                         </div>
-                        <div class="col-7 col-xs-7 text-right">
+                        <div class="col-7 text-right">
                             <p class="mb-0">CLICKS</p>
                             <span class="h4 text-warning">{{ clicks }}</span>
                         </div>
@@ -83,11 +73,11 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-5 col-xs-5">
-                            <div class="icon-big text-center text-success">
-                                <svg class="svg-inline--fa fa-chart-line fa-w-16" aria-hidden="true" data-prefix="fas" data-icon="chart-line" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M500 384c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H12c-6.6 0-12-5.4-12-12V76c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v308h436zM456 96H344c-21.4 0-32.1 25.9-17 41l32.9 32.9-72 72.9-55.6-55.6c-4.7-4.7-12.2-4.7-16.9 0L96.4 305c-4.7 4.6-4.8 12.2-.2 16.9l28.5 29.4c4.7 4.8 12.4 4.9 17.1.1l82.1-82.1 55.5 55.5c4.7 4.7 12.3 4.7 17 0l109.2-109.2L439 249c15.1 15.1 41 4.4 41-17V120c0-13.3-10.7-24-24-24z"></path></svg><!-- <i class="fas fa-chart-line"></i> -->
+                            <div class="icon-100px text-center text-success">
+                                <svg class="mw-100 svg-inline--fa fa-chart-line fa-w-16" aria-hidden="true" data-prefix="fas" data-icon="chart-line" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg=""><path fill="currentColor" d="M500 384c6.6 0 12 5.4 12 12v40c0 6.6-5.4 12-12 12H12c-6.6 0-12-5.4-12-12V76c0-6.6 5.4-12 12-12h40c6.6 0 12 5.4 12 12v308h436zM456 96H344c-21.4 0-32.1 25.9-17 41l32.9 32.9-72 72.9-55.6-55.6c-4.7-4.7-12.2-4.7-16.9 0L96.4 305c-4.7 4.6-4.8 12.2-.2 16.9l28.5 29.4c4.7 4.8 12.4 4.9 17.1.1l82.1-82.1 55.5 55.5c4.7 4.7 12.3 4.7 17 0l109.2-109.2L439 249c15.1 15.1 41 4.4 41-17V120c0-13.3-10.7-24-24-24z"></path></svg><!-- <i class="fas fa-chart-line"></i> -->
                             </div>
                         </div>
-                        <div class="col-7 col-xs-7 text-right">
+                        <div class="col-7 text-right">
                             <p class="mb-0">CTR</p>
                             <span class="h4 text-success">{{ ctr }}%</span>
                         </div>
