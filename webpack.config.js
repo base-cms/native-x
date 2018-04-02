@@ -30,7 +30,9 @@ module.exports = function(env) {
       path: resolve(__dirname, 'dist'),
       publicPath: '/',
     },
-    // devServer: {},
+    devServer: {
+      historyApiFallback: true,
+    },
     module: {
       rules: removeEmpty([
         {
