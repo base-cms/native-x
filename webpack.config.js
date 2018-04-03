@@ -32,6 +32,9 @@ module.exports = function(env) {
     },
     devServer: {
       historyApiFallback: true,
+      proxy: {
+        '/graph': process.env.PROXY,
+      },
     },
     module: {
       rules: removeEmpty([
@@ -78,7 +81,9 @@ module.exports = function(env) {
       ]),
     },
     plugins: removeEmpty([
-      new MiniCssExtractPlugin(),
+      new MiniCssExtractPlugin({
+        filename: '[name].[hash].css',
+      }),
 
       new HtmlWebpackPlugin({
         template: resolve(__dirname, 'src/index.html'),

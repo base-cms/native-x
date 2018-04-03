@@ -7,19 +7,44 @@
   "license": "UNLICENSED",
   "private": true,
   "scripts": {
-    "start": "./node_modules/.bin/webpack-dev-server --mode=development --env.dev --hot --inline --port=2112",
-    "build": "webpack --env.prod --mode=production -p",
-    "test": "echo \"Error: no test specified\" && exit 0"
+    "prestart": "$npm_package_docker_dev_install",
+    "start": "$npm_package_docker_dev_up",
+    "stop": "$npm_package_docker_dev_down",
+    "poststart": "yarn stop",
+    "terminal": "docker exec -it fortnightweb_app_1 /bin/bash",
+    "prebuild": "$npm_package_docker_prod_install",
+    "postbuild": "$npm_package_docker_prod_clean && $npm_package_docker_dev_down",
+    "build": "$npm_package_docker_prod_build",
+    "build:run": "NODE_ENV=production ./node_modules/.bin/webpack --mode=production --env.prod -p"
+  },
+  "docker": {
+    "dev": {
+      "install": "docker-compose -p fortnightweb run --no-deps --entrypoint yarn app install",
+      "up": "docker-compose -p fortnightweb up",
+      "down": "docker-compose -p fortnightweb down"
+    },
+    "prod": {
+      "install": "docker-compose -p fortnightweb run --no-deps --entrypoint yarn app install",
+      "build": "docker-compose -p fortnightweb run --no-deps --entrypoint yarn app run build:run",
+      "clean": "rm -rf node_modules",
+      "down": "docker-compose -p fortnightweb down"
+    }
   },
   "dependencies": {
+    "apollo-boost": "^0.1.4",
     "bootstrap": "^4.0.0",
     "es6-promise": "^4.2.4",
+    "graphql": "^0.13.2",
+    "graphql-tag": "^2.8.0",
     "isomorphic-fetch": "^2.2.1",
+    "jarallax": "^1.10.3",
     "jquery": "^3.3.1",
     "popper.js": "^1.14.1",
     "prop-types": "^15.6.1",
     "react": "^16.3.0",
+    "react-apollo": "^2.1.2",
     "react-dom": "^16.3.0",
+    "react-helmet": "^5.2.0",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2"
   },
