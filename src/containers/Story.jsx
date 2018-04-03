@@ -4,6 +4,7 @@ import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import CoverImage from '../components/CoverImage';
+import Loader from '../components/Loader';
 
 const STORY = gql`
   query Story($input: ModelIdInput!) {
@@ -29,7 +30,7 @@ const Story = ({ match }) => {
   return (
     <Query query={STORY} variables={{ input }}>
       {({ loading, error, data }) => {
-        if (loading) return <p>Loading...</p>;
+        if (loading) return <Loader />;
         if (error) return <p><strong>{error.message}</strong></p>;
 
         const { story } = data;
