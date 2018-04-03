@@ -2,9 +2,11 @@ import 'bootstrap';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { ApolloProvider } from 'react-apollo';
 import Nav from './components/Nav';
 import Home from './containers/Home';
 import Story from './containers/Story';
+import client from './client';
 
 const App = () => (
   <div>
@@ -17,7 +19,7 @@ const App = () => (
       <div className="row">
         <div className="col">
           <Route exact path="/" component={Home} />
-          <Route path="/story" component={Story} />
+          <Route path="/:id([0-9]{8})" component={Story} />
         </div>
       </div>
     </div>
@@ -27,7 +29,9 @@ const App = () => (
 ReactDOM.render(
   (
     <Router>
-      <App />
+      <ApolloProvider client={client}>
+        <App />
+      </ApolloProvider>
     </Router>
   ),
   document.getElementById('app'),
