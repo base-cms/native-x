@@ -1,11 +1,12 @@
 import 'bootstrap';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { ApolloProvider } from 'react-apollo';
 import Nav from './components/Nav';
 import Home from './containers/Home';
 import Story from './containers/Story';
+import NotFound from './containers/NotFound';
 import client from './client';
 
 const App = () => (
@@ -18,8 +19,11 @@ const App = () => (
     <div className="container my-3">
       <div className="row">
         <div className="col">
-          <Route exact path="/" component={Home} />
-          <Route path="/:id([0-9]{8})" component={Story} />
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/:id([0-9]{8})" component={Story} />
+            <Route component={NotFound} />
+          </Switch>
         </div>
       </div>
     </div>

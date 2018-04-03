@@ -12,7 +12,10 @@ const Nav = ({ url, imgSrc, brandName }) => (
         <NavLink className="nav-link" activeClassName="active" exact to="/">Home</NavLink>
       </li>
       <li className="nav-item">
-        <NavLink className="nav-link" activeClassName="active" to="/story">Story</NavLink>
+        <NavLink className="nav-link" activeClassName="active" to="/story">Bad Route</NavLink>
+      </li>
+      <li className="nav-item">
+        <NavLink className="nav-link" activeClassName="active" to="/20868284">Sample Story</NavLink>
       </li>
     </ul>
   </nav>
