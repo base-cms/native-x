@@ -3,6 +3,7 @@ import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
+import CoverImage from '../components/CoverImage';
 
 const STORY = gql`
   query Story($input: ModelIdInput!) {
@@ -34,25 +35,23 @@ const Story = ({ match }) => {
         const { story } = data;
         const { primaryImage } = story;
 
-        let image;
-        if (primaryImage) {
-          const { src, caption } = primaryImage;
-          image = <img src={src} alt={caption} title={story.title} className="img-fluid mb-3" />;
-        }
-
+        const imgSrc = typeof primaryImage === 'object' ? primaryImage.src : '';
         return (
-          <article>
-            <Helmet>
-              <title>{story.title}</title>
-              <meta name="description" content={story.teaser} />
-            </Helmet>
-            <h1>{story.title}</h1>
-            <hr />
-            <h2>{story.teaser}</h2>
-            <hr />
-            {image}
-            <main dangerouslySetInnerHTML={createMarkup(story.body)} />
-          </article>
+          <main>
+            <CoverImage imgSrc={imgSrc} title={story.title} />
+            <div className="container my-3">
+              <Helmet>
+                <title>{story.title}</title>
+                <meta name="description" content={story.teaser} />
+              </Helmet>
+              <div className="row">
+                <div className="col">
+                  {/* eslint-disable-next-line react/no-danger */}
+                  <article dangerouslySetInnerHTML={createMarkup(story.body)} />
+                </div>
+              </div>
+            </div>
+          </main>
         );
       }}
     </Query>

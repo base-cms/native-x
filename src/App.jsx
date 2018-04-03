@@ -20,17 +20,11 @@ const App = () => (
       url="https://www.firehouse.com"
       imgSrc="https://cdn.firehouse.com/files/base/cygnus/fhc/image/static/logo/site_logo.png"
     />
-    <div className="container my-3">
-      <div className="row">
-        <div className="col">
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route path="/:id([0-9]{8})" component={Story} />
-            <Route component={NotFound} />
-          </Switch>
-        </div>
-      </div>
-    </div>
+    <Switch>
+      <Route exact path="/" component={Home} />
+      <Route path="/:id([0-9]{8})" component={Story} />
+      <Route component={NotFound} />
+    </Switch>
   </div>
 );
 
