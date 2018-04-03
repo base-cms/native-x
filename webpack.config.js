@@ -81,7 +81,9 @@ module.exports = function(env) {
       ]),
     },
     plugins: removeEmpty([
-      new MiniCssExtractPlugin(),
+      new MiniCssExtractPlugin({
+        filename: '[name].[hash].css',
+      }),
 
       new HtmlWebpackPlugin({
         template: resolve(__dirname, 'src/index.html'),
