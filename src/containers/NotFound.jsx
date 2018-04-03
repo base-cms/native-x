@@ -2,11 +2,14 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 
 export default () => (
-  <div>
+  <div className="container my-3">
     <Helmet>
-      <title>Not found</title>
+      <title>404 Not Found</title>
     </Helmet>
-    <h1>Oops!</h1>
-    <h3>Not found</h3>
+    <div className="row">
+      <div className="col">
+        <h1>Oops! Page not found. :(</h1>
+      </div>
+    </div>
   </div>
 );

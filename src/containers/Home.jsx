@@ -2,10 +2,14 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 
 export default () => (
-  <div>
+  <div className="container my-3">
     <Helmet>
       <title>Welcome!</title>
     </Helmet>
-    <h1>Home</h1>
+    <div className="row">
+      <div className="col">
+        <h1>Home</h1>
+      </div>
+    </div>
   </div>
 );
