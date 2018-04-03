@@ -33,7 +33,7 @@ module.exports = function(env) {
     devServer: {
       historyApiFallback: true,
       proxy: {
-        '/graph': 'http://localhost:8937',
+        '/graph': process.env.PROXY,
       },
     },
     module: {
