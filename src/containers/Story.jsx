@@ -2,6 +2,7 @@ import React from 'react';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
+import { Helmet } from 'react-helmet';
 
 const STORY = gql`
   query Story($input: ModelIdInput!) {
@@ -9,6 +10,7 @@ const STORY = gql`
       title
       teaser
       body
+      seoTitle
       primaryImage {
         src
         caption
@@ -40,6 +42,10 @@ const Story = ({ match }) => {
 
         return (
           <article>
+            <Helmet>
+              <title>{story.title}</title>
+              <meta name="description" content={story.teaser} />
+            </Helmet>
             <h1>{story.title}</h1>
             <hr />
             <h2>{story.teaser}</h2>

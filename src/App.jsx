@@ -3,6 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { ApolloProvider } from 'react-apollo';
+import { Helmet } from 'react-helmet';
 import Nav from './components/Nav';
 import Home from './containers/Home';
 import Story from './containers/Story';
@@ -11,6 +12,9 @@ import client from './client';
 
 const App = () => (
   <div>
+    <Helmet>
+      <title>Fortnight!</title>
+    </Helmet>
     <Nav
       brandName="Firehouse.com"
       url="https://www.firehouse.com"
