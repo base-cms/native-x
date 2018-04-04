@@ -77,7 +77,7 @@ export default class ViewListener {
     }
 
     // Setup mutation observer, if supported.
-    if (window.mutationObserver && !this.mutationObserver) {
+    if (window.MutationObserver && !this.mutationObserver) {
       this.mutationObserver = new MutationObserver(this.handleMutations);
       this.mutationObserver.observe(document.body, {
         childList: true,
