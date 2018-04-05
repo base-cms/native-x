@@ -21,13 +21,20 @@ export default class EventTransport {
    * @param {object} fields The event fields
    * @param {string} fields.pid The placement ID
    * @param {string} fields.cid The campaign ID
+   * @param {string} fields.uuid The unique request UUID
+   * @param {string} fields.cre The creative ID
    * @param {?object} options The event options
    * @param {?string} options.transport The transport type. Image is the default.
    * @param {?Function} options.callback The callback to fire once complete.
    */
   send(
     action,
-    { pid, cid, uuid } = {},
+    {
+      pid,
+      cid,
+      uuid,
+      cre,
+    } = {},
     { transport, callback } = {},
   ) {
     const act = String(action).trim().toLowerCase();
@@ -40,6 +47,7 @@ export default class EventTransport {
       pid,
       cid,
       uuid,
+      cre,
       _,
     };
 
