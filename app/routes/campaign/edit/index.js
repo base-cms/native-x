@@ -33,6 +33,6 @@ export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
         .then(() => this.get('notify').info('Campaign saved.'))
         .catch(e => this.get('errorProcessor').show(e))
       ;
-    }
+    },
   },
 })

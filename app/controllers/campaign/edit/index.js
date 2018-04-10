@@ -14,5 +14,5 @@ export default Controller.extend({
   init() {
     this.set('statii', ['Active', 'Paused', 'Draft', 'Deleted' ]);
     this._super(...arguments);
-  }
+  },
 });
