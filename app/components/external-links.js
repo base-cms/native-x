@@ -5,8 +5,8 @@ export default Component.extend({
   values: null,
   onChange: null,
 
-  key: '',
-  val: '',
+  url: '',
+  label: '',
 
   init() {
     this.set('values', this.get('values') || []);
@@ -15,18 +15,18 @@ export default Component.extend({
 
   actions: {
     add() {
-      const { key, value } = this.getProperties(['key', 'value']);
-      this.get('values').pushObject({ key, value });
-      this.setProperties({ key: '', value: ''});
-      later(this, () => this.$('input.key').last().focus())
-      this.sendAction('onChange');
+      const { url, label } = this.getProperties(['url', 'label']);
+      this.get('values').pushObject({ url, label });
+      this.setProperties({ url: '', label: ''});
+      later(this, () => this.$('input.url').last().focus());
+      this.get('onChange')();
     },
     remove(kv) {
       this.get('values').removeObject(kv);
-      this.sendAction('onChange');
+      this.get('onChange')();
     },
     update() {
-      this.sendAction('onChange');
+      this.get('onChange')();
     },
   },
 

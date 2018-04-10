@@ -11,10 +11,8 @@ export default Component.extend({
       const model = this.get('model');
       model.set(field, newVal);
       this.send('update');
-      console.warn('setAndUpate');
     },
     update() {
-      console.warn('update');
       debounce(this, 'onUpdate', 750);
     },
   },

@@ -18,15 +18,15 @@ export default Component.extend({
       const { key, value } = this.getProperties(['key', 'value']);
       this.get('values').pushObject({ key, value });
       this.setProperties({ key: '', value: ''});
-      later(this, () => this.$('input.key').last().focus())
-      this.sendAction('onChange');
+      later(this, () => this.$('input.key').last().focus());
+      this.get('onChange')();
     },
     remove(kv) {
       this.get('values').removeObject(kv);
-      this.sendAction('onChange');
+      this.get('onChange')();
     },
     update() {
-      this.sendAction('onChange');
+      this.get('onChange')();
     },
   },
 
