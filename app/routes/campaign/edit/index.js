@@ -22,6 +22,8 @@ export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
   },
 
   doUpdate() {
+    const controller = this.controllerFor('campaign.edit.index');
+    controller.set('isSaving', true);
     const model = this.modelFor('campaign.edit.index');
     const { id, url, description, status, advertiser, name, externalLinks } = model;
     const resultKey = 'updateCampaign';
@@ -31,7 +33,7 @@ export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
     const variables = { input: { id, payload } };
     const refetchQueries = ['campaign', 'AllCampaigns'];
     return this.apollo.mutate({ mutation, variables, refetchQueries }, resultKey)
-      .then(() => this.get('notify').info('Campaign saved.'))
+      .then(() => controller.setProperties({ isSaving: false, hasSaved: true }))
       .catch(e => this.get('errorProcessor').show(e))
     ;
   },

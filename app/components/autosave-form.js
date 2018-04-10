@@ -1,4 +1,5 @@
 import Component from '@ember/component';
+import { set } from '@ember/object';
 import { debounce } from '@ember/runloop';
 
 export default Component.extend({
@@ -9,7 +10,7 @@ export default Component.extend({
   actions: {
     setAndUpdate(field, newVal) {
       const model = this.get('model');
-      model.set(field, newVal);
+      set(model, field, newVal);
       this.send('update');
     },
     update() {
