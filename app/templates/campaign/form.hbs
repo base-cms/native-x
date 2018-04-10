@@ -1,60 +1,83 @@
-<div class="row">
-  <div class="col">
-    <div class="form-group">
-      <label for="name">Name</label>
-      {{input type="text" value=model.name class="form-control" id="name" placeholder="Name"}}
+{{#autosave-form onUpdate=(route-action "update") model=model as |form|}}
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label for="campaign.name">Name</label>
+        {{input
+          type="text"
+          value=model.name
+          class="form-control"
+          id="campaign.name"
+          placeholder="Name"
+          focusOut=(action form.update)
+        }}
+      </div>
     </div>
   </div>
-</div>
 
-<div class="row">
-  <div class="col">
-    <div class="form-group">
-      <label for="description">Description</label>
-      {{input type="text" value=model.description class="form-control" id="description" placeholder="Description"}}
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label for="description">Description</label>
+        {{input
+          type="text"
+          value=model.description
+          class="form-control"
+          id="description"
+          placeholder="Description"
+          focusOut=(action form.update)
+        }}
+      </div>
     </div>
   </div>
-</div>
 
-<div class="row">
-  <div class="col">
-    <div class="form-group">
-      <label for="name">Advertiser</label>
-      {{autocomplete-single
-        placeholder="Select an advertiser"
-        type="advertiser"
-        selected=model.advertiser
-        onSelect=(action (mut model.advertiser))
-      }}
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label for="name">Advertiser</label>
+        {{autocomplete-single
+          placeholder="Select an advertiser"
+          type="advertiser"
+          selected=model.advertiser
+          onChange=(action form.setAndUpdate "advertiser")
+        }}
+      </div>
     </div>
   </div>
-</div>
 
-<div class="row">
-  <div class="col">
-    <div class="form-group">
-      <label for="name">URL</label>
-      {{input type="text" value=model.url class="form-control" id="url" placeholder="URL"}}
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label for="name">URL</label>
+        {{input
+          type="text"
+          value=model.url
+          class="form-control"
+          id="url"
+          placeholder="URL"
+          focusOut=(action form.update)
+        }}
+      </div>
     </div>
   </div>
-</div>
 
-{{#if canChangeStatus}}
-<div class="row">
-  <div class="col">
-    <div class="form-group">
-      <label for="name">Status</label>
-      {{#power-select options=statii selected=model.status onchange=(action (mut model.status)) as |status|}}
-        {{ status }}
-      {{/power-select}}
+  {{#if canChangeStatus}}
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label for="name">Status</label>
+        {{#power-select options=statii selected=model.status onchange=(action form.setAndUpdate "status") as |status|}}
+          {{ status }}
+        {{/power-select}}
+      </div>
     </div>
   </div>
-</div>
-{{/if}}
+  {{/if}}
 
-<div class="row">
-  <div class="form-group col">
-    <label for="placements">External Links</label>
-    {{external-links values=model.externalLinks}}
+  <div class="row">
+    <div class="form-group col">
+      <label for="placements">External Links</label>
+      {{external-links values=model.externalLinks onchange=(action form.setAndUpdate "externalLinks")}}
+    </div>
   </div>
-</div>
+{{/autosave-form}}
