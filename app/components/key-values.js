@@ -25,6 +25,9 @@ export default Component.extend({
       this.get('values').removeObject(kv);
       this.sendAction('onChange');
     },
+    update() {
+      this.sendAction('onChange');
+    },
   },
 
 });
