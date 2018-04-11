@@ -42,6 +42,8 @@ export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
         .then(response => this.transitionTo('campaign.edit', response.id))
         .catch(e => this.get('errorProcessor').show(e))
       ;
-    }
+    },
+    update() {
+    },
   }
 })

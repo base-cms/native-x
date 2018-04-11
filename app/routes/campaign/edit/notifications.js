@@ -11,4 +11,9 @@ export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
     const variables = { input: { id } };
     return this.apollo.watchQuery({ query, variables }, resultKey);
   },
+
+  renderTemplate() {
+    this.render();
+    this.render('campaign.actions.edit.notifications', { outlet: 'actions', into: 'application' });
+  },
 });

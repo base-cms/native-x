@@ -1,14 +1,29 @@
+{{#autosave-form onUpdate=(route-action "update") model=model as |form|}}
+
   <div class="row">
     <div class="col">
       <div class="form-group">
         <label for="start">Starts On</label>
-        {{-calendar currentDay=model.criteria.start maxDate=startMax minDate=startMin truncDay='start' onSelect=(action (mut model.criteria.start))}}
+        {{-calendar
+          currentDay=model.criteria.start
+          maxDate=startMax
+          minDate=startMin
+          truncDay='start'
+          onSelect=(action form.setAndUpdate "criteria.start")
+        }}
       </div>
     </div>
     <div class="col">
       <div class="form-group">
         <label for="end">Ends On</label>
-        {{-calendar currentDay=model.criteria.end maxDate=endMax minDate=endMin truncDay='end' onSelect=(action (mut model.criteria.end)) canRemove=true}}
+        {{-calendar
+          currentDay=model.criteria.end
+          maxDate=endMax
+          minDate=endMin
+          truncDay='end'
+          onSelect=(action form.setAndUpdate "criteria.end")
+          canRemove=true
+          }}
       </div>
     </div>
   </div>
@@ -20,7 +35,7 @@
         placeholder="Select placements"
         type="placement"
         selected=model.criteria.placements
-        onSelect=(action (mut model.criteria.placements))
+        onChange=(action form.setAndUpdate "criteria.placements")
         as |model|
       }}
         {{ model.name }} ({{ model.publisher.name }})
@@ -31,6 +46,10 @@
   <div class="row">
     <div class="form-group col">
       <label for="placements">Custom Variables</label>
-      {{key-values values=model.criteria.kvs}}
+      {{key-values
+        values=model.criteria.kvs
+        onChange=(action form.update)
+      }}
     </div>
   </div>
+{{/autosave-form}}

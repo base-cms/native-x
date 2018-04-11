@@ -1,4 +1,5 @@
 import Component from '@ember/component';
+import { isArray } from '@ember/array';
 import { computed } from '@ember/object';
 import { inject } from '@ember/service';
 import { task, timeout } from 'ember-concurrency';
@@ -44,10 +45,11 @@ export default Component.extend(ComponentQueryManager, {
     const variables = { pagination, search };
     const { query, resultKey } = this.get('_query');
     const selected = this.get('selected') || [];
+    const filterFrom = isArray(selected) ? selected : [ selected ];
     yield timeout(600);
     return this.apollo.watchQuery({ query, variables }, resultKey)
       .then(r => r.map(i => i.node))
-      .then(r => r.filter(i => selected.filterBy('id', i.id).length === 0))
+      .then(r => r.filter(i => filterFrom.filterBy('id', i.id).length === 0))
       .catch(e => this.get('errorProcessor').show(e))
     ;
   }),
