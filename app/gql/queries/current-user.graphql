@@ -1,9 +1,7 @@
+#import 'fortnight/gql/fragments/user'
+
 query currentUser {
   currentUser {
-    id
-    email
-    familyName
-    givenName
-    photoURL
+    ...UserFragment
   }
 }

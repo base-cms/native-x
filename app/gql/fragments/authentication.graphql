@@ -1,0 +1,11 @@
+#import 'fortnight/gql/fragments/session'
+#import 'fortnight/gql/fragments/user'
+
+fragment AuthenticationFragment on Authentication {
+  session {
+    ...SessionFragment
+  }
+  user {
+    ...UserFragment
+  }
+}
