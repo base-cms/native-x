@@ -1,12 +1,9 @@
-<a href="https://docs.fortnight.as3.io" title="Documentation" class="nav-item nav-link" target="_blank">
-  {{-ion "document-text"}} Documentation
-</a>
 {{#if session.isAuthenticated}}
   <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownManage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      {{-ion "settings"}} Manage
+    <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="navbar-dropdown-manage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      {{entypo-icon "tools"}} Manage
     </a>
-    <div class="dropdown-menu" aria-labelledby="navbarDropdownManage">
+    <div class="dropdown-menu" aria-labelledby="navbar-dropdown-manage">
       {{#link-to "contact" class="dropdown-item"}}Contacts{{/link-to}}
       {{#link-to "placement" class="dropdown-item"}}Placements{{/link-to}}
       {{#link-to "publisher" class="dropdown-item"}}Publishers{{/link-to}}

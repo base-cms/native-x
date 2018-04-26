@@ -35,6 +35,12 @@ form .progress {
   height: 0.3rem;
 }
 
+// Add depth to dropdowns
+.dropdown-menu {
+  box-shadow: $z-depth-2;
+  border: none !important;
+}
+
 .icon {
   display: inline-block;
   overflow: hidden;

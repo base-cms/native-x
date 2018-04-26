@@ -1,26 +1,24 @@
 {{#if session.isAuthenticated}}
   <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)" role="button">
-      <img src="{{user.model.photoURL}}" class="icon icon-sm mr-1">
-      {{user.model.givenName}} {{user.model.familyName}}
-      </a>
+      {{!-- <img src="{{user.model.photoURL}}" class="mr-1 icon icon-sm"> --}}
+      {{entypo-icon "user"}} {{user.model.givenName}} {{user.model.familyName}}
+    </a>
 
     <div class="dropdown-menu dropdown-menu-right">
-      {{#link-to "user-settings" class="dropdown-item flex"}}
-        <span>Settings</span>
-        <span class="ml-auto tenant-action">
-          {{-ion "settings"}}
-        </span>
+      {{#link-to "user-settings" class="dropdown-item"}}
+        {{entypo-icon "cog"}} Settings
       {{/link-to}}
+
       <div class="dropdown-divider"></div>
-      {{#link-to "logout" class="dropdown-item flex"}}
-        <span>Logout</span>
-        <span class="ml-auto tenant-action">
-          {{-ion "log-out"}}
-        </span>
+
+      {{#link-to "logout" class="dropdown-item"}}
+        {{entypo-icon "log-out"}} Logout
       {{/link-to}}
     </div>
   </li>
 {{else}}
-  {{#link-to "login" class="nav-item nav-link "}}Log in{{/link-to}}
+  {{#link-to "login" tagName="li" class="nav-item"}}
+    {{#link-to "login" class="nav-link"}}{{entypo-icon "login"}}  Log In{{/link-to}}
+  {{/link-to}}
 {{/if}}
