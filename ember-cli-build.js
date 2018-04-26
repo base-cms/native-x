@@ -18,7 +18,6 @@ module.exports = function(defaults) {
   // Bootstrap JS and source maps.
   app.import('node_modules/bootstrap/dist/js/bootstrap.bundle.min.js');
   app.import('node_modules/bootstrap/dist/js/bootstrap.bundle.min.js.map', { destDir: 'assets' });
-  app.import('node_modules/bootstrap/dist/css/bootstrap.min.css.map', { destDir: 'assets' });
 
   app.import('node_modules/ionicons/css/ionicons.min.css');
   app.import('node_modules/ionicons/css/ionicons.min.css.map', { destDir: 'assets' });
