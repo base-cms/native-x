@@ -1,0 +1,6 @@
+fragment PublisherListFragment on Publisher {
+  id
+  name
+  createdAt
+  updatedAt
+}

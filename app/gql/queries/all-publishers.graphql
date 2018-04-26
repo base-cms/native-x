@@ -1,12 +1,11 @@
+#import 'fortnight/gql/fragments/publisher/list'
+
 query AllPublishers($pagination: PaginationInput, $sort: PublisherSortInput) {
   allPublishers(pagination: $pagination, sort: $sort) {
     totalCount
     edges {
       node {
-        id
-        name
-        createdAt
-        updatedAt
+        ...PublisherListFragment
       }
       cursor
     }
