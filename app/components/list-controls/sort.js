@@ -1,7 +1,7 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { isArray } from '@ember/array';
-import MenuMixin from 'oh-behave-app/components/list-controls/menu-mixin';
+import MenuMixin from 'fortnight/components/list-controls/menu-mixin';
 
 export default Component.extend(MenuMixin, {
   classNames: ['btn-group'],
