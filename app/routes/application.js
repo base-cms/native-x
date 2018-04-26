@@ -12,9 +12,10 @@ export default Route.extend(ApplicationRouteMixin, ActionMixin, {
       this.hideLoading();
     },
 
-    linkTo(name) {
-      this.transitionTo(name);
+    transitionTo(name) {
+      return this.transitionTo(name);
     },
+
     scrollToTop() {
       window.scrollTo(0, 0);
     },
