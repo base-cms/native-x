@@ -1,7 +1,6 @@
 {{#if session.isAuthenticated}}
   <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)" role="button">
-      {{!-- <img src="{{user.model.photoURL}}" class="mr-1 icon icon-sm"> --}}
       {{entypo-icon "user"}} {{user.model.givenName}} {{user.model.familyName}}
     </a>
 
