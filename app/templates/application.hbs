@@ -1,6 +1,6 @@
-{{#if displayNav}}
-  {{partial "navigation"}}
-{{/if}}
+{{ember-notify messageStyle="bootstrap"}}
+
+{{partial "navigation"}}
 
 {{outlet "branding"}}
 
@@ -12,8 +12,5 @@
   {{partial "loading"}}
 </div>
 
-{{ember-notify messageStyle='bootstrap'}}
+{{partial "navigation/footer"}}
 
-{{#if displayNav}}
-  {{partial "navigation/footer"}}
-{{/if}}

@@ -1,14 +1,11 @@
 import Service from '@ember/service';
-import { inject } from '@ember/service';
+import ObjectQueryManager from 'ember-apollo-client/mixins/object-query-manager';
 
 import checkSession from 'fortnight/gql/queries/check-session';
-import createUser from 'fortnight/gql/mutations/create-user';
 import deleteSession from 'fortnight/gql/mutations/delete-session';
 import loginUser from 'fortnight/gql/mutations/login-user';
 
-export default Service.extend({
-  apollo: inject(),
-
+export default Service.extend(ObjectQueryManager, {
   /**
    * Checks the current session.
    *
@@ -19,25 +16,10 @@ export default Service.extend({
     const variables = {
       input: { token },
     };
-    return this.get('apollo')
-      .watchQuery({ query: checkSession, variables }, "checkSession")
-      .then(auth => auth.session)
-    ;
-  },
-
-  /**
-   * Creates a new user (sign-up/registration)
-   * Will not immediately log the new user in.
-   *
-   * @param {Object} payload
-   * @param {string} captcha
-   * @return {Promise}
-   */
-  create(payload, captcha) {
-    const variables = {
-      input: { payload, captcha },
-    };
-    return this.get('apollo').mutate({ mutation: createUser, variables }, "createUser");
+    return this.get('apollo').watchQuery({ query: checkSession, variables, fetchPolicy: 'network-only' }, "checkSession").then((auth) => {
+      this.set('response', auth);
+      return auth;
+    });
   },
 
   /**
@@ -51,10 +33,10 @@ export default Service.extend({
     const variables = {
       input: { email, password },
     };
-    return this.get('apollo')
-      .mutate({ mutation: loginUser, variables }, "loginUser")
-      .then(auth => auth.session)
-    ;
+    return this.get('apollo').mutate({ mutation: loginUser, variables }, "loginUser").then((auth) => {
+      this.set('response', auth);
+      return auth;
+    })
   },
 
   /**
@@ -63,6 +45,8 @@ export default Service.extend({
    * @return {Promise}
    */
   delete() {
-    return this.get('apollo').mutate({ mutation: deleteSession }, "deleteSession");
+    return this.get('apollo').mutate({ mutation: deleteSession }, "deleteSession").then(() => {
+      this.set('response', null);
+    });
   },
 });
