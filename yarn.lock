@@ -2638,7 +2638,7 @@ ember-cli-babel@^5.1.6, ember-cli-babel@^5.1.7:
     ember-cli-version-checker "^1.0.2"
     resolve "^1.1.2"
 
-ember-cli-babel@^6.0.0, ember-cli-babel@^6.0.0-beta.4, ember-cli-babel@^6.0.0-beta.7, ember-cli-babel@^6.0.0-beta.9, ember-cli-babel@^6.10.0, ember-cli-babel@^6.11.0, ember-cli-babel@^6.3.0, ember-cli-babel@^6.6.0, ember-cli-babel@^6.7.2, ember-cli-babel@^6.8.0, ember-cli-babel@^6.8.1, ember-cli-babel@^6.8.2, ember-cli-babel@^6.9.0:
+ember-cli-babel@^6.0.0, ember-cli-babel@^6.0.0-beta.4, ember-cli-babel@^6.0.0-beta.7, ember-cli-babel@^6.0.0-beta.9, ember-cli-babel@^6.10.0, ember-cli-babel@^6.11.0, ember-cli-babel@^6.3.0, ember-cli-babel@^6.6.0, ember-cli-babel@^6.7.2, ember-cli-babel@^6.8.0, ember-cli-babel@^6.8.1, ember-cli-babel@^6.8.2:
   version "6.11.0"
   resolved "https://registry.yarnpkg.com/ember-cli-babel/-/ember-cli-babel-6.11.0.tgz#79cb184bac3c05bfe181ddc306bac100ab1f9493"
   dependencies:
@@ -3064,7 +3064,7 @@ ember-moment@^7.5.0:
     ember-getowner-polyfill "^2.0.1"
     ember-macro-helpers "^0.17.0"
 
-ember-native-dom-helpers@^0.5.4:
+ember-native-dom-helpers@^0.5.10, ember-native-dom-helpers@^0.5.4:
   version "0.5.10"
   resolved "https://registry.yarnpkg.com/ember-native-dom-helpers/-/ember-native-dom-helpers-0.5.10.tgz#9c7172e4ddfa5dd86830c46a936e2f8eca3e5896"
   dependencies:
@@ -3080,17 +3080,17 @@ ember-notify@^5.2.1:
     ember-string-ishtmlsafe-polyfill "^1.1.0"
     object-assign "^4.1.0"
 
-ember-power-calendar@^0.6.2:
-  version "0.6.2"
-  resolved "https://registry.yarnpkg.com/ember-power-calendar/-/ember-power-calendar-0.6.2.tgz#36c722552fed797ff29e0ce45a2c29c71babd67e"
+ember-power-calendar@^0.7.2:
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/ember-power-calendar/-/ember-power-calendar-0.7.2.tgz#08a25fc41a95dc4466a7c2a2cbca6fe91cec3051"
   dependencies:
     ember-assign-helper "0.1.2"
-    ember-cli-babel "^6.9.0"
+    ember-cli-babel "^6.11.0"
     ember-cli-htmlbars "^2.0.1"
     ember-cli-moment-shim "^3.5.0"
     ember-concurrency "^0.8.12"
     ember-moment "^7.5.0"
-    ember-native-dom-helpers "^0.5.4"
+    ember-native-dom-helpers "^0.5.10"
 
 ember-power-select@^1.10.4:
   version "1.10.4"
