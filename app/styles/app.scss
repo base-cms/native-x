@@ -41,52 +41,6 @@ form .progress {
   border: none !important;
 }
 
-.icon {
-  display: inline-block;
-  overflow: hidden;
-  line-height: 1;
-  vertical-align: middle;
-  border-radius: 3px;
-}
-
-.brand-logo {
-  height: 25px;
-}
-
-.icon-100px svg {
-height:100px
-}
-
-.filter-grayscale {
-  -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
-  filter: grayscale(100%);
-}
-
-.icon-lg {
-  width: 100px;
-  height: 100px;
-}
-
-.icon-md {
-  width: 50px;
-  height: 50px;
-}
-
-.icon-sm {
-  width: 20px;
-  height: 20px;
-}
-
-.dropdown-item.flex {
-  display: flex !important;
-}
-
-.tenant-action {
-  display: inline-block;
-  vertical-align: bottom;
-  height: 24px;
-}
-
 .fixed-bottom {
   right: 0;
   bottom: 0;
