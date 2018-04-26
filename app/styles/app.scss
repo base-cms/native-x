@@ -1,6 +1,6 @@
-@import "node_modules/bootswatch/dist/flatly/variables";
+@import "node_modules/bootswatch/dist/cosmo/variables";
 @import "node_modules/bootstrap/scss/bootstrap";
-@import "node_modules/bootswatch/dist/flatly/bootswatch";
+@import "node_modules/bootswatch/dist/cosmo/bootswatch";
 
 @import 'ember-power-select/themes/bootstrap';
 @import "ember-power-select";
@@ -45,6 +45,15 @@ form .progress {
 .modal-content {
   border: 0;
   box-shadow: $z-depth-3;
+}
+
+// Add depth to cards
+.card.list-index, .card.model-form, .card.error {
+  box-shadow: $z-depth-1;
+  border: none !important;
+}
+.card.error {
+  box-shadow: $z-depth-1-half;
 }
 
 .fixed-bottom {
