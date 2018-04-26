@@ -2612,7 +2612,7 @@ ember-assign-helper@0.1.2:
   dependencies:
     ember-cli-babel "^6.0.0-beta.9"
 
-ember-basic-dropdown@^1.0.0-beta.5:
+ember-basic-dropdown@^1.0.0-beta.5, ember-basic-dropdown@^1.0.0-beta.7:
   version "1.0.0-beta.7"
   resolved "https://registry.yarnpkg.com/ember-basic-dropdown/-/ember-basic-dropdown-1.0.0-beta.7.tgz#afbdfec157ca0f3baf0ff77c335e89414c03c429"
   dependencies:
@@ -3023,6 +3023,13 @@ ember-cookies@^0.3.0:
     ember-cli-babel "^6.8.2"
     ember-getowner-polyfill "^1.1.0 || ^2.0.0"
 
+ember-entypo@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/ember-entypo/-/ember-entypo-1.0.1.tgz#0dc5980d0f777ba0593abcfc71e5db47d44f2021"
+  dependencies:
+    ember-cli-babel "^6.6.0"
+    ember-cli-htmlbars "^2.0.1"
+
 ember-export-application-global@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/ember-export-application-global/-/ember-export-application-global-2.0.0.tgz#8d6d7619ac8a1a3f8c43003549eb21ebed685bd2"
@@ -3280,6 +3287,13 @@ ember-weakmap@^3.0.0:
     browserslist "^2.2.2"
     debug "^3.1.0"
     ember-cli-babel "^6.3.0"
+
+ember-wormhole@^0.5.4:
+  version "0.5.4"
+  resolved "https://registry.yarnpkg.com/ember-wormhole/-/ember-wormhole-0.5.4.tgz#968e80f093494f4aed266e750afa63919c61383d"
+  dependencies:
+    ember-cli-babel "^6.10.0"
+    ember-cli-htmlbars "^2.0.1"
 
 emojis-list@^2.0.0:
   version "2.1.0"
