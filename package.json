@@ -83,7 +83,7 @@
     "highcharts": "^6.0.7",
     "loader.js": "^4.2.3",
     "nyc": "^11.4.1",
-    "popper.js": "^1.12.9"
+    "popper.js": "^1.14.3"
   },
   "engines": {
     "node": "^4.5 || 6.* || >= 7.*"
@@ -104,7 +104,7 @@
     ]
   },
   "dependencies": {
-    "bootswatch": "^4.0.0",
+    "bootswatch": "^4.1.0",
     "filesize": "^3.6.0",
     "fraction.js": "^4.0.4",
     "ionicons": "^2.0.1"
