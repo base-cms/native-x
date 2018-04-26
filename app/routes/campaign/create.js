@@ -1,12 +1,11 @@
 import Route from '@ember/routing/route';
 import RouteQueryManager from 'ember-apollo-client/mixins/route-query-manager';
-import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 import { inject } from '@ember/service';
 import { getProperties } from '@ember/object';
 
 import mutation from 'fortnight/gql/mutations/create-campaign';
 
-export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
+export default Route.extend(RouteQueryManager, {
   errorProcessor: inject(),
 
   model() {

@@ -1,11 +1,10 @@
 import Route from '@ember/routing/route';
-import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 import RouteQueryManager from 'ember-apollo-client/mixins/route-query-manager';
 
 import query from 'fortnight/gql/queries/template';
 import mutation from 'fortnight/gql/mutations/update-template';
 
-export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
+export default Route.extend(RouteQueryManager, {
 
   model({ id }) {
     const resultKey = 'template';

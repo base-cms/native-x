@@ -1,5 +1,4 @@
 import Route from '@ember/routing/route';
-import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 import RouteQueryManager from 'ember-apollo-client/mixins/route-query-manager';
 
 import { get } from '@ember/object';
@@ -9,7 +8,7 @@ import moment from 'moment';
 import query from 'fortnight/gql/queries/campaign-criteria';
 import mutation from 'fortnight/gql/mutations/set-campaign-criteria';
 
-export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
+export default Route.extend(RouteQueryManager, {
 
   hasSaved: false,
 

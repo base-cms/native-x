@@ -1,10 +1,9 @@
 import Route from '@ember/routing/route';
-import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 import RouteQueryManager from 'ember-apollo-client/mixins/route-query-manager';
 
 import mutation from 'fortnight/gql/mutations/create-advertiser';
 
-export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
+export default Route.extend(RouteQueryManager, {
 
   model() {
     return { name: '' };
