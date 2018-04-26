@@ -10,7 +10,6 @@
 }
 
 @import "z-depth";
-@import "_loading.scss"; // @todo Remove me.
 
 // Ember link actions, or explicitally clickable.
 a[data-ember-action]:not(:disabled),
@@ -28,6 +27,12 @@ form .progress {
 .ember-notify.alert {
   box-shadow: $z-depth-2;
   border: none !important;
+}
+
+// The primary loading progress bar, found below nav.
+.loading.progress {
+  border-radius: 0 !important;
+  height: 0.3rem;
 }
 
 .icon {
