@@ -1,7 +1,7 @@
 {{#if session.isAuthenticated}}
   <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)" role="button">
-      {{entypo-icon "user"}} {{user.model.givenName}} {{user.model.familyName}}
+    <a class="nav-link dropdown-toggle" title="User Settings" data-toggle="dropdown" href="javascript:void(0)" role="button">
+      {{entypo-icon "user"}} <span class="d-none d-md-inline">{{user.model.givenName}} {{user.model.familyName}}</span>
     </a>
 
     <div class="dropdown-menu dropdown-menu-right">
@@ -11,13 +11,13 @@
 
       <div class="dropdown-divider"></div>
 
-      {{#link-to "logout" class="dropdown-item"}}
+      {{#link-to "logout" class="dropdown-item" title="Logout of the Application"}}
         {{entypo-icon "log-out"}} Logout
       {{/link-to}}
     </div>
   </li>
 {{else}}
-  {{#link-to "login" tagName="li" class="nav-item"}}
+  {{#link-to "login" tagName="li" class="nav-item" title="Login Into the Application"}}
     {{#link-to "login" class="nav-link"}}{{entypo-icon "login"}}  Log In{{/link-to}}
   {{/link-to}}
 {{/if}}

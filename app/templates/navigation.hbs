@@ -1,39 +1,43 @@
 <div class="sticky-top z-depth-1-half">
   <nav class="navbar navbar-expand navbar-dark bg-primary">
     {{#link-to "index" class="navbar-brand"}}Fortnight{{/link-to}}
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav mr-auto">
+
+    <ul class="navbar-nav mr-auto">
       {{#unless session.isAuthenticated}}
         {{#link-to "about" tagName="li" class="nav-item"}}
-          {{#link-to "about" class="nav-link"}}{{entypo-icon "info-with-circle"}} About{{/link-to}}
+          {{#link-to "about" class="nav-link" title="Information About the Application"}}{{entypo-icon "info-with-circle"}} About{{/link-to}}
         {{/link-to}}
       {{else}}
         {{#link-to "index" tagName="li" class="nav-item"}}
-          {{#link-to "index" class="nav-link"}}Dashboard{{/link-to}}
+          {{#link-to "index" class="nav-link" title="Dashboard"}}
+            {{entypo-icon "blackboard"}} <span class="d-none d-md-inline">Dashboard</span>
+          {{/link-to}}
         {{/link-to}}
 
         {{#link-to "campaign" tagName="li" class="nav-item"}}
-          {{#link-to "campaign" class="nav-link"}}Campaigns{{/link-to}}
+          {{#link-to "campaign" class="nav-link" title="Manage Campaigns"}}
+            {{entypo-icon "credit"}} <span class="d-none d-md-inline">Campaigns</span>
+          {{/link-to}}
         {{/link-to}}
 
         {{#link-to "advertiser" tagName="li" class="nav-item"}}
-          {{#link-to "advertiser" class="nav-link"}}Advertisers{{/link-to}}
+          {{#link-to "advertiser" class="nav-link" title="Manage Advertisers"}}
+            {{entypo-icon "archive"}} <span class="d-none d-md-inline">Advertisers</span>
+          {{/link-to}}
         {{/link-to}}
       {{/unless}}
-      </ul>
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
-          <a href="https://docs.fortnight.as3.io" title="Documentation" class="nav-link" target="_blank" rel="noopener noreferrer">
-            {{entypo-icon "text-document"}} Documentation
-          </a>
-        </li>
-        {{partial "navigation/models"}}
-        {{partial "navigation/user"}}
-      </ul>
-    </div>
+    </ul>
+
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a href="https://docs.fortnight.as3.io" title="Application Documentation" class="nav-link" target="_blank" rel="noopener noreferrer">
+          {{entypo-icon "text-document"}} <span class="d-none d-md-inline">Documentation</span>
+        </a>
+      </li>
+      {{partial "navigation/models"}}
+      {{partial "navigation/user"}}
+    </ul>
+
   </nav>
 
   {{loading-progress class="bg-primary"}}
