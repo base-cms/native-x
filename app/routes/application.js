@@ -18,6 +18,28 @@ export default Route.extend(ApplicationRouteMixin, ActionMixin, {
     scrollToTop() {
       window.scrollTo(0, 0);
     },
+
+    /**
+     *
+     * @param {*} transition
+     */
+    loading(transition) {
+      this.showLoading();
+      transition.finally(() => this.hideLoading());
+    },
+
+    /**
+     *
+     * @param {Error} e
+     */
+    error(e) {
+      if (this.get('graphErrors').isReady()) {
+        this.get('graphErrors').show(e);
+      } else {
+        this.intermediateTransitionTo('application_error', e);
+      }
+    },
+
     hardDelete() {
       this.get('notify').warning('Sorry, this item cannot be deleted.');
     },
