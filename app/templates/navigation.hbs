@@ -1,24 +1,39 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top z-depth-1-half">
-  {{#link-to "index" class="navbar-brand"}}
-    <img src="/manage/assets/images/logo.png" style="height: 30px;" alt="Fortnight" />
-  {{/link-to}}
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNavDropdown">
-    <ul class="navbar-nav mr-auto">
-    {{#unless session.isAuthenticated}}
-      {{#link-to "about" class="nav-item nav-link"}}About{{/link-to}}
-    {{else}}
-      {{#link-to "index" class="nav-item nav-link"}}Dashboard{{/link-to}}
-      {{#link-to "reports" class="nav-item nav-link"}}Reports{{/link-to}}
-      {{#link-to "campaign" class="nav-item nav-link"}}Campaigns{{/link-to}}
-      {{#link-to "advertiser" class="nav-item nav-link"}}Advertisers{{/link-to}}
-    {{/unless}}
-    </ul>
-    <ul class="navbar-nav ml-auto">
-      {{partial "navigation/models"}}
-      {{partial "navigation/user"}}
-    </ul>
-  </div>
-</nav>
+<div class="sticky-top z-depth-1-half">
+  <nav class="navbar navbar-expand navbar-dark bg-primary">
+    {{#link-to "index" class="navbar-brand"}}Fortnight{{/link-to}}
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav mr-auto">
+      {{#unless session.isAuthenticated}}
+        {{#link-to "about" tagName="li" class="nav-item"}}
+          {{#link-to "about" class="nav-link"}}About{{/link-to}}
+        {{/link-to}}
+      {{else}}
+        {{#link-to "index" class="nav-link"}}
+          {{#link-to "index" class="nav-link"}}Dashboard{{/link-to}}
+        {{/link-to}}
+
+        {{#link-to "reports" class="nav-link"}}
+          {{#link-to "reports" class="nav-link"}}Reports{{/link-to}}
+        {{/link-to}}
+
+        {{#link-to "campaign" class="nav-link"}}
+          {{#link-to "campaign" class="nav-link"}}Campaigns{{/link-to}}
+        {{/link-to}}
+
+        {{#link-to "advertiser" class="nav-link"}}
+          {{#link-to "advertiser" class="nav-link"}}Advertisers{{/link-to}}
+        {{/link-to}}
+      {{/unless}}
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        {{partial "navigation/models"}}
+        {{partial "navigation/user"}}
+      </ul>
+    </div>
+  </nav>
+</div>
+
+
