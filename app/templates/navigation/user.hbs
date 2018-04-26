@@ -1,14 +1,15 @@
-{{#if session.isAuthenticated}}
+{{#if user.isAuthenticated}}
   <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" title="User Settings" data-toggle="dropdown" href="javascript:void(0)" role="button">
       {{entypo-icon "user"}} <span class="d-none d-md-inline">{{user.model.givenName}} {{user.model.familyName}}</span>
     </a>
 
     <div class="dropdown-menu dropdown-menu-right">
-      {{#link-to "user-settings" class="dropdown-item d-flex justify-content-between"}}
-        Settings
-        {{entypo-icon "cog"}}
-      {{/link-to}}
+
+      <a class="dropdown-item dropdown-item d-flex justify-content-between" href="javascript:void(0)" title="Change Password" {{action "displayChangePassword"}}>
+        Change Password
+        {{entypo-icon "key" class="ml-1"}}
+      </a>
 
       <div class="dropdown-divider"></div>
 
@@ -23,3 +24,5 @@
     {{#link-to "login" class="nav-link"}}{{entypo-icon "login"}}  Log In{{/link-to}}
   {{/link-to}}
 {{/if}}
+
+{{change-password-modal isOpen=isChangePasswordOpen model=user.model}}

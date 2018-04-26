@@ -41,6 +41,12 @@ form .progress {
   border: none !important;
 }
 
+// Add depth to modals
+.modal-content {
+  border: 0;
+  box-shadow: $z-depth-3;
+}
+
 .fixed-bottom {
   right: 0;
   bottom: 0;

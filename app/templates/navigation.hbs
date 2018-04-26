@@ -3,7 +3,7 @@
     {{#link-to "index" class="navbar-brand"}}Fortnight{{/link-to}}
 
     <ul class="navbar-nav mr-auto">
-      {{#unless session.isAuthenticated}}
+      {{#unless user.isAuthenticated}}
         {{#link-to "about" tagName="li" class="nav-item"}}
           {{#link-to "about" class="nav-link" title="Information About the Application"}}{{entypo-icon "info-with-circle"}} About{{/link-to}}
         {{/link-to}}
