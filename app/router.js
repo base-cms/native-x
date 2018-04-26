@@ -9,7 +9,7 @@ const Router = EmberRouter.extend({
 Router.map(function() {
 
   this.route('advertiser', function() {
-    this.route('create', { path: 'new' });
+    this.route('create');
     this.route('edit', { path: ':id' });
   })
 
@@ -23,22 +23,22 @@ Router.map(function() {
   })
 
   this.route('placement', function() {
-    this.route('create', { path: 'new' });
+    this.route('create');
     this.route('edit', { path: ':id' });
   })
 
   this.route('contact', function() {
-    this.route('create', { path: 'new' });
+    this.route('create');
     this.route('edit', { path: ':id' });
   })
 
   this.route('publisher', function() {
-    this.route('create', { path: 'new' });
+    this.route('create');
     this.route('edit', { path: ':id' });
   })
 
   this.route('template', function() {
-    this.route('create', { path: 'new' });
+    this.route('create');
     this.route('edit', { path: ':id' });
   })
 
