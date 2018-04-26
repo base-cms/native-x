@@ -5,14 +5,16 @@
     </a>
 
     <div class="dropdown-menu dropdown-menu-right">
-      {{#link-to "user-settings" class="dropdown-item"}}
-        {{entypo-icon "cog"}} Settings
+      {{#link-to "user-settings" class="dropdown-item d-flex justify-content-between"}}
+        Settings
+        {{entypo-icon "cog"}}
       {{/link-to}}
 
       <div class="dropdown-divider"></div>
 
-      {{#link-to "logout" class="dropdown-item" title="Logout of the Application"}}
-        {{entypo-icon "log-out"}} Logout
+      {{#link-to "logout" class="dropdown-item d-flex justify-content-between" title="Logout of the Application"}}
+        Logout
+        {{entypo-icon "log-out"}}
       {{/link-to}}
     </div>
   </li>
