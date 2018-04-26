@@ -56,14 +56,13 @@ form .progress {
   box-shadow: $z-depth-1-half;
 }
 
-.fixed-bottom {
-  right: 0;
-  bottom: 0;
-  left: 0;
-}
-
+// Force create button to bottom right; add depth
 .fixed-bottom.create {
   left: inherit;
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+  box-shadow: $z-depth-2;
 }
 
 .ember-basic-dropdown-content {
