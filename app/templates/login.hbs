@@ -27,14 +27,14 @@
             </div>
           </div>
           <div class="card-footer">
-            <button type="submit" class="btn btn-block btn-lg btn-primary" disabled={{isLoading}}>
+            <button type="submit" class="btn btn-block btn-lg btn-primary" disabled={{isActionRunning}}>
               {{entypo-icon "login" class="mr-1"}} Log In
             </button>
             {{#if errorMessage}}
               <div class="alert-danger mt-3 mb-0 alert" role="alert"><strong>Oh Snap!</strong> {{errorMessage}}</div>
             {{/if}}
           </div>
-          {{progress-bar show=isLoading}}
+          {{progress-bar show=isActionRunning}}
         </form>
       </div>
     </div>
