@@ -45,9 +45,6 @@ Router.map(function() {
   this.route('login');
   this.route('logout');
   this.route('user-settings');
-  this.route('reports', function() {
-    this.route('campaign', { path: "campaign/:hash" })
-  });
   this.route('about');
 });
 
