@@ -4,9 +4,13 @@
 }}
   <div class="d-flex w-100 justify-content-between">
     <h5 class="mb-1">{{item.name}}</h5>
-    <small>Modified {{moment-from-now item.updatedAt}}</small>
+    {{#if item.updatedAt}}
+      <small class="d-block" title="{{moment-format item.updatedAt 'MMM Do, YYYY h:mm a'}}">
+        {{entypo-icon "clock"}} Updated {{moment-from-now item.updatedAt}}
+      </small>
+    {{/if}}
   </div>
 
-  <div class="mb-1">{{item.publisher.name}}</div>
+  <div class="mb-1">Publisher: {{item.publisher.name}}</div>
   <small>ID: {{item.id}}</small>
 {{/link-to}}
