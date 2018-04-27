@@ -1,10 +1,25 @@
-<div class="row">
-  <div class="col">
-    <h3 class="mb-0">
-      Modify Template
-    </h3>
-  </div>
-</div>
-<hr>
+{{#nav-breadcrumbs as |crumbs|}}
+  {{#crumbs.item}}{{#link-to "template.index"}}{{entypo-icon "news"}} Templates{{/link-to}}{{/crumbs.item}}
+  {{#crumbs.item active=true}}{{ model.name }}{{/crumbs.item}}
+{{/nav-breadcrumbs}}
 
-{{partial "template/form"}}
+<form {{action (route-action "update" model) on="submit"}}>
+  <div class="card model-form">
+    <div class="card-header"></div>
+    <div class="card-body">
+      {{ partial "template/form" }}
+    </div>
+    <div class="card-footer">
+      {{model-save-button disabled=isActionRunning}}
+      <div class="btn-group float-right">
+        {{confirm-button
+          icon="trash"
+          label="Delete"
+          class="btn-danger"
+          disabled=isActionRunning
+          onConfirm=(route-action "delete" model.id "template.index")
+        }}
+      </div>
+    </div>
+  </div>
+</form>

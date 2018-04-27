@@ -11,7 +11,7 @@ const html = `{{build-container-attributes}}
 
 export default Route.extend(RouteQueryManager, ActionMixin, {
   model() {
-    return { html };
+    return { html, fallback: '' };
   },
 
   actions: {
