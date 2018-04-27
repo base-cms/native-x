@@ -1,12 +1,7 @@
+#import 'fortnight/gql/fragments/placement/view'
+
 mutation UpdatePlacement($input: UpdatePlacementInput!) {
   updatePlacement(input: $input) {
-    id
-    name
-    publisher {
-      id
-      name
-    }
-    createdAt
-    updatedAt
+    ...PlacementFragment
   }
 }
