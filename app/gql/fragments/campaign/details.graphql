@@ -1,0 +1,12 @@
+#import 'fortnight/gql/fragments/campaign/list'
+
+fragment CampaignDetailsFragment on Campaign {
+  ...CampaignListFragment
+  isNew
+  description
+  url
+  externalLinks {
+    label
+    url
+  }
+}

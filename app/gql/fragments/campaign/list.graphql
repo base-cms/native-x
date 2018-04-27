@@ -1,7 +1,6 @@
 fragment CampaignListFragment on Campaign {
   id
   name
-  createdAt
   updatedAt
   status
   advertiser {
