@@ -1,14 +1,11 @@
+#import 'fortnight/gql/fragments/advertiser/list'
 
-query allAdvertisers($pagination: PaginationInput, $sort: AdvertiserSortInput) {
+query AllAdvertisers($pagination: PaginationInput, $sort: AdvertiserSortInput) {
   allAdvertisers(pagination: $pagination, sort: $sort) {
     totalCount
     edges {
       node {
-        id
-        name
-        createdAt
-        updatedAt
-        campaignCount
+        ...AdvertiserListFragment
       }
       cursor
     }

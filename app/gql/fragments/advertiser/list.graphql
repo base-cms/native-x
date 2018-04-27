@@ -1,0 +1,6 @@
+fragment AdvertiserListFragment on Advertiser {
+  id
+  name
+  createdAt
+  campaignCount
+}
