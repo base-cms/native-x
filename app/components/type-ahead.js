@@ -5,6 +5,7 @@ import { task, timeout } from 'ember-concurrency';
 import ComponentQueryManager from 'ember-apollo-client/mixins/component-query-manager';
 
 import searchPublishers from 'fortnight/gql/queries/search-publishers';
+import searchAdvertisers from 'fortnight/gql/queries/search-advertisers';
 
 export default Component.extend(ComponentQueryManager, {
   closeOnSelect: true,
@@ -29,6 +30,8 @@ export default Component.extend(ComponentQueryManager, {
     switch (type) {
       case 'publisher':
         return { query: searchPublishers, resultKey: 'searchPublishers' };
+      case 'advertiser':
+        return { query: searchAdvertisers, resultKey: 'searchAdvertisers' };
     }
     this.get('graphErrors').show(new Error(`The model type ${type} is not searchable.`));
   }),
