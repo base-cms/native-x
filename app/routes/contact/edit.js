@@ -8,7 +8,7 @@ import mutation from 'fortnight/gql/mutations/update-contact';
 export default Route.extend(RouteQueryManager, ActionMixin, {
   model({ id }) {
     const variables = { input: { id } };
-    return this.apollo.watchQuery({ query, variables }, 'contact');
+    return this.apollo.watchQuery({ query, variables, fetchPolicy: 'network-only' }, 'contact');
   },
 
   actions: {

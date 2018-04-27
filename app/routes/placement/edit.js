@@ -9,7 +9,7 @@ import mutation from 'fortnight/gql/mutations/update-placement';
 export default Route.extend(RouteQueryManager, ActionMixin, {
   model({ id }) {
     const variables = { input: { id } };
-    return this.apollo.watchQuery({ query, variables }, 'placement');
+    return this.apollo.watchQuery({ query, variables, fetchPolicy: 'network-only' }, 'placement');
   },
 
   actions: {
