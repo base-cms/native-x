@@ -1,0 +1,32 @@
+{{#if multiple}}
+  {{#power-select-multiple
+    search=(perform search)
+    selected=selected
+    placeholder=placeholder
+    onchange=(if onChange onChange (action (mut selected)))
+    closeOnSelect=_closeOnSelect
+    disabled=disabled
+    as |model|}}
+    {{#if (has-block)}}
+      {{ yield model }}
+    {{else}}
+      {{ model.name }}
+    {{/if}}
+  {{/power-select-multiple}}
+{{else}}
+  {{#power-select
+    search=(perform search)
+    selected=selected
+    placeholder=placeholder
+    allowClear=allowClear
+    closeOnSelect=_closeOnSelect
+    disabled=disabled
+    onchange=(if onChange onChange (action (mut selected)))
+    as |model|}}
+      {{#if (has-block)}}
+        {{ yield model }}
+      {{else}}
+        {{ model.name }}
+      {{/if}}
+  {{/power-select}}
+{{/if}}
