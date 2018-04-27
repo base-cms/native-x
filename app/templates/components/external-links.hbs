@@ -3,7 +3,7 @@
   <div class="form-group col">
     {{input
       type="text"
-      class="form-control form-control-sm"
+      class="form-control"
       value=kv.label
       focusOut=(action "update")
     }}
@@ -12,28 +12,28 @@
     {{input
       type="text"
       placeholder="https://..."
-      class="form-control form-control-sm"
+      class="form-control"
       value=kv.url
       focusOut=(action "update")
     }}
   </div>
   <div class="form-group col-2">
-    <button type="submit" class="btn btn-sm btn-danger btn-block" {{action "remove" kv}}>
-      {{-ion "android-close"}} Remove
+    <button type="submit" class="btn btn-block btn-warning" {{action "remove" kv}}>
+      {{entypo-icon "cross"}} Remove
     </button>
   </div>
 </div>
 {{/each}}
 <div class="row align-items-end">
   <div class="form-group col">
-    {{input type="text" placeholder="Link Text" class="form-control form-control-sm label" value=label}}
+    {{input type="text" placeholder="Link Text" class="form-control label" value=label}}
   </div>
   <div class="form-group col">
-    {{input type="text" placeholder="https://..." class="form-control form-control-sm url" value=url}}
+    {{input type="text" placeholder="https://..." class="form-control url" value=url}}
   </div>
   <div class="form-group col-2 text-right">
-    <button type="submit" class="btn btn-sm btn-primary btn-block" {{action "add"}}>
-      {{-ion "android-add"}} Add
+    <button type="submit" class="btn btn-block btn-primary" {{action "add"}}>
+      {{entypo-icon "plus"}} Add
     </button>
   </div>
 </div>

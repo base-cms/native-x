@@ -3,7 +3,11 @@
   {{#crumbs.item active=true}}Create New{{/crumbs.item}}
 {{/nav-breadcrumbs}}
 
-<form {{action (route-action "create" model) on="submit"}}>
+{{#model-form
+  model=model
+  shouldAutosave=(if model.isNew false true)
+  onSubmit=(route-action "create") as |form|
+}}
   <div class="card model-form">
     <div class="card-header"></div>
     <div class="card-body">
@@ -13,5 +17,4 @@
       {{model-save-button disabled=isActionRunning}}
     </div>
   </div>
-</form>
-
+{{/model-form}}
