@@ -1,0 +1,15 @@
+{{#link-to
+  "campaign.edit.index" item.id
+  class="list-group-item list-group-item-action flex-column align-items-start"
+}}
+  <div class="d-flex w-100 justify-content-between">
+    <h5 class="mb-1">{{item.name}}</h5>
+
+
+  </div>
+  <div class="mb-1">{{item.advertiser.name}}</div>
+  <small>{{item.id}}</small>
+  {{campaign-status value=item.status}}
+
+
+{{/link-to}}
