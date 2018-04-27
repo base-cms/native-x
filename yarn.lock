@@ -4389,10 +4389,6 @@ heimdalljs@^0.2.0, heimdalljs@^0.2.1, heimdalljs@^0.2.3, heimdalljs@^0.2.5:
   dependencies:
     rsvp "~3.2.1"
 
-highcharts@^6.0.7:
-  version "6.0.7"
-  resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-6.0.7.tgz#fd5c4f24fdc61a04ae155a5b70830a96c8f70919"
-
 hmac-drbg@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/hmac-drbg/-/hmac-drbg-1.0.1.tgz#d2745701025a6c775a6c545793ed502fc0c649a1"
@@ -4591,10 +4587,6 @@ invariant@^2.2.2:
 invert-kv@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/invert-kv/-/invert-kv-1.0.0.tgz#104a8e4aaca6d3d8cd157a8ef8bfab2d7a3ffdb6"
-
-ionicons@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/ionicons/-/ionicons-2.0.1.tgz#ca398113293ea870244f538f0aabbd4b5b209a3e"
 
 ipaddr.js@1.5.2:
   version "1.5.2"

@@ -1,34 +1,28 @@
 import Route from '@ember/routing/route';
 import RouteQueryManager from 'ember-apollo-client/mixins/route-query-manager';
+import ActionMixin from 'fortnight/mixins/action-mixin';
 
 import mutation from 'fortnight/gql/mutations/create-placement';
 
-export default Route.extend(RouteQueryManager, {
-
+export default Route.extend(RouteQueryManager, ActionMixin, {
   model() {
-    return { name: '' };
-  },
-
-  renderTemplate() {
-    this.render();
-    this.render('placement.actions.create', { outlet: 'actions', into: 'application' });
+    return {};
   },
 
   actions: {
-    create({ name, publisher }) {
-      const resultKey = 'createPlacement';
-      if (!publisher) {
-        return this.get('errorProcessor').show(new Error('You must specify a publisher.'));
-      }
-      const publisherId = publisher.id;
-      const payload = { name, publisherId };
+    async create({ name, publisher }) {
+      this.startRouteAction();
+      const payload = { name, publisherId: publisher.id };
       const variables = { input: { payload } };
-      const refetchQueries = ['placement', 'AllPlacements'];
-      return this.apollo.mutate({ mutation, variables, refetchQueries }, resultKey)
-        .then(response => this.transitionTo('placement.edit', response.id))
-        .then(() => this.get('notify').info('Placement created.'))
-        .catch(e => this.get('errorProcessor').show(e))
-      ;
+      try {
+        const response = await this.apollo.mutate({ mutation, variables }, 'createPlacement');
+        this.get('notify').info('Placement successfully created.');
+        return this.transitionTo('placement.edit', response.id);
+      } catch (e) {
+        this.get('graphErrors').show(e);
+      } finally {
+        this.endRouteAction();
+      }
     }
   }
-})
+});
