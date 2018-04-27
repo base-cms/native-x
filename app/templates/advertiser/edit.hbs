@@ -1,35 +1,25 @@
-<div class="row">
-  <div class="col">
-    <h3 class="mb-0">
-      Modify Advertiser
-    </h3>
-  </div>
-</div>
-<hr>
+{{#nav-breadcrumbs as |crumbs|}}
+  {{#crumbs.item}}{{#link-to "advertiser.index"}}{{entypo-icon "news"}} Advertisers{{/link-to}}{{/crumbs.item}}
+  {{#crumbs.item active=true}}{{ model.name }}{{/crumbs.item}}
+{{/nav-breadcrumbs}}
 
-{{partial "advertiser/form"}}
-
-<div class="row mt-4">
-  <div class="col">
-    <h4 class="mb-0">
-      Campaigns
-    </h4>
+<form {{action (route-action "update" model) on="submit"}}>
+  <div class="card model-form">
+    <div class="card-header"></div>
+    <div class="card-body">
+      {{ partial "advertiser/form" }}
+    </div>
+    <div class="card-footer">
+      {{model-save-button disabled=isActionRunning}}
+      <div class="btn-group float-right">
+        {{confirm-button
+          icon="trash"
+          label="Delete"
+          class="btn-danger"
+          disabled=isActionRunning
+          onConfirm=(route-action "delete" model.id "advertiser.index")
+        }}
+      </div>
+    </div>
   </div>
-</div>
-<hr>
-
-<div class="row mb-4">
-  <div class="col">
-    {{#each model.campaigns as |campaign|}}
-      {{#link-to 'campaign.edit' campaign.id class='list-group-item list-group-item-action flex-column align-items-start'}}
-        <div class="d-flex w-100 justify-content-between">
-          <h5 class="mb-1">{{campaign.name}}</h5>
-          <small>{{moment campaign.start}} - {{moment campaign.end}}</small>
-        </div>
-        <small>{{campaign.id}}</small>
-      {{/link-to}}
-    {{else}}
-      <h5 class="text-primary">No campaigns found.</h5>
-    {{/each}}
-  </div>
-</div>
+</form>
