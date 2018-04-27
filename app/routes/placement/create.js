@@ -26,5 +26,5 @@ export default Route.extend(RouteQueryManager, ActionMixin, {
         this.endRouteAction();
       }
     }
-  }
+  },
 });

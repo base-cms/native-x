@@ -2,21 +2,21 @@
   <div class="col">
     <div class="form-group">
       <label for="email">Email Address</label>
-      {{input type="text" value=model.email class="form-control" id="email" placeholder="foo@bar.baz" autofocus=true}}
+      {{input type="email" required=true value=model.email class="form-control" id="email" placeholder="foo@bar.baz" autofocus=true}}
     </div>
   </div>
 </div>
 <div class="row">
-  <div class="col">
-    <div class="form-group">
+  <div class="col-sm-6">
+    <div class="form-group mb-3 mb-sm-0">
       <label for="givenName">First Name</label>
-      {{input type="text" value=model.givenName class="form-control" id="givenName" placeholder="Jane"}}
+      {{input type="text" required=true value=model.givenName class="form-control" id="givenName" placeholder="Jane"}}
     </div>
   </div>
-  <div class="col">
-    <div class="form-group">
+  <div class="col-sm-6">
+    <div class="form-group mb-0">
       <label for="familyName">Last Name</label>
-      {{input type="text" value=model.familyName class="form-control" id="familyName" placeholder="Doe"}}
+      {{input type="text" required=true value=model.familyName class="form-control" id="familyName" placeholder="Doe"}}
     </div>
   </div>
 </div>
