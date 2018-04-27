@@ -1,10 +1,7 @@
+#import 'fortnight/gql/fragments/template/view'
+
 query Template($input: ModelIdInput!) {
   template(input: $input) {
-    id
-    name
-    html
-    fallback
-    createdAt
-    updatedAt
+    ...TemplateFragment
   }
 }
