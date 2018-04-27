@@ -1,11 +1,16 @@
-<div class="row">
-  <div class="col">
-    <h3 class="mb-0">
-      Create Template
-    </h3>
+{{#nav-breadcrumbs as |crumbs|}}
+  {{#crumbs.item}}{{#link-to "template.index"}}{{entypo-icon "news"}} Templates{{/link-to}}{{/crumbs.item}}
+  {{#crumbs.item active=true}}Create New{{/crumbs.item}}
+{{/nav-breadcrumbs}}
+
+<form {{action (route-action "create" model) on="submit"}}>
+  <div class="card model-form">
+    <div class="card-header"></div>
+    <div class="card-body">
+      {{ partial "template/form" }}
+    </div>
+    <div class="card-footer">
+      {{model-save-button disabled=isActionRunning}}
+    </div>
   </div>
-</div>
-<hr>
-
-{{partial "template/form"}}
-
+</form>
