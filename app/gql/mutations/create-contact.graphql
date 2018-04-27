@@ -1,9 +1,7 @@
-mutation createContact($input: CreateContactInput!) {
+#import 'fortnight/gql/fragments/contact/view'
+
+mutation CreateContact($input: CreateContactInput!) {
 	createContact(input: $input) {
-    id
-		name
-    email
-    givenName
-    familyName
+    ...ContactFragment
 	}
 }
