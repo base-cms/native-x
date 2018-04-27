@@ -19,11 +19,33 @@ export default Component.extend(ComponentQueryManager, {
   selected: null,
   placeholder: null,
 
+  required: false,
+
+  wasFormValidated: false,
+  invalidFeedback: 'Please select a value for this field.',
+
+  isValid: computed('selected', 'selected.length', function() {
+    if (!this.get('required')) return true;
+    if (this.get('multiple')) {
+      if (this.get('selected.legnth')) return true;
+      return false;
+    }
+    if (this.get('selected')) return true;
+    return false;
+  }).readOnly(),
+
+  _triggerClass: computed('triggerClass', 'wasFormValidated', 'isValid', function() {
+    const triggerClass = this.get('triggerClass');
+    if (!this.get('wasFormValidated')) return triggerClass;
+    if (this.get('isValid')) return `${triggerClass} is-valid`;
+    return `${triggerClass} is-invalid`;
+  }).readOnly(),
+
   _closeOnSelect: computed('results.length', 'multiple', function() {
     const closeOnSelect = this.get('closeOnSelect');
     if (!this.get('multiple')) return closeOnSelect;
     return this.get('results.length') === 1 ? true : closeOnSelect;
-  }),
+  }).readOnly(),
 
   _query: computed('type', function() {
     const type = this.get('type');
@@ -34,7 +56,13 @@ export default Component.extend(ComponentQueryManager, {
         return { query: searchAdvertisers, resultKey: 'searchAdvertisers' };
     }
     this.get('graphErrors').show(new Error(`The model type ${type} is not searchable.`));
-  }),
+  }).readOnly(),
+
+  actions: {
+    set(value) {
+      this.set('selected', value);
+    },
+  },
 
   search: task(function* (term) {
     const pagination = { first: 20 };
