@@ -5,7 +5,6 @@ import { getObservable } from 'ember-apollo-client';
 import query from 'fortnight/gql/queries/all-publishers';
 
 export default Route.extend(RouteQueryManager, {
-
   queryParams: {
     first: {
       refreshModel: true
