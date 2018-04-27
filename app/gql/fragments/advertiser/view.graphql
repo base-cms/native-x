@@ -3,8 +3,4 @@
 fragment AdvertiserFragment on Advertiser {
   ...AdvertiserListFragment
   logo
-  campaigns {
-    id
-    name
-  }
 }
