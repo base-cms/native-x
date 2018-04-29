@@ -96,15 +96,11 @@
     <div class="card">
       <div class="card-header">Links</div>
       <div class="card-body">
-        <button class="btn btn-sm btn-primary" type="button">{{entypo-icon "plus"}} Add Link</button>
+        {{#each form.model.externalLinks as |link|}}
+          <p>{{link.label}} {{link.url}}</p>
+        {{/each}}
+        {{add-link-modal onLinkAdded=(action form.actions.pushAndAutosave "externalLinks")}}
       </div>
     </div>
   </div>
-  {{!-- <div class="form-group col">
-    <label for="placements">Links</label>
-    {{external-links
-      values=model.externalLinks
-      onChange=(action form.update)
-    }}
-  </div> --}}
 </div>
