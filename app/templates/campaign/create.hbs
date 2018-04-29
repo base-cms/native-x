@@ -5,8 +5,8 @@
 
 {{#model-form
   model=model
-  shouldAutosave=(if model.isNew false true)
-  onSubmit=(route-action "create") as |form|
+  shouldAutosave=false
+  onSubmit=(action "create") as |form|
 }}
   <div class="card model-form">
     <div class="card-header"></div>
