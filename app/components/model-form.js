@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import { set } from '@ember/object';
+import { set, get } from '@ember/object';
 import { debounce } from '@ember/runloop';
 
 export default Component.extend({
@@ -35,6 +35,11 @@ export default Component.extend({
     setAndAutosave(field, value) {
       const model = this.get('model');
       set(model, field, value);
+      this.send('autosave');
+    },
+    pushAndAutosave(field, value) {
+      const model = this.get('model');
+      get(model, field).pushObject(value);
       this.send('autosave');
     },
   },
