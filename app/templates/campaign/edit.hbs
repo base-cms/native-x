@@ -1,25 +1,18 @@
-<div class="row">
-  <div class="col">
-    <h3 class="mb-0">
-      Modify Campaign
-    </h3>
-  </div>
-</div>
-<hr>
+{{#nav-breadcrumbs as |crumbs|}}
+  {{#crumbs.item}}{{#link-to "campaign.index"}}{{entypo-icon "calendar"}} Campaigns{{/link-to}}{{/crumbs.item}}
+  {{#crumbs.item active=true}}{{model.name}} ({{model.advertiser.name}}){{/crumbs.item}}
+{{/nav-breadcrumbs}}
 
-<div class="row">
-  <div class="col">
-    <ul class="nav nav-tabs" role="tablist">
-      {{#link-to "campaign.edit.index" model.id class="nav-item nav-link" role="tab"}}Campaign Details{{/link-to}}
-      {{#link-to "campaign.edit.criteria" model.id class="nav-item nav-link" role="tab"}}Targeting Criteria{{/link-to}}
-      {{#link-to "campaign.edit.creatives" model.id class="nav-item nav-link" role="tab"}}Creatives{{/link-to}}
-      {{#link-to "campaign.edit.notifications" model.id class="nav-item nav-link" role="tab"}}Notifications{{/link-to}}
+<div class="card model-form">
+  <div class="card-header">
+    <ul class="nav nav-pills card-header-pills" role="tablist">
+      <li class="nav-item">{{#link-to "campaign.edit.index" model.id class="nav-link" role="tab"}}Details{{/link-to}}</li>
+      <li class="nav-item">{{#link-to "campaign.edit.criteria" model.id class="nav-link" role="tab"}}Targeting{{/link-to}}</li>
+      <li class="nav-item">{{#link-to "campaign.edit.creatives" model.id class="nav-link" role="tab"}}Creatives{{/link-to}}</li>
+      <li class="nav-item">{{#link-to "campaign.edit.notifications" model.id class="nav-link" role="tab"}}Notifications{{/link-to}}</li>
     </ul>
-
-    <div class="tab-content">
-      <div class="tab-pane active" role="tabpanel">
-        {{ outlet }}
-      </div>
-    </div>
+  </div>
+  <div class="card-body">
+    {{outlet}}
   </div>
 </div>
