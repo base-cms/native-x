@@ -1,0 +1,30 @@
+{{#each kvs as |kv|}}
+  <div class="form-group">
+    <div class="input-group input-group-sm">
+      <div class="input-group-prepend">
+        <span class="input-group-text">{{entypo-icon "key"}} <span class="d-none d-md-inline">Key</span></span>
+      </div>
+      {{input type="text" class="form-control border-right-0" value=kv.key required=true disabled=true aria-label="Custom Key"}}
+
+      <div class="input-group-prepend">
+        <span class="input-group-text">{{entypo-icon "price-tag"}} <span class="d-none d-md-inline">Value</span></span>
+      </div>
+      {{input type="text" class="form-control" value=kv.value required=true disabled=true aria-label="Custom Value"}}
+      <div class="input-group-append">
+        <button class="btn btn-primary" type="button" {{action "editKeyValue" kv}}>{{entypo-icon "pencil"}} <span class="d-none d-md-inline">Edit</span></button>
+        {{confirm-button
+          icon="cross"
+          confirmIcon="warning"
+          labelClass="d-none d-md-inline"
+          label="Remove"
+          class="btn-warning"
+          onConfirm=(action "removeKeyValue" kv)
+        }}
+      </div>
+    </div>
+  </div>
+{{/each}}
+
+<button class="btn btn-sm btn-primary" type="button" {{action "createKeyValue"}}>{{entypo-icon "plus"}} Add Variable</button>
+
+{{campaign-key-values/modal isModalShowing=isModalShowing kv=activeKeyValue onSubmit=(action "handleKeyValue")}}

@@ -1,27 +1,33 @@
 import Controller from '@ember/controller';
-import { computed, get } from '@ember/object';
-import { isEmpty } from '@ember/utils';
+import { inject } from '@ember/service';
+import { get } from '@ember/object';
+import ActionMixin from 'fortnight/mixins/action-mixin';
 
-export default Controller.extend({
-  statii: null,
-  canChangeStatus: true,
+import mutation from 'fortnight/gql/mutations/campaign/update-details';
 
-  isSaving: false,
-  hasSaved: false,
-  saveMessage: computed('isSaving', 'hasSaved', function() {
-    const { isSaving, hasSaved } = this.getProperties(['isSaving', 'hasSaved']);
-    if (isSaving) return 'Your changes are being saved.';
-    if (hasSaved) return 'Your changes have been saved.';
-    return 'Changes made on this tab are saved automatically.';
-  }),
+export default Controller.extend(ActionMixin, {
+  apollo: inject(),
+  campaignStatus: inject(),
 
-  canSave: computed('model.{name,url,advertiser.id}', function() {
-    const m = this.get('model');
-    return ['name', 'url', 'advertiser.id'].every(k => !isEmpty(get(m, k)));
-  }),
-
-  init() {
-    this.set('statii', ['Active', 'Paused', 'Draft', 'Deleted' ]);
-    this._super(...arguments);
+  actions: {
+    async update({ id, name, description, advertiser, url, externalLinks, status }) {
+      this.startAction();
+      const payload = {
+        name,
+        description,
+        advertiserId: get(advertiser || {}, 'id'),
+        url,
+        externalLinks: externalLinks.map(link => ({ label: link.label, url: link.url })),
+        status,
+      };
+      const variables = { input: { id, payload } };
+      try {
+        await this.get('apollo').mutate({ mutation, variables }, 'updateCampaign');
+      } catch (e) {
+        this.get('graphErrors').show(e);
+      } finally {
+        this.endAction();
+      }
+    },
   },
 });

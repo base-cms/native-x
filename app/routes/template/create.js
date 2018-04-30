@@ -1,31 +1,33 @@
 import Route from '@ember/routing/route';
-import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 import RouteQueryManager from 'ember-apollo-client/mixins/route-query-manager';
+import ActionMixin from 'fortnight/mixins/action-mixin';
 
 import mutation from 'fortnight/gql/mutations/create-template';
 
-export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
+const html = `{{build-container-attributes}}
+{{build-beacon}}
+{{#tracked-link href=href}}Link{{/tracked-link}}
+`;
 
+export default Route.extend(RouteQueryManager, ActionMixin, {
   model() {
-    return { name: '' };
-  },
-
-  renderTemplate() {
-    this.render();
-    this.render('template.actions.create', { outlet: 'actions', into: 'application' });
+    return { html, fallback: '' };
   },
 
   actions: {
-    create({ name, html, fallback }) {
-      const resultKey = 'createTemplate';
+    async create({ name, html, fallback }) {
+      this.startRouteAction();
       const payload = { name, html, fallback };
       const variables = { input: { payload } };
-      const refetchQueries = ['template', 'AllTemplates'];
-      return this.apollo.mutate({ mutation, variables, refetchQueries }, resultKey)
-        .then(response => this.transitionTo('template.edit', response.id))
-        .then(() => this.get('notify').info('Template created.'))
-        .catch(e => this.get('errorProcessor').show(e))
-      ;
+      try {
+        const response = await this.get('apollo').mutate({ mutation, variables }, 'createTemplate');
+        this.get('notify').info('Template successfully created.');
+        return this.transitionTo('template.edit', response.id);
+      } catch (e) {
+        this.get('graphErrors').show(e);
+      } finally {
+        this.endRouteAction();
+      }
     }
-  }
-})
+  },
+});

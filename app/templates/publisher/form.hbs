@@ -1,17 +1,17 @@
 <div class="row">
   <div class="col">
     <div class="form-group">
-      <label for="name">Name</label>
-      {{input type="text" value=model.name class="form-control" id="name" placeholder="Name" autofocus=true}}
+      <label for="publisher-name">Name</label>
+      {{input type="text" required=true value=model.name class="form-control" id="publisher-name" placeholder="Acme Corp." autofocus=true}}
     </div>
   </div>
 </div>
 
 <div class="row">
   <div class="col">
-    <div class="form-group">
-      <label for="name">Logo URL</label>
-      {{input type="text" value=model.logo class="form-control" id="logo" placeholder="https://some.domain/image.extension"}}
+    <div class="form-group mb-0">
+      <label for="publisher-logo">Logo URL</label>
+      {{input type="url" value=model.logo class="form-control" id="publisher-logo" placeholder="https://some.domain/image.extension"}}
     </div>
   </div>
 </div>

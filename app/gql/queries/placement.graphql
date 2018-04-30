@@ -1,12 +1,7 @@
+#import 'fortnight/gql/fragments/placement/view'
+
 query Placement($input: ModelIdInput!) {
   placement(input: $input) {
-    id
-    name
-    createdAt
-    updatedAt
-    publisher {
-      id
-      name
-    }
+    ...PlacementFragment
   }
 }

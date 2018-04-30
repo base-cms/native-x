@@ -1,11 +1,7 @@
-query advertiser($input: ModelIdInput!) {
+#import 'fortnight/gql/fragments/advertiser/view'
+
+query Advertiser($input: ModelIdInput!) {
   advertiser(input: $input) {
-    id
-    name
-    logo
-    campaigns {
-      id
-      name
-    }
+    ...AdvertiserFragment
   }
 }

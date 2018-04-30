@@ -1,0 +1,18 @@
+fragment CampaignCreativeFragment on CampaignCreative {
+  id
+  title
+  teaser
+  image {
+    id
+    src
+    fileSize
+    filePath
+    height
+    width
+    mimeType
+    focalPoint {
+      x
+      y
+    }
+  }
+}

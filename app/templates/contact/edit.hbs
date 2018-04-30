@@ -1,10 +1,25 @@
-<div class="row">
-  <div class="col">
-    <h3 class="mb-0">
-      Modify Contact
-    </h3>
-  </div>
-</div>
-<hr>
+{{#nav-breadcrumbs as |crumbs|}}
+  {{#crumbs.item}}{{#link-to "contact.index"}}{{entypo-icon "v-card"}} Contacts{{/link-to}}{{/crumbs.item}}
+  {{#crumbs.item active=true}}{{ model.name }}{{/crumbs.item}}
+{{/nav-breadcrumbs}}
 
-{{partial "contact/form"}}
+<form {{action (route-action "update" model) on="submit"}}>
+  <div class="card model-form">
+    <div class="card-header"></div>
+    <div class="card-body">
+      {{ partial "contact/form" }}
+    </div>
+    <div class="card-footer">
+      {{model-save-button disabled=isActionRunning}}
+      <div class="btn-group float-right">
+        {{confirm-button
+          icon="trash"
+          label="Delete"
+          class="btn-danger"
+          disabled=isActionRunning
+          onConfirm=(route-action "delete" model.id "contact.index")
+        }}
+      </div>
+    </div>
+  </div>
+</form>

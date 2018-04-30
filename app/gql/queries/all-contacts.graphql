@@ -1,11 +1,11 @@
+#import 'fortnight/gql/fragments/contact/list'
+
 query AllContacts($pagination: PaginationInput, $sort: ContactSortInput) {
   allContacts(pagination: $pagination, sort: $sort) {
     totalCount
     edges {
       node {
-        id
-        name
-        email
+        ...ContactListFragment
       }
       cursor
     }

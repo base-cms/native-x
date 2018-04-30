@@ -1,24 +1,25 @@
 import Controller from '@ember/controller';
 import { inject } from '@ember/service';
+import ActionMixin from 'fortnight/mixins/action-mixin';
 
-export default Controller.extend({
+export default Controller.extend(ActionMixin, {
   username: null,
   password: null,
   errorMessage: null,
   session: inject(),
-  loader: inject(),
 
   actions: {
-    authenticate() {
-      let loader = this.get('loader');
-      loader.show();
+    async authenticate() {
+      this.startAction();
       this.set('errorMessage', null);
-      let { username, password } = this.getProperties('username', 'password');
-      this.get('session')
-        .authenticate('authenticator:application', username, password)
-        .catch((error) => this.set('errorMessage', error.errors.length ? error.errors[0].message : 'An unknown error has occurred.'))
-        .finally(() => loader.hide())
-      ;
+      const { username, password } = this.getProperties('username', 'password');
+      try {
+        await this.get('session').authenticate('authenticator:application', username, password);
+      } catch (e) {
+        this.set('errorMessage', e.errors.length ? e.errors[0].message : 'An unknown error has occurred.');
+      } finally {
+        this.endAction();
+      }
     }
   }
 });

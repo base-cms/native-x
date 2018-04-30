@@ -1,0 +1,10 @@
+fragment CampaignListFragment on Campaign {
+  id
+  name
+  updatedAt
+  status
+  advertiser {
+    id
+    name
+  }
+}

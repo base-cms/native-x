@@ -1,55 +1,12 @@
-{{#autosave-form onUpdate=(route-action "update") model=model as |form|}}
-
-  <div class="row">
-    <div class="col">
-      <div class="form-group">
-        <label for="start">Starts On</label>
-        {{-calendar
-          currentDay=model.criteria.start
-          maxDate=startMax
-          minDate=startMin
-          truncDay='start'
-          onSelect=(action form.setAndUpdate "criteria.start")
-        }}
-      </div>
-    </div>
-    <div class="col">
-      <div class="form-group">
-        <label for="end">Ends On</label>
-        {{-calendar
-          currentDay=model.criteria.end
-          maxDate=endMax
-          minDate=endMin
-          truncDay='end'
-          onSelect=(action form.setAndUpdate "criteria.end")
-          canRemove=true
-          }}
-      </div>
-    </div>
+{{#model-form
+  model=model
+  shouldAutosave=true
+  onSubmit=(action "update") as |form|
+}}
+  <div class="card-body">
+    {{ partial "campaign/forms/criteria" }}
   </div>
-
-  <div class="row">
-    <div class="form-group col">
-      <label for="placements">Placements</label>
-      {{#autocomplete-multiple
-        placeholder="Select placements"
-        type="placement"
-        selected=model.criteria.placements
-        onChange=(action form.setAndUpdate "criteria.placements")
-        as |model|
-      }}
-        {{ model.name }} ({{ model.publisher.name }})
-      {{/autocomplete-multiple}}
-    </div>
+  <div class="card-footer">
+    {{model-save-button disabled=isActionRunning}}
   </div>
-
-  <div class="row">
-    <div class="form-group col">
-      <label for="placements">Custom Variables</label>
-      {{key-values
-        values=model.criteria.kvs
-        onChange=(action form.update)
-      }}
-    </div>
-  </div>
-{{/autosave-form}}
+{{/model-form}}

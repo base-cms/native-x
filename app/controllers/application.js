@@ -1,18 +1,17 @@
 import Controller from '@ember/controller';
-import { inject } from '@ember/service';
-import { computed } from '@ember/object';
 
 export default Controller.extend({
-  hideNav: false,
+  isChangePasswordOpen: false,
+  isUpdateProfileOpen: false,
 
-  session: inject(),
-
-  displayNav: computed('hideNav', 'session.isAuthenticated', function() {
-    if (!this.get('session.isAuthenticated')) {
-      return false;
-    }
-    return (this.get('hideNav')) ? false : true;
-  }),
+  actions: {
+    displayChangePassword() {
+      this.set('isChangePasswordOpen', true);
+    },
+    displayUpdateProfile() {
+      this.set('isUpdateProfileOpen', true);
+    },
+  },
 
 });
 

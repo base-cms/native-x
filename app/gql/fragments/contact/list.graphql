@@ -1,0 +1,6 @@
+fragment ContactListFragment on Contact {
+  id
+  name
+  email
+  updatedAt
+}

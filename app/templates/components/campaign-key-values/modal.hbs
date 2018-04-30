@@ -1,0 +1,41 @@
+{{#bs-modal show=isModalShowing as |modal|}}
+  {{#model-form
+    model=kv
+    shouldAutosave=false
+    onSubmit=(action "submit" modal.actions.hide) as |form|
+  }}
+    {{#modal.header}}
+      <h5 class="modal-title">Custom Variable</h5>
+      <button {{action modal.actions.hide}} type="button" class="close" aria-label="Close">
+        {{entypo-icon "cross"}}
+      </button>
+    {{/modal.header}}
+
+    {{#modal.body}}
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="kv-key">Key {{required-field-label}}</label>
+            {{input type="text" value=form.model.key id="kv-key" required=true class="form-control"}}
+            <div class="invalid-feedback">
+              Please provide a key for the custom variable.
+            </div>
+          </div>
+          <div class="form-group mb-0">
+            <label for="kv-value">Value {{required-field-label}}</label>
+            {{input type="text" value=form.model.value id="kv-value" required=true class="form-control"}}
+            <div class="invalid-feedback">
+              Please provide a value for the custom variable.
+            </div>
+          </div>
+        </div>
+      </div>
+    {{/modal.body}}
+
+    {{#modal.footer}}
+      <button class="btn btn-success" type="submit">
+        {{entypo-icon "check"}} Save
+      </button>
+    {{/modal.footer}}
+  {{/model-form}}
+{{/bs-modal}}

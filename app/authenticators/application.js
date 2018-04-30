@@ -1,12 +1,17 @@
 import Base from 'ember-simple-auth/authenticators/base';
 import { inject } from '@ember/service';
-
+import { get } from '@ember/object';
 
 export default Base.extend({
   auth: inject(),
 
+  getToken(data) {
+    return get(data, 'session.token');
+  },
+
   restore(data) {
-    return this.get('auth').check(data.token);
+    const token = this.getToken(data);
+    return this.get('auth').check(token);
   },
 
   authenticate(email, password) {
@@ -14,6 +19,7 @@ export default Base.extend({
   },
 
   invalidate(data) {
-    return this.get('auth').delete(data.token);
+    const token = this.getToken(data);
+    return this.get('auth').delete(token);
   },
 });

@@ -1,15 +1,11 @@
+#import 'fortnight/gql/fragments/placement/list'
+
 query AllPlacements($pagination: PaginationInput, $sort: PlacementSortInput) {
   allPlacements(pagination: $pagination, sort: $sort) {
     totalCount
     edges {
       node {
-        id
-        name
-        createdAt
-        updatedAt
-        publisher {
-          name
-        }
+        ...PlacementListFragment
       }
       cursor
     }

@@ -1,35 +1,30 @@
 import Route from '@ember/routing/route';
-import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
+import { get } from '@ember/object';
 import RouteQueryManager from 'ember-apollo-client/mixins/route-query-manager';
+import ActionMixin from 'fortnight/mixins/action-mixin';
 
 import mutation from 'fortnight/gql/mutations/create-placement';
 
-export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
-
+export default Route.extend(RouteQueryManager, ActionMixin, {
   model() {
-    return { name: '' };
-  },
-
-  renderTemplate() {
-    this.render();
-    this.render('placement.actions.create', { outlet: 'actions', into: 'application' });
+    return {};
   },
 
   actions: {
-    create({ name, publisher }) {
-      const resultKey = 'createPlacement';
-      if (!publisher) {
-        return this.get('errorProcessor').show(new Error('You must specify a publisher.'));
-      }
-      const publisherId = publisher.id;
-      const payload = { name, publisherId };
+    async create({ name, publisher }) {
+      this.startRouteAction();
+      const payload = { name, publisherId: get(publisher || {}, 'id') };
       const variables = { input: { payload } };
-      const refetchQueries = ['placement', 'AllPlacements'];
-      return this.apollo.mutate({ mutation, variables, refetchQueries }, resultKey)
-        .then(response => this.transitionTo('placement.edit', response.id))
-        .then(() => this.get('notify').info('Placement created.'))
-        .catch(e => this.get('errorProcessor').show(e))
-      ;
+      try {
+        if (!payload.publisherId) throw new Error('You must select a publisher to continue.');
+        const response = await this.get('apollo').mutate({ mutation, variables }, 'createPlacement');
+        this.get('notify').info('Placement successfully created.');
+        return this.transitionTo('placement.edit', response.id);
+      } catch (e) {
+        this.get('graphErrors').show(e);
+      } finally {
+        this.endRouteAction();
+      }
     }
-  }
-})
+  },
+});

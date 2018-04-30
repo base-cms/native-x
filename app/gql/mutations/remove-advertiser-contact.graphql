@@ -1,5 +1,0 @@
-mutation RemoveAdvertiserContact($input: RemoveContactInput!) {
-	removeAdvertiserContact(input: $input) {
-		id
-	}
-}

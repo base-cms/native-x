@@ -3,18 +3,20 @@ import { computed } from '@ember/object';
 
 
 export default Component.extend({
-  tagName: '',
+  tagName: 'span',
+  classNameBindings: ['statusText'],
 
-  textClass: computed('value', function() {
+  statusText: computed('value', function() {
     switch (this.get('value')) {
       case 'Draft':
         return 'text-warning';
       case 'Paused':
-        return 'text-muted';
+        return 'text-info';
       case 'Active':
-        return 'text-primary';
+        return 'text-success';
+      default:
+        return 'text-muted';
     }
-    return 'text-danger';
   }),
 
 });

@@ -10,7 +10,7 @@ export default Component.extend({
   canRemove: false,
   minDate: null,
   maxDate: null,
-  displayFormat: 'dddd, MMMM Do, YYYY h:mm:ss a',
+  displayFormat: 'ddd, MMM Do, YYYY @ h:mma',
   truncDay: null,
 
   isRemoveDisabled: computed('canRemove', 'currentDay', function() {

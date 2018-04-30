@@ -1,16 +1,36 @@
-<a href="https://docs.fortnight.as3.io" title="Documentation" class="nav-item nav-link" target="_blank">
-  {{-ion "document-text"}} Documentation
-</a>
-{{#if session.isAuthenticated}}
+{{#if user.isAuthenticated}}
   <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownManage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      {{-ion "settings"}} Manage
-    </a>
-    <div class="dropdown-menu" aria-labelledby="navbarDropdownManage">
-      {{#link-to "contact" class="dropdown-item"}}Contacts{{/link-to}}
-      {{#link-to "placement" class="dropdown-item"}}Placements{{/link-to}}
-      {{#link-to "publisher" class="dropdown-item"}}Publishers{{/link-to}}
-      {{#link-to "template" class="dropdown-item"}}Templates{{/link-to}}
+    {{#link-to this.currentPath
+      id="navbar-dropdown-manage"
+      diabled=true
+      data-toggle="dropdown"
+      class="nav-link dropdown-toggle"
+      title="Manage Data Objects"
+      current-when="publisher placement template contact"
+    }}
+      {{entypo-icon "tools"}} <span class="d-none d-md-inline">Manage</span>
+    {{/link-to}}
+
+    {{!-- <a class="nav-link dropdown-toggle" title="Manage Data Objects" href="javascript:void(0)" id="navbar-dropdown-manage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      {{entypo-icon "tools"}} <span class="d-none d-md-inline">Manage</span>
+    </a> --}}
+    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-dropdown-manage">
+      {{#link-to "publisher" class="dropdown-item d-flex justify-content-between" title="Manage Publishers"}}
+        Publishers
+        {{entypo-icon "network"}}
+      {{/link-to}}
+      {{#link-to "placement" class="dropdown-item d-flex justify-content-between" title="Manage Placements"}}
+        Placements
+        {{entypo-icon "browser"}}
+      {{/link-to}}
+      {{#link-to "template" class="dropdown-item d-flex justify-content-between" title="Manage Templates"}}
+        Templates
+        {{entypo-icon "news"}}
+      {{/link-to}}
+      {{#link-to "contact" class="dropdown-item d-flex justify-content-between" title="Manage Contacts"}}
+        Contacts
+        {{entypo-icon "v-card"}}
+      {{/link-to}}
     </div>
   </li>
 {{/if}}

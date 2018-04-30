@@ -1,0 +1,37 @@
+{{#if multiple}}
+  {{#power-select-multiple
+    triggerClass=_triggerClass
+    search=(perform search)
+    selected=selected
+    placeholder=placeholder
+    onchange=(action "set")
+    closeOnSelect=_closeOnSelect
+    disabled=disabled
+    as |model|}}
+    {{#if (has-block)}}
+      {{ yield model }}
+    {{else}}
+      {{ get model field }}
+    {{/if}}
+  {{/power-select-multiple}}
+{{else}}
+  {{#power-select
+    triggerClass=_triggerClass
+    search=(perform search)
+    selected=selected
+    placeholder=placeholder
+    allowClear=allowClear
+    closeOnSelect=_closeOnSelect
+    disabled=disabled
+    onchange=(action "set")
+    as |model|}}
+      {{#if (has-block)}}
+        {{ yield model }}
+      {{else}}
+        {{ get model field }}
+      {{/if}}
+  {{/power-select}}
+{{/if}}
+<div class="invalid-feedback">
+  {{invalidFeedback}}
+</div>

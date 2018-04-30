@@ -1,15 +1,11 @@
 import Route from '@ember/routing/route';
-import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 import RouteQueryManager from 'ember-apollo-client/mixins/route-query-manager';
 
-import query from 'fortnight/gql/queries/campaign';
+import query from 'fortnight/gql/queries/campaign/edit';
 
-export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
-
+export default Route.extend(RouteQueryManager, {
   model({ id }) {
-    const resultKey = 'campaign';
     const variables = { input: { id } };
-    return this.apollo.watchQuery({ query, variables }, resultKey);
+    return this.get('apollo').watchQuery({ query, variables, fetchPolicy: 'network-only' }, 'campaign');
   },
-
-})
+});

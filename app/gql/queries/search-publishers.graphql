@@ -1,5 +1,5 @@
 
-query searchPublishers($pagination: PaginationInput, $search: PublisherSearchInput!) {
+query SearchPublishers($pagination: PaginationInput, $search: PublisherSearchInput!) {
   searchPublishers(pagination: $pagination, search: $search) {
     totalCount
     edges {
