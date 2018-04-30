@@ -96,14 +96,7 @@
     <div class="card">
       <div class="card-header">Links</div>
       <div class="card-body">
-        {{campaign-links links=externalLinks onChange=(action form.actions.autosave)}}
-        {{!-- {{#each form.model.externalLinks as |link|}}
-          <p>
-            {{link.label}} <a href="{{link.url}}" target="_blank" rel="noopener noreferrer">{{link.url}}</a>
-            (edit) (remove)
-          </p>
-        {{/each}}
-        {{campaign-link-modal onSubmit=(action form.actions.pushAndAutosave "externalLinks")}} --}}
+        {{campaign-links links=externalLinks onChange=(action form.actions.setAndAutosave "externalLinks")}}
       </div>
     </div>
   </div>

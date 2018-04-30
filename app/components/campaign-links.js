@@ -10,12 +10,14 @@ export default Component.extend({
     this._super(...arguments);
     if (!isArray(this.get('links'))) {
       this.set('links', []);
+    } else {
+      this.set('links', this.get('links').slice());
     }
   },
 
   sendEvent(name) {
     const fn = this.get(name);
-    if (typeof fn === 'function') fn();
+    if (typeof fn === 'function') fn(this.get('links'));
   },
 
   actions: {
