@@ -11,7 +11,7 @@ export default Component.extend({
 
   wasValidated: false,
   shouldAutosave: false,
-  autosaveDelay: 750,
+  autosaveDelay: 200,
 
   init() {
     this._super(...arguments);
@@ -34,7 +34,7 @@ export default Component.extend({
   actions: {
     autosave() {
       if (this.get('shouldAutosave')) {
-        debounce(this, () => this.trigger('submit'), 750);
+        debounce(this, () => this.$().trigger('submit'), this.get('autosaveDelay'));
       }
     },
     setAndAutosave(field, value) {
