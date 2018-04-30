@@ -2,16 +2,13 @@ import Component from '@ember/component';
 import ComponentQueryManager from 'ember-apollo-client/mixins/component-query-manager';
 import { computed, get, getProperties } from '@ember/object';
 import { copy } from '@ember/object/internals';
-import { inject } from '@ember/service';
+import ActionMixin from 'fortnight/mixins/action-mixin';
 
-import RemoveMutation from 'fortnight/gql/mutations/remove-campaign-creative';
-import UpdateMutation from 'fortnight/gql/mutations/update-campaign-creative';
+import RemoveMutation from 'fortnight/gql/mutations/campaign/remove-creative';
+import UpdateMutation from 'fortnight/gql/mutations/campaign/update-creative';
 
-export default Component.extend(ComponentQueryManager, {
-
-  errorProcessor: inject(),
-
-  classNames: [ 'card', 'mh-100' ],
+export default Component.extend(ComponentQueryManager, ActionMixin, {
+  classNames: [ 'card', 'mnh-100' ],
   collapsed: true,
 
   campaignId: null,
@@ -51,11 +48,14 @@ export default Component.extend(ComponentQueryManager, {
   disableSave: computed.not('canSave'),
 
   init() {
+    this._super(...arguments);
+    // @todo Fix me: hack for creative array reload.
+    this.endAction();
+
     const { id, name, url, title, teaser, image } = this.get('creative');
     this.setProperties({ id, name, url, title, teaser });
     this.set('image', copy(image || {}));
     if (!this.get('image.src')) this.set('collapsed', false);
-    this._super(...arguments);
   },
 
   getPayloadImage() {
@@ -69,19 +69,23 @@ export default Component.extend(ComponentQueryManager, {
   },
 
   actions: {
-    remove() {
+    async remove() {
+      this.startAction();
       const campaignId = this.get('campaignId');
       const creativeId = this.get('creativeId');
       const mutation = RemoveMutation;
       const variables = { input: { campaignId, creativeId } };
-      const resultKey = 'removeCampaignCreative';
-      const refetchQueries = ['campaignCreatives'];
-      return this.get('apollo').mutate({ mutation, variables, refetchQueries }, resultKey)
-        .catch(e => this.get('errorProcessor').show(e))
-      ;
+      const refetchQueries = ['CampaignCreatives'];
+      try {
+        await this.get('apollo').mutate({ mutation, variables, refetchQueries }, 'removeCampaignCreative');
+      } catch (e) {
+        this.get('graphErrors').show(e)
+      } finally {
+        this.endAction();
+      }
     },
-    update() {
-      this.set('loading', true);
+    async update() {
+      this.startAction();
       const { title, teaser } = this.getProperties(['title', 'teaser']);
       const image = this.getPayloadImage();
       const campaignId = this.get('campaignId');
@@ -90,11 +94,16 @@ export default Component.extend(ComponentQueryManager, {
       let payload = { title, teaser, image };
       if (image) payload.image = image;
       const variables = { input: { campaignId, creativeId, payload } };
-      const resultKey = 'updateCampaignCreative';
-      const refetchQueries = ['campaignCreatives'];
-      return this.get('apollo').mutate({ mutation, variables, refetchQueries }, resultKey)
-        .catch(e => this.get('errorProcessor').show(e))
-      ;
+      try {
+        await this.get('apollo').mutate({ mutation, variables }, 'updateCampaignCreative');
+      } catch (e) {
+        this.get('graphErrors').show(e);
+      } finally {
+        if (!this.get('isDestroyed')) {
+          // @todo Fix me: hack for creative array reload.
+          this.endAction();
+        }
+      }
     },
     toggleCollapse() {
       this.set('collapsed', !this.get('collapsed'));
