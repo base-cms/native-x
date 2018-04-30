@@ -61,6 +61,8 @@ export default Component.extend(ComponentQueryManager, {
   actions: {
     set(value) {
       this.set('selected', value);
+      const fn = this.get('onChange');
+      if (typeof fn === 'function') fn();
     },
   },
 
