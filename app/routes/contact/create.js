@@ -15,7 +15,7 @@ export default Route.extend(RouteQueryManager, ActionMixin, {
       const payload = { email, givenName, familyName };
       const variables = { input: { payload } };
       try {
-        const response = await this.apollo.mutate({ mutation, variables }, 'createContact');
+        const response = await this.get('apollo').mutate({ mutation, variables }, 'createContact');
         this.get('notify').info('Contact successfully created.');
         return this.transitionTo('contact.edit', response.id);
       } catch (e) {

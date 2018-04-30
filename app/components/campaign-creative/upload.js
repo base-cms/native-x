@@ -69,7 +69,7 @@ export default Component.extend(ComponentQueryManager, {
       .then(async ({ name, size, type, height, width }) => {
         const input = { name, size, type };
         const variables = { input };
-        const { key, url } = await this.apollo.watchQuery({ query, variables }, 'signImageUpload');
+        const { key, url } = await this.get('apollo').watchQuery({ query, variables }, 'signImageUpload');
         const src = `${this.get('imgixDomain')}/${key}`;
         await fetch(url, { method: 'PUT', headers: { 'Content-Type': type }, body: file });
         const focalPoint = this.get('defaultFocalpoint');

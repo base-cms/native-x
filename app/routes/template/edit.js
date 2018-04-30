@@ -8,7 +8,7 @@ import mutation from 'fortnight/gql/mutations/update-template';
 export default Route.extend(RouteQueryManager, ActionMixin, {
   model({ id }) {
     const variables = { input: { id } };
-    return this.apollo.watchQuery({ query, variables, fetchPolicy: 'network-only' }, 'template').then((template) => {
+    return this.get('apollo').watchQuery({ query, variables, fetchPolicy: 'network-only' }, 'template').then((template) => {
       if (!template.fallback) template.fallback = '';
       return template;
     });
@@ -20,7 +20,7 @@ export default Route.extend(RouteQueryManager, ActionMixin, {
       const payload = { name, html, fallback };
       const variables = { input: { id, payload } };
       try {
-        await this.apollo.mutate({ mutation, variables }, 'updateTemplate');
+        await this.get('apollo').mutate({ mutation, variables }, 'updateTemplate');
         this.get('notify').info('Template successfully saved.');
       } catch (e) {
         this.get('graphErrors').show(e);

@@ -8,7 +8,7 @@ import mutation from 'fortnight/gql/mutations/update-contact';
 export default Route.extend(RouteQueryManager, ActionMixin, {
   model({ id }) {
     const variables = { input: { id } };
-    return this.apollo.watchQuery({ query, variables, fetchPolicy: 'network-only' }, 'contact');
+    return this.get('apollo').watchQuery({ query, variables, fetchPolicy: 'network-only' }, 'contact');
   },
 
   actions: {
@@ -17,7 +17,7 @@ export default Route.extend(RouteQueryManager, ActionMixin, {
       const payload = { email, givenName, familyName };
       const variables = { input: { id, payload } };
       try {
-        await this.apollo.mutate({ mutation, variables }, 'updateContact');
+        await this.get('apollo').mutate({ mutation, variables }, 'updateContact');
         this.get('notify').info('Contact successfully saved.');
       } catch (e) {
         this.get('graphErrors').show(e);

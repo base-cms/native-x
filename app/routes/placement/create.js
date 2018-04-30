@@ -17,7 +17,7 @@ export default Route.extend(RouteQueryManager, ActionMixin, {
       const variables = { input: { payload } };
       try {
         if (!payload.publisherId) throw new Error('You must select a publisher to continue.');
-        const response = await this.apollo.mutate({ mutation, variables }, 'createPlacement');
+        const response = await this.get('apollo').mutate({ mutation, variables }, 'createPlacement');
         this.get('notify').info('Placement successfully created.');
         return this.transitionTo('placement.edit', response.id);
       } catch (e) {

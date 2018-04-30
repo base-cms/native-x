@@ -16,7 +16,7 @@ export default Route.extend(RouteQueryManager, {
     const { id } = this.modelFor('campaign.edit');
     const resultKey = 'campaign';
     const variables = { input: { id } };
-    return this.apollo.watchQuery({ query, variables }, resultKey);
+    return this.get('apollo').watchQuery({ query, variables }, resultKey);
   },
 
   afterModel(model) {
@@ -51,7 +51,7 @@ export default Route.extend(RouteQueryManager, {
     const variables = { input: { campaignId, payload } };
     const resultKey = 'setCampaignCriteria';
     const refetchQueries = ['campaign', 'campaignCriteria'];
-    return this.apollo.mutate({ mutation, variables, refetchQueries }, resultKey)
+    return this.get('apollo').mutate({ mutation, variables, refetchQueries }, resultKey)
       .then(() => controller.setProperties({ isSaving: false, hasSaved: true }))
       .catch(e => this.get('errorProcessor').show(e))
     ;

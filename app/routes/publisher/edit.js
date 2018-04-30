@@ -8,7 +8,7 @@ import mutation from 'fortnight/gql/mutations/update-publisher';
 export default Route.extend(RouteQueryManager, ActionMixin, {
   model({ id }) {
     const variables = { input: { id } };
-    return this.apollo.watchQuery({ query, variables, fetchPolicy: 'network-only' }, 'publisher');
+    return this.get('apollo').watchQuery({ query, variables, fetchPolicy: 'network-only' }, 'publisher');
   },
 
   actions: {
@@ -17,7 +17,7 @@ export default Route.extend(RouteQueryManager, ActionMixin, {
       const payload = { name, logo };
       const variables = { input: { id, payload } };
       try {
-        await this.apollo.mutate({ mutation, variables }, 'updatePublisher');
+        await this.get('apollo').mutate({ mutation, variables }, 'updatePublisher');
         this.get('notify').info('Publisher successfully saved.');
       } catch (e) {
         this.get('graphErrors').show(e);

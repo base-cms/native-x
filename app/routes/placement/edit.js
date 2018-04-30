@@ -9,7 +9,7 @@ import mutation from 'fortnight/gql/mutations/update-placement';
 export default Route.extend(RouteQueryManager, ActionMixin, {
   model({ id }) {
     const variables = { input: { id } };
-    return this.apollo.watchQuery({ query, variables, fetchPolicy: 'network-only' }, 'placement');
+    return this.get('apollo').watchQuery({ query, variables, fetchPolicy: 'network-only' }, 'placement');
   },
 
   actions: {
@@ -19,7 +19,7 @@ export default Route.extend(RouteQueryManager, ActionMixin, {
       const variables = { input: { id, payload } };
       try {
         if (!payload.publisherId) throw new Error('You must select a publisher to continue.');
-        await this.apollo.mutate({ mutation, variables }, 'updatePlacement');
+        await this.get('apollo').mutate({ mutation, variables }, 'updatePlacement');
         this.get('notify').info('Placement successfully saved.');
       } catch (e) {
         this.get('graphErrors').show(e);

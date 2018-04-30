@@ -15,7 +15,7 @@ export default Route.extend(RouteQueryManager, ActionMixin, {
       const payload = { name, logo };
       const variables = { input: { payload } };
       try {
-        const response = await this.apollo.mutate({ mutation, variables }, 'createPublisher');
+        const response = await this.get('apollo').mutate({ mutation, variables }, 'createPublisher');
         this.get('notify').success('Property successfully created.');
         return this.transitionTo('publisher.edit', response.id);
       } catch (e) {

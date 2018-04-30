@@ -10,7 +10,7 @@ export default Route.extend(RouteQueryManager, {
     const { id } = this.modelFor('campaign.edit');
     const resultKey = 'campaign';
     const variables = { input: { id } };
-    return this.apollo.watchQuery({ query, variables }, resultKey);
+    return this.get('apollo').watchQuery({ query, variables }, resultKey);
   },
 
   renderTemplate() {
@@ -25,7 +25,7 @@ export default Route.extend(RouteQueryManager, {
       const variables = { input: { campaignId } };
       const resultKey = 'addCampaignCreative';
       const refetchQueries = ['campaignCreatives'];
-      return this.apollo.mutate({ mutation, variables, refetchQueries }, resultKey)
+      return this.get('apollo').mutate({ mutation, variables, refetchQueries }, resultKey)
         .catch(e => this.get('errorProcessor').show(e))
       ;
     },

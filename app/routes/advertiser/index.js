@@ -27,7 +27,7 @@ export default Route.extend(RouteQueryManager, {
     const sort = { field: sortBy, order: ascending ? 1 : -1 };
     const variables = { pagination, sort };
     if (!sortBy) delete variables.sort.field;
-    return this.apollo.watchQuery({ query, variables, fetchPolicy: 'network-only' }, 'allAdvertisers')
+    return this.get('apollo').watchQuery({ query, variables, fetchPolicy: 'network-only' }, 'allAdvertisers')
       .then((result) => {
         controller.set('observable', getObservable(result));
         return result;

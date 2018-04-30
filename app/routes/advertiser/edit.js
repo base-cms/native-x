@@ -8,7 +8,7 @@ import mutation from 'fortnight/gql/mutations/update-advertiser';
 export default Route.extend(RouteQueryManager, ActionMixin, {
   model({ id }) {
     const variables = { input: { id } };
-    return this.apollo.watchQuery({ query, variables, fetchPolicy: 'network-only' }, 'advertiser');
+    return this.get('apollo').watchQuery({ query, variables, fetchPolicy: 'network-only' }, 'advertiser');
   },
 
   actions: {
@@ -17,7 +17,7 @@ export default Route.extend(RouteQueryManager, ActionMixin, {
       const payload = { name, logo };
       const variables = { input: { id, payload } };
       try {
-        await this.apollo.mutate({ mutation, variables }, 'updateAdvertiser');
+        await this.get('apollo').mutate({ mutation, variables }, 'updateAdvertiser');
         this.get('notify').info('Advertiser successfully saved.');
       } catch (e) {
         this.get('graphErrors').show(e);

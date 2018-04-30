@@ -20,7 +20,7 @@ export default Route.extend(RouteQueryManager, ActionMixin, {
       const payload = { name, html, fallback };
       const variables = { input: { payload } };
       try {
-        const response = await this.apollo.mutate({ mutation, variables }, 'createTemplate');
+        const response = await this.get('apollo').mutate({ mutation, variables }, 'createTemplate');
         this.get('notify').info('Template successfully created.');
         return this.transitionTo('template.edit', response.id);
       } catch (e) {
