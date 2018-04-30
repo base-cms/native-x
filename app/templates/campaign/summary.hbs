@@ -2,17 +2,17 @@
 
 <hr>
 <div class="row">
-  <div class="col-1 text-center">{{-ion "calendar"}}</div>
+  <div class="col-1 text-center">{{entypo-icon "calendar"}}</div>
   <div class="col-3">Starts</div>
   <div class="col">{{moment-format model.criteria.start "MM-DD-YYYY h:mm:ss a"}}</div>
 </div>
 <div class="row">
-  <div class="col-1 text-center">{{-ion "calendar"}}</div>
+  <div class="col-1 text-center">{{entypo-icon "calendar"}}</div>
   <div class="col-3">Ends</div>
   <div class="col">{{if model.criteria.end (moment-format model.criteria.end "MM-DD-YYYY h:mm:ss a") "never"}}</div>
 </div>
 <div class="row">
-  <div class="col-1 text-center">{{-ion "ios-flag"}}</div>
+  <div class="col-1 text-center">{{entypo-icon "ios-flag"}}</div>
   <div class="col-3">Status</div>
   <div class="col">{{model.status}}</div>
 </div>
@@ -20,27 +20,27 @@
 <hr>
 <h6>External Links</h6>
 <div class="row">
-  <div class="col-1 text-center">{{-ion "link"}}</div>
+  <div class="col-1 text-center">{{entypo-icon "link"}}</div>
   <div class="col-auto">
-    <a href="https://materials.fortnight.as3.io/campaign/{{model.hash}}" target="_blank">Material Collection Link</a>
+    <a href="https://materials.fortnight.as3.io/campaign/67ea7ebb-0e34-4b60-ab85-ac42ff820394{{model.hash}}" target="_blank">Material Collection Link</a>
   </div>
 </div>
 <div class="row">
-  <div class="col-1 text-center">{{-ion "link"}}</div>
+  <div class="col-1 text-center">{{entypo-icon "link"}}</div>
   <div class="col-auto">
     <a href="https://materials.fortnight.as3.io/report/{{model.hash}}" target="_blank">Report Link</a>
   </div>
 </div>
 {{#each model.externalLinks as |link|}}
   <div class="row">
-    <div class="col-1 text-center">{{-ion "link"}}</div>
+    <div class="col-1 text-center">{{entypo-icon "link"}}</div>
     <div class="col-auto">
       <a href="{{link.url}}" target="_blank">{{if link.label link.label link.url}}</a>
     </div>
   </div>
 {{else}}
   <div class="row">
-    <div class="col-1 text-center">{{-ion "link"}}</div>
+    <div class="col-1 text-center">{{entypo-icon "link"}}</div>
     <div class="col-auto">
       <i>No external links for this campaign.</i>
     </div>
@@ -51,7 +51,7 @@
 <h6>Internal Notifications</h6>
 {{#each model.notify.internal as |contact|}}
   <div class="row">
-    <div class="col-1 text-center">{{-ion "ios-email"}}</div>
+    <div class="col-1 text-center">{{entypo-icon "email"}}</div>
     <div class="col-auto">
       {{#link-to 'contact.edit' contact.id}}
         {{ contact.name }}
@@ -60,7 +60,7 @@
   </div>
 {{else}}
   <div class="row">
-    <div class="col-1 text-center">{{-ion "ios-email"}}</div>
+    <div class="col-1 text-center">{{entypo-icon "email"}}</div>
     <div class="col-auto">
       <i>No internal notifications for this campaign.</i>
     </div>
@@ -71,7 +71,7 @@
 <h6>External Notifications</h6>
 {{#each model.notify.external as |contact|}}
   <div class="row">
-    <div class="col-1 text-center">{{-ion "ios-email"}}</div>
+    <div class="col-1 text-center">{{entypo-icon "email"}}</div>
     <div class="col-auto">
       {{#link-to 'contact.edit' contact.id}}
         {{ contact.name }}
@@ -80,7 +80,7 @@
   </div>
 {{else}}
   <div class="row">
-    <div class="col-1 text-center">{{-ion "ios-email-outline"}}</div>
+    <div class="col-1 text-center">{{entypo-icon "email"}}</div>
     <div class="col-auto">
       <i>No external notifications for this campaign.</i>
     </div>
