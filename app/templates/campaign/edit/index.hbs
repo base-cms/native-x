@@ -3,9 +3,15 @@
   shouldAutosave=true
   onSubmit=(action "update") as |form|
 }}
-  <div class="card-body">
-    {{ partial "campaign/forms/details" }}
+  <div class="card-body row">
+    <div class="col-lg-8 col-md-6 col-sm-12">
+      {{ partial "campaign/forms/details" }}
+    </div>
+    <div class="col-lg-4 col-md-6 col-sm-12">
+      {{partial "campaign/summary"}}
+    </div>
   </div>
+
   <div class="card-footer">
     {{model-save-button disabled=isActionRunning}}
   </div>
