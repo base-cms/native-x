@@ -26,7 +26,7 @@ export default Controller.extend(ActionMixin, {
       try {
         const response = await this.get('apollo').mutate({ mutation, variables }, 'createCampaign');
         this.get('notify').info('Campaign successfully created.');
-        return this.transitionTo('campaign.edit', response.id);
+        return this.transitionToRoute('campaign.edit', response.id);
       } catch (e) {
         this.get('graphErrors').show(e);
       } finally {
