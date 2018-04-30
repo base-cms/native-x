@@ -1,6 +1,5 @@
 import Component from '@ember/component';
 import { set, get } from '@ember/object';
-import { debounce } from '@ember/runloop';
 
 export default Component.extend({
   tagName: 'form',
@@ -11,7 +10,6 @@ export default Component.extend({
 
   wasValidated: false,
   shouldAutosave: false,
-  autosaveDelay: 200,
 
   init() {
     this._super(...arguments);
@@ -34,7 +32,7 @@ export default Component.extend({
   actions: {
     autosave() {
       if (this.get('shouldAutosave')) {
-        debounce(this, () => this.$().trigger('submit'), this.get('autosaveDelay'));
+        this.$().trigger('submit');
       }
     },
     setAndAutosave(field, value) {
