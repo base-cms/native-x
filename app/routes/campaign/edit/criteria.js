@@ -17,7 +17,7 @@ export default Route.extend(RouteQueryManager, ActionMixin, {
 
   afterModel(model) {
     const criteria = {
-      start: moment(),
+      start: moment().startOf('day'),
       end: null,
       placements: [],
       kvs: [],
