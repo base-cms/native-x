@@ -62,12 +62,21 @@ form .progress {
 }
 
 // Force create button to bottom right; add depth
-.fixed-bottom.create {
+.fixed-bottom {
+  box-shadow: $z-depth-2;
+}
+
+.fixed-bottom.right {
   left: inherit;
   border-top-right-radius: 0 !important;
   border-bottom-right-radius: 0 !important;
   border-bottom-left-radius: 0 !important;
-  box-shadow: $z-depth-2;
+}
+
+.fixed-bottom.left {
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
 }
 
 // Override the "green" success validation state with regular field colors
