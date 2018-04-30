@@ -15,7 +15,7 @@ Router.map(function() {
 
   this.route('campaign', function() {
     this.route('create');
-    this.route('edit', { path: '/:id' }, function() {
+    this.route('edit', { path: ':id' }, function() {
       this.route('criteria');
       this.route('creatives');
       this.route('notifications');

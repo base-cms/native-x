@@ -28,7 +28,7 @@
         type="advertiser"
         closeOnSelect=true
         allowClear=false
-        onchange=(action form.actions.setAndAutosave "advertiser")
+        onChange=(action form.actions.autosave)
         selected=form.model.advertiser as |item|
       }}
         {{item.name}}
@@ -64,8 +64,9 @@
       <div class="form-group">
         <label for="name">Status {{required-field-label}}</label>
         {{#power-select
-          options=statii
+          options=campaignStatus.statii
           selected=form.model.status
+          searchEnabled=false
           onchange=(action form.actions.setAndAutosave "status") as |status|
         }}
           {{ status }}
@@ -96,7 +97,7 @@
     <div class="card">
       <div class="card-header">Links</div>
       <div class="card-body">
-        {{campaign-links links=externalLinks onChange=(action form.actions.setAndAutosave "externalLinks")}}
+        {{campaign-links links=form.model.externalLinks onChange=(action form.actions.setAndAutosave "externalLinks")}}
       </div>
     </div>
   </div>
