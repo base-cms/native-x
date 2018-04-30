@@ -9,7 +9,7 @@
         placeholder="Begin typing to search..."
         type="contact"
         closeOnSelect=true
-        onChange=(action form.actions.autosave "internal")
+        onChange=(action form.actions.autosave)
         selected=form.model.notify.internal as |item|
       }}
         {{item.name}} <span class="text-muted">[{{item.email}}]</span>
@@ -29,7 +29,7 @@
         placeholder="Begin typing to search..."
         type="contact"
         closeOnSelect=true
-        onChange=(action form.actions.autosave "external")
+        onChange=(action form.actions.autosave)
         selected=form.model.notify.external as |item|
       }}
         {{item.name}} <span class="text-muted">[{{item.email}}]</span>

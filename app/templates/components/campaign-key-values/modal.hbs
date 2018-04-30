@@ -1,11 +1,11 @@
 {{#bs-modal show=isModalShowing as |modal|}}
   {{#model-form
-    model=link
+    model=kv
     shouldAutosave=false
     onSubmit=(action "submit" modal.actions.hide) as |form|
   }}
     {{#modal.header}}
-      <h5 class="modal-title">Campaign Link</h5>
+      <h5 class="modal-title">Custom Variable</h5>
       <button {{action modal.actions.hide}} type="button" class="close" aria-label="Close">
         {{entypo-icon "cross"}}
       </button>
@@ -15,17 +15,17 @@
       <div class="row">
         <div class="col">
           <div class="form-group">
-            <label for="link-label">Link Title {{required-field-label}}</label>
-            {{input type="text" value=form.model.label id="link-label" required=true class="form-control"}}
+            <label for="kv-key">Key {{required-field-label}}</label>
+            {{input type="text" value=form.model.key id="kv-key" required=true class="form-control"}}
             <div class="invalid-feedback">
-              Please provide a link title.
+              Please provide a key for the custom variable.
             </div>
           </div>
           <div class="form-group mb-0">
-            <label for="link-url">URL {{required-field-label}}</label>
-            {{input type="url"  value=form.model.url id="link-url" required=true class="form-control" placeholder="https://www..."}}
+            <label for="kv-value">Value {{required-field-label}}</label>
+            {{input type="text" value=form.model.value id="kv-value" required=true class="form-control"}}
             <div class="invalid-feedback">
-              Please provide a valid URL.
+              Please provide a value for the custom variable.
             </div>
           </div>
         </div>

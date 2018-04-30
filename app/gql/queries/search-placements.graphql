@@ -7,6 +7,7 @@ query searchPlacements($pagination: PaginationInput, $search: PlacementSearchInp
         id
         name
         publisher {
+          id
           name
         }
       }
