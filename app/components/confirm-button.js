@@ -32,7 +32,7 @@ export default Component.extend({
     const label = this.get('label');
     const confirmLabel = this.get('confirmLabel');
     if (!this.get('hasConfirmed')) return label;
-    return confirmLabel ? confirmLabel : icon;
+    return confirmLabel ? confirmLabel : label;
   }),
 
   click() {
