@@ -5,6 +5,7 @@ fragment CampaignDetailsFragment on Campaign {
   isNew
   description
   url
+  hash
   externalLinks {
     label
     url
