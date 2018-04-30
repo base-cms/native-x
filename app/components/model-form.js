@@ -13,6 +13,11 @@ export default Component.extend({
   shouldAutosave: false,
   autosaveDelay: 750,
 
+  init() {
+    this._super(...arguments);
+    if (!this.get('model')) this.set('model', {});
+  },
+
   submit(event) {
     const form = this.element;
     event.preventDefault();

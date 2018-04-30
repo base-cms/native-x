@@ -1,0 +1,41 @@
+{{#bs-modal show=isModalShowing as |modal|}}
+  {{#model-form
+    model=link
+    shouldAutosave=false
+    onSubmit=(action "submit" modal.actions.hide) as |form|
+  }}
+    {{#modal.header}}
+      <h5 class="modal-title">Add Link</h5>
+      <button {{action modal.actions.hide}} type="button" class="close" aria-label="Close">
+        {{entypo-icon "cross"}}
+      </button>
+    {{/modal.header}}
+
+    {{#modal.body}}
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="link-label">Link Title {{required-field-label}}</label>
+            {{input type="text" value=form.model.label id="link-label" required=true class="form-control"}}
+            <div class="invalid-feedback">
+              Please provide a link title.
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="link-url">URL {{required-field-label}}</label>
+            {{input type="url"  value=form.model.url id="link-url" required=true class="form-control" placeholder="https://www..."}}
+            <div class="invalid-feedback">
+              Please provide a valid URL.
+            </div>
+          </div>
+        </div>
+      </div>
+    {{/modal.body}}
+
+    {{#modal.footer}}
+      <button class="btn btn-success" type="submit">
+        {{entypo-icon "check"}} Save
+      </button>
+    {{/modal.footer}}
+  {{/model-form}}
+{{/bs-modal}}

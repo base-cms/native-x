@@ -1,0 +1,11 @@
+{{#each links as |link|}}
+  <p>
+    {{link.label}} <a href="{{link.url}}" target="_blank" rel="noopener noreferrer">{{link.url}}</a>
+    (<a class="text-info" href="javascript:void(0)" {{action "editLink" link}}>edit</a>)
+    (<a class="text-danger" href="javascript:void(0)" {{action "removeLink" link}}>remove</a>)
+  </p>
+{{/each}}
+
+<button class="btn btn-sm btn-primary" type="button" {{action "createLink"}}>{{entypo-icon "plus"}} Add Link</button>
+
+{{campaign-links/modal isModalShowing=isModalShowing link=activeLink onSubmit=(action "handleLink")}}
