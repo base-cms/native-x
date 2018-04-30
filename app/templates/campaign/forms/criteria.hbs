@@ -1,30 +1,30 @@
-{{!-- <div class="row">
-  <div class="col">
+<div class="row">
+  <div class="col-md-6">
     <div class="form-group">
       <label for="start">Starts On</label>
       {{-calendar
-        currentDay=model.criteria.start
+        currentDay=form.model.criteria.start
         maxDate=startMax
         minDate=startMin
-        truncDay='start'
-        onSelect=(action form.setAndUpdate "criteria.start")
+        truncDay="start"
+        onSelect=(action form.actions.setAndAutosave "criteria.start")
       }}
     </div>
   </div>
-  <div class="col">
+  <div class="col-md-6">
     <div class="form-group">
       <label for="end">Ends On</label>
       {{-calendar
-        currentDay=model.criteria.end
+        currentDay=form.model.criteria.end
         maxDate=endMax
         minDate=endMin
-        truncDay='end'
-        onSelect=(action form.setAndUpdate "criteria.end")
+        truncDay="end"
+        onSelect=(action form.actions.setAndAutosave "criteria.end")
         canRemove=true
-        }}
+      }}
     </div>
   </div>
-</div> --}}
+</div>
 
 <div class="row">
   <div class="col">
@@ -45,7 +45,7 @@
     </div>
   </div>
 </div>
-
+<hr>
 <div class="row">
   <div class="col">
     <div class="card">
@@ -56,14 +56,3 @@
     </div>
   </div>
 </div>
-
-{{!-- <div class="row">
-  <div class="form-group col">
-    <label>Custom Variables</label>
-    {{key-values
-      values=model.criteria.kvs
-      onChange=(action form.update)
-    }}
-  </div>
-</div> --}}
-
