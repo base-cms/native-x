@@ -1,14 +1,7 @@
+#import 'fortnight/gql/fragments/campaign-criteria'
+
 mutation SetCampaignCriteria($input: SetCampaignCriteriaInput!) {
   setCampaignCriteria(input: $input) {
-    start
-    end
-    placements {
-      id
-      name
-    }
-    kvs {
-      key
-      value
-    }
+    ...CampaignCriteriaFragment
   }
 }

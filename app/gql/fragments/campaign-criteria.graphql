@@ -1,0 +1,16 @@
+fragment CampaignCriteriaFragment on CampaignCriteria {
+  id
+  start
+  end
+  placements {
+    id
+    name
+    publisher {
+      name
+    }
+  }
+  kvs {
+    key
+    value
+  }
+}
