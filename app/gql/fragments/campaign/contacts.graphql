@@ -1,0 +1,15 @@
+fragment CampaignContactsFragment on Campaign {
+  id
+  notify {
+    internal {
+      id
+      name
+      email
+    }
+    external {
+      id
+      name
+      email
+    }
+  }
+}

@@ -1,29 +1,12 @@
-<div class="row">
-  <div class="form-group col">
-    <label for="placements">Internal Notifications</label>
-    {{#autocomplete-multiple
-      placeholder="Select a contact"
-      type="contact"
-      selected=model.notify.internal
-      onChange=(action "setContacts" "internal")
-      as |model|
-    }}
-      {{ model.name }} &lsaquo; {{ model.email }} &rsaquo;
-    {{/autocomplete-multiple}}
+{{#model-form
+  model=model
+  shouldAutosave=true
+  onSubmit=(action "update") as |form|
+}}
+  <div class="card-body">
+    {{ partial "campaign/forms/contacts" }}
   </div>
-</div>
-
-<div class="row">
-  <div class="form-group col">
-    <label for="placements">External Notifications</label>
-    {{#autocomplete-multiple
-      placeholder="Select a contact"
-      type="contact"
-      selected=model.notify.external
-      onChange=(action "setContacts" "external")
-      as |model|
-    }}
-      {{ model.name }} &lsaquo; {{ model.email }} &rsaquo;
-    {{/autocomplete-multiple}}
+  <div class="card-footer">
+    {{model-save-button disabled=isActionRunning}}
   </div>
-</div>
+{{/model-form}}

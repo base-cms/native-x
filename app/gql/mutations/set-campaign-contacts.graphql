@@ -1,5 +1,0 @@
-mutation SetCapaignContacts($input: SetContactsInput!) {
-	setCampaignContacts(input: $input) {
-		id
-	}
-}

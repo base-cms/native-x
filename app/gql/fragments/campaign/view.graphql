@@ -1,5 +1,0 @@
-#import 'fortnight/gql/fragments/campaign/list'
-
-fragment CampaignFragment on Campaign {
-  ...CampaignListFragment
-}
