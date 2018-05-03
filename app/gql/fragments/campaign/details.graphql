@@ -6,6 +6,10 @@ fragment CampaignDetailsFragment on Campaign {
   description
   url
   hash
+  criteria {
+    start
+    end
+  }
   externalLinks {
     label
     url
