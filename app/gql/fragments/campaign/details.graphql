@@ -1,4 +1,5 @@
 #import 'fortnight/gql/fragments/campaign/list'
+#import 'fortnight/gql/fragments/campaign-criteria'
 
 fragment CampaignDetailsFragment on Campaign {
   ...CampaignListFragment
@@ -7,8 +8,7 @@ fragment CampaignDetailsFragment on Campaign {
   url
   hash
   criteria {
-    start
-    end
+    ...CampaignCriteriaFragment
   }
   externalLinks {
     label
