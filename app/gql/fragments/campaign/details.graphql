@@ -14,4 +14,16 @@ fragment CampaignDetailsFragment on Campaign {
     label
     url
   }
+  notify {
+    internal {
+      id
+      name
+      email
+    }
+    external {
+      id
+      name
+      email
+    }
+  }
 }
