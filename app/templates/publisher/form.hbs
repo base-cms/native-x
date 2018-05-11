@@ -2,7 +2,16 @@
   <div class="col">
     <div class="form-group">
       <label for="publisher-name">Name {{required-field-label}}</label>
-      {{input type="text" required=true value=model.name class="form-control" id="publisher-name" placeholder="Acme Corp." autofocus=true}}
+      {{input
+        type="text"
+        required=true
+        value=model.name
+        class="form-control"
+        id="publisher-name"
+        placeholder="Acme Corp."
+        autofocus=true
+        focusOut=(action form.actions.autosave)
+      }}
       <div class="invalid-feedback">
         Please provide a publisher name.
       </div>
@@ -14,7 +23,14 @@
   <div class="col">
     <div class="form-group mb-0">
       <label for="publisher-logo">Logo URL</label>
-      {{input type="url" value=model.logo class="form-control" id="publisher-logo" placeholder="https://some.domain/image.extension"}}
+      {{input
+        type="url"
+        value=model.logo
+        class="form-control"
+        id="publisher-logo"
+        placeholder="https://some.domain/image.extension"
+        focusOut=(action form.actions.autosave)
+      }}
       <div class="invalid-feedback">
         Please provide a valid URL, or leave empty.
       </div>
