@@ -12,13 +12,13 @@
   <div class="col">{{if model.criteria.end (moment-format model.criteria.end "MM-DD-YYYY h:mm:ss a") "never"}}</div>
 </div>
 <div class="row">
-  <div class="col-1 text-center">{{entypo-icon "ios-flag"}}</div>
+  <div class="col-1 text-center">{{entypo-icon "flag"}}</div>
   <div class="col-3">Status</div>
   <div class="col">{{model.status}}</div>
 </div>
 
 <hr>
-<h6>External Links</h6>
+<h6>Links</h6>
 <div class="row">
   <div class="col-1 text-center">{{entypo-icon "link"}}</div>
   <div class="col-auto">
@@ -36,13 +36,6 @@
     <div class="col-1 text-center">{{entypo-icon "link"}}</div>
     <div class="col-auto">
       <a href="{{link.url}}" target="_blank">{{if link.label link.label link.url}}</a>
-    </div>
-  </div>
-{{else}}
-  <div class="row">
-    <div class="col-1 text-center">{{entypo-icon "link"}}</div>
-    <div class="col-auto">
-      <i>No external links for this campaign.</i>
     </div>
   </div>
 {{/each}}
