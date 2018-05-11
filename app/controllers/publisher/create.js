@@ -18,7 +18,7 @@ export default Controller.extend(ActionMixin, {
       const variables = { input: { payload } };
       try {
         const response = await this.get('apollo').mutate({ mutation, variables }, 'createPublisher');
-        this.get('notify').success('Property successfully created.');
+        this.get('notify').success('Publisher successfully created.');
         return this.transitionToRoute('publisher.edit', response.id);
       } catch (e) {
         this.get('graphErrors').show(e);
