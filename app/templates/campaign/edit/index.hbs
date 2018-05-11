@@ -3,12 +3,14 @@
   shouldAutosave=true
   onSubmit=(action "update") as |form|
 }}
-  <div class="card-body row">
-    <div class="col-lg-8 col-md-6 col-sm-12">
-      {{ partial "campaign/forms/details" }}
-    </div>
-    <div class="col-lg-4 col-md-6 col-sm-12">
-      {{partial "campaign/summary"}}
+  <div class="card-body">
+    <div class="row">
+      <div class="col-12 col-lg-8">
+        {{ partial "campaign/forms/details" }}
+      </div>
+      <div class="col-12 col-lg-4 mt-4 mt-lg-0 mb-0">
+        {{partial "campaign/summary"}}
+      </div>
     </div>
   </div>
 
