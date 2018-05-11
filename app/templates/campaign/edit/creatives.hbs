@@ -1,29 +1,14 @@
-{{!-- {{#each groups as |group|}}
-<div class="row mb-3">
-  {{#each group as |creative|}}
-    <div class="col-lg-4 mb-3">
-      {{campaign-creative campaignId=model.id creative=creative}}
-    </div>
-  {{/each}}
+<div class="card-body">
+  <div class="row">
+    {{#each model.creatives as |creative|}}
+      <div class="mb-3 col-12 col-md-6 col-lg-4">
+        {{campaign-creative campaignId=model.id creative=creative}}
+      </div>
+    {{/each}}
+  </div>
 </div>
-{{/each}} --}}
 
-
-  <div class="card-body">
-    <div class="row">
-      {{#each model.creatives as |creative|}}
-        {{log 'HERE'}}
-        <div class="mb-3 col-12 col-md-6 col-lg-4">
-          {{campaign-creative campaignId=model.id creative=creative}}
-          {{!-- <div class="card">
-            <div class="card-header"></div>
-          </div> --}}
-        </div>
-      {{/each}}
-    </div>
-  </div>
-
-  <div class="card-footer">
-  </div>
+<div class="card-footer">
+</div>
 
 {{model-create-button icon="image" title="Add Creative" click=(action "add")}}

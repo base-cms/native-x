@@ -3,8 +3,11 @@
   {{#crumbs.item active=true}}{{ model.name }}{{/crumbs.item}}
 {{/nav-breadcrumbs}}
 
-
-<form {{action (route-action "update" model) on="submit"}}>
+{{#model-form
+  model=model
+  shouldAutosave=true
+  onSubmit=(action "update") as |form|
+}}
   <div class="card model-form">
     <div class="card-header"></div>
     <div class="card-body">
@@ -18,9 +21,9 @@
           label="Delete"
           class="btn-danger"
           disabled=isActionRunning
-          onConfirm=(route-action "delete" model.id "publisher.index")
+          onConfirm=(action "delete" model.id "publisher.index")
         }}
       </div>
     </div>
   </div>
-</form>
+{{/model-form}}

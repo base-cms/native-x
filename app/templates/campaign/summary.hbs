@@ -2,67 +2,86 @@
 
 <hr>
 <div class="row">
-  <div class="col-1 text-center">{{entypo-icon "calendar"}}</div>
-  <div class="col-3">Starts</div>
-  <div class="col">{{moment-format model.criteria.start "MM-DD-YYYY h:mm:ss a"}}</div>
-</div>
-<div class="row">
-  <div class="col-1 text-center">{{entypo-icon "calendar"}}</div>
-  <div class="col-3">Ends</div>
-  <div class="col">{{if model.criteria.end (moment-format model.criteria.end "MM-DD-YYYY h:mm:ss a") "never"}}</div>
-</div>
-<div class="row">
-  <div class="col-1 text-center">{{entypo-icon "ios-flag"}}</div>
-  <div class="col-3">Status</div>
-  <div class="col">{{model.status}}</div>
-</div>
-
-<hr>
-<h6>External Links</h6>
-<div class="row">
-  <div class="col-1 text-center">{{entypo-icon "link"}}</div>
-  <div class="col-auto">
-    <a href="https://materials.fortnight.as3.io/campaign/{{model.hash}}" target="_blank">Material Collection Link</a>
+  <div class="col d-flex justify-content-between">
+    <span>{{entypo-icon "calendar"}} Starts</span> {{moment-format model.criteria.start "MMM Do, YYYY @ h:mma"}}
   </div>
 </div>
 <div class="row">
-  <div class="col-1 text-center">{{entypo-icon "link"}}</div>
-  <div class="col-auto">
-    <a href="https://materials.fortnight.as3.io/report/{{model.hash}}" target="_blank">Report Link</a>
+  <div class="col d-flex justify-content-between">
+    <span>{{entypo-icon "calendar"}} Ends</span> {{if model.criteria.end (moment-format model.criteria.end "MMM Do, YYYY @ h:mma") "Never"}}
+  </div>
+</div>
+<div class="row">
+  <div class="col d-flex justify-content-between">
+    <span>{{entypo-icon "flag"}} Status</span> {{campaign-status value=model.status}}
+  </div>
+</div>
+
+<hr>
+<h6>Links</h6>
+<div class="row">
+  <div class="col">
+    {{entypo-icon "link"}}
+    <a href="https://materials.fortnight.as3.io/campaign/{{model.hash}}" target="_blank" rel="noopener noreferrer">Material Collection Link</a>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    {{entypo-icon "link"}}
+    <a href="https://materials.fortnight.as3.io/report/{{model.hash}}" target="_blank" rel="noopener noreferrer">Report Link</a>
   </div>
 </div>
 {{#each model.externalLinks as |link|}}
   <div class="row">
-    <div class="col-1 text-center">{{entypo-icon "link"}}</div>
-    <div class="col-auto">
-      <a href="{{link.url}}" target="_blank">{{if link.label link.label link.url}}</a>
-    </div>
-  </div>
-{{else}}
-  <div class="row">
-    <div class="col-1 text-center">{{entypo-icon "link"}}</div>
-    <div class="col-auto">
-      <i>No external links for this campaign.</i>
+    <div class="col">
+      {{entypo-icon "link"}}
+      <a href="{{link.url}}" target="_blank" rel="noopener noreferrer">{{link.label}}</a>
     </div>
   </div>
 {{/each}}
 
 <hr>
-<h6>Internal Notifications</h6>
-{{#each model.notify.internal as |contact|}}
+<h6>Placements</h6>
+{{#each model.criteria.placements as |placement|}}
   <div class="row">
-    <div class="col-1 text-center">{{entypo-icon "email"}}</div>
-    <div class="col-auto">
-      {{#link-to 'contact.edit' contact.id}}
-        {{ contact.name }}
-      {{/link-to}}
+    <div class="col">
+      {{entypo-icon "browser"}} {{placement.name}}
+      <small class="text-muted">[{{placement.publisher.name}}]</small>
     </div>
   </div>
 {{else}}
   <div class="row">
-    <div class="col-1 text-center">{{entypo-icon "email"}}</div>
-    <div class="col-auto">
-      <i>No internal notifications for this campaign.</i>
+    <div class="col">
+      <small class="text-warning">No placemets set for this campaign.</small>
+    </div>
+  </div>
+{{/each}}
+
+{{#if model.criteria.kvs.length}}
+  <hr>
+  <h6>Custom Variables</h6>
+  {{#each model.criteria.kvs as |kv|}}
+    <div class="row">
+      <div class="col">
+        {{entypo-icon "key"}} {{kv.key}} = <code class="text-muted">{{kv.value}}</code>
+      </div>
+    </div>
+  {{/each}}
+{{/if}}
+
+<hr>
+<h6>Internal Notifications</h6>
+{{#each model.notify.internal as |contact|}}
+  <div class="row">
+    <div class="col">
+      {{entypo-icon "email"}} {{#link-to "contact.edit" contact.id title=contact.email}}{{ contact.name }}{{/link-to}}
+      <small class="text-muted">[{{contact.email}}]</small>
+    </div>
+  </div>
+{{else}}
+  <div class="row">
+    <div class="col">
+      <small class="text-muted">No internal notifications for this campaign.</small>
     </div>
   </div>
 {{/each}}
@@ -71,39 +90,15 @@
 <h6>External Notifications</h6>
 {{#each model.notify.external as |contact|}}
   <div class="row">
-    <div class="col-1 text-center">{{entypo-icon "email"}}</div>
-    <div class="col-auto">
-      {{#link-to 'contact.edit' contact.id}}
-        {{ contact.name }}
-      {{/link-to}}
+    <div class="col">
+      {{entypo-icon "email"}} {{#link-to "contact.edit" contact.id title=contact.email}}{{ contact.name }}{{/link-to}}
+      <small class="text-muted">[{{contact.email}}]</small>
     </div>
   </div>
 {{else}}
   <div class="row">
-    <div class="col-1 text-center">{{entypo-icon "email"}}</div>
-    <div class="col-auto">
-      <i>No external notifications for this campaign.</i>
+    <div class="col">
+      <small class="text-muted">No external notifications for this campaign.</small>
     </div>
   </div>
 {{/each}}
-
-<hr>
-<h6>Targeting Criteria</h6>
-<ul class="list-unstyled small">
-  <li>Placements</li>
-  <ul>
-    {{#each model.criteria.placements as |placement|}}
-    <li>{{ placement.name }} ({{ placement.publisher.name }})</li>
-    {{ else }}
-    <li class="text-warning">None</li>
-    {{/each}}
-  </ul>
-  <li>Custom Values</li>
-  <ul>
-    {{#each model.criteria.kvs as |kv|}}
-    <li><code>{{ kv.key }} = {{ kv.value }}</code></li>
-    {{ else }}
-    <li class="text-muted">None</li>
-    {{/each}}
-  </ul>
-</ul>

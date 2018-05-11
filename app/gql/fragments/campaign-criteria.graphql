@@ -6,6 +6,7 @@ fragment CampaignCriteriaFragment on CampaignCriteria {
     id
     name
     publisher {
+      id
       name
     }
   }
