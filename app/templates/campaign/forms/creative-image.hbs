@@ -1,9 +1,10 @@
-{{#image-uploader
-  isLoading=isActionRunning
-  onUploadSuccess=(action form.actions.setAndAutosave "image") as |uploader|
-}}
-  <div class="row">
-    <div class="col">
+<div class="row">
+  <div class="col">
+    {{#image-uploader
+      isLoading=isActionRunning
+      onUploadStart=(action (mut form.model.image null))
+      onUploadSuccess=(action form.actions.setAndAutosave "image") as |uploader|
+    }}
       <div class="form-group">
         <label for="creative-image">Upload Image</label>
         <div class="custom-file">
@@ -28,7 +29,7 @@
       {{/if}}
 
       {{#if form.model.image}}
-        <img class="img-fluid" src="{{form.model.image.src}}">
+        <img class="img-fluid img-thumbnail" src="{{form.model.image.src}}">
       {{/if}}
 
       {{#if uploader.error}}
@@ -36,6 +37,7 @@
           <strong>Oh Snap!</strong> {{uploader.error.message}}
         </div>
       {{/if}}
-    </div>
+    {{/image-uploader}}
   </div>
-{{/image-uploader}}
+</div>
+
