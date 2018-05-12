@@ -1,8 +1,1 @@
-{{#each crops as |crop|}}
-  <div class="row mb-3">
-    <div class="col">
-      <small class="d-block">At {{crop.label}}</small>
-      <img src="{{crop.src}}" class="img-fluid img-thumbnail">
-    </div>
-  </div>
-{{/each}}
+{{imgix-img originalSrc=originalSrc w=width h=height fp-x=fpX fp-y=fpY fit="crop" crop="focalpoint"}}
