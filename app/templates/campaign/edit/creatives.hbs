@@ -2,7 +2,10 @@
   <div class="row">
     {{#each model.creatives as |creative|}}
       <div class="mb-3 col-12 col-md-6 col-lg-4">
-        {{campaign-creative campaignId=model.id creative=creative}}
+        {{!-- {{campaign-creative-bak campaignId=model.id creative=creative}} --}}
+        {{campaign-creative creative=creative}}
+
+
       </div>
     {{/each}}
   </div>

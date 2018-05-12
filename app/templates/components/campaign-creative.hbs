@@ -1,61 +1,14 @@
-<img class="card-img-top" src="{{ src }}" alt="Image Preview">
+
+
+<img class="card-img-top border-bottom fit" src="{{src}}" alt="Image Preview">
+<div class="card-img-overlay">
+  <button class="btn btn-sm btn-success float-right">{{#if hasSrc}}{{entypo-icon "pencil"}}{{else}}{{entypo-icon "upload"}}{{/if}}</button>
+</div>
 
 <div class="card-body">
-
-  <div class="form-group">
-    <label>Title Text {{required-field-label}}</label>
-    {{input type="text" required=true class="form-control form-control-sm" value=title placeholder="Click here for awesome"}}
-    <small class="form-text text-muted">
-      The clickable text that will display in the advertisement. This should be 8-20 characters long, and must be less than 40.
-    </small>
-  </div>
-
-  <div class="form-group mb-0">
-    <label>Teaser</label>
-    {{input type="text" class="form-control form-control-sm" value=teaser placeholder="A short description of your awesome link"}}
-    <small class="form-text text-muted">
-      A short description for your link. This should be 40-60 characters long, and must be less than 140.
-    </small>
-  </div>
+  <h5 class="card-title">{{creative.title}}</h5>
+  <p class="card-text">{{creative.teaser}}</p>
 </div>
-<div class="card-header" {{action "toggleCollapse"}}>
-  Image Details
-  <button class="btn btn-sm btn-secondary float-right" type="button">
-    {{entypo-icon (if collapsed "chevron-down" "chevron-up")}}
-  </button>
-</div>
-
-{{#unless collapsed}}
-  <div class="card-body">
-    <div class="form-group mb-0">
-      {{campaign-creative/image image=image}}
-      {{campaign-creative/upload class="mt-1" image=image}}
-      <small class="form-text text-muted">
-        <ul class="list-unstyled mb-0">
-          <li><strong>Dimensions</strong> At minimum, 320px &times; 180px.</li>
-          <li><strong>File Size</strong> At most, 5.24 MB.</li>
-          <li><strong>Format</strong> Web-safe (PNG, GIF, or JPEG.)</li>
-        </ul>
-      </small>
-    </div>
-  </div>
-{{/unless}}
-
-<div class="card-footer text-right">
-
-  {{confirm-button
-    disabled=isActionRunning
-    icon="cross"
-    confirmIcon="warning"
-    labelClass="d-none d-md-inline"
-    label="Remove"
-    class="btn-warning btn-sm"
-    onConfirm=(action "remove")
-  }}
-
-  <button class="btn btn-success btn-sm" type="button" disabled={{isActionRunning}} {{action "update"}}>
-    {{entypo-icon "save"}} Save
-  </button>
+<div class="card-footer">
 
 </div>
-
