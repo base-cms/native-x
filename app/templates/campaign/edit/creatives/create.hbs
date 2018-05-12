@@ -1,5 +1,5 @@
 
-{{#bs-modal show=true size="large" onHidden=(route-action "transitionTo" "campaign.edit.creatives") as |modal|}}
+{{#bs-modal show=true size="large" backdrop="static" onHidden=(route-action "transitionTo" "campaign.edit.creatives") as |modal|}}
   {{#model-form
     model=model
     shouldAutosave=false
@@ -7,9 +7,9 @@
   }}
     {{#modal.header}}
       <h5 class="modal-title">Add Creative</h5>
-      <button {{action modal.actions.hide}} type="button" class="close" aria-label="Close">
+      {{!-- <button {{action modal.actions.hide}} type="button" class="close" aria-label="Close">
         {{entypo-icon "cross"}}
-      </button>
+      </button> --}}
     {{/modal.header}}
 
     {{#modal.body}}
@@ -18,6 +18,16 @@
 
     {{#modal.footer}}
       {{model-save-button disabled=isActionRunning}}
+
+      {{!-- <div class="btn-group float-right"> --}}
+        {{confirm-button
+          icon="cross"
+          label="Cancel"
+          class="btn-warning"
+          disabled=isActionRunning
+          onConfirm=modal.actions.hide
+        }}
+      {{!-- </div> --}}
     {{/modal.footer}}
 
   {{/model-form}}
