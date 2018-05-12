@@ -1,0 +1,32 @@
+<div class="card mnh-100">
+  {{#campaign-creative/image-src image=creative.image as |image|}}
+    <img class="card-img-top border-bottom" src="{{image.src}}" alt="Image Preview">
+    <div class="card-img-overlay">
+      <button class="btn btn-sm btn-success float-right" type="button">{{#if image.hasSrc}}{{entypo-icon "camera"}}{{else}}{{entypo-icon "upload"}}{{/if}}</button>
+    </div>
+  {{/campaign-creative/image-src}}
+
+  <div class="card-body">
+    {{#if creative.title}}
+      <h5 class="card-title">{{creative.title}}</h5>
+    {{/if}}
+
+    {{#if creative.teaser}}
+      <p class="card-text">{{creative.teaser}}</p>
+    {{/if}}
+
+    <div class="dropdown">
+    <button class="btn btn-sm btn-outline-success dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        {{entypo-icon "flag"}} Active
+      </button>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="#">Draft</a>
+      </div>
+    </div>
+
+  </div>
+  <div class="card-footer">
+    <button class="btn btn-sm btn-primary" type="button">{{entypo-icon "pencil"}} Edit</button>
+    <button class="btn btn-sm btn-warning" type="button">{{entypo-icon "cross"}} Remove</button>
+  </div>
+</div>

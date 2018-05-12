@@ -6,28 +6,29 @@
     onSubmit=(action "create") as |form|
   }}
     {{#modal.header}}
-      <h5 class="modal-title">Add Creative</h5>
-      {{!-- <button {{action modal.actions.hide}} type="button" class="close" aria-label="Close">
-        {{entypo-icon "cross"}}
-      </button> --}}
+      <ul class="nav nav-pills">
+        <li class="nav-item">
+          <a class="nav-link active" href="#">{{entypo-icon "list"}} Details</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">{{entypo-icon "image"}} Image</a>
+        </li>
+      </ul>
     {{/modal.header}}
 
     {{#modal.body}}
       {{ partial "campaign/forms/creative" }}
     {{/modal.body}}
 
-    {{#modal.footer}}
+    {{#modal.footer class="d-flex justify-content-between"}}
       {{model-save-button disabled=isActionRunning}}
-
-      {{!-- <div class="btn-group float-right"> --}}
-        {{confirm-button
-          icon="cross"
-          label="Cancel"
-          class="btn-warning"
-          disabled=isActionRunning
-          onConfirm=modal.actions.hide
-        }}
-      {{!-- </div> --}}
+      {{confirm-button
+        icon="cross"
+        label="Cancel"
+        class="btn-warning"
+        disabled=isActionRunning
+        onConfirm=modal.actions.hide
+      }}
     {{/modal.footer}}
 
   {{/model-form}}

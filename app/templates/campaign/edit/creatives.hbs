@@ -3,9 +3,8 @@
     {{#each model.creatives as |creative|}}
       <div class="mb-3 col-12 col-md-6 col-lg-4">
         {{!-- {{campaign-creative-bak campaignId=model.id creative=creative}} --}}
-        {{campaign-creative creative=creative}}
-
-
+        {{!-- {{campaign-creative creative=creative}} --}}
+        {{ partial "campaign/edit/creatives/card" }}
       </div>
     {{/each}}
   </div>
@@ -14,6 +13,6 @@
 <div class="card-footer">
 </div>
 
-{{model-create-button icon="image" title="Add Creative" click=(route-action "transitionTo" "campaign.edit.creatives.create")}}
+{{model-create-button icon="images" title="Add Creative" click=(route-action "transitionTo" "campaign.edit.creatives.create")}}
 
 {{outlet}}
