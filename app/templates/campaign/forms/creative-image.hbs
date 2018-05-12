@@ -28,10 +28,6 @@
         </div>
       {{/if}}
 
-      {{#if form.model.image}}
-        <img class="img-fluid img-thumbnail" src="{{form.model.image.src}}">
-      {{/if}}
-
       {{#if uploader.error}}
         <div class="alert alert-danger mt-3 mb-0" role="alert">
           <strong>Oh Snap!</strong> {{uploader.error.message}}
@@ -40,4 +36,24 @@
     {{/image-uploader}}
   </div>
 </div>
+
+{{#if form.model.image}}
+
+  <div class="row">
+    <div class="col-8">
+      <h6>Image</h6>
+      <small class="d-block">Click within the image to set the focal point.</small>
+      <img class="img-fluid img-thumbnail" src="{{form.model.image.src}}">
+    </div>
+    <div class="col-4">
+      <h6>Preview</h6>
+      {{image-crops
+        originalSrc=form.model.image.src
+        fpX=form.model.image.focalPoint.x
+        fpY=form.model.image.focalPoint.y
+      }}
+    </div>
+  </div>
+
+{{/if}}
 

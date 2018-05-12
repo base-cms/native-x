@@ -1,0 +1,8 @@
+{{#each crops as |crop|}}
+  <div class="row mb-3">
+    <div class="col">
+      <small class="d-block">At {{crop.label}}</small>
+      <img src="{{crop.src}}" class="img-fluid img-thumbnail">
+    </div>
+  </div>
+{{/each}}
