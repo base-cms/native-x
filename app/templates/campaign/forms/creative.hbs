@@ -1,0 +1,48 @@
+<div class="row">
+  <div class="col">
+    <div class="form-group">
+      <label for="creative-title">Title {{required-field-label}}</label>
+      {{character-count value=form.model.title maxLength=75}}
+      {{input
+        id="creative-title"
+        class="form-control"
+        minlength=20
+        maxlength=75
+        required=true
+        value=form.model.title
+        focusOut=(action form.actions.autosave)
+      }}
+      <div class="invalid-feedback">
+        Please provide a title for the creative that is at least 20 characters long.
+      </div>
+      <small id={{concat "titleHelp." index}} class="form-text text-muted">
+        The clickable text that will display in the advertisement. This must be at least 20 characters long and no longer than 75.
+      </small>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <div class="form-group mb-0">
+      <label for="creative-teaser">Teaser {{required-field-label}}</label>
+      {{character-count value=form.model.teaser maxLength=255}}
+      {{textarea
+        id="creative-teaser"
+        class="form-control"
+        minlength=40
+        maxlength=255
+        required=true
+        value=form.model.teaser
+        rows=4
+        placeholder="A short description of your awesome link"
+      }}
+      <div class="invalid-feedback">
+        Please provide a teaser for the creative that is at least 40 characters long.
+      </div>
+      <small id={{concat "teaserHelp." index}} class="form-text text-muted">
+        A short description for your link. This must be at least 40 characters long and no longer than 255.
+      </small>
+    </div>
+  </div>
+</div>
