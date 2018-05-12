@@ -1,36 +1,17 @@
-
-{{#bs-modal show=true size="large" backdrop="static" onHidden=(route-action "transitionTo" "campaign.edit.creatives") as |modal|}}
-  {{#model-form
-    model=model
-    shouldAutosave=false
-    onSubmit=(action "create") as |form|
-  }}
-    {{#modal.header}}
-      <ul class="nav nav-pills">
-        <li class="nav-item">
-          <a class="nav-link active" href="#">{{entypo-icon "list"}} Details</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">{{entypo-icon "image"}} Image</a>
-        </li>
-      </ul>
-    {{/modal.header}}
-
-    {{#modal.body}}
-      {{ partial "campaign/forms/creative" }}
-    {{/modal.body}}
-
-    {{#modal.footer class="d-flex justify-content-between"}}
-      {{model-save-button disabled=isActionRunning}}
-      {{confirm-button
-        icon="cross"
-        label="Cancel"
-        class="btn-warning"
-        disabled=isActionRunning
-        onConfirm=modal.actions.hide
-      }}
-    {{/modal.footer}}
-
-  {{/model-form}}
-
+{{#bs-modal show=true size="large" backdrop="static" onHidden=(route-action "transitionTo" "campaign.edit.creatives") onShow=(action "setModal") as |modal|}}
+  {{#modal.header}}
+    <ul class="nav nav-pills">
+      <li class="nav-item">
+        {{#link-to "campaign.edit.creatives.create.index" class="nav-link"}}
+          {{entypo-icon "list"}} Details
+        {{/link-to}}
+      </li>
+      <li class="nav-item">
+        {{#link-to "campaign.edit.creatives.create.image" class="nav-link"}}
+          {{entypo-icon "image"}} Image
+        {{/link-to}}
+      </li>
+    </ul>
+  {{/modal.header}}
+  {{outlet}}
 {{/bs-modal}}

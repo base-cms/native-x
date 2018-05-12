@@ -6,7 +6,16 @@ import ActionMixin from 'fortnight/mixins/action-mixin';
 export default Controller.extend(ActionMixin, {
   apollo: inject(),
 
+  wereDetailsValidated: false,
+
   actions: {
+    setModal(instance) {
+      this.set('modal', instance);
+    },
+
+    hideModal() {
+      this.get('modal').send('hide');
+    },
     /**
      *
      * @param {object} fields

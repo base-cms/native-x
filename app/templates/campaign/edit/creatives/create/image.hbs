@@ -1,0 +1,21 @@
+{{#model-form
+  model=model
+  shouldAutosave=false
+  wasValidated=wereDetailsValidated
+  onSubmit=(action "create")  as |form|
+}}
+  {{#bs-modal/body}}
+    Image
+  {{/bs-modal/body}}
+
+  {{#bs-modal/footer class="d-flex justify-content-between"}}
+    {{model-save-button disabled=isActionRunning}}
+    {{confirm-button
+      icon="cross"
+      label="Cancel"
+      class="btn-warning"
+      disabled=isActionRunning
+      onConfirm=(action "hideModal")
+    }}
+  {{/bs-modal/footer}}
+{{/model-form}}

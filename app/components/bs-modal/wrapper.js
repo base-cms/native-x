@@ -131,7 +131,7 @@ export default Component.extend({
 
   sendEvent(name) {
     const fn = this.get(name);
-    if (fn && typeof fn === 'function') return fn();
+    if (fn && typeof fn === 'function') return fn(this);
   },
 
 });

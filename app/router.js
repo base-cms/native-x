@@ -18,7 +18,9 @@ Router.map(function() {
     this.route('edit', { path: ':id' }, function() {
       this.route('criteria');
       this.route('creatives', function() {
-        this.route('create');
+        this.route('create', function() {
+          this.route('image');
+        });
       });
       this.route('notifications');
     });
