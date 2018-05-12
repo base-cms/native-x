@@ -3,10 +3,13 @@ import ComponentQueryManager from 'ember-apollo-client/mixins/component-query-ma
 import fetch from 'fetch';
 import filesize from 'filesize';
 import ImageInfo from 'fortnight/objects/image-info';
+import { inject } from '@ember/service';
 
 import query from 'fortnight/gql/queries/sign-image-upload';
 
 export default Component.extend(ComponentQueryManager, {
+  imageLoader: inject(),
+
   minWidth: 320,
   minHeight: 180,
   maxSize: 5242880,
@@ -65,6 +68,9 @@ export default Component.extend(ComponentQueryManager, {
         await fetch(url, { method: 'PUT', headers: { 'Content-Type': type }, body: file });
         const focalPoint = { x: 0.5, y: 0.5 };
         const image = { filePath: key, src, mimeType: type, fileSize: bytes, width, height, focalPoint };
+
+        // Load the image from source so it's in memory.
+        await this.get('imageLoader').loadFromSource(src);
 
         this.set('image', image);
         this.sendEvent('onUploadSuccess', image);
