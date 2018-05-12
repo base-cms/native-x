@@ -1,7 +1,7 @@
 {{#model-form
   model=model
   shouldAutosave=false
-  wasValidated=wereDetailsValidated
+  onInit=(action "setDetailsForm")
   onSubmit=(route-action "transitionTo" "campaign.edit.creatives.create.image")  as |form|
 }}
   {{#bs-modal/body}}

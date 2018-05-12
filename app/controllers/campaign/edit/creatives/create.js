@@ -1,18 +1,17 @@
 import Controller from '@ember/controller';
-import { get } from '@ember/object';
 import { inject } from '@ember/service';
 import ActionMixin from 'fortnight/mixins/action-mixin';
 
 export default Controller.extend(ActionMixin, {
   apollo: inject(),
 
-  wereDetailsValidated: false,
-
   actions: {
+    setDetailsForm(instance) {
+      this.set('detailsForm', instance);
+    },
     setModal(instance) {
       this.set('modal', instance);
     },
-
     hideModal() {
       this.get('modal').send('hide');
     },
