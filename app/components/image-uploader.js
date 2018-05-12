@@ -58,7 +58,6 @@ export default Component.extend(ComponentQueryManager, {
         const info = ImageInfo.create({ file });
         await info.load();
 
-
         const { name, bytes, type, width, height } = info;
         const input = { name, size: bytes, type };
         const variables = { input };

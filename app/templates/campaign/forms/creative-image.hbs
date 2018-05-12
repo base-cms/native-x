@@ -1,6 +1,9 @@
-<div class="row">
-  <div class="col">
-    {{#image-uploader as |uploader|}}
+{{#image-uploader
+  isLoading=isActionRunning
+  onUploadSuccess=(action form.actions.setAndAutosave "image") as |uploader|
+}}
+  <div class="row">
+    <div class="col">
       <div class="form-group">
         <label for="creative-image">Upload Image</label>
         <div class="custom-file">
@@ -9,6 +12,7 @@
             class="custom-file-input"
             required=true
             accept=uploader.accept
+            disabled=isActionRunning
             on-files-changed=(action uploader.actions.upload)
           }}
           <label class="custom-file-label" for="customFile">Choose file</label>
@@ -23,8 +27,8 @@
         </div>
       {{/if}}
 
-      {{#if uploader.image}}
-        <img class="img-fluid" src="{{uploader.image.src}}">
+      {{#if form.model.image}}
+        <img class="img-fluid" src="{{form.model.image.src}}">
       {{/if}}
 
       {{#if uploader.error}}
@@ -32,7 +36,6 @@
           <strong>Oh Snap!</strong> {{uploader.error.message}}
         </div>
       {{/if}}
-
-    {{/image-uploader}}
+    </div>
   </div>
-</div>
+{{/image-uploader}}
