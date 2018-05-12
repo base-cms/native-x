@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="col">
+    {{#image-uploader as |uploader|}}
+      <div class="form-group">
+        <label for="creative-image">Upload Image</label>
+        <div class="custom-file">
+          {{input-file
+            id="creative-image"
+            class="custom-file-input"
+            required=true
+            accept=uploader.accept
+            on-files-changed=(action uploader.actions.upload)
+          }}
+          <label class="custom-file-label" for="customFile">Choose file</label>
+          <div class="invalid-feedback">
+            Please select an image for upload.
+          </div>
+        </div>
+      </div>
+      {{#if uploader.isLoading}}
+        Loading...
+      {{/if}}
+      {{#if uploader.image}}
+        <img class="img-fluid" src="{{uploader.image.src}}">
+      {{/if}}
+      {{#if uploader.error}}
+        <div class="alert alert-danger">
+          {{uploader.error.message}}
+        </div>
+      {{/if}}
+    {{/image-uploader}}
+  </div>
+</div>
