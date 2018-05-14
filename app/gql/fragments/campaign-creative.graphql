@@ -2,6 +2,7 @@ fragment CampaignCreativeFragment on CampaignCreative {
   id
   title
   teaser
+  status
   image {
     id
     src
