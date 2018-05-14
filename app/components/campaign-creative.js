@@ -1,7 +1,6 @@
 import Component from '@ember/component';
 import ActionMixin from 'fortnight/mixins/action-mixin';
 import { inject } from '@ember/service';
-import { scheduleOnce, run } from '@ember/runloop';
 
 import removeCreative from 'fortnight/gql/mutations/campaign/remove-creative';
 import creativeStatus from 'fortnight/gql/mutations/campaign/creative-status';
