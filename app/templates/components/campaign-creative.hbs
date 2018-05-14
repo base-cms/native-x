@@ -1,12 +1,14 @@
 {{#if image.src}}
-  {{image-crop
-    imgClass="card-img-top border-bottom"
-    aspectRatio="16:9"
-    originalSrc=image.src
-    fpX=image.focalPoint.x
-    fpY=image.focalPoint.y
-    alt="Image Preview"
-  }}
+  {{#link-to "campaign.edit.creatives.edit" creativeId}}
+    {{image-crop
+      imgClass="card-img-top border-bottom"
+      aspectRatio="16:9"
+      originalSrc=image.src
+      fpX=image.focalPoint.x
+      fpY=image.focalPoint.y
+      alt="Image Preview"
+    }}
+  {{/link-to}}
 {{/if}}
 
 <div class="card-body">

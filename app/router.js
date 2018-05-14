@@ -21,6 +21,9 @@ Router.map(function() {
         this.route('create', function() {
           this.route('image');
         });
+        this.route('edit', { path: ':creative_id' }, function() {
+          this.route('image');
+        });
       });
       this.route('notifications');
     });
