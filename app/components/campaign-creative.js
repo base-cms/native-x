@@ -1,79 +1,32 @@
 import Component from '@ember/component';
-import ComponentQueryManager from 'ember-apollo-client/mixins/component-query-manager';
-import { computed, get, getProperties } from '@ember/object';
-import { copy } from '@ember/object/internals';
 import ActionMixin from 'fortnight/mixins/action-mixin';
+import { inject } from '@ember/service';
 
-import RemoveMutation from 'fortnight/gql/mutations/campaign/remove-creative';
-import UpdateMutation from 'fortnight/gql/mutations/campaign/update-creative';
+import removeCreative from 'fortnight/gql/mutations/campaign/remove-creative';
+import creativeStatus from 'fortnight/gql/mutations/campaign/creative-status';
 
-export default Component.extend(ComponentQueryManager, ActionMixin, {
-  classNames: [ 'card', 'mnh-100' ],
-  collapsed: true,
+export default Component.extend(ActionMixin, {
+  classNames: ['card', 'mnh-100'],
 
   campaignId: null,
-  creativeId: computed.reads('creative.id'),
-  creative: null,
-  onRemove: 'onRemove',
-  onUpdate: 'onUpdate',
+  creativeId: null,
 
-  loading: false,
-
-  id: null,
-  name: null,
-  title: null,
-  url: null,
-  teaser: null,
-  image: null,
-
-  src: computed('image.{src,focalPoint.x,focalPoint.y}', function() {
-    const { src, focalPoint } = this.get('image');
-    const { x, y } = focalPoint || {};
-    if (!src) return 'https://via.placeholder.com/300x169?text=+';
-    return `${src}?w=300&h=169&crop=focalpoint&fit=crop&dpr=1&fp-x=${x}&fp-y=${y}`
-  }),
-
-  isModified: computed('{title,teaser,image.src}', 'image.focalPoint.{x,y}', 'creative', function() {
-    const c = this.get('creative');
-    return [
-      'title',
-      'teaser',
-      'image.src',
-      'image.focalPoint.x',
-      'image.focalPoint.y'
-    ].some(k => this.get(k) !== get(c, k))
-  }),
-
-  canSave: computed.reads('isModified'),
-  disableSave: computed.not('canSave'),
+  apollo: inject(),
 
   init() {
     this._super(...arguments);
-    // @todo Fix me: hack for creative array reload.
+
+    // Ensure the action has ended.
+    // Fixes issue with calling set on destroyed object after status is updated.
     this.endAction();
-
-    const { id, name, url, title, teaser, image } = this.get('creative');
-    this.setProperties({ id, name, url, title, teaser });
-    this.set('image', copy(image || {}));
-    if (!this.get('image.src')) this.set('collapsed', false);
-  },
-
-  getPayloadImage() {
-    const image = this.get('image') || {};
-    const { x, y } = this.get('image.focalPoint') || {};
-    const focalPoint = { x, y };
-    const imageProps = [ 'filePath', 'fileSize', 'height', 'mimeType', 'src', 'width' ];
-    const { filePath, fileSize, height, mimeType, src, width } = getProperties(image, imageProps);
-    if (!src) return null;
-    return { filePath, fileSize, focalPoint, height, mimeType, src, width };
   },
 
   actions: {
     async remove() {
       this.startAction();
-      const campaignId = this.get('campaignId');
-      const creativeId = this.get('creativeId');
-      const mutation = RemoveMutation;
+      const { campaignId, creativeId } = this.getProperties('campaignId', 'creativeId');
+
+      const mutation = removeCreative;
       const variables = { input: { campaignId, creativeId } };
       const refetchQueries = ['CampaignCreatives'];
       try {
@@ -84,30 +37,19 @@ export default Component.extend(ComponentQueryManager, ActionMixin, {
         this.endAction();
       }
     },
-    async update() {
+
+    async updateStatus(status) {
       this.startAction();
-      const { title, teaser } = this.getProperties(['title', 'teaser']);
-      const image = this.getPayloadImage();
-      const campaignId = this.get('campaignId');
-      const creativeId = this.get('creativeId');
-      const mutation = UpdateMutation;
-      let payload = { title, teaser, image };
-      if (image) payload.image = image;
-      const variables = { input: { campaignId, creativeId, payload } };
+      const { campaignId, creativeId } = this.getProperties('campaignId', 'creativeId');
+
+      const mutation = creativeStatus;
+      const variables = { input: { campaignId, creativeId, status } };
       try {
-        await this.get('apollo').mutate({ mutation, variables }, 'updateCampaignCreative');
+        await this.get('apollo').mutate({ mutation, variables }, 'campaignCreativeStatus');
       } catch (e) {
         this.get('graphErrors').show(e);
-      } finally {
-        if (!this.get('isDestroyed')) {
-          // @todo Fix me: hack for creative array reload.
-          this.endAction();
-        }
+        this.endAction();
       }
     },
-    toggleCollapse() {
-      this.set('collapsed', !this.get('collapsed'));
-    },
   },
-
 });

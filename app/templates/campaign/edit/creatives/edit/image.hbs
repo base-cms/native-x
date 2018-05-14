@@ -1,0 +1,13 @@
+{{#model-form
+  model=model
+  shouldAutosave=true
+  onSubmit=(action "updateImage") as |form|
+}}
+  {{#bs-modal/body}}
+    {{ partial "campaign/forms/creative-image" }}
+  {{/bs-modal/body}}
+
+  {{#bs-modal/footer class="d-flex justify-content-between"}}
+    {{model-save-button disabled=isActionRunning}}
+  {{/bs-modal/footer}}
+{{/model-form}}

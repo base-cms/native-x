@@ -9,11 +9,15 @@ export default Component.extend({
   model: null,
 
   wasValidated: false,
+  isValid: false,
   shouldAutosave: false,
 
   init() {
     this._super(...arguments);
     if (!this.get('model')) this.set('model', {});
+
+    const fn = this.get('onInit');
+    if (typeof fn === 'function') fn(this);
   },
 
   submit(event) {
@@ -26,13 +30,18 @@ export default Component.extend({
     const isValid = form.checkValidity();
     form.classList.add('was-validated');
     this.set('wasValidated', true);
+    this.set('isValid', isValid);
     if (isValid) this.get('onSubmit')(model);
+  },
+
+  triggerSubmit() {
+    this.$().trigger('submit');
   },
 
   actions: {
     autosave() {
       if (this.get('shouldAutosave')) {
-        this.$().trigger('submit');
+        this.triggerSubmit();
       }
     },
     setAndAutosave(field, value) {

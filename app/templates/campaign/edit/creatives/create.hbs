@@ -1,0 +1,17 @@
+{{#bs-modal show=true size="large" backdrop="static" onHidden=(route-action "transitionTo" "campaign.edit.creatives") onShow=(route-action "setModal") as |modal|}}
+  {{#modal.header}}
+    <ul class="nav nav-pills">
+      <li class="nav-item">
+        {{#link-to "campaign.edit.creatives.create.index" class="nav-link" disabled=isActionRunning}}
+          {{entypo-icon "list"}} Details
+        {{/link-to}}
+      </li>
+      <li class="nav-item">
+        {{#link-to "campaign.edit.creatives.create.image" class="nav-link" disabled=isActionRunning}}
+          {{entypo-icon "image"}} Image
+        {{/link-to}}
+      </li>
+    </ul>
+  {{/modal.header}}
+  {{outlet}}
+{{/bs-modal}}

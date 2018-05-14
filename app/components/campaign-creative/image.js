@@ -5,28 +5,16 @@ import ComponentQueryManager from 'ember-apollo-client/mixins/component-query-ma
 const { round } = Math;
 
 export default Component.extend(ComponentQueryManager, {
-  /**
-   * @var object image The CampaignCreative.image object
-   */
-  image: null,
-
-  // eslint-disable-next-line
-  defaultFocalpoint: { x: 0.50, y: 0.50 },
-
   isLoading: false,
 
-  src: computed('image.src', function() {
-    const src = this.get('image.src');
-    if (!src) return 'https://via.placeholder.com/300x169?text=+';
-    return `${src}?w=300`
-  }),
-
-  // eslint-disable-next-line
-  focalPoint: computed('image', 'image.focalPoint', 'image.focalPoint.{x,y}', function() {
-    const dfp = this.get('defaultFocalpoint');
-    if (!this.get('image.focalPoint')) return dfp;
-    return this.get('image.focalPoint');
-  }),
+  init() {
+    this._super(...arguments);
+    const dfp = { x: 0.5, y: 0.5 };
+    this.set('defaultFocalpoint', dfp);
+    if (!this.get('image.focalPoint')) {
+      this.set('image.focalPoint', dfp)
+    }
+  },
 
   isFocalPointModified: computed('focalPoint.{x,y}', function() {
     const dfp = this.get('defaultFocalpoint');
@@ -40,13 +28,11 @@ export default Component.extend(ComponentQueryManager, {
 
       const x = round((offset.x / img.width) * 100) / 100;
       const y = round((offset.y / img.height) * 100) / 100;
-      const xPct = round(x * 100);
-      const yPct = round(y * 100);
 
-      this.set('image.focalPoint', { x, y, xPct, yPct, offset });
-    },
-    clearFocalPoint() {
-      this.set('image.focalPoint', this.get('defaultFocalpoint'));
+      const value = { x, y };
+      this.set('image.focalPoint', value);
+      const fn = this.get('onFocalPointChange');
+      if (typeof fn === 'function') fn(value);
     },
   },
 });

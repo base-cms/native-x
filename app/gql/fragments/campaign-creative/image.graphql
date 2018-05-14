@@ -1,0 +1,16 @@
+fragment CampaignCreativeImageFragment on CampaignCreative {
+  id
+  image {
+    id
+    src
+    fileSize
+    filePath
+    height
+    width
+    mimeType
+    focalPoint {
+      x
+      y
+    }
+  }
+}

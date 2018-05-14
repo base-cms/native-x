@@ -1,18 +1,7 @@
+#import 'fortnight/gql/fragments/campaign-creative/details'
+#import 'fortnight/gql/fragments/campaign-creative/image'
+
 fragment CampaignCreativeFragment on CampaignCreative {
-  id
-  title
-  teaser
-  image {
-    id
-    src
-    fileSize
-    filePath
-    height
-    width
-    mimeType
-    focalPoint {
-      x
-      y
-    }
-  }
+  ...CampaignCreativeDetailsFragment
+  ...CampaignCreativeImageFragment
 }

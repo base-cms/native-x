@@ -2,7 +2,14 @@
   <div class="row">
     {{#each model.creatives as |creative|}}
       <div class="mb-3 col-12 col-md-6 col-lg-4">
-        {{campaign-creative campaignId=model.id creative=creative}}
+        {{campaign-creative
+          creativeId=creative.id
+          campaignId=model.id
+          title=creative.title
+          teaser=creative.teaser
+          status=creative.status
+          image=creative.image
+        }}
       </div>
     {{/each}}
   </div>
@@ -11,4 +18,6 @@
 <div class="card-footer">
 </div>
 
-{{model-create-button icon="image" title="Add Creative" click=(action "add")}}
+{{model-create-button icon="images" title="Add Creative" click=(route-action "transitionTo" "campaign.edit.creatives.create")}}
+
+{{outlet}}
