@@ -37,6 +37,7 @@
         value=form.model.teaser
         rows=4
         placeholder="A short description of your awesome link"
+        focusOut=(action form.actions.autosave)
       }}
       <div class="invalid-feedback">
         Please provide a teaser for the creative that is at least 40 characters long.
