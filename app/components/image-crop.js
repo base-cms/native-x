@@ -10,9 +10,9 @@ export default Component.extend({
   width: 480,
 
   height: computed('width', 'aspectRatio', function() {
-    const v = label.split(this.get('aspectRatio'));
+    const v = this.get('aspectRatio').split(':');
     const value = v[0] / v[1];
-    return Math.round(width / value);
+    return Math.round(this.get('width') / value);
   }),
 });
 
