@@ -11,7 +11,7 @@
           {{input-file
             id="creative-image"
             class="custom-file-input"
-            required=true
+            required=(if form.model.image false true)
             accept=uploader.accept
             disabled=isActionRunning
             on-files-changed=(action uploader.actions.upload)
