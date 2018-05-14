@@ -1,7 +1,7 @@
 {{#model-form
   model=model
   shouldAutosave=false
-  onInit=(action "setDetailsForm")
+  onInit=(route-action "setDetailsForm")
   onSubmit=(route-action "transitionTo" "campaign.edit.creatives.create.image")  as |form|
 }}
   {{#bs-modal/body}}
@@ -19,7 +19,7 @@
       label="Cancel"
       class="btn-warning"
       disabled=isActionRunning
-      onConfirm=(action "hideModal")
+      onConfirm=(route-action "hideModal")
     }}
   {{/bs-modal/footer}}
 {{/model-form}}

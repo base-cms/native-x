@@ -1,4 +1,4 @@
-{{#bs-modal show=true size="large" backdrop="static" onHidden=(route-action "transitionTo" "campaign.edit.creatives") onShow=(action "setModal") as |modal|}}
+{{#bs-modal show=true size="large" backdrop="static" onHidden=(route-action "transitionTo" "campaign.edit.creatives") onShow=(route-action "setModal") as |modal|}}
   {{#modal.header}}
     <ul class="nav nav-pills">
       <li class="nav-item">

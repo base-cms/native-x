@@ -2,7 +2,7 @@ import Route from '@ember/routing/route';
 
 export default Route.extend({
   beforeModel() {
-    const controller = this.controllerFor('campaign.edit.creatives.create');
+    const controller = this.controllerFor('campaign.edit.creatives');
     const form = controller.get('detailsForm');
     if (!form) {
       // Signifies that the image route is being directly accessed.

@@ -10,7 +10,7 @@ export default Route.extend({
   actions: {
     willTransition(transition) {
       if (transition.targetName === 'campaign.edit.creatives.create.image') {
-        const controller = this.controllerFor('campaign.edit.creatives.create');
+        const controller = this.controllerFor('campaign.edit.creatives');
         const form = controller.get('detailsForm');
         form.triggerSubmit();
         if (!form.get('isValid')) {

@@ -8,16 +8,6 @@ export default Controller.extend(ActionMixin, {
   apollo: inject(),
 
   actions: {
-    setDetailsForm(instance) {
-      this.set('detailsForm', instance);
-    },
-    setModal(instance) {
-      this.set('modal', instance);
-    },
-    hideModal() {
-      this.get('modal').send('hide');
-    },
-
     /**
      *
      * @param {object} fields
