@@ -1,0 +1,34 @@
+{{#if image.src}}
+  {{image-crop
+    imgClass="card-img-top border-bottom"
+    aspectRatio="16:9"
+    originalSrc=image.src
+    fpX=image.focalPoint.x
+    fpY=image.focalPoint.y
+    alt="Image Preview"
+  }}
+{{/if}}
+
+<div class="card-body">
+  {{#if title}}
+    <h5 class="card-title">{{title}}</h5>
+  {{/if}}
+
+  {{#if teaser}}
+    <p class="card-text">{{teaser}}</p>
+  {{/if}}
+
+</div>
+<div class="card-footer d-flex justify-content-between">
+  {{campaign-creative/status-selector status=status disabled=isActionRunning onChange=(action "updateStatus")}}
+
+  {{confirm-button
+    icon="trash"
+    confirmIcon="warning"
+    label=""
+    confirmLabel=""
+    class="btn-sm btn-danger"
+    disabled=isActionRunning
+    onConfirm=(action "remove")
+  }}
+</div>

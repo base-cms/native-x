@@ -2,7 +2,14 @@
   <div class="row">
     {{#each model.creatives as |creative|}}
       <div class="mb-3 col-12 col-md-6 col-lg-4">
-        {{ partial "campaign/edit/creatives/list-item" }}
+        {{campaign-creative
+          creativeId=creative.id
+          campaignId=model.id
+          title=creative.title
+          teaser=creative.teaser
+          status=creative.status
+          image=creative.image
+        }}
       </div>
     {{/each}}
   </div>
