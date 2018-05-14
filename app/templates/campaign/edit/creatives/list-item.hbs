@@ -9,26 +9,6 @@
       alt="Image Preview"
     }}
   {{/if}}
-  <div class="card-img-overlay">
-
-    <div class="dropdown float-right">
-      <button class="btn btn-sm btn-primary dropdown-toggle" disabled={{isActionRunning}} type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        {{entypo-icon "dots-three-vertical"}}
-      </button>
-      <div class="dropdown-menu dropdown-menu-right">
-        <a class="dropdown-item d-flex justify-content-between">
-          Set to Draft
-          {{entypo-icon "flag"}}
-        </a>
-
-        <a class="dropdown-item d-flex justify-content-between">
-          Edit
-          {{entypo-icon "pencil"}}
-        </a>
-
-      </div>
-    </div>
-  </div>
 
   <div class="card-body">
     {{#if creative.title}}
@@ -41,13 +21,24 @@
 
   </div>
   <div class="card-footer d-flex justify-content-between">
-    {{campaign-status value=creative.status}}
+
+    <div class="dropup">
+      <button class="btn btn-sm btn-success dropdown-toggle" disabled={{isActionRunning}} type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        {{entypo-icon "flag"}} Active
+      </button>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="javascript:void(0);">
+          Set as Draft
+        </a>
+      </div>
+    </div>
+
     {{confirm-button
       icon="trash"
       confirmIcon="warning"
       label=""
       confirmLabel=""
-      class="btn-sm btn-warning"
+      class="btn-sm btn-danger"
       disabled=isActionRunning
       onConfirm=(action "remove" creative.id)
     }}
