@@ -21,17 +21,7 @@
 
   </div>
   <div class="card-footer d-flex justify-content-between">
-
-    <div class="dropup">
-      <button class="btn btn-sm btn-success dropdown-toggle" disabled={{isActionRunning}} type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        {{entypo-icon "flag"}} Active
-      </button>
-      <div class="dropdown-menu">
-        <a class="dropdown-item" href="javascript:void(0);">
-          Set as Draft
-        </a>
-      </div>
-    </div>
+    {{campaign-creative/status-selector status=creative.status disabled=isActionRunning onChange=(action "updateStatus" creative.id)}}
 
     {{confirm-button
       icon="trash"
