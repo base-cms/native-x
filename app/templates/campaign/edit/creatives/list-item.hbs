@@ -8,7 +8,24 @@
     alt="Image Preview"
   }}
   <div class="card-img-overlay">
-    <button class="btn btn-sm btn-success float-right" type="button">{{#if image.hasSrc}}{{entypo-icon "camera"}}{{else}}{{entypo-icon "upload"}}{{/if}}</button>
+
+    <div class="dropdown float-right">
+      <button class="btn btn-sm btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        {{entypo-icon "dots-three-vertical"}}
+      </button>
+      <div class="dropdown-menu dropdown-menu-right">
+        <a class="dropdown-item d-flex justify-content-between">
+          Set to Draft
+          {{entypo-icon "flag"}}
+        </a>
+
+        <a class="dropdown-item d-flex justify-content-between">
+          Edit
+          {{entypo-icon "pencil"}}
+        </a>
+
+      </div>
+    </div>
   </div>
 
   <div class="card-body">
@@ -20,18 +37,11 @@
       <p class="card-text">{{creative.teaser}}</p>
     {{/if}}
 
-    <div class="dropdown">
-    <button class="btn btn-sm btn-outline-success dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        {{entypo-icon "flag"}} Active
-      </button>
-      <div class="dropdown-menu">
-        <a class="dropdown-item" href="#">Draft</a>
-      </div>
-    </div>
-
   </div>
-  <div class="card-footer">
-    <button class="btn btn-sm btn-primary" type="button">{{entypo-icon "pencil"}} Edit</button>
-    <button class="btn btn-sm btn-warning" type="button">{{entypo-icon "cross"}} Remove</button>
+  <div class="card-footer d-flex justify-content-between">
+    {{campaign-status value=creative.status}}
+    <button class="btn btn-sm btn-warning" type="button" title="Remove">
+      {{entypo-icon "trash"}}
+    </button>
   </div>
 </div>
