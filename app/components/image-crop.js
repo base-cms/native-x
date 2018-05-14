@@ -9,6 +9,8 @@ export default Component.extend({
   fpX: 0.5,
   fpY: 0.5,
   width: 480,
+  alt: null,
+  title: null,
 
   height: computed('width', 'aspectRatio', function() {
     const v = this.get('aspectRatio').split(':');
