@@ -43,7 +43,11 @@
     <div class="col-8">
       <h6>Image</h6>
       <small class="d-block">Click the image to set the focal point.</small>
-      {{campaign-creative/image class="clickable" image=model.image}}
+      {{campaign-creative/image
+        class="clickable"
+        image=model.image
+        onFocalPointChange=(action form.actions.autosave)
+      }}
     </div>
     <div class="col-4">
       <h6>Preview</h6>

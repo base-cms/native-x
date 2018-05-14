@@ -16,13 +16,6 @@ export default Component.extend(ComponentQueryManager, {
     }
   },
 
-  src: computed('image.src', function() {
-      return this.get('image.src');
-    // const src = this.get('image.src');
-    // if (!src) return 'https://via.placeholder.com/300x169?text=+';
-    // return `${src}?w=300`
-  }),
-
   isFocalPointModified: computed('focalPoint.{x,y}', function() {
     const dfp = this.get('defaultFocalpoint');
     const { x, y } = this.get('focalPoint');
@@ -38,10 +31,11 @@ export default Component.extend(ComponentQueryManager, {
       const xPct = round(x * 100);
       const yPct = round(y * 100);
 
-      this.set('image.focalPoint', { x, y, xPct, yPct, offset });
-    },
-    clearFocalPoint() {
-      this.set('image.focalPoint', this.get('defaultFocalpoint'));
+      const value = { x, y, xPct, yPct, offset }
+
+      this.set('image.focalPoint', value);
+      const fn = this.get('onFocalPointChange');
+      if (typeof fn === 'function') fn(value);
     },
   },
 });
