@@ -28,11 +28,8 @@ export default Component.extend(ComponentQueryManager, {
 
       const x = round((offset.x / img.width) * 100) / 100;
       const y = round((offset.y / img.height) * 100) / 100;
-      const xPct = round(x * 100);
-      const yPct = round(y * 100);
 
-      const value = { x, y, xPct, yPct, offset }
-
+      const value = { x, y };
       this.set('image.focalPoint', value);
       const fn = this.get('onFocalPointChange');
       if (typeof fn === 'function') fn(value);
