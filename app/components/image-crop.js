@@ -3,6 +3,7 @@ import { computed } from '@ember/object';
 
 export default Component.extend({
   originalSrc: null,
+  imgClass: null,
 
   aspectRatio: '16:9',
   fpX: 0.5,

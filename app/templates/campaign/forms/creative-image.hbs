@@ -53,13 +53,16 @@
       <h6>Preview</h6>
       {{#image-crop-preview as |aspectRatios|}}
         {{#each aspectRatios as |aspectRatio|}}
-          {{image-crop
+          {{#image-crop
             class="mb-3"
+            imgClass="img-thumbnail img-fluid"
             aspectRatio=aspectRatio
             originalSrc=form.model.image.src
             fpX=form.model.image.focalPoint.x
             fpY=form.model.image.focalPoint.y
           }}
+            <small class="d-block">{{aspectRatio}}</small>
+          {{/image-crop}}
         {{/each}}
       {{/image-crop-preview}}
     </div>
