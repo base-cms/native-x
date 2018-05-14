@@ -1,16 +1,18 @@
 <div class="card mnh-100">
-  {{image-crop
-    imgClass="card-img-top border-bottom"
-    aspectRatio="16:9"
-    originalSrc=creative.image.src
-    fpX=creative.image.focalPoint.x
-    fpY=creative.image.focalPoint.y
-    alt="Image Preview"
-  }}
+  {{#if creative.image.src}}
+    {{image-crop
+      imgClass="card-img-top border-bottom"
+      aspectRatio="16:9"
+      originalSrc=creative.image.src
+      fpX=creative.image.focalPoint.x
+      fpY=creative.image.focalPoint.y
+      alt="Image Preview"
+    }}
+  {{/if}}
   <div class="card-img-overlay">
 
     <div class="dropdown float-right">
-      <button class="btn btn-sm btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <button class="btn btn-sm btn-primary dropdown-toggle" disabled={{isActionRunning}} type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         {{entypo-icon "dots-three-vertical"}}
       </button>
       <div class="dropdown-menu dropdown-menu-right">
@@ -40,8 +42,14 @@
   </div>
   <div class="card-footer d-flex justify-content-between">
     {{campaign-status value=creative.status}}
-    <button class="btn btn-sm btn-warning" type="button" title="Remove">
-      {{entypo-icon "trash"}}
-    </button>
+    {{confirm-button
+      icon="trash"
+      confirmIcon="warning"
+      label=""
+      confirmLabel=""
+      class="btn-sm btn-warning"
+      disabled=isActionRunning
+      onConfirm=(action "remove" creative.id)
+    }}
   </div>
 </div>
