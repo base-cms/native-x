@@ -32,6 +32,7 @@ export default Controller.extend(ActionMixin, {
       const refetchQueries = ['CampaignCreatives'];
       try {
         await this.get('apollo').mutate({ mutation, variables, refetchQueries }, 'addCampaignCreative');
+        this.transitionToRoute('campaign.edit.creatives');
       } catch (e) {
         this.get('graphErrors').show(e);
       } finally {
