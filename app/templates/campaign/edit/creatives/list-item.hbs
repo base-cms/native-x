@@ -1,10 +1,15 @@
 <div class="card mnh-100">
-  {{#campaign-creative/image-src image=creative.image as |image|}}
-    <img class="card-img-top border-bottom" src="{{image.src}}" alt="Image Preview">
-    <div class="card-img-overlay">
-      <button class="btn btn-sm btn-success float-right" type="button">{{#if image.hasSrc}}{{entypo-icon "camera"}}{{else}}{{entypo-icon "upload"}}{{/if}}</button>
-    </div>
-  {{/campaign-creative/image-src}}
+  {{image-crop
+    imgClass="card-img-top border-bottom"
+    aspectRatio="16:9"
+    originalSrc=creative.image.src
+    fpX=creative.image.focalPoint.x
+    fpY=creative.image.focalPoint.y
+    alt="Image Preview"
+  }}
+  <div class="card-img-overlay">
+    <button class="btn btn-sm btn-success float-right" type="button">{{#if image.hasSrc}}{{entypo-icon "camera"}}{{else}}{{entypo-icon "upload"}}{{/if}}</button>
+  </div>
 
   <div class="card-body">
     {{#if creative.title}}
