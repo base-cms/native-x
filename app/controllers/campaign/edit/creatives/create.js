@@ -2,6 +2,8 @@ import Controller from '@ember/controller';
 import { inject } from '@ember/service';
 import ActionMixin from 'fortnight/mixins/action-mixin';
 
+import mutation from 'fortnight/gql/mutations/campaign/add-creative';
+
 export default Controller.extend(ActionMixin, {
   apollo: inject(),
 
@@ -15,30 +17,26 @@ export default Controller.extend(ActionMixin, {
     hideModal() {
       this.get('modal').send('hide');
     },
+
     /**
      *
      * @param {object} fields
      */
-    async create() {
-      console.info('create!!!');
-      // this.startAction();
-      // const payload = {
-      //   name,
-      //   description,
-      //   advertiserId: get(advertiser || {}, 'id'),
-      //   url,
-      //   externalLinks,
-      // };
-      // const variables = { input: { payload } };
-      // try {
-      //   const response = await this.get('apollo').mutate({ mutation, variables }, 'createCampaign');
-      //   this.get('notify').info('Campaign successfully created.');
-      //   return this.transitionToRoute('campaign.edit', response.id);
-      // } catch (e) {
-      //   this.get('graphErrors').show(e);
-      // } finally {
-      //   this.endAction();
-      // }
+    async create({ title, teaser, image }) {
+      this.startAction();
+      const status = 'Active';
+      const campaignId = this.get('campaignId');
+
+      const payload = { title, teaser, status, image };
+      const variables = { input: { campaignId, payload } };
+      const refetchQueries = ['CampaignCreatives'];
+      try {
+        await this.get('apollo').mutate({ mutation, variables, refetchQueries }, 'addCampaignCreative');
+      } catch (e) {
+        this.get('graphErrors').show(e);
+      } finally {
+        this.endAction();
+      }
     },
   },
 });
