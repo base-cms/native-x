@@ -40,7 +40,6 @@ export default Component.extend({
 
   actions: {
     setStatus(status) {
-      // this.set('status', status);
       const fn = this.get('onChange');
       if (typeof fn === 'function') fn(status);
     },
