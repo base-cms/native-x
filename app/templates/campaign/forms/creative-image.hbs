@@ -22,12 +22,6 @@
           </div>
         </div>
       </div>
-      {{#if uploader.isLoading}}
-        <div class="progress">
-          <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
-        </div>
-      {{/if}}
-
       {{#if uploader.error}}
         <div class="alert alert-danger mt-3 mb-0" role="alert">
           <strong>Oh Snap!</strong> {{uploader.error.message}}
