@@ -22,13 +22,25 @@
 <div class="row">
   <div class="col">
     {{entypo-icon "link"}}
-    <a href="https://materials.fortnight.as3.io/campaign/{{model.hash}}" target="_blank" rel="noopener noreferrer">Material Collection Link</a>
+    {{#link-to "r" "collect" model.hash target="_blank" rel="noopener noreferrer"}}
+      Material Collect
+    {{/link-to}}
   </div>
 </div>
 <div class="row">
   <div class="col">
     {{entypo-icon "link"}}
-    <a href="https://materials.fortnight.as3.io/report/{{model.hash}}" target="_blank" rel="noopener noreferrer">Report Link</a>
+    {{#link-to "r" "report-summary" model.hash target="_blank" rel="noopener noreferrer"}}
+      Report: Campaign Summary
+    {{/link-to}}
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    {{entypo-icon "link"}}
+    {{#link-to "r" "report-creative" model.hash target="_blank" rel="noopener noreferrer"}}
+      Report: Creative Breakdown
+    {{/link-to}}
   </div>
 </div>
 {{#each model.externalLinks as |link|}}

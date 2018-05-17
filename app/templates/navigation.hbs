@@ -3,11 +3,7 @@
     {{#link-to "index" class="navbar-brand"}}Fortnight{{/link-to}}
 
     <ul class="navbar-nav mr-auto">
-      {{#unless user.isAuthenticated}}
-        {{#link-to "about" tagName="li" class="nav-item"}}
-          {{#link-to "about" class="nav-link" title="Information About the Application"}}{{entypo-icon "info-with-circle"}} About{{/link-to}}
-        {{/link-to}}
-      {{else}}
+      {{#if user.isAuthenticated}}
         {{#link-to "index" tagName="li" class="nav-item"}}
           {{#link-to "index" class="nav-link" title="Dashboard"}}
             {{entypo-icon "blackboard"}} <span class="d-none d-md-inline">Dashboard</span>
@@ -25,7 +21,7 @@
             {{entypo-icon "archive"}} <span class="d-none d-md-inline">Advertisers</span>
           {{/link-to}}
         {{/link-to}}
-      {{/unless}}
+      {{/if}}
     </ul>
 
     <ul class="navbar-nav ml-auto">
