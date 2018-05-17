@@ -9,11 +9,9 @@ export default Component.extend({
   submit(event) {
     event.preventDefault();
     event.stopPropagation();
-    // @todo Eventually enable this.
-    this.get('notify').warning('Search is not enabled... yet. Stay tuned.');
 
-    // const onSubmit = this.get('onSubmit');
-    // if (onSubmit) onSubmit(this.get('value'));
+    const onSubmit = this.get('onSubmit');
+    if (onSubmit) onSubmit(this.get('value'));
   },
 
   /**
