@@ -26,9 +26,10 @@ export default Route.extend(RouteQueryManager, {
 
   search(phrase, pagination) {
     const controller = this.controllerFor(this.get('routeName'));
-    console.info('search', phrase, pagination);
-    const variables = { phrase };
-    return this.get('apollo').watchQuery({ query: search, variables, fetchPolicy: 'network-only' }, 'searchAdvertisers')
+    const variables = { pagination, phrase };
+    const resultKey = 'searchAdvertisers';
+    controller.set('resultKey', resultKey);
+    return this.get('apollo').watchQuery({ query: search, variables, fetchPolicy: 'network-only' }, resultKey)
       .then((result) => {
         controller.set('observable', getObservable(result));
         return result;
@@ -37,7 +38,6 @@ export default Route.extend(RouteQueryManager, {
   },
 
   model({ first, after, sortBy, ascending, phrase }) {
-    console.info('model!');
     const controller = this.controllerFor(this.get('routeName'));
     const pagination = { first, after };
 
@@ -47,7 +47,9 @@ export default Route.extend(RouteQueryManager, {
     const sort = { field: sortBy, order: ascending ? 1 : -1 };
     const variables = { pagination, sort };
     if (!sortBy) delete variables.sort.field;
-    return this.get('apollo').watchQuery({ query, variables, fetchPolicy: 'network-only' }, 'allAdvertisers')
+    const resultKey = 'allAdvertisers';
+    controller.set('resultKey', resultKey);
+    return this.get('apollo').watchQuery({ query, variables, fetchPolicy: 'network-only' }, resultKey)
       .then((result) => {
         controller.set('observable', getObservable(result));
         return result;
