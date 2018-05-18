@@ -1,0 +1,17 @@
+#import 'fortnight/gql/fragments/advertiser/autocomplete'
+
+query AutocompleteAdvertisers($pagination: PaginationInput, $phrase: String!) {
+  autocompleteAdvertisers(pagination: $pagination, phrase: $phrase) {
+    totalCount
+    edges {
+      node {
+        ...AdvertiserAutocompleteFragment
+      }
+      cursor
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}
