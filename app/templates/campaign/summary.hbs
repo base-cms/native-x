@@ -3,7 +3,7 @@
 <hr>
 <div class="row">
   <div class="col d-flex justify-content-between">
-    <span>{{entypo-icon "calendar"}} Starts</span> {{moment-format model.criteria.start "MMM Do, YYYY @ h:mma"}}
+    <span>{{entypo-icon "calendar"}} Starts</span>  {{if model.criteria.start (moment-format model.criteria.start "MMM Do, YYYY @ h:mma") "Never"}}
   </div>
 </div>
 <div class="row">
