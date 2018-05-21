@@ -7,7 +7,7 @@ import ComponentQueryManager from 'ember-apollo-client/mixins/component-query-ma
 import autocompletePublishers from 'fortnight/gql/queries/autocomplete-publishers';
 import autocompleteAdvertisers from 'fortnight/gql/queries/autocomplete-advertisers';
 import searchContacts from 'fortnight/gql/queries/search-contacts';
-import searchPlacements from 'fortnight/gql/queries/search-placements';
+import autocompletePlacements from 'fortnight/gql/queries/autocomplete-placements';
 
 export default Component.extend(ComponentQueryManager, {
   closeOnSelect: true,
@@ -59,7 +59,7 @@ export default Component.extend(ComponentQueryManager, {
       case 'contact':
         return { query: searchContacts, resultKey: 'searchContacts' };
       case 'placement':
-        return { query: searchPlacements, resultKey: 'searchPlacements' };
+        return { query: autocompletePlacements, resultKey: 'autocompletePlacements' };
       default:
         this.get('graphErrors').show(new Error(`The model type ${type} is not searchable.`));
     }
