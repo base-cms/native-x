@@ -43,7 +43,7 @@ export default Route.extend(RouteQueryManager, {
 
     if (phrase) {
       return this.search(phrase, pagination);
-    };
+    }
     const sort = { field: sortBy, order: ascending ? 1 : -1 };
     const variables = { pagination, sort };
     if (!sortBy) delete variables.sort.field;
