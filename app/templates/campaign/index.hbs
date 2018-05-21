@@ -17,7 +17,7 @@
         endCursor=model.pageInfo.endCursor
         on-fetch-start=(route-action "showLoading")
         on-fetch-end=(route-action "hideLoading")
-        resultKey="allCampaigns" as |fetch|
+        resultKey=resultKey as |fetch|
       }}
         <ul class="list-group list-group-flush">
           <li class="list-group-item pt-0"><h5 class="mb-0 text-muted">Total Results: {{model.totalCount}}</h5></li>
