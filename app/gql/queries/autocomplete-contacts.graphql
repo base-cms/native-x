@@ -1,0 +1,17 @@
+#import 'fortnight/gql/fragments/contact/autocomplete'
+
+query AutocompleteContacts($pagination: PaginationInput, $phrase: String!) {
+  autocompleteContacts(pagination: $pagination, phrase: $phrase) {
+    totalCount
+    edges {
+      node {
+        ...ContactAutocompleteFragment
+      }
+      cursor
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}

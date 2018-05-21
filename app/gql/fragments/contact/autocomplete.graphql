@@ -1,0 +1,7 @@
+fragment ContactAutocompleteFragment on Contact {
+  id
+  name
+  givenName
+  familyName
+  email
+}
