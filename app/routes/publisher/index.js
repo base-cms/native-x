@@ -47,6 +47,7 @@ export default Route.extend(RouteQueryManager, {
     const sort = { field: sortBy, order: ascending ? 1 : -1 };
     const variables = { pagination, sort };
     const resultKey = 'allPublishers';
+    controller.set('resultKey', resultKey);
     if (!sortBy) delete variables.sort.field;
     return this.get('apollo').watchQuery({ query, variables, fetchPolicy: 'network-only' }, resultKey)
       .then((result) => {
