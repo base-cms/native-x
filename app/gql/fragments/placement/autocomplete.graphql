@@ -1,0 +1,8 @@
+fragment PlacementAutocompleteFragment on Placement {
+  id
+  name
+  publisher {
+    id
+    name
+  }
+}

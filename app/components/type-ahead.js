@@ -4,10 +4,10 @@ import { computed } from '@ember/object';
 import { task, timeout } from 'ember-concurrency';
 import ComponentQueryManager from 'ember-apollo-client/mixins/component-query-manager';
 
-import searchPublishers from 'fortnight/gql/queries/search-publishers';
-import searchAdvertisers from 'fortnight/gql/queries/search-advertisers';
-import searchContacts from 'fortnight/gql/queries/search-contacts';
-import searchPlacements from 'fortnight/gql/queries/search-placements';
+import autocompletePublishers from 'fortnight/gql/queries/autocomplete-publishers';
+import autocompleteAdvertisers from 'fortnight/gql/queries/autocomplete-advertisers';
+import autocompleteContacts from 'fortnight/gql/queries/autocomplete-contacts';
+import autocompletePlacements from 'fortnight/gql/queries/autocomplete-placements';
 
 export default Component.extend(ComponentQueryManager, {
   closeOnSelect: true,
@@ -53,13 +53,13 @@ export default Component.extend(ComponentQueryManager, {
     const type = this.get('type');
     switch (type) {
       case 'publisher':
-        return { query: searchPublishers, resultKey: 'searchPublishers' };
+        return { query: autocompletePublishers, resultKey: 'autocompletePublishers' };
       case 'advertiser':
-        return { query: searchAdvertisers, resultKey: 'searchAdvertisers' };
+        return { query: autocompleteAdvertisers, resultKey: 'autocompleteAdvertisers' };
       case 'contact':
-        return { query: searchContacts, resultKey: 'searchContacts' };
+        return { query: autocompleteContacts, resultKey: 'autocompleteContacts' };
       case 'placement':
-        return { query: searchPlacements, resultKey: 'searchPlacements' };
+        return { query: autocompletePlacements, resultKey: 'autocompletePlacements' };
       default:
         this.get('graphErrors').show(new Error(`The model type ${type} is not searchable.`));
     }
@@ -73,11 +73,9 @@ export default Component.extend(ComponentQueryManager, {
     },
   },
 
-  search: task(function* (term) {
+  search: task(function* (phrase) {
     const pagination = { first: 20 };
-    const field = this.get('field');
-    const search = { typeahead: { field, term } };
-    const variables = { pagination, search };
+    const variables = { pagination, phrase };
     const { query, resultKey } = this.get('_query');
     const selected = this.get('selected') || [];
     const filterFrom = isArray(selected) ? selected : [ selected ];

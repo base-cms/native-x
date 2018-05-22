@@ -1,11 +1,11 @@
+#import 'fortnight/gql/fragments/advertiser/list'
 
-query searchAdvertisers($pagination: PaginationInput, $search: AdvertiserSearchInput!) {
-  searchAdvertisers(pagination: $pagination, search: $search) {
+query SearchAdvertisers($pagination: PaginationInput, $phrase: String!) {
+  searchAdvertisers(pagination: $pagination, phrase: $phrase) {
     totalCount
     edges {
       node {
-        id
-        name
+        ...AdvertiserListFragment
       }
       cursor
     }

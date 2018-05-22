@@ -2,6 +2,7 @@ import Controller from '@ember/controller';
 import { get } from '@ember/object';
 import { inject } from '@ember/service';
 import ActionMixin from 'fortnight/mixins/action-mixin';
+import moment from 'moment';
 
 import mutation from 'fortnight/gql/mutations/create-campaign';
 
@@ -21,6 +22,7 @@ export default Controller.extend(ActionMixin, {
         advertiserId: get(advertiser || {}, 'id'),
         url,
         externalLinks,
+        startDate: moment().startOf('day').valueOf(),
       };
       const variables = { input: { payload } };
       try {

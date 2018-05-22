@@ -1,12 +1,11 @@
+#import 'fortnight/gql/fragments/contact/list'
 
-query searchContacts($pagination: PaginationInput, $search: ContactSearchInput!) {
-  searchContacts(pagination: $pagination, search: $search) {
+query SearchContacts($pagination: PaginationInput, $phrase: String!) {
+  searchContacts(pagination: $pagination, phrase: $phrase) {
     totalCount
     edges {
       node {
-        id
-        name
-        email
+        ...ContactListFragment
       }
       cursor
     }
