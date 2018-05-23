@@ -1,0 +1,15 @@
+fragment AdvertiserContactsFragment on Advertiser {
+  id
+  notify {
+    internal {
+      id
+      name
+      email
+    }
+    external {
+      id
+      name
+      email
+    }
+  }
+}

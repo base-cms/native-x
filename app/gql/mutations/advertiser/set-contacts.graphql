@@ -1,0 +1,7 @@
+#import 'fortnight/gql/fragments/advertiser/contacts'
+
+mutation SetAdvertiserContacts($input: SetContactsInput!) {
+	setAdvertiserContacts(input: $input) {
+		...AdvertiserContactsFragment
+	}
+}
