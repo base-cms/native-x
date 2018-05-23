@@ -28,10 +28,10 @@ export default Controller.extend(ActionMixin, {
       const payload = { name, logo };
       const variables = { input: { id, payload } };
       const mutation = updateAdvertiser;
-      promises.push(this.get('apollo').mutate({ mutation, variables }, 'updateAdvertiser'));
 
       try {
         await all(promises);
+        await this.get('apollo').mutate({ mutation, variables }, 'updateAdvertiser');
       } catch (e) {
         this.get('graphErrors').show(e);
       } finally {
