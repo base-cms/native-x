@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const helmet = require('helmet');
+const routes = require('./routes');
 
 const { PORT } = process.env;
 
@@ -9,6 +10,8 @@ server.use(helmet());
 
 module.exports = (client) => {
   const handle = client.getRequestHandler();
+
+  routes(server, client);
 
   server.get('*', (req, res) => {
     handle(req, res);
