@@ -17,7 +17,7 @@ const config = {
       if (networkError) console.error(`[Network error]: ${networkError}`);
     }),
     new HttpLink({
-      uri: process.browser ? '/graphql' : 'http://localhost:3000/graphql',
+      uri: process.browser ? '/graphql' : 'http://localhost:3005/graphql',
       headers,
       fetch,
     }),
