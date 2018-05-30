@@ -17,7 +17,7 @@ const config = {
       if (networkError) console.error(`[Network error]: ${networkError}`);
     }),
     new HttpLink({
-      uri: 'https://hydra.as3.com/graph',
+      uri: process.browser ? '/graphql' : 'http://localhost:3000/graphql',
       headers,
       fetch,
     }),
