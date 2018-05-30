@@ -8,16 +8,16 @@
     "start": "yarn stop && $npm_package_docker_dev_install && $npm_package_docker_dev_up",
     "start:local": "PORT=3000 ./node_modules/.bin/nodemon server.js --exec \"./node_modules/.bin/eslint src/server/**/*.js && node\"",
     "stop": "$npm_package_docker_dev_down",
-    "terminal": "if [ \"$(docker inspect -f {{.State.Running}} nextjssandbox_app_1 2>/dev/null)\" = true ]; then docker exec -it nextjssandbox_app_1 /bin/bash; else printf \"$npm_package_docker_terminal_error\" && exit 1; fi"
+    "terminal": "if [ \"$(docker inspect -f {{.State.Running}} fortnightweb_app_1 2>/dev/null)\" = true ]; then docker exec -it fortnightweb_app_1 /bin/bash; else printf \"$npm_package_docker_terminal_error\" && exit 1; fi"
   },
   "docker": {
     "terminal": {
       "error": "\n\n\t ERROR: Container is not running -- did you 'yarn start'? \n\n"
     },
     "dev": {
-      "install": "docker-compose -p nextjssandbox run --entrypoint yarn app",
-      "up": "docker-compose -p nextjssandbox up",
-      "down": "docker-compose -p nextjssandbox down"
+      "install": "docker-compose -p fortnightweb run --entrypoint yarn app",
+      "up": "docker-compose -p fortnightweb up",
+      "down": "docker-compose -p fortnightweb down"
     }
   },
   "dependencies": {
