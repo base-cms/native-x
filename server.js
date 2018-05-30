@@ -1,3 +1,4 @@
+require('dotenv').config();
 const next = require('next');
 const loadServer = require('./src/server');
 
