@@ -4,11 +4,7 @@ import { onError } from 'apollo-link-error';
 import fetch from 'isomorphic-unfetch';
 import withApollo from './WithApollo';
 
-// @todo This will need to be dynamically switched?
-const headers = {
-  'X-Tenant-Key': 'cygnus_fhc',
-  Authorization: 'Bearer 1fd5a684-2e95-43fe-b0da-861d78c6c567',
-};
+const headers = {};
 
 const config = {
   link: ApolloLink.from([
@@ -21,7 +17,7 @@ const config = {
       if (networkError) console.error(`[Network error]: ${networkError}`);
     }),
     new HttpLink({
-      uri: 'https://base4.as3.io/graph',
+      uri: 'https://hydra.as3.com/graph',
       headers,
       fetch,
     }),
