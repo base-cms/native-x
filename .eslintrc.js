@@ -7,10 +7,6 @@ module.exports = {
     browser: true,
   },
   rules: {
-    'jsx-a11y/anchor-is-valid': ['error', {
-      'components': [ 'Link' ],
-      'specialLink': [ 'to' ],
-      'aspects': [ 'noHref', 'invalidHref', 'preferButton' ]
-    }],
+    'jsx-a11y/anchor-is-valid': 'off',
   },
 };
