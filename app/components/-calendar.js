@@ -10,7 +10,8 @@ export default Component.extend({
   canRemove: false,
   minDate: null,
   maxDate: null,
-  displayFormat: 'dddd, MMMM Do, YYYY',
+  displayFormat: 'ddd, MMM Do, YYYY @ h:mma',
+  truncDay: null,
 
   isRemoveDisabled: computed('canRemove', 'currentDay', function() {
     return this.get('canRemove') && null === this.get('currentDay');
@@ -43,6 +44,11 @@ export default Component.extend({
       this.sendAction('onSelect', null);
     },
     selectDate(selected) {
+      if (this.get('truncDay') === 'start') {
+        selected = moment(selected).startOf('day');
+      } else if (this.get('truncDay') === 'end') {
+        selected = moment(selected).endOf('day');
+      }
       this.set('selected', selected);
       // eslint-disable-next-line
       this.sendAction('onSelect', selected);

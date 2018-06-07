@@ -2,7 +2,7 @@
   <div class="col">
     <div class="form-group">
       <label for="name">Name</label>
-      {{input type="text" value=model.name class="form-control" id="name" placeholder="Name" autofocus=true}}
+      {{input type="text" required=true value=model.name class="form-control" id="name" placeholder="Name" autofocus=true}}
     </div>
   </div>
 </div>
@@ -19,6 +19,7 @@
         useSoftTabs=true
         tabSize=2
         useWrapMode=false
+        showPrintMargin=false
         update=(action (mut model.html))
       }}
     </div>
@@ -27,7 +28,7 @@
 
 <div class="row">
   <div class="col">
-    <div class="form-group">
+    <div class="form-group mb-0">
       <label for="name">Fallback Template</label>
       {{ember-ace
         lines=20
@@ -37,6 +38,7 @@
         useSoftTabs=true
         tabSize=2
         useWrapMode=false
+        showPrintMargin=false
         update=(action (mut model.fallback))
       }}
     </div>

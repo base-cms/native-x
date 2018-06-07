@@ -1,0 +1,56 @@
+<div class="row">
+  <div class="col">
+    <div class="form-group">
+      <label for="contact-email">Email Address {{required-field-label}}</label>
+      {{input
+        type="email"
+        required=true
+        value=form.model.email
+        class="form-control"
+        id="contact-email"
+        placeholder="foo@bar.baz"
+        autofocus=true
+        focusOut=(action form.actions.autosave)
+      }}
+      <div class="invalid-feedback">
+        Please provide a valid email address.
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-6">
+    <div class="form-group mb-3 mb-sm-0">
+      <label for="contact-given-name">First Name {{required-field-label}}</label>
+      {{input
+        type="text"
+        required=true
+        value=form.model.givenName
+        class="form-control"
+        id="contact-given-name"
+        placeholder="Jane"
+        focusOut=(action form.actions.autosave)
+      }}
+      <div class="invalid-feedback">
+        Please provide a first name.
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="form-group mb-0">
+      <label for="contact-family-name">Last Name {{required-field-label}}</label>
+      {{input
+        type="text"
+        required=true
+        value=form.model.familyName
+        class="form-control"
+        id="contact-family-name"
+        placeholder="Doe"
+        focusOut=(action form.actions.autosave)
+      }}
+      <div class="invalid-feedback">
+        Please provide a last name.
+      </div>
+    </div>
+  </div>
+</div>

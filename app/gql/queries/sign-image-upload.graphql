@@ -1,0 +1,6 @@
+query signImageUpload($input: ImageUploadInput!) {
+  signImageUpload(input: $input) {
+    url
+    key
+  }
+}

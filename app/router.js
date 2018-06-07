@@ -9,38 +9,53 @@ const Router = EmberRouter.extend({
 Router.map(function() {
 
   this.route('advertiser', function() {
-    this.route('create', { path: 'new' });
+    this.route('create');
     this.route('edit', { path: ':id' });
   })
 
   this.route('campaign', function() {
     this.route('create');
-    this.route('edit', { path: '/:id' }, function() {
+    this.route('edit', { path: ':id' }, function() {
       this.route('criteria');
-      this.route('creatives');
+      this.route('creatives', function() {
+        this.route('create', function() {
+          this.route('image');
+        });
+        this.route('edit', { path: ':creative_id' }, function() {
+          this.route('image');
+        });
+      });
+      this.route('notifications');
     });
   })
 
   this.route('placement', function() {
-    this.route('create', { path: 'new' });
+    this.route('create');
+    this.route('edit', { path: ':id' });
+  })
+
+  this.route('contact', function() {
+    this.route('create');
     this.route('edit', { path: ':id' });
   })
 
   this.route('publisher', function() {
-    this.route('create', { path: 'new' });
+    this.route('create');
+    this.route('edit', { path: ':id' });
+  })
+
+  this.route('story', function() {
+    this.route('create');
     this.route('edit', { path: ':id' });
   })
 
   this.route('template', function() {
-    this.route('create', { path: 'new' });
+    this.route('create');
     this.route('edit', { path: ':id' });
   })
 
   this.route('login');
   this.route('logout');
-  this.route('user-settings');
-  this.route('reports');
-  this.route('about');
 });
 
 export default Router;

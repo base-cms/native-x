@@ -1,0 +1,8 @@
+#import 'fortnight/gql/fragments/advertiser/list'
+#import 'fortnight/gql/fragments/advertiser/contacts'
+
+fragment AdvertiserFragment on Advertiser {
+  ...AdvertiserListFragment
+  logo
+  ...AdvertiserContactsFragment
+}

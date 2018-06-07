@@ -1,0 +1,6 @@
+#import 'fortnight/gql/fragments/publisher/list'
+
+fragment PublisherFragment on Publisher {
+  ...PublisherListFragment
+  logo
+}

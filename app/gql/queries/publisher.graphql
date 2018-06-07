@@ -1,6 +1,7 @@
-query publisher($input: ModelIdInput!) {
+#import 'fortnight/gql/fragments/publisher/view'
+
+query Publisher($input: ModelIdInput!) {
   publisher(input: $input) {
-    id
-    name
+    ...PublisherFragment
   }
 }

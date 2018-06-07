@@ -1,36 +1,12 @@
-  <div class="row">
-    <div class="col">
-      <div class="form-group">
-        <label for="start">Starts On</label>
-        {{-calendar currentDay=model.start maxDate=startMax minDate=startMin onSelect=(action (mut model.start))}}
-      </div>
-    </div>
-    <div class="col">
-      <div class="form-group">
-        <label for="end">Ends On</label>
-        {{-calendar currentDay=model.end maxDate=endMax minDate=endMin onSelect=(action (mut model.end)) canRemove=true}}
-      </div>
-    </div>
+{{#model-form
+  model=model
+  shouldAutosave=true
+  onSubmit=(action "update") as |form|
+}}
+  <div class="card-body">
+    {{ partial "campaign/forms/criteria" }}
   </div>
-
-  <div class="row">
-    <div class="form-group col">
-      <label for="placements">Placements</label>
-      {{#autocomplete-multiple
-        placeholder="Select an placement"
-        type="placement"
-        selected=model.placements
-        onSelect=(action (mut model.placements))
-        as |model|
-      }}
-        {{ model.name }} ({{ model.publisher.name }})
-      {{/autocomplete-multiple}}
-    </div>
+  <div class="card-footer">
+    {{model-save-button disabled=isActionRunning}}
   </div>
-
-  <div class="row">
-    <div class="form-group col">
-      <label for="placements">Custom Variables</label>
-      {{key-values values=model.kvs}}
-    </div>
-  </div>
+{{/model-form}}

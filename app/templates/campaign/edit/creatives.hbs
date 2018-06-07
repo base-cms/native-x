@@ -1,21 +1,23 @@
-{{#each groups as |group|}}
-<div class="row mb-3">
-  {{#each group as |creative|}}
-    <div class="col-lg-4 mb-3">
-      {{campaign-creative campaignId=model.id creative=creative onRemove='onRemove'}}
-    </div>
-  {{/each}}
-</div>
-{{/each}}
-
-<div class="row">
-  <div class="form-group col">
-    <div class="row align-items-end">
-      <div class="form-group col-2 offset-10 text-right">
-        <button type="submit" class="btn btn-primary btn-block" {{action (route-action "add")}}>
-          {{-ion "android-add"}} Add
-        </button>
+<div class="card-body">
+  <div class="row">
+    {{#each model.creatives as |creative|}}
+      <div class="mb-3 col-12 col-md-6 col-lg-4">
+        {{campaign-creative
+          creativeId=creative.id
+          campaignId=model.id
+          title=creative.title
+          teaser=creative.teaser
+          status=creative.status
+          image=creative.image
+        }}
       </div>
-    </div>
+    {{/each}}
   </div>
 </div>
+
+<div class="card-footer">
+</div>
+
+{{model-create-button icon="images" title="Add Creative" click=(route-action "transitionTo" "campaign.edit.creatives.create")}}
+
+{{outlet}}

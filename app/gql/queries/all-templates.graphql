@@ -1,12 +1,11 @@
+#import 'fortnight/gql/fragments/template/list'
+
 query AllTemplates($pagination: PaginationInput, $sort: TemplateSortInput) {
   allTemplates(pagination: $pagination, sort: $sort) {
     totalCount
     edges {
       node {
-        id
-        name
-        createdAt
-        updatedAt
+        ...TemplateListFragment
       }
       cursor
     }

@@ -1,0 +1,29 @@
+#import 'fortnight/gql/fragments/campaign/list'
+#import 'fortnight/gql/fragments/campaign-criteria'
+
+fragment CampaignDetailsFragment on Campaign {
+  ...CampaignListFragment
+  isNew
+  description
+  url
+  hash
+  criteria {
+    ...CampaignCriteriaFragment
+  }
+  externalLinks {
+    label
+    url
+  }
+  notify {
+    internal {
+      id
+      name
+      email
+    }
+    external {
+      id
+      name
+      email
+    }
+  }
+}

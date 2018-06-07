@@ -1,0 +1,4 @@
+fragment StoryAutocompleteFragment on Story {
+  id
+  title
+}

@@ -1,0 +1,17 @@
+#import 'fortnight/gql/fragments/story/list'
+
+query SearchStories($pagination: PaginationInput, $phrase: String!) {
+  searchStories(pagination: $pagination, phrase: $phrase) {
+    totalCount
+    edges {
+      node {
+        ...StoryListFragment
+      }
+      cursor
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}

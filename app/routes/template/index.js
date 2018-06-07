@@ -1,12 +1,15 @@
 import Route from '@ember/routing/route';
-import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
 import RouteQueryManager from 'ember-apollo-client/mixins/route-query-manager';
+import { getObservable } from 'ember-apollo-client';
 
 import query from 'fortnight/gql/queries/all-templates';
+import search from 'fortnight/gql/queries/search-templates';
 
-export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
-
+export default Route.extend(RouteQueryManager, {
   queryParams: {
+    phrase: {
+      refreshModel: true
+    },
     first: {
       refreshModel: true
     },
@@ -21,26 +24,36 @@ export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
     },
   },
 
-  totalCount: 0,
-  hasNextPage: false,
-  endCursor: null,
-
-  setPagination(pagination) {
-    const { totalCount } = pagination;
-    const { hasNextPage, endCursor } = pagination.pageInfo;
-    this.controllerFor('template.index').setProperties({ totalCount, hasNextPage, endCursor });
-    return pagination.edges.map(node => node.node);
+  search(phrase, pagination) {
+    const controller = this.controllerFor(this.get('routeName'));
+    const variables = { pagination, phrase };
+    const resultKey = 'searchTemplates';
+    controller.set('resultKey', resultKey);
+    return this.get('apollo').watchQuery({ query: search, variables, fetchPolicy: 'network-only' }, resultKey)
+      .then((result) => {
+        controller.set('observable', getObservable(result));
+        return result;
+      }).catch(e => this.get('graphErrors').show(e))
+    ;
   },
 
-  model({ first, after, sortBy, ascending }) {
+  model({ first, after, sortBy, ascending, phrase }) {
+    const controller = this.controllerFor(this.get('routeName'));
     const pagination = { first, after };
+
+    if (phrase) {
+      return this.search(phrase, pagination);
+    }
     const sort = { field: sortBy, order: ascending ? 1 : -1 };
     const variables = { pagination, sort };
     if (!sortBy) delete variables.sort.field;
     const resultKey = 'allTemplates';
-    return this.apollo.watchQuery({ query, variables }, resultKey)
-      .then(pagination => this.setPagination(pagination))
-      .catch(e => this.get('errorProcessor').show(e))
+    controller.set('resultKey', resultKey);
+    return this.get('apollo').watchQuery({ query, variables, fetchPolicy: 'network-only' }, resultKey)
+      .then((result) => {
+        controller.set('observable', getObservable(result));
+        return result;
+      }).catch(e => this.get('graphErrors').show(e))
     ;
   },
 });

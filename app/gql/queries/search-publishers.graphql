@@ -1,11 +1,11 @@
+#import 'fortnight/gql/fragments/publisher/list'
 
-query searchPublishers($pagination: PaginationInput, $search: PublisherSearchInput!) {
-  searchPublishers(pagination: $pagination, search: $search) {
+query SearchPublishers($pagination: PaginationInput, $phrase: String!) {
+  searchPublishers(pagination: $pagination, phrase: $phrase) {
     totalCount
     edges {
       node {
-        id
-        name
+        ...PublisherListFragment
       }
       cursor
     }

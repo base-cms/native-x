@@ -1,0 +1,12 @@
+{{#model-form
+  model=model
+  shouldAutosave=true
+  onSubmit=(action "update") as |form|
+}}
+  <div class="card-body">
+    {{ partial "campaign/forms/contacts" }}
+  </div>
+  <div class="card-footer">
+    {{model-save-button disabled=isActionRunning}}
+  </div>
+{{/model-form}}

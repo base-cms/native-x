@@ -1,7 +1,7 @@
 version: '3'
 services:
   test:
-    image: danlynn/ember-cli:2.18.2
+    image: danlynn/ember-cli:3.1.2
     ports:
       - "${EMBER_SERVE_PORT-8105}:${EMBER_SERVE_PORT-8105}"
       - "${EMBER_LIVER_PORT-8106}:${EMBER_LIVER_PORT-8106}"

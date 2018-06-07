@@ -1,24 +1,42 @@
 <div class="row">
   <div class="col">
     <div class="form-group">
-      <label for="name">Name</label>
-      {{input type="text" value=model.name class="form-control" id="name" placeholder="Name" autofocus=true}}
+      <label for="placement-name">Name {{required-field-label}}</label>
+      {{input
+        type="text"
+        required=true
+        value=form.model.name
+        class="form-control"
+        id="placement-name"
+        placeholder="Name"
+        autofocus=true
+        focusOut=(action form.actions.autosave)
+      }}
+      <div class="invalid-feedback">
+        Please provide a placement name.
+      </div>
     </div>
   </div>
 </div>
 
 <div class="row">
   <div class="col">
-    <div class="form-group">
-      <label for="name">Publisher</label>
-
-      {{autocomplete-single
-        placeholder="Select a publisher"
+    <div class="form-group mb-0">
+      <label>Publisher {{required-field-label}}</label>
+      {{#type-ahead
+        required=true
+        placeholder="Begin typing to search..."
+        triggerClass="form-control"
+        wasFormValidated=form.wasValidated
+        invalidFeedback="Please select a publisher."
         type="publisher"
-        selected=model.publisher
-        onSelect=(action (mut model.publisher))
+        closeOnSelect=true
+        allowClear=false
+        onChange=(action form.actions.autosave)
+        selected=form.model.publisher as |item|
       }}
-
+        {{item.name}}
+      {{/type-ahead}}
     </div>
   </div>
 </div>

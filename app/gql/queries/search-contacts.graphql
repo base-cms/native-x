@@ -1,0 +1,17 @@
+#import 'fortnight/gql/fragments/contact/list'
+
+query SearchContacts($pagination: PaginationInput, $phrase: String!) {
+  searchContacts(pagination: $pagination, phrase: $phrase) {
+    totalCount
+    edges {
+      node {
+        ...ContactListFragment
+      }
+      cursor
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}

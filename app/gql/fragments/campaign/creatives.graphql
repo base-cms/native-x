@@ -1,0 +1,8 @@
+#import 'fortnight/gql/fragments/campaign-creative'
+
+fragment CreativesForCampaignFragment on Campaign {
+  id
+  creatives {
+    ...CampaignCreativeFragment
+  }
+}

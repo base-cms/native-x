@@ -1,101 +1,55 @@
 import Component from '@ember/component';
-import ComponentQueryManager from 'ember-apollo-client/mixins/component-query-manager';
-import { computed, get } from '@ember/object';
+import ActionMixin from 'fortnight/mixins/action-mixin';
 import { inject } from '@ember/service';
 
-import RemoveMutation from 'fortnight/gql/mutations/remove-campaign-creative';
-import UpdateMutation from 'fortnight/gql/mutations/update-campaign-creative';
+import removeCreative from 'fortnight/gql/mutations/campaign/remove-creative';
+import creativeStatus from 'fortnight/gql/mutations/campaign/creative-status';
 
-export default Component.extend(ComponentQueryManager, {
-
-  errorProcessor: inject(),
-
-  classNames: [ 'card', 'mh-100' ],
+export default Component.extend(ActionMixin, {
+  classNames: ['card', 'mnh-100'],
 
   campaignId: null,
-  creativeId: computed.reads('creative.id'),
-  creative: null,
-  onRemove: 'onRemove',
-  onUpdate: 'onUpdate',
+  creativeId: null,
 
-  loading: false,
-
-  id: null,
-  name: null,
-  title: null,
-  url: null,
-  teaser: null,
-  image: null,
-
-  isModified: computed('id', 'name', 'title', 'url', 'teaser', 'image', 'creative', function() {
-    const c = this.get('creative');
-    return [ 'id', 'name', 'title', 'url', 'teaser', 'image' ].some(k => this.get(k) !== get(c, k))
-  }),
-
-  canSave: computed.reads('isModified'),
-  disableSave: computed.not('canSave'),
+  apollo: inject(),
 
   init() {
-    const { id, name, url, title, teaser, image } = this.get('creative');
-    this.setProperties({ id, name, url, title, teaser, image });
-    this.set('image', this.get('image') || {});
     this._super(...arguments);
-  },
 
-  /**
-   * Performs deep comparison of objects
-   * @param {*} v
-   * @param {*} w
-   * @return -1/0/1
-   */
-  // compareObjects(v, w) {
-  //   for (const p in v) {
-  //     if (!v.hasOwnProperty(p)) continue;
-  //     if (!w.hasOwnProperty(p)) return 1;
-  //     if (v[p] === w[p]) continue;
-  //     if (typeof(v[p]) !== 'object') return 1;
-  //     const c = compare(v[p], w[p]);
-  //     if (c) return c;
-  //   }
-  //   for (const p in w) {
-  //     if (w.hasOwnProperty(p) && !v.hasOwnProperty(p)) return -1;
-  //   }
-  //   return 0;
-  // },
+    // Ensure the action has ended.
+    // Fixes issue with calling set on destroyed object after status is updated.
+    this.endAction();
+  },
 
   actions: {
-    remove() {
-      this.set('loading', true);
-      const campaignId = this.get('campaignId');
-      const creativeId = this.get('creativeId');
-      const mutation = RemoveMutation;
+    async remove() {
+      this.startAction();
+      const { campaignId, creativeId } = this.getProperties('campaignId', 'creativeId');
+
+      const mutation = removeCreative;
       const variables = { input: { campaignId, creativeId } };
-      const resultKey = 'removeCampaignCreative';
-      // console.warn('campaign-creative.remove()', { mutation, variables }, resultKey);
-      return this.apollo.mutate({ mutation, variables }, resultKey)
-        // eslint-disable-next-line
-        .then(() => this.sendAction(this.get('onRemove'), this.get('creative')))
-        .catch(e => this.get('errorProcessor').show(e))
-        .then(() => this.set('loading', false))
-      ;
+      const refetchQueries = ['CampaignCreatives'];
+      try {
+        await this.get('apollo').mutate({ mutation, variables, refetchQueries }, 'removeCampaignCreative');
+      } catch (e) {
+        this.get('graphErrors').show(e)
+      } finally {
+        this.endAction();
+      }
     },
-    update() {
-      if (!this.get('canSave')) return;
-      this.set('loading', true);
-      const { title, teaser } = this.getProperties(['title', 'teaser']);
-      const campaignId = this.get('campaignId');
-      const creativeId = this.get('creativeId');
-      const mutation = UpdateMutation;
-      const payload = { title, teaser };
-      const variables = { input: { campaignId, creativeId, payload } };
-      const resultKey = 'updateCampaignCreative';
-      // console.warn('campaign-creative.save()', { mutation, variables }, resultKey);
-      return this.apollo.mutate({ mutation, variables }, resultKey)
-        // .then(() => this.sendAction(this.get('onUpdate')))
-        .catch(e => this.get('errorProcessor').show(e))
-        .then(() => this.set('loading', false))
-      ;
+
+    async updateStatus(status) {
+      this.startAction();
+      const { campaignId, creativeId } = this.getProperties('campaignId', 'creativeId');
+
+      const mutation = creativeStatus;
+      const variables = { input: { campaignId, creativeId, status } };
+      try {
+        await this.get('apollo').mutate({ mutation, variables }, 'campaignCreativeStatus');
+      } catch (e) {
+        this.get('graphErrors').show(e);
+        this.endAction();
+      }
     },
   },
-
 });

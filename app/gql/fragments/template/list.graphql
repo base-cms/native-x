@@ -1,0 +1,5 @@
+fragment TemplateListFragment on Template {
+  id
+  name
+  updatedAt
+}

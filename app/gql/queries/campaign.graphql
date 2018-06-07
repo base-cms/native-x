@@ -2,6 +2,8 @@ query campaign($input: ModelIdInput!) {
   campaign(input: $input) {
     id
     name
+    description
+    hash
     advertiser {
       id
       name
@@ -23,13 +25,20 @@ query campaign($input: ModelIdInput!) {
         value
       }
     }
-    creatives {
-      id
-      title
-      teaser
-      image {
+    externalLinks {
+      label
+      url
+    }
+    notify {
+      internal {
         id
-        src
+        name
+        email
+      }
+      external {
+        id
+        name
+        email
       }
     }
   }

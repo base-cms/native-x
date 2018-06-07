@@ -1,0 +1,7 @@
+#import 'fortnight/gql/fragments/campaign-creative'
+
+query CampaignCreative($input: CampaignCreativeInput!) {
+  campaignCreative(input: $input) {
+    ...CampaignCreativeFragment
+  }
+}

@@ -1,0 +1,10 @@
+fragment PlacementListFragment on Placement {
+  id
+  name
+  createdAt
+  updatedAt
+  publisher {
+    id
+    name
+  }
+}

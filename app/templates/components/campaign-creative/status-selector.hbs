@@ -1,0 +1,10 @@
+<button class="btn dropdown-toggle {{buttonClass}} {{buttonColorClass}}" disabled={{disabled}} type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  {{entypo-icon "flag"}} {{status}}
+</button>
+<div class="dropdown-menu">
+  {{#each filteredStatuses as |statusOption|}}
+    <a class="dropdown-item" href="javascript:void(0);" {{action "setStatus" statusOption}}>
+      Set as {{statusOption}}
+    </a>
+  {{/each}}
+</div>

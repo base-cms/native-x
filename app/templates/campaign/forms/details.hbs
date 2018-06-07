@@ -1,0 +1,103 @@
+<div class="row">
+  <div class="col-sm-6">
+    <div class="form-group">
+      <label for="campaign-name">Name {{required-field-label}}</label>
+      {{input
+        type="text"
+        required=true
+        value=form.model.name
+        class="form-control"
+        id="campaign-name"
+        placeholder="Name"
+        focusOut=(action form.actions.autosave)
+      }}
+      <div class="invalid-feedback">
+        Please provide a campaign name.
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="form-group">
+      <label for="name">Advertiser {{required-field-label}}</label>
+      {{#type-ahead
+        required=true
+        wasFormValidated=form.wasValidated
+        invalidFeedback="Please select an advertiser."
+        triggerClass="form-control"
+        placeholder="Begin typing to search..."
+        type="advertiser"
+        closeOnSelect=true
+        allowClear=false
+        onChange=(action form.actions.autosave)
+        selected=form.model.advertiser as |item|
+      }}
+        {{item.name}}
+      {{/type-ahead}}
+    </div>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col">
+    <div class="form-group">
+      <label for="campaign-url">URL</label>
+      {{input
+        type="url"
+        value=form.model.url
+        class="form-control"
+        id="campaign-url"
+        placeholder="https://www.domain.com..."
+        focusOut=(action form.actions.autosave)
+      }}
+      <div class="invalid-feedback">
+        Please provide a valid URL.
+      </div>
+    </div>
+  </div>
+</div>
+
+{{#unless model.isNew}}
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label for="name">Status {{required-field-label}}</label>
+        {{#power-select
+          options=campaignStatus.statii
+          selected=form.model.status
+          searchEnabled=false
+          onchange=(action form.actions.setAndAutosave "status") as |status|
+        }}
+          {{ status }}
+        {{/power-select}}
+      </div>
+    </div>
+  </div>
+{{/unless}}
+
+<div class="row">
+  <div class="col">
+    <div class="form-group">
+      <label for="campaign-description">Description</label>
+      {{textarea
+        value=form.model.description
+        class="form-control"
+        id="campaign-description"
+        placeholder="A brief description of this campaign..."
+        focusOut=(action form.actions.autosave)
+      }}
+    </div>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col">
+    <div class="card">
+      <div class="card-header">Links</div>
+      <div class="card-body">
+        {{campaign-links links=form.model.externalLinks onChange=(action form.actions.setAndAutosave "externalLinks")}}
+      </div>
+    </div>
+  </div>
+</div>

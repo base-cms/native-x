@@ -1,0 +1,7 @@
+#import 'fortnight/gql/fragments/template/list'
+
+fragment TemplateFragment on Template {
+  ...TemplateListFragment
+  html
+  fallback
+}

@@ -1,13 +1,20 @@
-
-{{partial "campaign/form"}}
-
-<div class="row">
-  <div class="col">
-    <div class="form-group">
-      <label for="name">Status</label>
-      {{#power-select options=statii selected=model.status onchange=(action (mut model.status)) as |status|}}
-        {{ status }}
-      {{/power-select}}
+{{#model-form
+  model=model
+  shouldAutosave=true
+  onSubmit=(action "update") as |form|
+}}
+  <div class="card-body">
+    <div class="row">
+      <div class="col-12 col-lg-8">
+        {{ partial "campaign/forms/details" }}
+      </div>
+      <div class="col-12 col-lg-4 mt-4 mt-lg-0 mb-0">
+        {{partial "campaign/summary"}}
+      </div>
     </div>
   </div>
-</div>
+
+  <div class="card-footer">
+    {{model-save-button disabled=isActionRunning}}
+  </div>
+{{/model-form}}

@@ -1,45 +1,24 @@
 import Route from '@ember/routing/route';
-import AuthenticatedRouteMixin from 'ember-simple-auth/mixins/authenticated-route-mixin';
+import { get } from '@ember/object';
 import RouteQueryManager from 'ember-apollo-client/mixins/route-query-manager';
-import { inject } from '@ember/service';
-import { get, set } from '@ember/object';
-import { isPresent } from '@ember/utils';
 import moment from 'moment';
 
-import mutation from 'fortnight/gql/mutations/set-campaign-criteria';
+import query from 'fortnight/gql/queries/campaign/criteria';
 
-export default Route.extend(RouteQueryManager, AuthenticatedRouteMixin, {
-  errorProcessor: inject(),
-
-  campaignId: null,
-
+export default Route.extend(RouteQueryManager, {
   model() {
-    const model = this._super(...arguments);
-    this.set('campaignId', model.id);
+    const { id } = this.modelFor('campaign.edit');
+    const variables = { input: { id } };
+    return this.get('apollo').watchQuery({ query, variables, refetchPolicy: 'network-only' }, 'campaign');
+  },
+
+  afterModel(model) {
     const criteria = {
-      start: moment(),
+      start: moment().startOf('day'),
       end: null,
       placements: [],
       kvs: [],
     };
-    if (!get(model, 'criteria')) set(model, 'criteria', criteria);
-    return get(model, 'criteria');
+    if (!get(model, 'criteria')) model.criteria = criteria;
   },
-
-  actions: {
-    update({ criteria }) {
-      const { start, end, kvs, placements } = criteria;
-      const campaignId = this.get('campaignId');
-      const placementIds = placements.map(p => p.id);
-      const startDate = moment(start).format('x');
-      const endDate = isPresent(end) ? moment(end).format('x') : null;
-      const payload = { start: startDate, end: endDate, placementIds, kvs };
-      const variables = { input: { campaignId, payload } };
-      const resultKey = 'setCampaignCriteria';
-      return this.get('apollo').mutate({ mutation, variables }, resultKey)
-        .then(() => this.refresh())
-        .catch(e => this.get('errorProcessor').show(e))
-      ;
-    }
-  }
-})
+});

@@ -1,0 +1,5 @@
+#import 'fortnight/gql/fragments/placement/list'
+
+fragment PlacementFragment on Placement {
+  ...PlacementListFragment
+}

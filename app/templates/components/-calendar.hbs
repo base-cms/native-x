@@ -1,23 +1,23 @@
 {{#basic-dropdown as |dropdown|}}
   <div class="input-group">
-  <a class="btn btn-block form-control btn-outline-secondary dropdown-toggle" data-ebd-id="{{dropdown.uniqueId}}-trigger" {{action dropdown.actions.toggle}}>
-    {{-ion "calendar"}}
-    {{#if (moment-is-valid currentDay)}}
-      <span class="d-none d-lg-inline">{{moment-format currentDay displayFormat}}</span>
-    {{else}}
-      <span class="d-none d-lg-inline">Never</span>
+    <a class="btn btn-block form-control btn-outline-secondary dropdown-toggle" data-ebd-id="{{dropdown.uniqueId}}-trigger" {{action dropdown.actions.toggle}}>
+      {{entypo-icon "calendar"}}
+      {{#if (moment-is-valid currentDay)}}
+        {{moment-format currentDay displayFormat}}
+      {{else}}
+        Never
+      {{/if}}
+    </a>
+    {{#if canRemove}}
+      <div class="input-group-append">
+        <button class="btn btn-secondary" {{action 'removeDate'}} disabled={{isRemoveDisabled}}>
+          {{entypo-icon "cross"}}
+        </button>
+      </div>
     {{/if}}
-  </a>
-  {{#if canRemove}}
-  <div class="input-group-append">
-    <button class="btn btn-secondary" {{action 'removeDate'}} disabled={{isRemoveDisabled}}>
-      {{-ion "android-close"}}
-    </button>
-  </div>
-  {{/if}}
   </div>
   {{#dropdown.content}}
-    <div class="card">
+    <div class="card border-0 z-depth-2">
       <div class="card-body">
         {{#power-calendar
           center=center

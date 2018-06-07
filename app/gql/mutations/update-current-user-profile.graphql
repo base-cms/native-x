@@ -1,0 +1,7 @@
+#import 'fortnight/gql/fragments/user'
+
+mutation updateCurrentUserProfile($input: CurrentUserProfileInput!) {
+  updateCurrentUserProfile(input: $input) {
+    ...UserFragment
+  }
+}

@@ -1,0 +1,5 @@
+fragment StoryListFragment on Story {
+  id
+  title
+  updatedAt
+}

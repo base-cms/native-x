@@ -1,0 +1,7 @@
+#import 'fortnight/gql/fragments/campaign-creative/details'
+#import 'fortnight/gql/fragments/campaign-creative/image'
+
+fragment CampaignCreativeFragment on CampaignCreative {
+  ...CampaignCreativeDetailsFragment
+  ...CampaignCreativeImageFragment
+}
