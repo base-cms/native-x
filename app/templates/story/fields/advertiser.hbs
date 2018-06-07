@@ -1,0 +1,17 @@
+<div class="form-group">
+  <label for="name">Advertiser {{required-field-label}}</label>
+  {{#type-ahead
+    required=true
+    wasFormValidated=form.wasValidated
+    invalidFeedback="Please select an advertiser."
+    triggerClass="form-control"
+    placeholder="Begin typing to search..."
+    type="advertiser"
+    closeOnSelect=true
+    allowClear=false
+    onChange=(action form.actions.autosave)
+    selected=form.model.advertiser as |item|
+  }}
+    {{item.name}}
+  {{/type-ahead}}
+</div>

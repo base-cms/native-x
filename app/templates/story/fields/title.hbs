@@ -1,0 +1,15 @@
+<div class="form-group">
+  <label for="title">Title {{required-field-label}}</label>
+  {{input
+    type="text"
+    required=true
+    value=form.model.title
+    class="form-control form-control-lg"
+    id="title"
+    placeholder="Title"
+    focusOut=(action form.actions.autosave)
+  }}
+  <div class="invalid-feedback">
+    Please provide a title for the story.
+  </div>
+</div>
