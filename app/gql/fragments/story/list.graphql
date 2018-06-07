@@ -6,4 +6,5 @@ fragment StoryListFragment on Story {
     name
   }
   updatedAt
+  publishedAt
 }
