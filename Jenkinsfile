@@ -41,7 +41,7 @@ node {
     try {
       docker.withRegistry('https://664537616798.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:aws-jenkins-login') {
         stage('Build Container') {
-         myDocker = docker.build("fortnight-app:v${env.BUILD_NUMBER}", '.')
+          myDocker = docker.build("fortnight-app:v${env.BUILD_NUMBER}", '.')
         }
         stage('Push Container') {
           myDocker.push("latest");
