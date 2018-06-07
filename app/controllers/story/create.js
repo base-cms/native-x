@@ -13,11 +13,12 @@ export default Controller.extend(ActionMixin, {
      *
      * @param {object} fields
      */
-    async create({ title, advertiser }) {
+    async create({ title, advertiser, publishedAt }) {
       this.startAction();
       const payload = {
         title,
         advertiserId: get(advertiser || {}, 'id'),
+        publishedAt: publishedAt ? publishedAt.valueOf() : null,
       };
       const variables = { input: { payload } };
       try {
