@@ -1,6 +1,7 @@
 import Controller from '@ember/controller';
 import { inject } from '@ember/service';
 import { all } from 'rsvp';
+import { get } from '@ember/object';
 import ActionMixin from 'fortnight/mixins/action-mixin';
 
 import updateStory from 'fortnight/gql/mutations/story/update';
@@ -13,10 +14,15 @@ export default Controller.extend(ActionMixin, {
      *
      * @param {object} fields
      */
-    async update({ id, title, teaser, body }) {
+    async update({ id, advertiser, title, teaser, body }) {
       this.startAction();
       const promises = [];
-      const payload = { title, teaser, body };
+      const payload = {
+        title,
+        teaser,
+        body,
+        advertiserId: get(advertiser || {}, 'id'),
+      };
       const variables = { input: { id, payload } };
       const mutation = updateStory;
 

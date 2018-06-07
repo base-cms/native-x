@@ -1,6 +1,6 @@
 {{#nav-breadcrumbs as |crumbs|}}
   {{#crumbs.item}}{{#link-to "story.index"}}{{entypo-icon "open-book"}} Stories{{/link-to}}{{/crumbs.item}}
-  {{#crumbs.item active=true}}{{ model.title }}{{/crumbs.item}}
+  {{#crumbs.item active=true}}{{ model.title }} ({{model.advertiser.name}}){{/crumbs.item}}
 {{/nav-breadcrumbs}}
 
 {{#model-form
