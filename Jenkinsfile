@@ -1,5 +1,5 @@
 node {
-  def nodeBuilder = docker.image("danlynn/ember-cli:2.18.2")
+  def nodeBuilder = docker.image("danlynn/ember-cli:3.1.2")
   nodeBuilder.pull()
 
   try {
@@ -24,21 +24,21 @@ node {
     throw e
   }
 
-  try {
-    stage('Yarn Production Install') {
-      nodeBuilder.inside("-v ${env.WORKSPACE}:/app -u 0:0") {
-        sh 'yarn install'
-        sh 'ember build --environment=production'
-        sh 'rm -rf node_modules bower_components tmp'
-      }
+  if (!env.BRANCH_NAME.contains('PR-')) {
+    try {
+        stage('Yarn Production Install') {
+        nodeBuilder.inside("-v ${env.WORKSPACE}:/app -u 0:0") {
+            sh 'yarn install'
+            sh 'ember build --environment=production'
+            sh 'rm -rf node_modules bower_components tmp'
+        }
+        }
+
+    } catch (e) {
+        slackSend color: 'bad', message: "Failed building ${env.JOB_NAME} #${env.BUILD_NUMBER} (<${env.BUILD_URL}|View>)"
+        process.exit(1)
     }
 
-  } catch (e) {
-    slackSend color: 'bad', message: "Failed building ${env.JOB_NAME} #${env.BUILD_NUMBER} (<${env.BUILD_URL}|View>)"
-    process.exit(1)
-  }
-
-  if (!env.BRANCH_NAME.contains('PR-')) {
     try {
       docker.withRegistry('https://664537616798.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:aws-jenkins-login') {
         stage('Build Container') {
