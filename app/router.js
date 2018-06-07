@@ -44,6 +44,11 @@ Router.map(function() {
     this.route('edit', { path: ':id' });
   })
 
+  this.route('story', function() {
+    this.route('create');
+    this.route('edit', { path: ':id' });
+  })
+
   this.route('template', function() {
     this.route('create');
     this.route('edit', { path: ':id' });
