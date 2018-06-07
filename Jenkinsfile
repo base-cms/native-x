@@ -26,23 +26,22 @@ node {
 
   if (env.BRANCH_NAME.contains('master')) {
     try {
-        stage('Yarn Production Install') {
+      stage('Yarn Production Install') {
         nodeBuilder.inside("-v ${env.WORKSPACE}:/app -u 0:0") {
-            sh 'yarn install'
-            sh 'ember build --environment=production'
-            sh 'rm -rf node_modules bower_components tmp'
+          sh 'yarn install'
+          sh 'ember build --environment=production'
+          sh 'rm -rf node_modules bower_components tmp'
         }
-        }
-
+      }
     } catch (e) {
-        slackSend color: 'bad', message: "Failed building ${env.JOB_NAME} #${env.BUILD_NUMBER} (<${env.BUILD_URL}|View>)"
-        process.exit(1)
+      slackSend color: 'bad', message: "Failed building ${env.JOB_NAME} #${env.BUILD_NUMBER} (<${env.BUILD_URL}|View>)"
+      process.exit(1)
     }
 
     try {
       docker.withRegistry('https://664537616798.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:aws-jenkins-login') {
         stage('Build Container') {
-          myDocker = docker.build("fortnight-app:v${env.BUILD_NUMBER}", '.')
+         myDocker = docker.build("fortnight-app:v${env.BUILD_NUMBER}", '.')
         }
         stage('Push Container') {
           myDocker.push("latest");
