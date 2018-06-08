@@ -22,6 +22,9 @@ module.exports = function(defaults) {
         'emoticons',
         'help',
         'fullscreen',
+        'quote',
+        'char_counter',
+        'word_paste',
       ],
     },
   });
