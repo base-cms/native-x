@@ -12,6 +12,21 @@ module.exports = function(defaults) {
       tabSize: 2,
       useWrapMode: false,
     },
+    'ember-froala-editor': {
+      plugins: [
+        'paragraph_format',
+        'lists',
+        'link',
+        'video',
+        'url',
+        'emoticons',
+        'help',
+        'fullscreen',
+        'quote',
+        'char_counter',
+        'word_paste',
+      ],
+    },
   });
 
   // Bootstrap JS and source maps.
