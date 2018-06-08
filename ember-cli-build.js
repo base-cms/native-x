@@ -15,7 +15,6 @@ module.exports = function(defaults) {
     'ember-froala-editor': {
       plugins: [
         'paragraph_format',
-        'paragraph_style',
         'lists',
         'link',
         'video',
