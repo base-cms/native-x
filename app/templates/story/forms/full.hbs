@@ -18,6 +18,13 @@
         content=form.model.body
         on-blur=(action form.actions.autosave)
         update=(action (mut form.model.body))
+        options=(hash
+          paragraphFormat=(hash
+            N="Normal"
+            H2="Heading 2"
+            H3="Heading 3"
+          )
+        )
       }}
     </div>
   </div>
