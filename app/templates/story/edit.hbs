@@ -1,6 +1,6 @@
 {{#nav-breadcrumbs as |crumbs|}}
-  {{#crumbs.item}}{{#link-to "story.index"}}{{entypo-icon "news"}} Story{{/link-to}}{{/crumbs.item}}
-  {{#crumbs.item active=true}}{{ model.title }}{{/crumbs.item}}
+  {{#crumbs.item}}{{#link-to "story.index"}}{{entypo-icon "open-book"}} Stories{{/link-to}}{{/crumbs.item}}
+  {{#crumbs.item active=true}}{{ model.title }} ({{model.advertiser.name}}){{/crumbs.item}}
 {{/nav-breadcrumbs}}
 
 {{#model-form
@@ -11,7 +11,7 @@
   <div class="card model-form">
     <div class="card-header"></div>
     <div class="card-body">
-      {{ partial "story/form" }}
+      {{ partial "story/forms/full" }}
     </div>
     <div class="card-footer">
       {{model-save-button disabled=isActionRunning}}

@@ -1,0 +1,34 @@
+{{#basic-dropdown as |dropdown|}}
+  <div class="input-group">
+    <a class="btn btn-block form-control btn-outline-secondary dropdown-toggle" data-ebd-id="{{dropdown.uniqueId}}-trigger" {{action dropdown.actions.toggle}}>
+      {{entypo-icon "calendar"}}
+      {{#if publishedAt}}
+        {{moment-format publishedAt displayFormat}}
+      {{else}}
+        Not Published (Draft)
+      {{/if}}
+    </a>
+    <div class="input-group-append">
+      <button class="btn btn-secondary" {{action 'removeDate'}}>
+        {{entypo-icon "cross"}}
+      </button>
+    </div>
+  </div>
+  {{#dropdown.content}}
+    <div class="card border-0 z-depth-2">
+      <div class="card-body">
+        {{#power-calendar
+          center=center
+          selected=selected
+          onCenterChange=(action (mut center) value="moment")
+          onSelect=(action "setPublishedAt" value="moment") as |calendar|
+        }}
+          {{calendar.nav}}
+          <div {{action dropdown.actions.close}}>
+            {{calendar.days showDaysAround=showDaysAround minDate=(readonly minDate)}}
+          </div>
+        {{/power-calendar}}
+      </div>
+    </div>
+  {{/dropdown.content}}
+{{/basic-dropdown}}

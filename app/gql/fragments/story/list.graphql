@@ -1,5 +1,10 @@
 fragment StoryListFragment on Story {
   id
   title
+  advertiser {
+    id
+    name
+  }
   updatedAt
+  publishedAt
 }
