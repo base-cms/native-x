@@ -7,13 +7,13 @@
     {{ partial "story/forms/primary-image" }}
   </div>
   <div class="card-footer">
-    {{model-save-button disabled=isActionRunning}}
+    {{model-save-button disabled=isFormDisabled}}
     <div class="btn-group float-right">
       {{confirm-button
         icon="cross"
         label="Remove Image"
         class="btn-danger"
-        disabled=isActionRunning
+        disabled=isFormDisabled
         onConfirm=(action "setPrimaryImage" (hash id=model.id primaryImage=null))
       }}
     </div>

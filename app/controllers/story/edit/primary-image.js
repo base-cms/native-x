@@ -1,11 +1,15 @@
 import Controller from '@ember/controller';
 import { inject } from '@ember/service';
 import ActionMixin from 'fortnight/mixins/action-mixin';
+import { computed } from '@ember/object';
 
 import primaryImageStory from 'fortnight/gql/mutations/story/primary-image';
 
 export default Controller.extend(ActionMixin, {
   apollo: inject(),
+
+  isUploading: false,
+  isFormDisabled: computed.or('isActionRunning', 'isUploading'),
 
   actions: {
     /**

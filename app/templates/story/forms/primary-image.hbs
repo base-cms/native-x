@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col">
     {{#image-uploader
-      isLoading=isActionRunning
+      isLoading=isUploading
       onUploadStart=(action (mut form.model.primaryImage null))
       onUploadSuccess=(action form.actions.setAndAutosave "primaryImage") as |uploader|
     }}
@@ -12,7 +12,7 @@
             id="creative-image"
             class="custom-file-input"
             accept=uploader.accept
-            disabled=isActionRunning
+            disabled=isFormDisabled
             on-files-changed=(action uploader.actions.upload)
           }}
           <label class="custom-file-label" for="customFile">Choose file</label>
