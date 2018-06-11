@@ -26,6 +26,12 @@
           <strong>Oh Snap!</strong> {{uploader.error.message}}
         </div>
       {{/if}}
+
+      {{#if uploader.isLoading}}
+        <small class="mb-0">Uploading image...</small>
+        {{progress-bar show=uploader.isLoading}}
+      {{/if}}
+
     {{/image-uploader}}
   </div>
 </div>
