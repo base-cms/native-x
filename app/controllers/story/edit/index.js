@@ -13,6 +13,11 @@ export default Controller.extend(ActionMixin, {
   startMin: moment().startOf('day'),
 
   actions: {
+    appendImageDimensions(instance, $img, response) {
+      console.info('$img', $img);
+      console.info('response', response);
+    },
+
     /**
      *
      * @param {object} fields

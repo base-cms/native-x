@@ -18,6 +18,7 @@
         content=form.model.body
         on-blur=(action form.actions.autosave)
         update=(action (mut form.model.body))
+        on-image-inserted=(action "appendImageDimensions")
         options=(hash
           paragraphFormat=(hash
             N="Normal"
@@ -25,6 +26,10 @@
             H3="Subheading"
           )
           paragraphFormatSelection=true
+          imageUploadURL="/upload/embedded-image"
+          imageUploadParams=(hash
+            storyId=form.model.id
+          )
         )
       }}
     </div>

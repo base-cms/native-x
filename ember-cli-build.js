@@ -18,6 +18,7 @@ module.exports = function(defaults) {
         'lists',
         'link',
         'video',
+        'image',
         'url',
         'emoticons',
         'help',
