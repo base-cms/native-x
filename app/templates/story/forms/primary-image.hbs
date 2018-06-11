@@ -2,8 +2,8 @@
   <div class="col">
     {{#image-uploader
       isLoading=isActionRunning
-      onUploadStart=(action (mut form.model.image null))
-      onUploadSuccess=(action form.actions.setAndAutosave "image") as |uploader|
+      onUploadStart=(action (mut form.model.primaryImage null))
+      onUploadSuccess=(action form.actions.setAndAutosave "primaryImage") as |uploader|
     }}
       <div class="form-group">
         <label for="creative-image">Upload Image</label>
@@ -11,7 +11,6 @@
           {{input-file
             id="creative-image"
             class="custom-file-input"
-            required=(if form.model.image false true)
             accept=uploader.accept
             disabled=isActionRunning
             on-files-changed=(action uploader.actions.upload)
@@ -31,7 +30,7 @@
   </div>
 </div>
 
-{{#if form.model.image}}
+{{#if form.model.primaryImage}}
 
   <div class="row">
     <div class="col-8">
@@ -39,7 +38,7 @@
       <small class="d-block">Click the image to set the focal point.</small>
       {{campaign-creative/image
         class="clickable"
-        image=form.model.image
+        image=form.model.primaryImage
         onFocalPointChange=(action form.actions.autosave)
       }}
     </div>
@@ -51,9 +50,9 @@
             class="mb-3"
             imgClass="img-thumbnail img-fluid"
             aspectRatio=aspectRatio
-            originalSrc=form.model.image.src
-            fpX=form.model.image.focalPoint.x
-            fpY=form.model.image.focalPoint.y
+            originalSrc=form.model.primaryImage.src
+            fpX=form.model.primaryImage.focalPoint.x
+            fpY=form.model.primaryImage.focalPoint.y
           }}
             <small class="d-block">{{aspectRatio}}</small>
           {{/image-crop}}
