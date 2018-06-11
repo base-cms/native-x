@@ -1,11 +1,8 @@
 import Controller from '@ember/controller';
 import { inject } from '@ember/service';
-import { all } from 'rsvp';
-import { get } from '@ember/object';
-import moment from 'moment';
 import ActionMixin from 'fortnight/mixins/action-mixin';
 
-import updateStory from 'fortnight/gql/mutations/story/update';
+import primaryImageStory from 'fortnight/gql/mutations/story/primary-image';
 
 export default Controller.extend(ActionMixin, {
   apollo: inject(),
@@ -15,36 +12,27 @@ export default Controller.extend(ActionMixin, {
      *
      * @param {object} fields
      */
-    async setPrimaryImage({ primaryImage }) {
+    async setPrimaryImage({ id, primaryImage }) {
       this.startAction();
-      console.info(primaryImage);
-      this.endAction();
-      // const promises = [];
-      // const payload = {
-      //   title,
-      //   teaser,
-      //   body,
-      //   advertiserId: get(advertiser || {}, 'id'),
-      //   publishedAt: publishedAt ? publishedAt.valueOf() : null,
-      // };
-      // const variables = { input: { id, payload } };
-      // const mutation = updateStory;
+      let payload;
+      if (primaryImage) {
+        const { filePath, fileSize, focalPoint, height, mimeType, src, width } = primaryImage;
+        const fp = { x: focalPoint.x, y: focalPoint.y };
+        payload = { filePath, fileSize, focalPoint: fp, height, mimeType, src, width };
+      } else {
+        payload = null;
+      }
 
-      // try {
-      //   await all(promises);
-      //   await this.get('apollo').mutate({ mutation, variables }, 'updateStory');
-      // } catch (e) {
-      //   this.get('graphErrors').show(e);
-      // } finally {
-      //   this.endAction();
-      // }
-    },
-
-    /**
-     *
-     */
-    async delete() {
-      this.get('notify').warning('Deleting objects is not yet supported.');
+      const mutation = primaryImageStory;
+      const input = { id, payload }
+      const variables = { input };
+      try {
+        await this.get('apollo').mutate({ mutation, variables }, 'primaryImageStory');
+      } catch (e) {
+        this.get('graphErrors').show(e);
+      } finally {
+        this.endAction();
+      }
     },
   },
 });
