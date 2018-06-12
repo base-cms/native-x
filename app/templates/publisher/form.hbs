@@ -11,6 +11,7 @@
         placeholder="Acme Corp."
         autofocus=true
         focusOut=(action form.actions.autosave)
+        keyUp=(action form.actions.autosave 750)
       }}
       <div class="invalid-feedback">
         Please provide a publisher name.
@@ -30,6 +31,7 @@
         id="publisher-logo"
         placeholder="https://some.domain/image.extension"
         focusOut=(action form.actions.autosave)
+        keyUp=(action form.actions.autosave 750)
       }}
       <div class="invalid-feedback">
         Please provide a valid URL, or leave empty.

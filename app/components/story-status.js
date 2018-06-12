@@ -4,7 +4,9 @@ import moment from 'moment';
 
 export default Component.extend({
   tagName: 'span',
-  classNameBindings: ['statusText'],
+  classNameBindings: ['color'],
+
+  dateFormat: 'MMM Do, YYYY',
 
   status: computed('publishedAt', function() {
     const publishedAt = this.get('publishedAt');
@@ -14,7 +16,24 @@ export default Component.extend({
     return 'Published';
   }),
 
-  statusText: computed('status', function() {
+  suffix: computed('status', function() {
+    const format = this.get('dateFormat');
+    const date = this.get('publishedAt');
+    switch (this.get('status')) {
+      case 'Scheduled':
+        return ` for ${moment(date).format(format)}`;
+      case 'Published':
+      return ` on ${moment(date).format(format)}`;
+      default:
+        return '';
+    }
+  }),
+
+  value: computed('status', 'suffix', function() {
+    return `${this.get('status')}${this.get('suffix')}`;
+  }),
+
+  color: computed('status', function() {
     switch (this.get('status')) {
       case 'Draft':
         return 'text-warning';

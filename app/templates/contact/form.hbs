@@ -11,6 +11,7 @@
         placeholder="foo@bar.baz"
         autofocus=true
         focusOut=(action form.actions.autosave)
+        keyUp=(action form.actions.autosave 750)
       }}
       <div class="invalid-feedback">
         Please provide a valid email address.
@@ -30,6 +31,7 @@
         id="contact-given-name"
         placeholder="Jane"
         focusOut=(action form.actions.autosave)
+        keyUp=(action form.actions.autosave 750)
       }}
       <div class="invalid-feedback">
         Please provide a first name.
@@ -47,6 +49,7 @@
         id="contact-family-name"
         placeholder="Doe"
         focusOut=(action form.actions.autosave)
+        keyUp=(action form.actions.autosave 750)
       }}
       <div class="invalid-feedback">
         Please provide a last name.

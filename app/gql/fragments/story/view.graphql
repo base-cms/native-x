@@ -1,7 +1,11 @@
 #import 'fortnight/gql/fragments/story/list'
+#import 'fortnight/gql/fragments/image/view'
 
 fragment StoryFragment on Story {
   ...StoryListFragment
   teaser
   body
+  primaryImage {
+    ...ImageViewFragment
+  }
 }

@@ -1,11 +1,11 @@
 import Controller from '@ember/controller';
 import { inject } from '@ember/service';
-import { all } from 'rsvp';
 import { get } from '@ember/object';
 import moment from 'moment';
 import ActionMixin from 'fortnight/mixins/action-mixin';
 
 import updateStory from 'fortnight/gql/mutations/story/update';
+import storyImageDimensions from 'fortnight/gql/mutations/story/image-dimensions';
 
 export default Controller.extend(ActionMixin, {
   apollo: inject(),
@@ -14,12 +14,33 @@ export default Controller.extend(ActionMixin, {
 
   actions: {
     /**
+     * @param {object} instance The Froala component instance.
+     * @param {object} $img The jQuery image element of the inserted image.
+     * @param {string} response The JSON *stringified* response from the server.
+     */
+    async appendImageDimensions(instance, $img, response) {
+      const { storyId, imageId } = JSON.parse(response);
+      const { naturalWidth, naturalHeight } = $img[0];
+
+      const payload = {
+        width: naturalWidth,
+        height: naturalHeight,
+      };
+      const input = { storyId, imageId, payload };
+      const variables = { input };
+      try {
+        await this.get('apollo').mutate({ mutation: storyImageDimensions, variables }, 'storyImageDimensions');
+      } catch (e) {
+        this.get('graphErrors').show(e);
+      }
+    },
+
+    /**
      *
      * @param {object} fields
      */
     async update({ id, advertiser, title, teaser, body, publishedAt }) {
       this.startAction();
-      const promises = [];
       const payload = {
         title,
         teaser,
@@ -31,7 +52,6 @@ export default Controller.extend(ActionMixin, {
       const mutation = updateStory;
 
       try {
-        await all(promises);
         await this.get('apollo').mutate({ mutation, variables }, 'updateStory');
       } catch (e) {
         this.get('graphErrors').show(e);

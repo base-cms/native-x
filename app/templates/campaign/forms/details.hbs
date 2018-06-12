@@ -10,6 +10,7 @@
         id="campaign-name"
         placeholder="Name"
         focusOut=(action form.actions.autosave)
+        keyUp=(action form.actions.autosave 750)
       }}
       <div class="invalid-feedback">
         Please provide a campaign name.
@@ -49,6 +50,7 @@
         id="campaign-url"
         placeholder="https://www.domain.com..."
         focusOut=(action form.actions.autosave)
+        keyUp=(action form.actions.autosave 750)
       }}
       <div class="invalid-feedback">
         Please provide a valid URL.
@@ -85,6 +87,7 @@
         id="campaign-description"
         placeholder="A brief description of this campaign..."
         focusOut=(action form.actions.autosave)
+        keyUp=(action form.actions.autosave 750)
       }}
     </div>
   </div>

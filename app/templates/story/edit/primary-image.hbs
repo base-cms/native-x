@@ -1,0 +1,23 @@
+{{#model-form
+  model=model
+  shouldAutosave=true
+  onSubmit=(action "setPrimaryImage") as |form|
+}}
+  <div class="card-body">
+    {{ partial "story/forms/primary-image" }}
+  </div>
+  <div class="card-footer">
+    {{model-save-button disabled=isFormDisabled}}
+    <div class="btn-group float-right">
+      {{#if model.primaryImage}}
+        {{confirm-button
+          icon="cross"
+          label="Remove Image"
+          class="btn-danger"
+          disabled=isFormDisabled
+          onConfirm=(action "setPrimaryImage" (hash id=model.id primaryImage=null))
+        }}
+      {{/if}}
+    </div>
+  </div>
+{{/model-form}}

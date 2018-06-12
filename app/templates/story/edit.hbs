@@ -3,27 +3,12 @@
   {{#crumbs.item active=true}}{{ model.title }} ({{model.advertiser.name}}){{/crumbs.item}}
 {{/nav-breadcrumbs}}
 
-{{#model-form
-  model=model
-  shouldAutosave=true
-  onSubmit=(action "update") as |form|
-}}
-  <div class="card model-form">
-    <div class="card-header"></div>
-    <div class="card-body">
-      {{ partial "story/forms/full" }}
-    </div>
-    <div class="card-footer">
-      {{model-save-button disabled=isActionRunning}}
-      <div class="btn-group float-right">
-        {{confirm-button
-          icon="trash"
-          label="Delete"
-          class="btn-danger"
-          disabled=isActionRunning
-          onConfirm=(action "delete" model.id "story.index")
-        }}
-      </div>
-    </div>
+<div class="card model-form">
+  <div class="card-header">
+    <ul class="nav nav-pills card-header-pills" role="tablist">
+      <li class="nav-item">{{#link-to "story.edit.index" model.id class="nav-link" role="tab"}}Details{{/link-to}}</li>
+      <li class="nav-item">{{#link-to "story.edit.primary-image" model.id class="nav-link" role="tab"}}Primary Image{{/link-to}}</li>
+    </ul>
   </div>
-{{/model-form}}
+  {{outlet}}
+</div>

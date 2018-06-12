@@ -18,6 +18,7 @@ module.exports = function(defaults) {
         'lists',
         'link',
         'video',
+        'image',
         'url',
         'emoticons',
         'help',
@@ -25,6 +26,8 @@ module.exports = function(defaults) {
         'quote',
         'char_counter',
         'word_paste',
+        'draggable',
+        'align',
       ],
     },
   });
