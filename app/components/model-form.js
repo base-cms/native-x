@@ -1,5 +1,6 @@
 import Component from '@ember/component';
 import { set, get } from '@ember/object';
+import { debounce } from '@ember/runloop';
 
 export default Component.extend({
   tagName: 'form',
@@ -39,9 +40,13 @@ export default Component.extend({
   },
 
   actions: {
-    autosave() {
+    autosave(delay) {
       if (this.get('shouldAutosave')) {
-        this.triggerSubmit();
+        if (typeof delay === 'number') {
+          debounce(this, 'triggerSubmit', delay);
+        } else {
+          this.triggerSubmit();
+        }
       }
     },
     setAndAutosave(field, value) {
