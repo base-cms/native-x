@@ -11,6 +11,7 @@
         placeholder="Name"
         autofocus=true
         focusOut=(action form.actions.autosave)
+        keyUp=(action form.actions.autosave 750)
       }}
       <div class="invalid-feedback">
         Please provide a placement name.

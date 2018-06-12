@@ -10,6 +10,7 @@
           id="campaign.name"
           placeholder="Name"
           focusOut=(action form.update)
+          keyUp=(action form.actions.autosave 750)
         }}
       </div>
     </div>
@@ -26,6 +27,7 @@
           id="description"
           placeholder="Description"
           focusOut=(action form.update)
+          keyUp=(action form.actions.autosave 750)
         }}
       </div>
     </div>
@@ -56,6 +58,7 @@
           id="url"
           placeholder="URL"
           focusOut=(action form.update)
+          keyUp=(action form.actions.autosave 750)
         }}
       </div>
     </div>

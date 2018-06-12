@@ -12,6 +12,7 @@
         value=form.model.title
         placeholder="A Very Attractive Title"
         focusOut=(action form.actions.autosave)
+        keyUp=(action form.actions.autosave 750)
       }}
       <div class="invalid-feedback">
         Please provide a title for the creative that is at least 20 characters long.
@@ -38,6 +39,7 @@
         rows=4
         placeholder="A short description of your awesome link"
         focusOut=(action form.actions.autosave)
+        keyUp=(action form.actions.autosave 750)
       }}
       <div class="invalid-feedback">
         Please provide a teaser for the creative that is at least 40 characters long.
