@@ -10,6 +10,7 @@
         id="teaser"
         placeholder="Teaser"
         focusOut=(action form.actions.autosave)
+        keyUp=(action form.actions.autosave 750)
       }}
     </div>
     <div class="form-group">
@@ -20,6 +21,8 @@
         update=(action (mut form.model.body))
         on-image-inserted=(action "appendImageDimensions")
         on-image-replaced=(action "appendImageDimensions")
+        on-keyup=(action form.actions.autosave 750)
+        on-commands-after=(action form.actions.autosave 750)
         options=(hash
           toolbarStickyOffset=60
           imageDefaultAlign="left"
