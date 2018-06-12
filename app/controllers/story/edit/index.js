@@ -13,6 +13,11 @@ export default Controller.extend(ActionMixin, {
   startMin: moment().startOf('day'),
 
   actions: {
+    /**
+     * @param {object} instance The Froala component instance.
+     * @param {object} $img The jQuery image element of the inserted image.
+     * @param {string} response The JSON *stringified* response from the server.
+     */
     async appendImageDimensions(instance, $img, response) {
       const { storyId, imageId } = JSON.parse(response);
       const { naturalWidth, naturalHeight } = $img[0];
