@@ -20,9 +20,9 @@ export default Controller.extend(ActionMixin, {
       this.startAction();
       let payload;
       if (primaryImage) {
-        const { filePath, fileSize, focalPoint, height, mimeType, src, width } = primaryImage;
+        const { filePath, fileSize, focalPoint, height, mimeType, width } = primaryImage;
         const fp = { x: focalPoint.x, y: focalPoint.y };
-        payload = { filePath, fileSize, focalPoint: fp, height, mimeType, src, width };
+        payload = { filePath, fileSize, focalPoint: fp, height, mimeType, width };
       } else {
         payload = null;
       }

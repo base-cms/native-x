@@ -34,9 +34,9 @@ export default Controller.extend(ActionMixin, {
 
     async updateImage({ image }) {
       this.startAction();
-      const { filePath, fileSize, focalPoint, height, mimeType, src, width } = image;
+      const { filePath, fileSize, focalPoint, height, mimeType, width } = image;
       const fp = { x: focalPoint.x, y: focalPoint.y };
-      const payload = { filePath, fileSize, focalPoint: fp, height, mimeType, src, width };
+      const payload = { filePath, fileSize, focalPoint: fp, height, mimeType, width };
 
       const creativeId = this.get('model.id');
       const campaignId = this.get('campaignId');
