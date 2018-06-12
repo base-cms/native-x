@@ -27,6 +27,7 @@ module.exports = function(defaults) {
         'char_counter',
         'word_paste',
         'draggable',
+        'align',
       ],
     },
   });
