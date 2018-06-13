@@ -1,0 +1,6 @@
+fragment StoryImagesFragment on Story {
+  id
+  images {
+    id
+  }
+}

@@ -1,0 +1,7 @@
+#import 'fortnight/gql/fragments/story/images'
+
+mutation AddStoryImage($storyId: String!, $imageId: String!) {
+  addStoryImage(storyId: $storyId, imageId: $imageId) {
+	  ...StoryImagesFragment
+  }
+}

@@ -1,0 +1,7 @@
+#import 'fortnight/gql/fragments/image/view'
+
+mutation ImageDimensions($input: ImageDimensionsInput!) {
+  imageDimensions(input: $input) {
+    ...ImageViewFragment
+  }
+}
