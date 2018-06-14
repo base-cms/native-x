@@ -6,6 +6,4 @@ To begin development, run `yarn start`. Ensure the `base4-graph` [server](https:
 ## Environment Variables
 The following variables are required:
 ```
-HYDRA_API_KEY=
-HYDRA_GRAPH_URL=
 ```

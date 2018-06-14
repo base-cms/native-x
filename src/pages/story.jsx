@@ -13,13 +13,12 @@ import { Query } from 'react-apollo';
 import withApollo from '../apollo/client';
 
 const STORY = gql`
-  query Content($input: ContentIdInput!) {
-    content(input: $input) {
+  query Story($input: ModelIdInput!) {
+    story(input: $input) {
       id
       title
       teaser
-      text
-      slug
+      body
     }
   }
 `;
@@ -43,19 +42,19 @@ const Story = ({ id }) => {
               }
               if (error) return <p><strong>{error.message}</strong></p>;
 
-              const { content } = data;
+              const { story } = data;
 
               return (
                 <div>
                   <Head>
-                    <title>{content.title}</title>
-                    <meta name="description" content={content.teaser} />
+                    <title>{story.title}</title>
+                    <meta name="description" story={story.teaser} />
                   </Head>
                   <CardBody>
-                    <CardTitle tag="h1">{content.title}</CardTitle>
-                    <h3>{content.teaser}</h3>
+                    <CardTitle tag="h1">{story.title}</CardTitle>
+                    <h3>{story.teaser}</h3>
                     {/* eslint-disable-next-line react/no-danger */}
-                    <div dangerouslySetInnerHTML={createMarkup(content.text)} />
+                    <div dangerouslySetInnerHTML={createMarkup(story.body)} />
                   </CardBody>
                 </div>
               );
