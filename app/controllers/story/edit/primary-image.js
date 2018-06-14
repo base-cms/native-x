@@ -3,7 +3,8 @@ import { inject } from '@ember/service';
 import ActionMixin from 'fortnight/mixins/action-mixin';
 import { computed } from '@ember/object';
 
-import primaryImageStory from 'fortnight/gql/mutations/story/primary-image';
+import storyPrimaryImage from 'fortnight/gql/mutations/story/primary-image';
+import imageFocalPoint from 'fortnight/gql/mutations/image/focal-point';
 
 export default Controller.extend(ActionMixin, {
   apollo: inject(),
@@ -16,22 +17,29 @@ export default Controller.extend(ActionMixin, {
      *
      * @param {object} fields
      */
-    async setPrimaryImage({ id, primaryImage }) {
+    async setPrimaryImage(storyId, image) {
       this.startAction();
-      let payload;
-      if (primaryImage) {
-        const { filePath, fileSize, focalPoint, height, mimeType, width } = primaryImage;
-        const fp = { x: focalPoint.x, y: focalPoint.y };
-        payload = { filePath, fileSize, focalPoint: fp, height, mimeType, width };
-      } else {
-        payload = null;
+      const mutation = storyPrimaryImage;
+      const variables = { storyId };
+      if (image && image.id) {
+        variables.imageId = image.id;
       }
-
-      const mutation = primaryImageStory;
-      const input = { id, payload }
-      const variables = { input };
       try {
-        await this.get('apollo').mutate({ mutation, variables }, 'primaryImageStory');
+        await this.get('apollo').mutate({ mutation, variables }, 'storyPrimaryImage');
+      } catch (e) {
+        this.get('graphErrors').show(e);
+      } finally {
+        this.endAction();
+      }
+    },
+
+    async setImageFocalPoint(imageId, { x, y }) {
+      this.startAction();
+      const input = { id: imageId, x, y };
+      const variables = { input };
+      const mutation = imageFocalPoint;
+      try {
+        await this.get('apollo').mutate({ mutation, variables }, 'imageFocalPoint');
       } catch (e) {
         this.get('graphErrors').show(e);
       } finally {

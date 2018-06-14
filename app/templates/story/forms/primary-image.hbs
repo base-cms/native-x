@@ -3,7 +3,7 @@
     {{#image-uploader
       isLoading=isUploading
       onUploadStart=(action (mut form.model.primaryImage null))
-      onUploadSuccess=(action form.actions.setAndAutosave "primaryImage") as |uploader|
+      onUploadSuccess=(action "setPrimaryImage" form.model.id) as |uploader|
     }}
       <div class="form-group">
         <label for="creative-image">Upload Image</label>
@@ -42,10 +42,10 @@
     <div class="col-8">
       <h6>Image</h6>
       <small class="d-block">Click the image to set the focal point.</small>
-      {{campaign-creative/image
-        class="clickable"
-        image=form.model.primaryImage
-        onFocalPointChange=(action form.actions.autosave)
+      {{image-focal-point
+        class="img-thumbnail clickable"
+        src=form.model.primaryImage.src
+        on-click=(action "setImageFocalPoint" form.model.primaryImage.id)
       }}
     </div>
     <div class="col-4">
