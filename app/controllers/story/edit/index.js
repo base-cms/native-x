@@ -18,7 +18,7 @@ export default Controller.extend(ActionMixin, {
      * This fires on the Froala image `loaded` event. While the image is also related
      * to the story when first uploaded and embedded into the body, this action is
      * needed to account for a user undoing an image `remove` to ensure that the relationship
-     * is restored on the backend.
+     * is restored on the backend. It's also used during image `replace`.
      *
      * @param {string} storyId The story ID
      * @param {object} instance The Froala editor component instance.
@@ -52,6 +52,11 @@ export default Controller.extend(ActionMixin, {
         'linkBack',
         'insertImage',
         'imageByURL',
+        'imageLink',
+        'imageBack',
+        'imageSize',
+        'imageAlt',
+        'imageReplace',
         'imageUpload',
         'imageRemove',
         'insertVideo',
@@ -102,6 +107,7 @@ export default Controller.extend(ActionMixin, {
      *
      * This fires on the Froala image `removed` event.
      * Once the removal is complete, the story is saved.
+     * It's also used during image `replace`.
      *
      * @param {string} storyId The story ID
      * @param {function} save The autosave action/function to call.
