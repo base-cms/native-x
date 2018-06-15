@@ -6,10 +6,10 @@
       onUploadSuccess=(action "setPrimaryImage" form.model.id) as |uploader|
     }}
       <div class="form-group">
-        <label for="creative-image">Upload Image</label>
+        <label for="primary-image">Upload Image</label>
         <div class="custom-file">
           {{input-file
-            id="creative-image"
+            id="primary-image"
             class="custom-file-input"
             accept=uploader.accept
             disabled=isFormDisabled
