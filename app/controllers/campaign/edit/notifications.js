@@ -4,7 +4,7 @@ import { get } from '@ember/object';
 import { all } from 'rsvp';
 import ActionMixin from 'fortnight/mixins/action-mixin';
 
-import mutation from 'fortnight/gql/mutations/campaign/set-contacts';
+import mutation from 'fortnight/gql/mutations/campaign/contacts';
 
 export default Controller.extend(ActionMixin, {
   apollo: inject(),
@@ -17,7 +17,7 @@ export default Controller.extend(ActionMixin, {
         const contacts = get(notify, type) || [];
         const contactIds = contacts.map(contact => get(contact, 'id'));
         const variables = { input: { id, type, contactIds } };
-        promises.push(this.get('apollo').mutate({ mutation, variables }, 'setCampaignContacts'));
+        promises.push(this.get('apollo').mutate({ mutation, variables }, 'campaignContacts'));
       });
       try {
         await all(promises);

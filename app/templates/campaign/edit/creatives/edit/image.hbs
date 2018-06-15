@@ -1,7 +1,6 @@
 {{#model-form
   model=model
-  shouldAutosave=true
-  onSubmit=(action "updateImage") as |form|
+  shouldAutosave=false as |form|
 }}
   {{#bs-modal/body}}
     {{ partial "campaign/forms/creative-image" }}

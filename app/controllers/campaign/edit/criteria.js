@@ -5,7 +5,7 @@ import { isPresent } from '@ember/utils';
 import ActionMixin from 'fortnight/mixins/action-mixin';
 import moment from 'moment';
 
-import mutation from 'fortnight/gql/mutations/campaign/set-criteria';
+import mutation from 'fortnight/gql/mutations/campaign/criteria';
 
 export default Controller.extend(ActionMixin, {
   apollo: inject(),
@@ -33,7 +33,7 @@ export default Controller.extend(ActionMixin, {
       const payload = { start: startDate, end: endDate, placementIds, kvs: keyValues };
       const variables = { input: { campaignId: id, payload } };
       try {
-        await this.get('apollo').mutate({ mutation, variables }, 'setCampaignCriteria')
+        await this.get('apollo').mutate({ mutation, variables }, 'campaignCriteria')
       } catch (e) {
         this.get('graphErrors').show(e);
       } finally {

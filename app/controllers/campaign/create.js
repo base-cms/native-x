@@ -4,7 +4,7 @@ import { inject } from '@ember/service';
 import ActionMixin from 'fortnight/mixins/action-mixin';
 import moment from 'moment';
 
-import mutation from 'fortnight/gql/mutations/create-campaign';
+import mutation from 'fortnight/gql/mutations/campaign/create';
 
 export default Controller.extend(ActionMixin, {
   apollo: inject(),

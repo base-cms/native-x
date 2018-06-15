@@ -1,0 +1,7 @@
+#import 'fortnight/gql/fragments/campaign-criteria'
+
+mutation CampaignCriteria($input: CampaignCriteriaInput!) {
+  campaignCriteria(input: $input) {
+    ...CampaignCriteriaFragment
+  }
+}

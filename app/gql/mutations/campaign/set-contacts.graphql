@@ -1,7 +1,0 @@
-#import 'fortnight/gql/fragments/campaign/contacts'
-
-mutation SetCampaignContacts($input: SetContactsInput!) {
-	setCampaignContacts(input: $input) {
-		...CampaignContactsFragment
-	}
-}
