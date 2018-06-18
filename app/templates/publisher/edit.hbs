@@ -6,6 +6,7 @@
 {{#model-form
   model=model
   shouldAutosave=true
+  preValidate=(action "validateDomain")
   onSubmit=(action "update") as |form|
 }}
   <div class="card model-form">

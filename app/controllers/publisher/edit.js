@@ -1,6 +1,7 @@
 import Controller from '@ember/controller';
 import { inject } from '@ember/service';
 import { get, computed } from '@ember/object';
+import { isFQDN } from 'validator';
 import ActionMixin from 'fortnight/mixins/action-mixin';
 
 import updatePublisher from 'fortnight/gql/mutations/publisher/update';
@@ -13,6 +14,25 @@ export default Controller.extend(ActionMixin, {
   isFormDisabled: computed.or('isActionRunning', 'isUploading'),
 
   actions: {
+    /**
+     * Validates that the form's domain name is valid.
+     * Returning `false` will stop form validation.
+     * Setting a field's custom validity will force-fail the form validation.
+     *
+     * @param {object} instance The `model-form` component instance.
+     * @param {HTMLFormElement} form The publisher form element.
+     */
+    validateDomain(instance, form) {
+      const domain = form.elements['publisher-domain-name'];
+      if (!domain) return;
+
+      const { value } = domain;
+      if (!value) return;
+
+      const isValid = isFQDN(value);
+      domain.setCustomValidity(isValid ? '' : 'The provided domain name is invalid.');
+    },
+
     /**
      * Sets an image as the publisher's logo.
      *
@@ -38,9 +58,9 @@ export default Controller.extend(ActionMixin, {
      *
      * @param {object} fields
      */
-    async update({ id, name }) {
+    async update({ id, name, domainName }) {
       this.startAction();
-      const payload = { name };
+      const payload = { name, domainName };
       const variables = { input: { id, payload } };
       try {
         await this.get('apollo').mutate({ mutation: updatePublisher, variables }, 'updatePublisher');

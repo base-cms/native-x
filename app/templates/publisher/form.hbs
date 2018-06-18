@@ -9,7 +9,6 @@
         class="form-control"
         id="publisher-name"
         placeholder="Acme Corp."
-        autofocus=true
         focusOut=(action form.actions.autosave)
         keyUp=(action form.actions.autosave 750)
       }}
@@ -21,6 +20,29 @@
 </div>
 
 {{#if model.id}}
+  <div class="row">
+    <div class="col">
+      <div class="form-group">
+        <label for="publisher-domain-name">Custom Domain Name</label>
+        {{input
+          type="text"
+          value=form.model.domainName
+          class="form-control"
+          id="publisher-domain-name"
+          placeholder="www.domain.com"
+          aria-describedby="publisher-domain-name-help"
+          focusOut=(action form.actions.autosave)
+          keyUp=(action form.actions.autosave 750)
+        }}
+        <div class="invalid-feedback">
+          The provided domain name is invalid.
+        </div>
+        <small id="publisher-domain-name-help" class="form-text text-muted">
+          A custom domain where your story content will be served. Must have a CNAME entry in place before using.
+        </small>
+      </div>
+    </div>
+  </div>
   <div class="row">
     <div class="col">
       {{#image-uploader

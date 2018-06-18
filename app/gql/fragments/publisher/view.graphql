@@ -3,6 +3,7 @@
 
 fragment PublisherFragment on Publisher {
   ...PublisherListFragment
+  domainName
   logo {
     ...ImageSrcFragment
   }
