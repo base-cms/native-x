@@ -2,7 +2,7 @@ import Controller from '@ember/controller';
 import { inject } from '@ember/service';
 import ActionMixin from 'fortnight/mixins/action-mixin';
 
-import mutation from 'fortnight/gql/mutations/create-advertiser';
+import mutation from 'fortnight/gql/mutations/advertiser/create';
 
 export default Controller.extend(ActionMixin, {
   apollo: inject(),
