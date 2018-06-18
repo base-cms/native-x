@@ -2,7 +2,7 @@ import Controller from '@ember/controller';
 import { inject } from '@ember/service';
 import ActionMixin from 'fortnight/mixins/action-mixin';
 
-import mutation from 'fortnight/gql/mutations/create-publisher';
+import mutation from 'fortnight/gql/mutations/publisher/create';
 
 export default Controller.extend(ActionMixin, {
   apollo: inject(),
@@ -12,9 +12,9 @@ export default Controller.extend(ActionMixin, {
      *
      * @param {object} fields
      */
-    async create({ name, logo }) {
+    async create({ name }) {
       this.startAction();
-      const payload = { name, logo };
+      const payload = { name };
       const variables = { input: { payload } };
       try {
         const response = await this.get('apollo').mutate({ mutation, variables }, 'createPublisher');

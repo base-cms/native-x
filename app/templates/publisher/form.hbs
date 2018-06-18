@@ -20,22 +20,58 @@
   </div>
 </div>
 
-<div class="row">
-  <div class="col">
-    <div class="form-group mb-0">
-      <label for="publisher-logo">Logo URL</label>
-      {{input
-        type="url"
-        value=form.model.logo
-        class="form-control"
-        id="publisher-logo"
-        placeholder="https://some.domain/image.extension"
-        focusOut=(action form.actions.autosave)
-        keyUp=(action form.actions.autosave 750)
+{{#if model.id}}
+  <div class="row">
+    <div class="col">
+      {{#image-uploader
+        isLoading=isUploading
+        onUploadStart=(action (mut form.model.logo null))
+        onUploadSuccess=(action "setLogo") as |uploader|
       }}
-      <div class="invalid-feedback">
-        Please provide a valid URL, or leave empty.
-      </div>
+        <div class="form-group">
+          <label for="logo">Upload Image</label>
+          <div class="custom-file">
+            {{input-file
+              id="logo"
+              class="custom-file-input"
+              accept=uploader.accept
+              disabled=isFormDisabled
+              on-files-changed=(action uploader.actions.upload)
+            }}
+            <label class="custom-file-label" for="customFile">Choose file</label>
+            <div class="invalid-feedback">
+              Please select an image for upload.
+            </div>
+          </div>
+        </div>
+        {{#if uploader.error}}
+          <div class="alert alert-danger mt-3 mb-0" role="alert">
+            <strong>Oh Snap!</strong> {{uploader.error.message}}
+          </div>
+        {{/if}}
+
+        {{#if uploader.isLoading}}
+          <small class="mb-0">Uploading image...</small>
+          {{progress-bar show=uploader.isLoading}}
+        {{/if}}
+
+      {{/image-uploader}}
     </div>
   </div>
-</div>
+
+  {{#if form.model.logo}}
+    <div class="row">
+      <div class="col-md-6">
+        <h6>Logo</h6>
+        <img class="img-thumbnail img-fluid mb-3" src="{{form.model.logo.src}}">
+        {{confirm-button
+          icon="cross"
+          label="Remove Logo"
+          class="btn-danger"
+          disabled=isFormDisabled
+          onConfirm=(action "setLogo")
+        }}
+      </div>
+    </div>
+  {{/if}}
+{{/if}}
