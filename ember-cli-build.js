@@ -48,5 +48,11 @@ module.exports = function(defaults) {
     ]
   });
 
+  app.import('node_modules/validator/validator.min.js', {
+    using: [
+      { transformation: 'amd', as: 'validator' }
+    ]
+  });
+
   return app.toTree();
 };
