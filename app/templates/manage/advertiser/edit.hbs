@@ -1,0 +1,28 @@
+{{#nav-breadcrumbs as |crumbs|}}
+  {{#crumbs.item}}{{#link-to "manage.advertiser.index"}}{{entypo-icon "news"}} Advertisers{{/link-to}}{{/crumbs.item}}
+  {{#crumbs.item active=true}}{{ model.name }}{{/crumbs.item}}
+{{/nav-breadcrumbs}}
+
+{{#model-form
+  model=model
+  shouldAutosave=true
+  onSubmit=(action "update") as |form|
+}}
+  <div class="card model-form">
+    <div class="card-header"></div>
+    <div class="card-body">
+      {{ partial "manage/advertiser/form" }}
+    </div>
+    <div class="card-footer">
+      <div class="btn-group float-right">
+        {{confirm-button
+          icon="trash"
+          label="Delete"
+          class="btn-danger"
+          disabled=isActionRunning
+          onConfirm=(action "delete" model.id "manage.advertiser.index")
+        }}
+      </div>
+    </div>
+  </div>
+{{/model-form}}

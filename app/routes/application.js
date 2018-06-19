@@ -40,12 +40,5 @@ export default Route.extend(ApplicationRouteMixin, ActionMixin, {
         this.intermediateTransitionTo('application_error', e);
       }
     },
-
-    hardDelete() {
-      this.get('notify').warning('Sorry, this item cannot be deleted.');
-    },
-    softDelete() {
-      this.get('notify').warning('Sorry, this item cannot be deleted.');
-    },
   }
 });
