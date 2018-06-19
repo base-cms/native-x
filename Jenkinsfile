@@ -50,7 +50,7 @@ node {
       }
 
       stage('Trigger Deployment') {
-        build job: 'nativex-app', parameters: [string(name: 'BUILD_NUM', value: "${env.BUILD_NUMBER}")], wait: false
+        build job: 'Custom Deployments/nativex-app', parameters: [string(name: 'BUILD_NUM', value: "${env.BUILD_NUMBER}")], wait: false
       }
     } catch (e) {
       slackSend color: 'bad', message: "Failed deploying ${env.JOB_NAME} #${env.BUILD_NUMBER} (<${env.BUILD_URL}|View>)"
