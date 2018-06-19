@@ -1,5 +1,6 @@
 fragment AdvertiserListFragment on Advertiser {
   id
+  hash
   name
   updatedAt
   campaignCount

@@ -57,7 +57,9 @@ Router.map(function() {
     });
   });
 
-  this.route('portal');
+  this.route('portal', { path: ':hash' }, function() {
+
+  });
 
   this.route('login');
   this.route('logout');
