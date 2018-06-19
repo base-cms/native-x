@@ -3,6 +3,8 @@
     {{#each model.creatives as |creative|}}
       <div class="mb-3 col-12 col-md-6 col-lg-4">
         {{campaign-creative
+          canModifyStatus=true
+          canRemove=true
           creativeId=creative.id
           campaignId=model.id
           title=creative.title

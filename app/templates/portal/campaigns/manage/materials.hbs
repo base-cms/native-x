@@ -1,14 +1,14 @@
-<div class="container mt-3">
+<div class="container mt-4">
   <div class="row">
-    <div class="col-12 col-lg-8 mx-auto">
+    <div class="col-12 col-lg-9 mx-auto">
 
 
-      <h3 class="font-weight-bold text-muted">
+      <h3 class="font-weight-bold text-muted mb-4">
         <span class="text-uppercase">Ad Builder</span>
         <span class="h6 text-muted">Please submit your native ad campaign.</span>
       </h3>
 
-      <div class="card">
+      <div class="card mb-4 border-0 z-depth-half">
         <div class="card-body">
           <h5 class="card-title font-weight-bold text-uppercase text-danger mb-0">
             Campaign
@@ -40,6 +40,35 @@
 
         </div>
       </div>
+
+      <div class="card mb-4 border-0 z-depth-half">
+        <div class="card-body">
+          <h5 class="card-title font-weight-bold text-uppercase text-info mb-0">
+            Creatives
+          </h5>
+          <div class="text-muted mb-3">
+            Build your native ad unit.
+          </div>
+
+          <div class="row">
+            {{#each model.creatives as |creative|}}
+              <div class="mb-3 col-12 col-lg-6">
+                {{campaign-creative
+                  editRouteName="portal.campaigns.manage.materials.creatives.edit"
+                  creativeId=creative.id
+                  campaignId=model.id
+                  title=creative.title
+                  teaser=creative.teaser
+                  status=creative.status
+                  image=creative.image
+                }}
+              </div>
+            {{/each}}
+          </div>
+
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
