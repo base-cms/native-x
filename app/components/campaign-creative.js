@@ -14,6 +14,7 @@ export default Component.extend(ActionMixin, {
 
   canModifyStatus: false,
   canRemove: false,
+  displayEditButton: false,
   editRouteName: 'manage.campaign.edit.creatives.edit',
 
   apollo: inject(),

@@ -22,6 +22,12 @@
 
 </div>
 <div class="card-footer d-flex justify-content-between">
+  {{#if displayEditButton}}
+    {{#link-to editRouteName creativeId class="btn btn-sm btn-success"}}
+      {{entypo-icon "pencil"}} Edit
+    {{/link-to}}
+  {{/if}}
+
   {{#if canModifyStatus}}
     {{campaign-creative/status-selector status=status disabled=isActionRunning onChange=(action "updateStatus")}}
   {{/if}}
