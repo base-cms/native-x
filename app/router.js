@@ -58,7 +58,12 @@ Router.map(function() {
   });
 
   this.route('portal', { path: ':hash' }, function() {
-
+    this.route('campaigns', function() {
+      this.route('manage', { path: ':id' }, function() {
+        this.route('materials');
+        this.route('report');
+      });
+    });
   });
 
   this.route('login');
