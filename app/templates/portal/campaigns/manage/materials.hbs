@@ -55,6 +55,7 @@
               <div class="mb-3 col-12 col-lg-6">
                 {{campaign-creative
                   editRouteName="portal.campaigns.manage.materials.creatives.edit"
+                  displayEditButton=true
                   creativeId=creative.id
                   campaignId=model.id
                   title=creative.title
@@ -64,6 +65,17 @@
                 }}
               </div>
             {{/each}}
+            <div class="mb-3 col-12 col-lg-6">
+              <div class="card mnh-100 border-success clickable">
+                <div class="card-body text-center text-success d-flex flex-column justify-content-center">
+                  <div>
+                    {{entypo-icon "circle-with-plus" class="h1"}}
+                    <br>
+                    <span class="h4">Add Creative</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
         </div>
