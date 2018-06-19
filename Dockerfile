@@ -1,4 +1,4 @@
 FROM nginx:stable
 
 COPY default.conf /etc/nginx/conf.d/default.conf
-COPY dist/ /usr/share/nginx/html/manage
+COPY dist/ /usr/share/nginx/html/app
