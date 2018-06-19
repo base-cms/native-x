@@ -1,19 +1,16 @@
 {{#if user.isAuthenticated}}
   <li class="nav-item dropdown">
-    {{#link-to this.currentPath
+    {{#link-to this.target.currentRouteName
       id="navbar-dropdown-manage"
       diabled=true
       data-toggle="dropdown"
       class="nav-link dropdown-toggle"
       title="Manage Data Objects"
-      current-when="publisher placement template contact"
+      current-when="manage.publisher manage.placement manage.template manage.contact"
     }}
       {{entypo-icon "tools"}} <span class="d-none d-md-inline">Manage</span>
     {{/link-to}}
 
-    {{!-- <a class="nav-link dropdown-toggle" title="Manage Data Objects" href="javascript:void(0)" id="navbar-dropdown-manage" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      {{entypo-icon "tools"}} <span class="d-none d-md-inline">Manage</span>
-    </a> --}}
     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-dropdown-manage">
       {{#link-to "manage.publisher" class="dropdown-item d-flex justify-content-between" title="Manage Publishers"}}
         Publishers
