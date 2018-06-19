@@ -1,0 +1,7 @@
+#import 'fortnight/gql/fragments/publisher/view'
+
+mutation PublisherLogo($input: PublisherLogoInput!) {
+  publisherLogo(input: $input) {
+    ...PublisherFragment
+  }
+}

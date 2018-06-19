@@ -1,0 +1,113 @@
+<div class="row">
+  <div class="col">
+    <div class="form-group">
+      <label for="name">Name {{required-field-label}}</label>
+      {{input
+        type="text"
+        required=true
+        value=form.model.name
+        class="form-control"
+        id="name"
+        placeholder="Name"
+        focusOut=(action form.actions.autosave)
+        keyUp=(action form.actions.autosave 750)
+      }}
+      <div class="invalid-feedback">
+        Please provide an advertiser name.
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <div class="form-group">
+      <label>Internal Contacts</label>
+      {{#type-ahead
+        multiple=true
+        wasFormValidated=form.wasValidated
+        triggerClass="form-control"
+        placeholder="Begin typing to search..."
+        type="contact"
+        closeOnSelect=true
+        onChange=(action form.actions.autosave)
+        selected=form.model.notify.internal as |item|
+      }}
+        {{item.name}} <span class="text-muted">[{{item.email}}]</span>
+      {{/type-ahead}}
+    </div>
+  </div>
+  <div class="col">
+    <div class="form-group">
+      <label>External Contacts</label>
+      {{#type-ahead
+        multiple=true
+        wasFormValidated=form.wasValidated
+        triggerClass="form-control"
+        placeholder="Begin typing to search..."
+        type="contact"
+        closeOnSelect=true
+        onChange=(action form.actions.autosave)
+        selected=form.model.notify.external as |item|
+      }}
+        {{item.name}} <span class="text-muted">[{{item.email}}]</span>
+      {{/type-ahead}}
+    </div>
+  </div>
+</div>
+
+{{#if model.id}}
+  <div class="row">
+    <div class="col">
+      {{#image-uploader
+        isLoading=isUploading
+        onUploadStart=(action (mut form.model.logo null))
+        onUploadSuccess=(action "setLogo") as |uploader|
+      }}
+        <div class="form-group">
+          <label for="logo">Upload Image</label>
+          <div class="custom-file">
+            {{input-file
+              id="logo"
+              class="custom-file-input"
+              accept=uploader.accept
+              disabled=isFormDisabled
+              on-files-changed=(action uploader.actions.upload)
+            }}
+            <label class="custom-file-label" for="customFile">Choose file</label>
+            <div class="invalid-feedback">
+              Please select an image for upload.
+            </div>
+          </div>
+        </div>
+        {{#if uploader.error}}
+          <div class="alert alert-danger mt-3 mb-0" role="alert">
+            <strong>Oh Snap!</strong> {{uploader.error.message}}
+          </div>
+        {{/if}}
+
+        {{#if uploader.isLoading}}
+          <small class="mb-0">Uploading image...</small>
+          {{progress-bar show=uploader.isLoading}}
+        {{/if}}
+
+      {{/image-uploader}}
+    </div>
+  </div>
+
+  {{#if form.model.logo}}
+    <div class="row">
+      <div class="col-md-6">
+        <h6>Logo</h6>
+        <p><img class="img-thumbnail img-fluid" src="{{form.model.logo.src}}"></p>
+        {{confirm-button
+          icon="cross"
+          label="Remove Logo"
+          class="btn-danger"
+          disabled=isFormDisabled
+          onConfirm=(action "setLogo")
+        }}
+      </div>
+    </div>
+  {{/if}}
+{{/if}}

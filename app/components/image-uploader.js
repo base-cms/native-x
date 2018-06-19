@@ -1,23 +1,19 @@
 import Component from '@ember/component';
-import ComponentQueryManager from 'ember-apollo-client/mixins/component-query-manager';
 import fetch from 'fetch';
 import filesize from 'filesize';
 import ImageInfo from 'fortnight/objects/image-info';
 import { inject } from '@ember/service';
 
-import query from 'fortnight/gql/queries/sign-image-upload';
 
-export default Component.extend(ComponentQueryManager, {
+export default Component.extend({
   imageLoader: inject(),
 
   minWidth: 320,
   minHeight: 180,
   maxSize: 5242880,
 
-  accept: 'image/jpeg, image/png, image/gif',
+  accept: 'image/jpeg, image/png, image/gif, image/webm',
   isLoading: false,
-
-  imgixDomain: 'https://fortnight.imgix.net',
 
   /**
    * Validates the image based on its info.
@@ -47,10 +43,9 @@ export default Component.extend(ComponentQueryManager, {
   },
 
   actions: {
-    async uploadImage(files) {
+    async uploadImage(files, preload = true) {
       this.sendEvent('onUploadStart');
       this.set('isLoading', true);
-      this.set('image', null);
       this.set('error', null);
 
       try {
@@ -58,21 +53,23 @@ export default Component.extend(ComponentQueryManager, {
         const info = ImageInfo.create({ file });
         await info.load();
 
-        const { name, bytes, type, width, height } = info;
-        const input = { name, size: bytes, type };
-        const variables = { input };
+        const { width, height } = info;
 
-        const { key, url } = await this.get('apollo').query({ query, variables }, 'signImageUpload');
-        const src = `${this.get('imgixDomain')}/${key}`;
-        await fetch(url, { method: 'PUT', headers: { 'Content-Type': type }, body: file });
-        const focalPoint = { x: 0.5, y: 0.5 };
-        const image = { filePath: key, src, mimeType: type, fileSize: bytes, width, height, focalPoint };
+        const data = new FormData();
+        data.append('width', width);
+        data.append('height', height);
+        data.append('file', file);
 
-        // Load the image from source so it's in memory.
-        await this.get('imageLoader').loadFromSource(src);
+        const response = await fetch('/upload/image', { method: 'POST', body: data });
+        const json = await response.json();
 
-        this.set('image', image);
-        this.sendEvent('onUploadSuccess', image);
+        if (preload) {
+          // @todo This uploader should show the file as loaded into the browser,
+          // but keep it grayed out until the upload process is complete.
+          // Then there is not need to preload the image.
+          await this.get('imageLoader').loadFromSource(json.link);
+        }
+        await this.sendEvent('onUploadSuccess', json);
       } catch(e) {
         this.set('error', e);
         this.sendEvent('onUploadError', e);

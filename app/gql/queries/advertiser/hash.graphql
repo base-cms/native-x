@@ -1,0 +1,7 @@
+#import 'fortnight/gql/fragments/advertiser/view'
+
+query AdvertiserHash($input: AdvertiserHashInput!) {
+  advertiserHash(input: $input) {
+    ...AdvertiserFragment
+  }
+}

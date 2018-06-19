@@ -1,7 +1,0 @@
-#import 'fortnight/gql/fragments/campaign/details'
-
-mutation CreateCampaign($input: CreateCampaignInput!) {
-	createCampaign(input: $input) {
-    ...CampaignDetailsFragment
-	}
-}

@@ -1,0 +1,19 @@
+{{#model-form
+  model=model
+  shouldAutosave=false as |form|
+}}
+  <div class="card-body">
+    {{ partial "manage/story/forms/primary-image" }}
+  </div>
+  <div class="card-footer text-right">
+    {{#if model.primaryImage}}
+      {{confirm-button
+        icon="cross"
+        label="Remove Image"
+        class="btn-danger"
+        disabled=isFormDisabled
+        onConfirm=(action "setPrimaryImage" model.id)
+      }}
+    {{/if}}
+  </div>
+{{/model-form}}

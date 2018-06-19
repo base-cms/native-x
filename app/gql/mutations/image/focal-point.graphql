@@ -1,0 +1,9 @@
+mutation ImageFocalPoint($input: ImageFocalPointInput!) {
+  imageFocalPoint(input: $input) {
+    id
+    focalPoint {
+      x
+      y
+    }
+  }
+}

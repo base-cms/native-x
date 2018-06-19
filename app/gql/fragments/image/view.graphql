@@ -1,8 +1,8 @@
 fragment ImageViewFragment on Image {
   id
   src
-  fileSize
-  filePath
+  size
+  filename
   height
   width
   mimeType

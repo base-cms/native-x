@@ -3,6 +3,7 @@
 
 fragment StoryFragment on Story {
   ...StoryListFragment
+  slug
   teaser
   body
   primaryImage {

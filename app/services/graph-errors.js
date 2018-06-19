@@ -4,6 +4,7 @@ import $ from 'jquery';
 
 export default Service.extend({
   notify: inject(),
+  user: inject(),
 
   isReady() {
     const element = $('.ember-notify-default');
@@ -12,6 +13,10 @@ export default Service.extend({
   },
 
   handle(e) {
+    if (e.message === 'GraphQL error: You must be logged-in to access this resource.') {
+      this.get('user').logout();
+      e.loggingOut = true;
+    }
     // eslint-disable-next-line no-console
     console.error(e);
     if (isPresent(e.errors) && isPresent(e.errors[0])) {
@@ -44,6 +49,8 @@ export default Service.extend({
 
   show(e) {
     const error = this.handle(e);
-    this.get('notify').error(error.message, { closeAfter: null });
+    if (!e.loggingOut) {
+      this.get('notify').error(error.message, { closeAfter: null });
+    }
   }
 });

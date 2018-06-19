@@ -1,0 +1,105 @@
+<h5>Campaign Summary</h5>
+
+<hr>
+<div class="row">
+  <div class="col d-flex justify-content-between">
+    <span>{{entypo-icon "calendar"}} Starts</span>  {{if model.criteria.start (moment-format model.criteria.start "MMM Do, YYYY @ h:mma") "Never"}}
+  </div>
+</div>
+<div class="row">
+  <div class="col d-flex justify-content-between">
+    <span>{{entypo-icon "calendar"}} Ends</span> {{if model.criteria.end (moment-format model.criteria.end "MMM Do, YYYY @ h:mma") "Never"}}
+  </div>
+</div>
+<div class="row">
+  <div class="col d-flex justify-content-between">
+    <span>{{entypo-icon "flag"}} Status</span> {{campaign-status value=model.status}}
+  </div>
+</div>
+
+<hr>
+<h6>Links</h6>
+{{log model.advertiser.hash model.hash}}
+<div class="row">
+  <div class="col">
+    {{entypo-icon "link"}}
+    {{#link-to "portal.campaigns.manage.materials" model.advertiser.hash model.hash target="_blank" rel="noopener noreferrer"}}Material Collection Link{{/link-to}}
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    {{entypo-icon "link"}}
+    {{#link-to "portal.campaigns.manage.report" model.advertiser.hash model.hash target="_blank" rel="noopener noreferrer"}}Report Link{{/link-to}}
+  </div>
+</div>
+{{#each model.externalLinks as |link|}}
+  <div class="row">
+    <div class="col">
+      {{entypo-icon "link"}}
+      <a href="{{link.url}}" target="_blank" rel="noopener noreferrer">{{link.label}}</a>
+    </div>
+  </div>
+{{/each}}
+
+<hr>
+<h6>Placements</h6>
+{{#each model.criteria.placements as |placement|}}
+  <div class="row">
+    <div class="col">
+      {{entypo-icon "browser"}} {{placement.name}}
+      <small class="text-muted">[{{placement.publisher.name}}]</small>
+    </div>
+  </div>
+{{else}}
+  <div class="row">
+    <div class="col">
+      <small class="text-warning">No placemets set for this campaign.</small>
+    </div>
+  </div>
+{{/each}}
+
+{{#if model.criteria.kvs.length}}
+  <hr>
+  <h6>Custom Variables</h6>
+  {{#each model.criteria.kvs as |kv|}}
+    <div class="row">
+      <div class="col">
+        {{entypo-icon "key"}} {{kv.key}} = <code class="text-muted">{{kv.value}}</code>
+      </div>
+    </div>
+  {{/each}}
+{{/if}}
+
+<hr>
+<h6>Internal Notifications</h6>
+{{#each model.notify.internal as |contact|}}
+  <div class="row">
+    <div class="col">
+      {{entypo-icon "email"}} {{#link-to "manage.contact.edit" contact.id title=contact.email}}{{ contact.name }}{{/link-to}}
+      <small class="text-muted">[{{contact.email}}]</small>
+    </div>
+  </div>
+{{else}}
+  <div class="row">
+    <div class="col">
+      <small class="text-muted">No internal notifications for this campaign.</small>
+    </div>
+  </div>
+{{/each}}
+
+<hr>
+<h6>External Notifications</h6>
+{{#each model.notify.external as |contact|}}
+  <div class="row">
+    <div class="col">
+      {{entypo-icon "email"}} {{#link-to "manage.contact.edit" contact.id title=contact.email}}{{ contact.name }}{{/link-to}}
+      <small class="text-muted">[{{contact.email}}]</small>
+    </div>
+  </div>
+{{else}}
+  <div class="row">
+    <div class="col">
+      <small class="text-muted">No external notifications for this campaign.</small>
+    </div>
+  </div>
+{{/each}}

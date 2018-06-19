@@ -1,7 +1,0 @@
-#import 'fortnight/gql/fragments/publisher/view'
-
-mutation updatePublisher($input: UpdatePublisherInput!) {
-	updatePublisher(input: $input) {
-    ...PublisherFragment
-	}
-}

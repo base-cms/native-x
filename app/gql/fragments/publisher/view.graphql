@@ -1,6 +1,10 @@
 #import 'fortnight/gql/fragments/publisher/list'
+#import 'fortnight/gql/fragments/image/src'
 
 fragment PublisherFragment on Publisher {
   ...PublisherListFragment
-  logo
+  domainName
+  logo {
+    ...ImageSrcFragment
+  }
 }

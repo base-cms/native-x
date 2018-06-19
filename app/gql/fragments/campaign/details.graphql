@@ -7,6 +7,10 @@ fragment CampaignDetailsFragment on Campaign {
   description
   url
   hash
+  advertiser {
+    id
+    hash
+  }
   criteria {
     ...CampaignCriteriaFragment
   }

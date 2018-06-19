@@ -1,0 +1,46 @@
+{{partial "manage/story/forms/create"}}
+<hr>
+<div class="row">
+  <div class="col">
+    <div class="form-group">
+      <label for="teaser">Teaser</label>
+      {{textarea
+        value=form.model.teaser
+        class="form-control"
+        id="teaser"
+        placeholder="Teaser"
+        focusOut=(action form.actions.autosave)
+        keyUp=(action form.actions.autosave 750)
+      }}
+    </div>
+    <div class="form-group">
+      <label for="body">Body</label>
+      {{froala-editor
+        content=form.model.body
+        on-blur=(action form.actions.autosave)
+        update=(action (mut form.model.body))
+        on-image-loaded=(action "addImageToStory" form.model.id)
+        on-image-inserted=(action "sendDimensionsAndSave" form.actions.autosave)
+        on-image-removed=(action "removeImageFromStory" form.model.id form.actions.autosave)
+        on-keyup=(action form.actions.autosave 750)
+        on-commands-after=(action "autosave" form.actions.autosave)
+        options=(hash
+          toolbarStickyOffset=60
+          imageDefaultAlign="left"
+          imageDefaultDisplay="inline"
+          paragraphFormat=(hash
+            N="Normal"
+            H2="Heading 2"
+            H3="Heading 3"
+            H4="Heading 4"
+          )
+          paragraphFormatSelection=true
+          imageUploadURL="/upload/story-image"
+          imageUploadParams=(hash
+            storyId=form.model.id
+          )
+        )
+      }}
+    </div>
+  </div>
+</div>

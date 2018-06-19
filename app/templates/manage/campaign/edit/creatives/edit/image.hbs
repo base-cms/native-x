@@ -1,0 +1,11 @@
+{{#model-form
+  model=model
+  shouldAutosave=false as |form|
+}}
+  {{#bs-modal/body}}
+    {{ partial "manage/campaign/forms/creative-image" }}
+  {{/bs-modal/body}}
+
+  {{#bs-modal/footer class="d-flex justify-content-between"}}
+  {{/bs-modal/footer}}
+{{/model-form}}

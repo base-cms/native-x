@@ -1,0 +1,8 @@
+#import 'fortnight/gql/fragments/image/view'
+
+fragment StoryPrimaryImageFragment on Story {
+  id
+  primaryImage {
+    ...ImageViewFragment
+  }
+}

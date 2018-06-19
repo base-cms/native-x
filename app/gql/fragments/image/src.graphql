@@ -1,0 +1,4 @@
+fragment ImageSrcFragment on Image {
+  id
+  src
+}

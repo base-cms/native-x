@@ -1,7 +1,7 @@
-#import 'fortnight/gql/fragments/story/view'
+#import 'fortnight/gql/fragments/story/primary-image'
 
-mutation PrimaryImageStory($input: StoryPrimaryImageInput!) {
-  primaryImageStory(input: $input) {
-    ...StoryFragment
+mutation StoryPrimaryImage($storyId: String!, $imageId: String) {
+  storyPrimaryImage(storyId: $storyId, imageId: $imageId) {
+    ...StoryPrimaryImageFragment
   }
 }

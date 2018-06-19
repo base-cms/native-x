@@ -17,16 +17,33 @@ export default Component.extend({
     this._super(...arguments);
     if (!this.get('model')) this.set('model', {});
 
-    const fn = this.get('onInit');
-    if (typeof fn === 'function') fn(this);
+    this.sendEvent('onInit');
   },
 
-  submit(event) {
+  sendEvent(name, ...args) {
+    const fn = this.get(name);
+    if (typeof fn === 'function') {
+      return fn(this, ...args);
+    }
+  },
+
+  /**
+   * Submits the form.
+   * Will fire the `preValidate` event/action and will stop validation if false.
+   * The event is also asynchronous.
+   * Will fire the `onSubmit` event/action when valid.
+   *
+   * @param {*} event
+   */
+  async submit(event) {
     const form = this.element;
     event.preventDefault();
     event.stopPropagation();
 
     const model = this.get('model');
+
+    const preValidate = await this.sendEvent('preValidate', form, model);
+    if (preValidate === false) return false;
 
     const isValid = form.checkValidity();
     form.classList.add('was-validated');
