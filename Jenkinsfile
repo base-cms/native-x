@@ -35,7 +35,7 @@ node {
       }
     } catch (e) {
       slackSend color: 'bad', message: "Failed building ${env.JOB_NAME} #${env.BUILD_NUMBER} (<${env.BUILD_URL}|View>)"
-      process.exit(1)
+      throw e
     }
 
     try {
@@ -54,7 +54,7 @@ node {
       }
     } catch (e) {
       slackSend color: 'bad', message: "Failed deploying ${env.JOB_NAME} #${env.BUILD_NUMBER} (<${env.BUILD_URL}|View>)"
-      process.exit(1)
+      throw e
     }
   }
 }
