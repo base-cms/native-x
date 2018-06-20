@@ -9,22 +9,24 @@ export default ApolloService.extend({
 
   link: computed(function() {
     const httpLink = this._super(...arguments);
-
-    const authLink = setContext((request, context) => {
-      return this._runAuthorize(request, context);
+    const authMiddleware = setContext((req, ctx) => {
+      return this._runAuthorize(req, ctx);
     });
-    return authLink.concat(httpLink);
+    return authMiddleware.concat(httpLink);
   }),
 
-  _runAuthorize() {
+  _runAuthorize(req, ctx) {
+    const { advertiserHash, campaignHash } = ctx;
+    const headers = {
+      'X-Portal-Context': JSON.stringify({ advertiserHash, campaignHash }),
+    };
+
     if (!this.get('session.isAuthenticated')) {
-      return {};
+      return headers;
     }
     return new Promise((resolve) => {
       const data = this.get('session.data.authenticated.session');
-      const headers = {
-        'Authorization': `Bearer ${get(data, 'token')}`,
-      }
+      headers['Authorization'] = `Bearer ${get(data, 'token')}`;
       resolve({ headers })
     });
   }
