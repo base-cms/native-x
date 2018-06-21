@@ -25,11 +25,12 @@ export default Service.extend({
    * @param {object} focalPoint
    * @param {number} focalPoint.x
    * @param {number} focalPoint.y
+   * @param {object} context
    */
-  setImageFocalPoint(imageId, { x, y }) {
+  setImageFocalPoint(imageId, { x, y }, context) {
     const input = { id: imageId, x, y };
     const variables = { input };
     const mutation = imageFocalPoint;
-    return this.get('apollo').mutate({ mutation, variables }, 'imageFocalPoint');
+    return this.get('apollo').mutate({ mutation, variables, context }, 'imageFocalPoint');
   },
 });
