@@ -18,11 +18,11 @@ export default ApolloService.extend({
   _runAuthorize(req, ctx) {
     const { advertiserHash, campaignHash } = ctx;
     const headers = {
-      'X-Portal-Context': JSON.stringify({ advertiserHash, campaignHash }),
+      'X-Portal-Context': JSON.stringify({ advertiser: advertiserHash, campaign: campaignHash }),
     };
 
     if (!this.get('session.isAuthenticated')) {
-      return headers;
+      return { headers };
     }
     return new Promise((resolve) => {
       const data = this.get('session.data.authenticated.session');
