@@ -18,25 +18,34 @@
             model.campaign.criteria.end "MM/DD/YYYY"}}{{/if}} {{#if model.campaign.description}} | {{ model.campaign.description }} {{/if}}
           </div>
 
-          <div class="form-group mb-0">
-            <label for="campaign-url" class="font-weight-bold text-muted">Click URL {{required-field-label}}</label>
-            {{!-- @todo Ensure this uses custom validation for the URL --}}
-            {{input
-              id="campaign-url"
-              class="form-control"
-              type="url"
-              aria-describedby="campaign-url-help"
-              pattern="https?://.+"
-              required=true
-              value=model.campaign.url
-            }}
-            <div class="invalid-feedback">
-              Please enter a valid URL.
+          {{#model-form
+            model=model.campaign
+            shouldAutosave=true
+            preValidate=(action "validateUrl")
+            onSubmit=(action "updateUrl") as |form|
+          }}
+            <div class="form-group mb-0">
+              <label for="campaign-url" class="font-weight-bold text-muted">Click URL {{required-field-label}}</label>
+              {{!-- @todo Ensure this uses custom validation for the URL --}}
+              {{input
+                id="campaign-url"
+                class="form-control"
+                type="url"
+                aria-describedby="campaign-url-help"
+                pattern="https?://.+"
+                required=true
+                value=form.model.url
+                focusOut=(action form.actions.autosave)
+                keyUp=(action form.actions.autosave 750)
+              }}
+              <div class="invalid-feedback">
+                Please enter a valid URL.
+              </div>
+              <small id="campaign-url-help" class="form-text text-muted">
+                The link must start with <code>http://</code> or <code>https://</code>
+              </small>
             </div>
-            <small id="campaign-url-help" class="form-text text-muted">
-              The link must start with <code>http://</code> or <code>https://</code>
-            </small>
-          </div>
+          {{/model-form}}
 
         </div>
       </div>
