@@ -14,8 +14,10 @@ export default Service.extend({
 
   handle(e) {
     if (e.message === 'GraphQL error: You must be logged-in to access this resource.') {
-      this.get('user').logout();
-      e.loggingOut = true;
+      if (this.get('user.isAuthenticated')) {
+        this.get('user').logout();
+        e.loggingOut = true;
+      }
     }
     // eslint-disable-next-line no-console
     console.error(e);
