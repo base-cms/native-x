@@ -23,7 +23,7 @@ export default Component.extend(ActionMixin, {
     this._super(...arguments);
 
     // Ensure the action has ended.
-    // Fixes issue with calling set on destroyed object after status is updated.
+    // Fixes issue with calling set on destroyed object after status is updated or creative is removed.
     this.endAction();
   },
 
@@ -34,18 +34,11 @@ export default Component.extend(ActionMixin, {
 
       const mutation = removeCreative;
       const variables = { input: { campaignId, creativeId } };
-      const refetchQueries = ['CampaignCreatives'];
-
-      const payload = { mutation, variables, refetchQueries };
-      if (this.get('setContext')) {
-        this.get('setContext')(payload);
-      }
-
+      const refetchQueries = ['CampaignCreatives', 'CampaignHash'];
       try {
-        await this.get('apollo').mutate(payload, 'removeCampaignCreative');
+        await this.get('apollo').mutate({ mutation, variables, refetchQueries }, 'removeCampaignCreative');
       } catch (e) {
-        this.get('graphErrors').show(e)
-      } finally {
+        this.get('graphErrors').show(e);
         this.endAction();
       }
     },

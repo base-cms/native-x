@@ -15,12 +15,10 @@ export default ApolloService.extend({
     return authMiddleware.concat(httpLink);
   }),
 
-  _runAuthorize(req, ctx) {
-    const { advertiserHash, campaignHash } = ctx;
-    const headers = {
-      'X-Portal-Context': JSON.stringify({ advertiser: advertiserHash, campaign: campaignHash }),
-    };
-
+  _runAuthorize() {
+    const hash = localStorage.getItem('portal-hash');
+    const headers = {};
+    if (hash) headers['X-Portal-Hash'] = hash;
     if (!this.get('session.isAuthenticated')) {
       return { headers };
     }

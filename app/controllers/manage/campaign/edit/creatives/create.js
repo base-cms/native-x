@@ -18,7 +18,7 @@ export default Controller.extend(ActionMixin, {
      * @param {string} image.id
      * @param {string} image.link
      */
-    async handleCreativeImage(context, { id, link }) {
+    async handleCreativeImage({ id, link }) {
       set(this.get('model'), 'image', { id, src: link });
     },
 
@@ -26,12 +26,11 @@ export default Controller.extend(ActionMixin, {
      * Sets the image's focal point.
      *
      * @param {string} imageId
-     * @param {object} context
      * @param {object} focalPoint
      * @param {number} focalPoint.x
      * @param {number} focalPoint.y
      */
-    async setImageFocalPoint(imageId, context, { x, y }) {
+    async setImageFocalPoint(imageId, { x, y }) {
       this.startAction();
       try {
         await this.get('imageLoader').setImageFocalPoint(imageId, { x, y });

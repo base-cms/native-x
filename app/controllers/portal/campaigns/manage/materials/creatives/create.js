@@ -8,7 +8,6 @@ import mutation from 'fortnight/gql/mutations/campaign/add-creative';
 export default Controller.extend(ActionMixin, {
   apollo: inject(),
   imageLoader: inject(),
-  portalContext: inject(),
 
   actions: {
     /**
@@ -19,7 +18,7 @@ export default Controller.extend(ActionMixin, {
      * @param {string} image.id
      * @param {string} image.link
      */
-    async handleCreativeImage(context, { id, link }) {
+    async handleCreativeImage({ id, link }) {
       set(this.get('model'), 'creative.image', { id, src: link });
     },
 
@@ -27,18 +26,14 @@ export default Controller.extend(ActionMixin, {
      * Sets the image's focal point.
      *
      * @param {string} imageId
-     * @param {object} context
-     * @param {object} context.advertiser
-     * @param {object} context.campaign
      * @param {object} focalPoint
      * @param {number} focalPoint.x
      * @param {number} focalPoint.y
      */
-    async setImageFocalPoint(imageId, { advertiser, campaign } = {}, { x, y } = {}) {
+    async setImageFocalPoint(imageId, { x, y } = {}) {
       this.startAction();
-      const context = this.get('portalContext').build({ advertiser, campaign });
       try {
-        await this.get('imageLoader').setImageFocalPoint(imageId, { x, y }, context);
+        await this.get('imageLoader').setImageFocalPoint(imageId, { x, y });
         set(this.get('model.creative'), 'image.focalPoint', { x, y });
       } catch (e) {
         this.get('graphErrors').show(e);
@@ -51,19 +46,18 @@ export default Controller.extend(ActionMixin, {
      *
      * @param {object} fields
      */
-    async create({ advertiser, campaign } = {}, { title, teaser, image }) {
+    async create({ title, teaser, image }) {
       this.startAction();
       const status = 'Active';
-      const campaignId = get(campaign, 'id');
+      const campaignId = this.get('model.campaign.id');
       const imageId = get(image, 'id');
 
       const payload = { title, teaser, status, imageId };
       const variables = { input: { campaignId, payload } };
       const refetchQueries = ['CampaignHash'];
 
-      const context = this.get('portalContext').build({ advertiser, campaign });
       try {
-        await this.get('apollo').mutate({ mutation, variables, refetchQueries, context }, 'addCampaignCreative');
+        await this.get('apollo').mutate({ mutation, variables, refetchQueries }, 'addCampaignCreative');
         this.transitionToRoute('portal.campaigns.manage.materials.creatives');
       } catch (e) {
         this.get('graphErrors').show(e);

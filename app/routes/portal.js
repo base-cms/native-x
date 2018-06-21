@@ -8,5 +8,8 @@ export default Route.extend(RouteQueryManager, {
     const variables = { input: { hash } };
     return this.get('apollo').watchQuery({ query, variables, fetchPolicy: 'network-only' }, 'advertiserHash');
   },
+  afterModel({ hash }) {
+    localStorage.setItem('portal-hash', hash);
+  },
 });
 
