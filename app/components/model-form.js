@@ -59,11 +59,8 @@ export default Component.extend({
   actions: {
     autosave(delay) {
       if (this.get('shouldAutosave')) {
-        if (typeof delay === 'number') {
-          debounce(this, 'triggerSubmit', delay);
-        } else {
-          this.triggerSubmit();
-        }
+        const wait = typeof delay === 'number' ? delay : 0;
+        debounce(this, 'triggerSubmit', wait);
       }
     },
     setAndAutosave(field, value) {
