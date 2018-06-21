@@ -1,7 +1,7 @@
 {{#model-form
-  model=model
+  model=model.creative
   shouldAutosave=false
-  onSubmit=(action "create") as |form|
+  onSubmit=(action "create" (hash advertiser=model.advertiser campaign=model.campaign)) as |form|
 }}
   {{progress-bar show=isActionRunning}}
   {{#bs-modal/body}}

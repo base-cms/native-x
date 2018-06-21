@@ -40,7 +40,10 @@
       {{image-focal-point
         class="img-thumbnail clickable"
         src=form.model.image.src
-        on-click=(action "setImageFocalPoint" form.model.image.id)
+        on-click=(action "setImageFocalPoint" form.model.image.id (hash
+          advertiser=model.advertiser
+          campaign=model.campaign)
+        )
       }}
     </div>
     <div class="col-4">

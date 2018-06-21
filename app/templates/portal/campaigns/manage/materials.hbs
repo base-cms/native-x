@@ -14,8 +14,8 @@
             Campaign
           </h5>
           <div class="text-muted mb-3">
-            {{moment-format model.criteria.start "MM/DD/YYYY"}}{{#if model.criteria.end}} - {{moment-format
-            model.criteria.end "MM/DD/YYYY"}}{{/if}} {{#if model.description}} | {{ model.description }} {{/if}}
+            {{moment-format model.campaign.criteria.start "MM/DD/YYYY"}}{{#if model.campaign.criteria.end}} - {{moment-format
+            model.campaign.criteria.end "MM/DD/YYYY"}}{{/if}} {{#if model.campaign.description}} | {{ model.campaign.description }} {{/if}}
           </div>
 
           <div class="form-group mb-0">
@@ -28,7 +28,7 @@
               aria-describedby="campaign-url-help"
               pattern="https?://.+"
               required=true
-              value=model.url
+              value=model.campaign.url
             }}
             <div class="invalid-feedback">
               Please enter a valid URL.
@@ -51,13 +51,13 @@
           </div>
 
           <div class="row">
-            {{#each model.creatives as |creative|}}
+            {{#each model.campaign.creatives as |creative|}}
               <div class="mb-3 col-12 col-lg-6">
                 {{campaign-creative
                   editRouteName="portal.campaigns.manage.materials.creatives.edit"
                   displayEditButton=true
                   creativeId=creative.id
-                  campaignId=model.id
+                  campaignId=model.campaign.id
                   title=creative.title
                   teaser=creative.teaser
                   status=creative.status
