@@ -54,6 +54,8 @@
             {{#each model.campaign.creatives as |creative|}}
               <div class="mb-3 col-12 col-lg-6">
                 {{campaign-creative
+                  canRemove=canRemoveCreatives
+                  setContext=(action "setPortalContext")
                   editRouteName="portal.campaigns.manage.materials.creatives.edit"
                   displayEditButton=true
                   creativeId=creative.id

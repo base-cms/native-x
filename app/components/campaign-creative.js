@@ -35,8 +35,14 @@ export default Component.extend(ActionMixin, {
       const mutation = removeCreative;
       const variables = { input: { campaignId, creativeId } };
       const refetchQueries = ['CampaignCreatives'];
+
+      const payload = { mutation, variables, refetchQueries };
+      if (this.get('setContext')) {
+        this.get('setContext')(payload);
+      }
+
       try {
-        await this.get('apollo').mutate({ mutation, variables, refetchQueries }, 'removeCampaignCreative');
+        await this.get('apollo').mutate(payload, 'removeCampaignCreative');
       } catch (e) {
         this.get('graphErrors').show(e)
       } finally {
