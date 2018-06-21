@@ -1,5 +1,5 @@
 {{#model-form
-  model=model
+  model=model.creative
   shouldAutosave=false as |form|
 }}
   {{progress-bar show=isActionRunning}}
@@ -8,5 +8,6 @@
   {{/bs-modal/body}}
 
   {{#bs-modal/footer class="d-flex justify-content-between"}}
+    <button class="btn btn-success" disabled={{isActionRunning}} {{action (route-action "hideModal")}}>{{entypo-icon "check"}} OK</button>
   {{/bs-modal/footer}}
 {{/model-form}}

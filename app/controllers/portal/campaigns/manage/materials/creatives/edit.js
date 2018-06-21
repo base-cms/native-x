@@ -1,5 +1,6 @@
 import Controller from '@ember/controller';
 import { inject } from '@ember/service';
+import { get } from '@ember/object';
 import ActionMixin from 'fortnight/mixins/action-mixin';
 
 import campaignCreativeDetails from 'fortnight/gql/mutations/campaign/creative-details';
@@ -8,6 +9,7 @@ import campaignCreativeImage from 'fortnight/gql/mutations/campaign/creative-ima
 export default Controller.extend(ActionMixin, {
   apollo: inject(),
   imageLoader: inject(),
+  portalContext: inject(),
 
   actions: {
     /**
@@ -17,15 +19,18 @@ export default Controller.extend(ActionMixin, {
      * @param {object} image
      * @param {string} image.id
      */
-    async handleCreativeImage(context, { id }) {
-      const creativeId = this.get('model.id');
-      const campaignId = this.get('campaignId');
+    async handleCreativeImage({ advertiser, campaign } = {}, { id }) {
+      this.startAction();
+      const context = this.get('portalContext').build({ advertiser, campaign });
+
+      const creativeId = this.get('model.creative.id');
+      const campaignId = get(campaign || {}, 'id');
 
       const mutation = campaignCreativeImage;
       const input = { campaignId, creativeId, imageId: id };
       const variables = { input };
       try {
-        await this.get('apollo').mutate({ mutation, variables }, 'campaignCreativeImage');
+        await this.get('apollo').mutate({ mutation, variables, context }, 'campaignCreativeImage');
       } catch (e) {
         this.get('graphErrors').show(e);
       } finally {
@@ -38,14 +43,17 @@ export default Controller.extend(ActionMixin, {
      *
      * @param {string} imageId
      * @param {object} context
+     * @param {object} context.advertiser
+     * @param {object} context.campaign
      * @param {object} focalPoint
      * @param {number} focalPoint.x
      * @param {number} focalPoint.y
      */
-    async setImageFocalPoint(imageId, context, { x, y }) {
+    async setImageFocalPoint(imageId, { advertiser, campaign } = {}, { x, y }) {
       this.startAction();
+      const context = this.get('portalContext').build({ advertiser, campaign });
       try {
-        await this.get('imageLoader').setImageFocalPoint(imageId, { x, y });
+        await this.get('imageLoader').setImageFocalPoint(imageId, { x, y }, context);
       } catch (e) {
         this.get('graphErrors').show(e);
       } finally {
@@ -57,18 +65,18 @@ export default Controller.extend(ActionMixin, {
      *
      * @param {object} fields
      */
-    async updateDetails({ title, teaser, status }) {
+    async updateDetails({ advertiser, campaign } = {}, { id, title, teaser }) {
       this.startAction();
 
-      const creativeId = this.get('model.id');
-      const campaignId = this.get('campaignId');
-      const payload = { title, teaser, status };
+      const campaignId = get(campaign || {}, 'id');
+      const payload = { title, teaser };
 
       const mutation = campaignCreativeDetails;
-      const input = { creativeId, campaignId, payload }
+      const input = { creativeId: id, campaignId, payload }
+      const context = this.get('portalContext').build({ advertiser, campaign });
       const variables = { input };
       try {
-        await this.get('apollo').mutate({ mutation, variables }, 'campaignCreativeDetails');
+        await this.get('apollo').mutate({ mutation, variables, context }, 'campaignCreativeDetails');
       } catch (e) {
         this.get('graphErrors').show(e);
       } finally {

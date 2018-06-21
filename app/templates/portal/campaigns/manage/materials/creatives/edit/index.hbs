@@ -1,0 +1,14 @@
+{{#model-form
+  model=model.creative
+  shouldAutosave=true
+  onInit=(route-action "setDetailsForm")
+  onSubmit=(action "updateDetails" (hash advertiser=model.advertiser campaign=model.campaign)) as |form|
+}}
+  {{#bs-modal/body}}
+    {{ partial "manage/campaign/forms/creative" }}
+  {{/bs-modal/body}}
+
+  {{#bs-modal/footer class="d-flex justify-content-between"}}
+    <button class="btn btn-success" disabled={{isActionRunning}} {{action (route-action "hideModal")}}>{{entypo-icon "check"}} OK</button>
+  {{/bs-modal/footer}}
+{{/model-form}}

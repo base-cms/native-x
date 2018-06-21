@@ -1,0 +1,20 @@
+{{#bs-modal show=true size="large" onHidden=(route-action "transitionTo" "portal.campaigns.manage.materials") onShow=(route-action "setModal") as |modal|}}
+  {{#modal.header}}
+    <ul class="nav nav-pills">
+      <li class="nav-item">
+        {{#link-to "portal.campaigns.manage.materials.creatives.edit.index" class="nav-link" disabled=isActionRunning}}
+          {{entypo-icon "list"}} Details
+        {{/link-to}}
+      </li>
+      <li class="nav-item">
+        {{#link-to "portal.campaigns.manage.materials.creatives.edit.image" class="nav-link" disabled=isActionRunning}}
+          {{entypo-icon "image"}} Image
+        {{/link-to}}
+      </li>
+    </ul>
+    <button {{action modal.actions.hide}} type="button" class="close" aria-label="Close">
+      {{entypo-icon "cross"}}
+    </button>
+  {{/modal.header}}
+  {{outlet}}
+{{/bs-modal}}

@@ -3,7 +3,7 @@
     {{#image-uploader
       isLoading=isActionRunning
       onUploadStart=(action (mut form.model.image null))
-      onUploadSuccess=(action "handleCreativeImage") as |uploader|
+      onUploadSuccess=(action "handleCreativeImage" (hash advertiser=model.advertiser campaign=model.campaign)) as |uploader|
     }}
       <div class="form-group">
         <label for="creative-image">Upload Image</label>

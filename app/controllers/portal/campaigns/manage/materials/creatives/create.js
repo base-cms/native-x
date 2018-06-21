@@ -19,7 +19,7 @@ export default Controller.extend(ActionMixin, {
      * @param {string} image.id
      * @param {string} image.link
      */
-    async handleCreativeImage({ id, link }) {
+    async handleCreativeImage(context, { id, link }) {
       set(this.get('model'), 'creative.image', { id, src: link });
     },
 
