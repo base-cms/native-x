@@ -1,13 +1,11 @@
+#import 'fortnight/gql/fragments/campaign/details'
+#import 'fortnight/gql/fragments/campaign-creative'
+
 query ReportCampaignCreativeBreakdown($input: CampaignHashInput!) {
   campaignHash(input: $input) {
-    name
-    description
-    hash
-    advertiser {
-      name
-      logo {
-        src
-      }
+    ...CampaignDetailsFragment
+    creatives {
+      ...CampaignCreativeFragment
     }
     criteria {
       start

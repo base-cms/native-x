@@ -1,22 +1,12 @@
+#import 'fortnight/gql/fragments/campaign/details'
+#import 'fortnight/gql/fragments/campaign-creative'
+
 query ReportCampaignSummary($input: CampaignHashInput!) {
-	campaignHash(input: $input) {
-    name
-    description
-    hash
-    advertiser {
-      name
-			logo {
-        src
-      }
-    }
-    criteria {
-      placements {
-        publisher {
-          logo {
-            src
-          }
-        }
-      }
+
+  campaignHash(input: $input) {
+    ...CampaignDetailsFragment
+    creatives {
+      ...CampaignCreativeFragment
     }
 	}
 	reportCampaignSummary(input: $input) {
