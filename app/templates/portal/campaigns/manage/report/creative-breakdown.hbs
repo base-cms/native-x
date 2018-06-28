@@ -1,0 +1,39 @@
+<div class="container my-3">
+
+  <div class="row mb-3">
+    <div class="col">
+      <h3 class="mb-0 font-weight-bold text-muted">
+        <span class="text-uppercase">Creative Report</span>
+        <span class="h6 text-muted">a breakdown of how your individual creatives are performing</span>
+      </h3>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col">
+      {{-report/campaign-title campaign=model.campaignHash}}
+    </div>
+  </div>
+
+  {{#each model.reportCampaignCreativeBreakdown.creatives as |creative|}}
+  <div class="row">
+    <div class="col">
+      {{-report/creative-card creative=creative clicks=clicks impressions=impressions ctr=ctr}}
+    </div>
+  </div>
+  {{/each}}
+
+
+  <div class="row mb-3">
+    <div class="col">
+      {{-report/data-chart series=impressionSummary.data options=impressionSummary.options }}
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col">
+      {{-report/data-chart series=ctrSummary.data options=ctrSummary.options }}
+    </div>
+  </div>
+
+</div>
