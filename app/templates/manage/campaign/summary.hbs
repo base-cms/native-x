@@ -19,7 +19,6 @@
 
 <hr>
 <h6>Links</h6>
-{{log model.advertiser.hash model.hash}}
 <div class="row">
   <div class="col">
     {{entypo-icon "link"}}
@@ -29,7 +28,13 @@
 <div class="row">
   <div class="col">
     {{entypo-icon "link"}}
-    {{#link-to "portal.campaigns.manage.report" model.advertiser.hash model.hash target="_blank" rel="noopener noreferrer"}}Report Link{{/link-to}}
+    {{#link-to "portal.campaigns.manage.report.summary" model.advertiser.hash model.hash target="_blank" rel="noopener noreferrer"}}Report: Summary{{/link-to}}
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    {{entypo-icon "link"}}
+    {{#link-to "portal.campaigns.manage.report.creative-breakdown" model.advertiser.hash model.hash target="_blank" rel="noopener noreferrer"}}Report: Creative Breakdown{{/link-to}}
   </div>
 </div>
 {{#each model.externalLinks as |link|}}
