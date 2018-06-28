@@ -1,0 +1,55 @@
+query ReportCampaignCreativeBreakdown($input: CampaignHashInput!) {
+  campaignHash(input: $input) {
+    name
+    description
+    hash
+    advertiser {
+      name
+      logo {
+        src
+      }
+    }
+    criteria {
+      start
+      placements {
+        publisher {
+          logo {
+            src
+          }
+        }
+      }
+    }
+  }
+  reportCampaignCreativeBreakdown(input: $input) {
+    views
+    clicks
+    ctr
+    creatives {
+      id
+      title
+      teaser
+      image {
+        id
+        src
+        # filePath
+        # mimeType
+        # fileSize
+        width
+        height
+        focalPoint {
+          x
+          y
+        }
+      }
+      views
+      clicks
+      ctr
+      days {
+        date
+        views
+        clicks
+        ctr
+      }
+    }
+  }
+}
