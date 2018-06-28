@@ -54,5 +54,8 @@ module.exports = function(defaults) {
     ]
   });
 
+  app.import('node_modules/highcharts/highcharts.js');
+  app.import('node_modules/highcharts/modules/exporting.js');
+
   return app.toTree();
 };
