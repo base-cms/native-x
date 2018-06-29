@@ -2,19 +2,19 @@ import Controller from '@ember/controller';
 import { computed } from '@ember/object';
 
 export default Controller.extend({
-  publisherLogo: computed('model.campaignHash.criteria.placements.[]', function() {
-    const placements = this.get('model.campaignHash.criteria.placements');
+  publisherLogo: computed('campaign.criteria.placements.[]', function() {
+    const placements = this.get('campaign.criteria.placements');
     return placements.map(p => p.publisher.logo)[0];
   }),
 
-  impressions: computed.reads('model.reportCampaignSummary.views'),
-  clicks: computed.reads('model.reportCampaignSummary.clicks'),
+  impressions: computed.reads('model.views'),
+  clicks: computed.reads('model.clicks'),
 
   ctr: computed('impressions', 'clicks', function() {
     return ((this.get('clicks') / this.get('impressions')) * 100).toFixed(2);
   }),
 
-  dayData: computed.reads('model.reportCampaignSummary.days.[]'),
+  dayData: computed.reads('model.days.[]'),
 
   impressionSummaryTimeSeries: computed('dayData.[]', function() {
     const type = 'line';

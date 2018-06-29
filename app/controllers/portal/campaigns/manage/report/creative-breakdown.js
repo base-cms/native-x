@@ -2,23 +2,22 @@ import Controller from '@ember/controller';
 import { computed } from '@ember/object';
 
 export default Controller.extend({
-  publisherLogo: computed('model.campaignHash.criteria.placements.[]', function() {
-    const placements = this.get('model.campaignHash.criteria.placements');
+  publisherLogo: computed('campaign.criteria.placements.[]', function() {
+    const placements = this.get('campaign.criteria.placements');
     return placements.map(p => p.publisher.logo)[0];
   }),
 
-  impressions: computed.reads('model.reportCampaignCreativeBreakdown.views'),
-  clicks: computed.reads('model.reportCampaignCreativeBreakdown.clicks'),
+  impressions: computed.reads('model.views'),
+  clicks: computed.reads('model.clicks'),
+  ctr: computed.reads('model.ctr'),
 
-  ctr: computed.reads('model.reportCampaignCreativeBreakdown.ctr'),
-
-  impressionSummaryTimeSeries: computed('model.reportCampaignCreativeBreakdown.creatives.@each', function() {
-    const creatives = this.get('model.reportCampaignCreativeBreakdown.creatives');
+  impressionSummaryTimeSeries: computed('model.creatives.@each', function() {
+    const items = this.get('model.creatives');
     const series = [];
-    creatives.forEach(creative => {
+    items.forEach(item => {
       const type = 'line';
-      const name = creative.title + ' - Daily Impressions';
-      const data = creative.days.map((d) => {
+      const name = item.creative.title;
+      const data = item.days.map((d) => {
         return { x: d.date, y: d.views };
       });
       series.push({ type, name, data })
@@ -26,13 +25,13 @@ export default Controller.extend({
     return series;
   }),
 
-  ctrSummaryTimeSeries: computed('model.reportCampaignCreativeBreakdown.creatives.@each', function() {
-    const creatives = this.get('model.reportCampaignCreativeBreakdown.creatives');
+  ctrSummaryTimeSeries: computed('model.creatives.@each', function() {
+    const items = this.get('model.creatives');
     const series = [];
-    creatives.forEach(creative => {
+    items.forEach(item => {
       const type = 'line';
-      const name = creative.title + ' - Daily CTR';
-      const data = creative.days.map((d) => {
+      const name = item.creative.title;
+      const data = item.days.map((d) => {
         return { x: d.date, y: d.ctr };
       });
       series.push({ type, name, data });

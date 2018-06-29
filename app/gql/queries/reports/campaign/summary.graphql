@@ -1,14 +1,4 @@
-#import 'fortnight/gql/fragments/campaign/details'
-#import 'fortnight/gql/fragments/campaign-creative'
-
 query ReportCampaignSummary($input: CampaignHashInput!) {
-
-  campaignHash(input: $input) {
-    ...CampaignDetailsFragment
-    creatives {
-      ...CampaignCreativeFragment
-    }
-	}
 	reportCampaignSummary(input: $input) {
 		views
 		clicks

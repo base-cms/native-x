@@ -1,43 +1,16 @@
-#import 'fortnight/gql/fragments/campaign/details'
-#import 'fortnight/gql/fragments/campaign-creative'
+#import 'fortnight/gql/fragments/campaign-creative/details'
+#import 'fortnight/gql/fragments/campaign-creative/image'
 
 query ReportCampaignCreativeBreakdown($input: CampaignHashInput!) {
-  campaignHash(input: $input) {
-    ...CampaignDetailsFragment
-    creatives {
-      ...CampaignCreativeFragment
-    }
-    criteria {
-      start
-      placements {
-        publisher {
-          logo {
-            src
-          }
-        }
-      }
-    }
-  }
   reportCampaignCreativeBreakdown(input: $input) {
     views
     clicks
     ctr
+
     creatives {
-      id
-      title
-      teaser
-      image {
-        id
-        src
-        # filePath
-        # mimeType
-        # fileSize
-        width
-        height
-        focalPoint {
-          x
-          y
-        }
+      creative {
+        ...CampaignCreativeDetailsFragment
+        ...CampaignCreativeImageFragment
       }
       views
       clicks

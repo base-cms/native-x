@@ -10,7 +10,8 @@ export default Route.extend(RouteQueryManager, {
     const { hash } = model.campaign;
     const advertiserId = model.advertiser.id;
     const variables = { input: { hash, advertiserId } };
-    return this.get('apollo').watchQuery({ query, variables, fetchPolicy: 'network-only' });
+    this.controllerFor('portal.campaigns.manage.report.summary').set('campaign', model.campaign);
+    return this.get('apollo').watchQuery({ query, variables, fetchPolicy: 'network-only' }, 'reportCampaignSummary');
   }
 })
 
