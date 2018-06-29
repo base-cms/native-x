@@ -3,8 +3,7 @@
     <div class="row">
       <div class="col-md-6 col-xl-3 grid preview">
         {{#if creative.image}}
-        <img src="{{ creative.image.src }}?w=640&h=360&crop=focalPoint&fit=crop&dpr=1&fp-x={{ creative.image.focalPoint.x }}&fp-y={{ creative.image.focalPoint.y }}"
-          class="img-fluid">
+          {{imgix-image image=creative.image}}
         {{/if}}
         <h3 class="mt-3 font-weight-bold">{{ creative.title }}</h3>
         {{#if creative.teaser}}
