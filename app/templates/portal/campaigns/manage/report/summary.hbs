@@ -12,7 +12,7 @@
     <div class="col">
       <div class="card">
         <div class="card-body">
-          {{-report/campaign-title campaign=model.campaignHash}}
+          {{-report/campaign-title campaign=campaign}}
         </div>
       </div>
     </div>
@@ -41,7 +41,8 @@
       {{-report/data-card
         icon="area-graph"
         title="CTR"
-        value=ctr
+        value=(compute-it ctr "/" 100)
+        format="0.00%"
         color="text-success"
         subtitle="Click-through rate"
       }}
@@ -51,13 +52,21 @@
 
   <div class="row mb-3">
     <div class="col">
-      {{-report/data-chart series=impressionSummary.data options=impressionSummary.options }}
+      {{-report/data-chart
+        title="Daily impressions"
+        series=impressionSummary.data
+        options=impressionSummary.options
+      }}
     </div>
   </div>
 
   <div class="row mb-3">
     <div class="col">
-      {{-report/data-chart series=ctrSummary.data options=ctrSummary.options }}
+      {{-report/data-chart
+        title="Daily click-through rate"
+        series=ctrSummary.data
+        options=ctrSummary.options
+      }}
     </div>
   </div>
 

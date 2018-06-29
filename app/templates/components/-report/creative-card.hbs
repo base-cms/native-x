@@ -11,7 +11,7 @@
         <p>{{ creative.teaser }}</p>
         {{/if}}
         <p class="mb-0">
-          <strong>Sponsored</strong> - {{moment-format model.campaignHash.criteria.start "MMM DD, YYYY"}}</p>
+          <strong>Sponsored</strong> - {{moment-format campaign.criteria.start "MMM DD, YYYY"}}</p>
       </div>
       <div class="col-md-6 col-xl-9">
         <div class="row">
@@ -20,8 +20,8 @@
             {{-report/data-card
               icon="eye"
               title="Impressions"
-              value=creative.views
-              secondaryValue=impressions
+              value=views
+              percentage=(compute-it views "/" totalViews)
               color="text-info"
               subtitle="In-View impressions"
             }}
@@ -30,8 +30,9 @@
             {{-report/data-card
               icon="direction"
               title="Clicks"
-              value=creative.clicks
-              secondaryValue=clicks
+              value=clicks
+              format="0a"
+              percentage=(compute-it clicks "/" totalClicks)
               color="text-warning"
               subtitle="Success of online ads"
             }}
@@ -40,8 +41,8 @@
             {{-report/data-card
               icon="area-graph"
               title="CTR"
-              value=creative.ctr
-              secondaryValue=ctr
+              value=(compute-it ctr "/" 100)
+              format="0.00%"
               color="text-success"
               subtitle="Click-through rate"
             }}
