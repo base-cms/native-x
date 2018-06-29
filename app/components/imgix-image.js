@@ -11,8 +11,10 @@ export default Component.extend({
 
   src: computed('image.{src,focalPoint.x,focalPoint.y}', 'width', 'height', function() {
     const { src, focalPoint } = this.get('image');
-    const { x, y } = focalPoint;
     const { width, height } = this.getProperties(['width', 'height']);
+    if (!focalPoint) return `${src}?w=${width}&h=${height}&dpr=1`;
+
+    const { x, y } = focalPoint;
     return `${src}?w=${width}&h=${height}&crop=focalPoint&fit=crop&dpr=1&fp-x=${x}&fp-y=${y}`;
   }),
 
