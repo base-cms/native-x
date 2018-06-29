@@ -2,10 +2,6 @@ import Controller from '@ember/controller';
 import { computed } from '@ember/object';
 
 export default Controller.extend({
-  publisherLogo: computed('campaign.criteria.placements.[]', function() {
-    const placements = this.get('campaign.criteria.placements');
-    return placements.map(p => p.publisher.logo)[0];
-  }),
 
   impressions: computed.reads('model.views'),
   clicks: computed.reads('model.clicks'),
