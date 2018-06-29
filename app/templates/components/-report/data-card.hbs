@@ -8,9 +8,9 @@
       </div>
       <div class="col-8 text-right">
         <p class="mb-0 text-uppercase">{{ title }}</p>
-        <span class="h4 {{ color }}">{{ value }}</span>
-        {{#if secondaryValue }}
-        <small class="text-muted">({{ secondaryValue }})</small>
+        <span class="h4 {{ color }}" title="{{ value }}">{{ number-format value format }}</span>
+        {{#if percentage }}
+          <small class="text-muted">({{ number-format percentage "0%" }})</small>
         {{/if}}
       </div>
     </div>
