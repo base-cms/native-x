@@ -1,69 +1,25 @@
 import Controller from '@ember/controller';
 import { computed } from '@ember/object';
+import ImpressionDataMixin from 'fortnight/mixins/impression-data-mixin';
 
-export default Controller.extend({
+export default Controller.extend(ImpressionDataMixin, {
 
-  impressions: computed.reads('model.views'),
-  clicks: computed.reads('model.clicks'),
-
-  ctr: computed('impressions', 'clicks', function() {
-    return ((this.get('clicks') / this.get('impressions')) * 100).toFixed(2);
-  }),
-
-  dayData: computed.reads('model.days.[]'),
-
-  impressionSummaryTimeSeries: computed('dayData.[]', function() {
+  impressionSummaryTimeSeries: computed('model.days.[]', function() {
     const type = 'line';
     const name = 'Daily Impressions';
-    const data = this.get('dayData').map((d) => {
+    const data = this.get('model.days').map((d) => {
       return { x: d.date, y: d.views };
     });
     return [{ type, name, data }];
   }),
 
-  ctrSummaryTimeSeries: computed('dayData.[]', function() {
+  ctrSummaryTimeSeries: computed('model.days.[]', function() {
     const type = 'line';
     const name = 'Daily CTR';
-    const data = this.get('dayData').map((d) => {
+    const data = this.get('model.days').map((d) => {
       return { x: d.date, y: d.ctr };
     });
     return [{ type, name, data }];
-  }),
-
-  impressionSummary: computed('impressionSummaryTimeSeries', function() {
-    const data = this.get('impressionSummaryTimeSeries');
-    const options = {
-      title: {
-        text: false,
-      },
-      yAxis: {
-        title: {
-          text: false,
-        }
-      },
-      xAxis: {
-        type: 'datetime',
-      }
-    }
-    return { data, options };
-  }),
-
-  ctrSummary: computed('impressionSummaryTimeSeries', function() {
-    const data = this.get('ctrSummaryTimeSeries');
-    const options = {
-      title: {
-        text: false,
-      },
-      yAxis: {
-        title: {
-          text: false,
-        }
-      },
-      xAxis: {
-        type: 'datetime',
-      }
-    }
-    return { data, options };
   }),
 
 });

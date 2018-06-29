@@ -1,7 +1,8 @@
-import Summary from './summary';
+import Controller from '@ember/controller';
 import { computed } from '@ember/object';
+import ImpressionDataMixin from 'fortnight/mixins/impression-data-mixin';
 
-export default Summary.extend({
+export default Controller.extend(ImpressionDataMixin, {
 
   impressionSummaryTimeSeries: computed('model.creatives.@each', function() {
     return this.get('model.creatives').map(item => {
