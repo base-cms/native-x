@@ -1,76 +1,28 @@
-import Controller from '@ember/controller';
+import Summary from './summary';
 import { computed } from '@ember/object';
 
-export default Controller.extend({
-
-  impressions: computed.reads('model.views'),
-  clicks: computed.reads('model.clicks'),
-  ctr: computed.reads('model.ctr'),
+export default Summary.extend({
 
   impressionSummaryTimeSeries: computed('model.creatives.@each', function() {
-    const items = this.get('model.creatives');
-    const series = [];
-    items.forEach(item => {
+    return this.get('model.creatives').map(item => {
       const type = 'line';
       const name = item.creative.title;
       const data = item.days.map((d) => {
         return { x: d.date, y: d.views };
       });
-      series.push({ type, name, data })
+      return { type, name, data };
     });
-    return series;
   }),
 
   ctrSummaryTimeSeries: computed('model.creatives.@each', function() {
-    const items = this.get('model.creatives');
-    const series = [];
-    items.forEach(item => {
+    return this.get('model.creatives').map(item => {
       const type = 'line';
       const name = item.creative.title;
       const data = item.days.map((d) => {
         return { x: d.date, y: d.ctr };
       });
-      series.push({ type, name, data });
+      return { type, name, data };
     });
-    return series;
-  }),
-
-  impressionSummary: computed('impressionSummaryTimeSeries', function() {
-    const series = this.get('impressionSummaryTimeSeries');
-    const data = series ;
-    const options = {
-      title: {
-        text: false,
-      },
-      yAxis: {
-        title: {
-          text: false,
-        }
-      },
-      xAxis: {
-        type: 'datetime',
-      }
-    }
-    return { data, options };
-  }),
-
-  ctrSummary: computed('impressionSummaryTimeSeries', function() {
-    const series = this.get('ctrSummaryTimeSeries');
-    const data = series;
-    const options = {
-      title: {
-        text: false,
-      },
-      yAxis: {
-        title: {
-          text: false,
-        }
-      },
-      xAxis: {
-        type: 'datetime',
-      }
-    }
-    return { data, options };
   }),
 
 });

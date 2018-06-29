@@ -18,7 +18,7 @@ export default Controller.extend({
     const data = this.get('dayData').map((d) => {
       return { x: d.date, y: d.views };
     });
-    return { type, name, data };
+    return [{ type, name, data }];
   }),
 
   ctrSummaryTimeSeries: computed('dayData.[]', function() {
@@ -27,12 +27,11 @@ export default Controller.extend({
     const data = this.get('dayData').map((d) => {
       return { x: d.date, y: d.ctr };
     });
-    return { type, name, data };
+    return [{ type, name, data }];
   }),
 
   impressionSummary: computed('impressionSummaryTimeSeries', function() {
-    const series = this.get('impressionSummaryTimeSeries');
-    const data = [ series ];
+    const data = this.get('impressionSummaryTimeSeries');
     const options = {
       title: {
         text: false,
@@ -50,8 +49,7 @@ export default Controller.extend({
   }),
 
   ctrSummary: computed('impressionSummaryTimeSeries', function() {
-    const series = this.get('ctrSummaryTimeSeries');
-    const data = [ series ];
+    const data = this.get('ctrSummaryTimeSeries');
     const options = {
       title: {
         text: false,
