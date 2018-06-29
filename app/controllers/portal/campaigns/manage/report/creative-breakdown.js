@@ -44,11 +44,11 @@ export default Controller.extend({
     const data = series ;
     const options = {
       title: {
-        text: 'Campaign Creative Breakdown',
+        text: false,
       },
       yAxis: {
         title: {
-          text: 'Impressions',
+          text: false,
         }
       },
       xAxis: {
@@ -63,11 +63,11 @@ export default Controller.extend({
     const data = series;
     const options = {
       title: {
-        text: 'CTR Summary',
+        text: false,
       },
       yAxis: {
         title: {
-          text: 'Daily Click-Through Rate',
+          text: false,
         }
       },
       xAxis: {
