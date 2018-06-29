@@ -21,7 +21,7 @@
               icon="eye"
               title="Impressions"
               value=views
-              percentage=(compute-it views "/" totalViews)
+              percentage=(div views totalViews)
               color="text-info"
               subtitle="In-View impressions"
             }}
@@ -32,7 +32,7 @@
               title="Clicks"
               value=clicks
               format="0a"
-              percentage=(compute-it clicks "/" totalClicks)
+              percentage=(div clicks totalClicks)
               color="text-warning"
               subtitle="Success of online ads"
             }}
@@ -41,7 +41,7 @@
             {{-report/data-card
               icon="area-graph"
               title="CTR"
-              value=(compute-it ctr "/" 100)
+              value=(div ctr 100)
               format="0.00%"
               color="text-success"
               subtitle="Click-through rate"
