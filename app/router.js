@@ -67,6 +67,7 @@ Router.map(function() {
             });
             this.route('edit', { path: ':creative_id' }, function() {
               this.route('image');
+              this.route('preview');
             });
           });
         });

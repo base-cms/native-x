@@ -11,6 +11,11 @@
           {{entypo-icon "image"}} Image
         {{/link-to}}
       </li>
+      <li class="nav-item">
+        {{#link-to "portal.campaigns.manage.materials.creatives.edit.preview" class="nav-link" disabled=isActionRunning}}
+          {{entypo-icon "eye"}} Preview
+        {{/link-to}}
+      </li>
     </ul>
     <button {{action modal.actions.hide}} type="button" class="close" aria-label="Close">
       {{entypo-icon "cross"}}

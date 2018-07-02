@@ -28,6 +28,12 @@
     {{/link-to}}
   {{/if}}
 
+  {{#if displayPreviewButton}}
+    {{#link-to previewRouteName creativeId class="btn btn-sm btn-info"}}
+      {{entypo-icon "eye"}} Preview
+    {{/link-to}}
+  {{/if}}
+
   {{#if canModifyStatus}}
     {{campaign-creative/status-selector status=status disabled=isActionRunning onChange=(action "updateStatus")}}
   {{/if}}
