@@ -27,8 +27,7 @@ export default Controller.extend(ActionMixin, {
         await this.get('apollo').mutate({ mutation: assignCampaignValue, variables }, 'assignCampaignValue');
         this.get('notify').success(`${label || field} saved.`)
       } catch (e) {
-        this.get('graphErrors').show(e);
-        // Handle and re-throw so the error displays in the field.
+        // Handle and throw so the error displays in the field.
         throw this.get('graphErrors').handle(e);
       } finally {
         this.endAction();

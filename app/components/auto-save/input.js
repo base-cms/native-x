@@ -125,7 +125,11 @@ export default Component.extend({
         await fn(value, event);
         this.set('changeComplete', true);
       } catch (e) {
-        this.set('changeError', e);
+        this.set('validationMessage', e.message);
+        const onError = this.get('on-error');
+        if (typeof onError === 'function') {
+          onError(e, value, event);
+        }
       } finally {
         this.set('isChanging', false);
       }

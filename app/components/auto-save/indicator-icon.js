@@ -6,6 +6,6 @@ export default Component.extend({
 
   isChanging: false,
   changeComplete: false,
-  changeError: null,
+  validationMessage: '',
 
 });
