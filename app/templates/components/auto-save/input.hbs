@@ -24,6 +24,11 @@
     onchange=(action "debounceChange")
     oninput=(action "debounceInput")
   )
+  elements=(hash
+    indicator=(component "auto-save/indicator" visible=shouldSendChange input=this)
+    invalid-feedback=(component "auto-save/invalid-feedback" message=validationMessage)
+    server-error=(component "auto-save/server-error" error=changeError)
+  )
 )}}
 
 

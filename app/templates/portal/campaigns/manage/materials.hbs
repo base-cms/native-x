@@ -28,25 +28,10 @@
               }}
                 <div class="input-group">
                   {{input.element}}
-
-                  <div class="input-group-append">
-                    <span class="input-group-text">
-                      {{#if input.isChanging}}
-                        {{entypo-icon "hour-glass" class="text-dark spin"}}
-                      {{else if input.changeComplete}}
-                        {{entypo-icon "check" class="text-success"}}
-                      {{else if input.changeError}}
-                        {{entypo-icon "warning" class="text-danger"}}
-                      {{else}}
-                        {{entypo-icon "hour-glass" class="text-light"}}
-                      {{/if}}
-                    </span>
-                  </div>
-                  <div class="invalid-feedback">{{input.validationMessage}}</div>
+                  {{input.elements.indicator}}
+                  {{input.elements.invalid-feedback}}
                 </div>
-                {{#if input.changeError}}
-                  <small class="form-text text-danger">Server error: {{input.changeError.message}}</small>
-                {{/if}}
+                {{input.elements.server-error class="form-text text-danger"}}
               {{/form.elements.input}}
             </div>
           {{/auto-save/form}}
