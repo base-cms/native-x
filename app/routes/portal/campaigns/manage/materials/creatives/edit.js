@@ -1,5 +1,4 @@
 import Route from '@ember/routing/route';
-import { inject } from '@ember/service';
 import RouteQueryManager from "ember-apollo-client/mixins/route-query-manager";
 import { hash, resolve } from 'rsvp';
 
