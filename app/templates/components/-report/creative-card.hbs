@@ -1,0 +1,54 @@
+<div class="card mb-3">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-6 col-xl-3 grid preview">
+        {{#if creative.image}}
+          {{imgix-image image=creative.image}}
+        {{/if}}
+        <h3 class="mt-3 font-weight-bold">{{ creative.title }}</h3>
+        {{#if creative.teaser}}
+        <p>{{ creative.teaser }}</p>
+        {{/if}}
+        <p class="mb-0">
+          <strong>Sponsored</strong> - {{moment-format campaign.criteria.start "MMM DD, YYYY"}}</p>
+      </div>
+      <div class="col-md-6 col-xl-9">
+        <div class="row">
+
+          <div class="col-xl-4 mb-3">
+            {{-report/data-card
+              icon="eye"
+              title="Impressions"
+              value=views
+              percentage=(div views totalViews)
+              color="text-info"
+              subtitle="In-View impressions"
+            }}
+          </div>
+          <div class="col-xl-4 mb-3">
+            {{-report/data-card
+              icon="direction"
+              title="Clicks"
+              value=clicks
+              format="0a"
+              percentage=(div clicks totalClicks)
+              color="text-warning"
+              subtitle="Success of online ads"
+            }}
+          </div>
+          <div class="col-xl-4 mb-3">
+            {{-report/data-card
+              icon="area-graph"
+              title="CTR"
+              value=(div ctr 100)
+              format="0.00%"
+              color="text-success"
+              subtitle="Click-through rate"
+            }}
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

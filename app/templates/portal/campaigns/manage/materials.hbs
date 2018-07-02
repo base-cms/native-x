@@ -10,13 +10,7 @@
 
       <div class="card mb-4 border-0 z-depth-half">
         <div class="card-body">
-          <h5 class="card-title font-weight-bold text-uppercase text-danger mb-0">
-            Campaign
-          </h5>
-          <div class="text-muted mb-3">
-            {{moment-format model.campaign.criteria.start "MM/DD/YYYY"}}{{#if model.campaign.criteria.end}} - {{moment-format
-            model.campaign.criteria.end "MM/DD/YYYY"}}{{/if}} {{#if model.campaign.description}} | {{ model.campaign.description }} {{/if}}
-          </div>
+          {{-report/campaign-title campaign=model.campaign}}
 
           {{#model-form
             model=model.campaign

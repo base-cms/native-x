@@ -70,7 +70,10 @@ Router.map(function() {
             });
           });
         });
-        this.route('report');
+        this.route('report', function() {
+          this.route('summary');
+          this.route('creative-breakdown');
+        });
       });
     });
   });

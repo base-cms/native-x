@@ -1,0 +1,26 @@
+#import 'fortnight/gql/fragments/campaign-creative/details'
+#import 'fortnight/gql/fragments/campaign-creative/image'
+
+query ReportCampaignCreativeBreakdown($input: CampaignHashInput!) {
+  reportCampaignCreativeBreakdown(input: $input) {
+    views
+    clicks
+    ctr
+
+    creatives {
+      creative {
+        ...CampaignCreativeDetailsFragment
+        ...CampaignCreativeImageFragment
+      }
+      views
+      clicks
+      ctr
+      days {
+        date
+        views
+        clicks
+        ctr
+      }
+    }
+  }
+}
