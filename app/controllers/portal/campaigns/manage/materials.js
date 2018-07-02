@@ -15,7 +15,7 @@ export default Controller.extend(ActionMixin, {
   }),
 
   actions: {
-    async saveField(field, value) {
+    async saveField(field, label, value) {
       this.startAction();
       const input = {
         id: this.get('model.campaign.id'),
@@ -25,6 +25,7 @@ export default Controller.extend(ActionMixin, {
       const variables = { input };
       try {
         await this.get('apollo').mutate({ mutation: assignCampaignValue, variables }, 'assignCampaignValue');
+        this.get('notify').success(`${label || field} saved.`)
       } catch (e) {
         this.get('graphErrors').show(e);
         // Handle and re-throw so the error displays in the field.
