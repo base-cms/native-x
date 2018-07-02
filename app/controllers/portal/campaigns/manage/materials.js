@@ -5,6 +5,7 @@ import { isURL } from 'validator';
 import ActionMixin from 'fortnight/mixins/action-mixin';
 
 import mutation from 'fortnight/gql/mutations/campaign/url';
+import assignCampaignValue from 'fortnight/gql/mutations/campaign/assign-value';
 
 export default Controller.extend(ActionMixin, {
   apollo: inject(),
@@ -14,18 +15,32 @@ export default Controller.extend(ActionMixin, {
   }),
 
   actions: {
-    validateUrl(instance, form) {
-      const url = form.elements['campaign-url'];
-      if (!url) return;
+    async saveField(field, value) {
+      this.startAction();
+      const input = {
+        id: this.get('model.campaign.id'),
+        field,
+        value,
+      };
+      const variables = { input };
+      try {
+        await this.get('apollo').mutate({ mutation: assignCampaignValue, variables }, 'assignCampaignValue');
+      } catch (e) {
+        this.get('graphErrors').show(e);
+        // Handle and re-throw so the error displays in the field.
+        throw this.get('graphErrors').handle(e);
+      } finally {
+        this.endAction();
+      }
+    },
 
-      const { value } = url;
-      if (!value) return;
-
-      const isValid = isURL(value, {
-        protocols: ['http', 'https'],
-        require_protocol: true,
-      })
-      url.setCustomValidity(isValid ? '' : 'The provided URL is invalid.');
+    validateUrl(element) {
+      const { value } = element;
+      let message = '';
+      if (!isURL(value, { protocols: ['http', 'https'], require_protocol: true })) {
+        message = 'Please enter a valid URL.';
+      }
+      element.setCustomValidity(message);
     },
 
     async updateUrl({ url }) {

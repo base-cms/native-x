@@ -12,40 +12,50 @@
         <div class="card-body">
           {{-report/campaign-title campaign=model.campaign}}
 
-          {{#model-form
-            model=model.campaign
-            shouldAutosave=true
-            preValidate=(action "validateUrl")
-            onSubmit=(action "updateUrl") as |form|
-          }}
+          {{#auto-save/form as |form|}}
             <div class="form-group mb-0">
               <label for="campaign-url" class="font-weight-bold text-muted">Click URL {{required-field-label}}</label>
-              {{!-- @todo Ensure this uses custom validation for the URL --}}
-              {{input
+
+              {{#form.elements.input
                 id="campaign-url"
                 class="form-control"
                 type="url"
-                aria-describedby="campaign-url-help"
-                pattern="https?://.+"
+                value=model.campaign.url
+                placeholder="https://www.yourlink.com"
                 required=true
-                value=form.model.url
-                focusOut=(action form.actions.autosave)
-                keyUp=(action form.actions.autosave 750)
+                on-change=(action "saveField" "url")
+                on-validate=(action "validateUrl") as |input|
               }}
-              <div class="invalid-feedback">
-                Please enter a valid URL.
-              </div>
-              <small id="campaign-url-help" class="form-text text-muted">
-                The link must start with <code>http://</code> or <code>https://</code>
-              </small>
+                <div class="input-group">
+                  {{input.element}}
+
+                  <div class="input-group-append">
+                    <span class="input-group-text">
+                      {{#if input.isChanging}}
+                        {{entypo-icon "hour-glass" class="text-dark spin"}}
+                      {{else if input.changeComplete}}
+                        {{entypo-icon "check" class="text-success"}}
+                      {{else if input.changeError}}
+                        {{entypo-icon "warning" class="text-danger"}}
+                      {{else}}
+                        {{entypo-icon "hour-glass" class="text-light"}}
+                      {{/if}}
+                    </span>
+                  </div>
+                  <div class="invalid-feedback">{{input.validationMessage}}</div>
+                </div>
+                {{#if input.changeError}}
+                  <small class="form-text text-danger">Server error: {{input.changeError.message}}</small>
+                {{/if}}
+              {{/form.elements.input}}
             </div>
-          {{/model-form}}
+          {{/auto-save/form}}
 
         </div>
       </div>
 
       <div class="card mb-4 border-0 z-depth-half">
-        <div class="card-body">
+        <div class="card-body pb-1">
           <h5 class="card-title font-weight-bold text-uppercase text-info mb-0">
             Creatives
           </h5>
