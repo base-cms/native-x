@@ -1,0 +1,16 @@
+{{#bs-modal/body}}
+  <h5 class="card-title font-weight-bold text-uppercase text-warning mb-0">
+    Preview
+  </h5>
+  <div class="text-muted mb-3">
+    How your ad units will display.
+  </div>
+  <div class="row">
+    {{campaign-creative/preview-grid class="col-lg-6 mb-2" creative=model.creative campaign=model.campaign}}
+    {{campaign-creative/preview-list class="col-lg-6 mb-2" creative=model.creative campaign=model.campaign}}
+  </div>
+{{/bs-modal/body}}
+
+{{#bs-modal/footer class="d-flex justify-content-between"}}
+  <button class="btn btn-success" disabled={{isActionRunning}} {{action (route-action "hideModal")}}>{{entypo-icon "check"}} OK</button>
+{{/bs-modal/footer}}
