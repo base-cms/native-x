@@ -1,0 +1,9 @@
+{{#if visible}}
+  <div class="input-group-append">
+    {{auto-save/indicator-icon
+      isChanging=input.isChanging
+      changeComplete=input.changeComplete
+      validationMessage=input.validationMessage
+    }}
+  </div>
+{{/if}}

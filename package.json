@@ -51,6 +51,7 @@
     "ember-ajax": "^3.0.0",
     "ember-apollo-client": "^1.0.1",
     "ember-basic-dropdown": "^1.0.0-beta.7",
+    "ember-body-class": "^1.0.1",
     "ember-cli": "~3.1.2",
     "ember-cli-app-version": "^3.0.0",
     "ember-cli-babel": "^6.6.0",
@@ -60,6 +61,7 @@
     "ember-cli-htmlbars-inline-precompile": "^1.0.0",
     "ember-cli-inject-live-reload": "^1.4.1",
     "ember-cli-moment-shim": "^3.7.1",
+    "ember-cli-numeral": "^1.0.0",
     "ember-cli-qunit": "^4.1.1",
     "ember-cli-sass": "^7.1.1",
     "ember-cli-shims": "^1.2.0",
@@ -71,6 +73,7 @@
     "ember-font-awesome": "^4.0.0-rc.4",
     "ember-froala-editor": "^2.8.1",
     "ember-load-initializers": "^1.0.0",
+    "ember-math-helpers": "^2.5.0",
     "ember-maybe-import-regenerator": "^0.1.6",
     "ember-moment": "^7.7.0",
     "ember-notify": "^5.2.1",
@@ -108,6 +111,7 @@
   "dependencies": {
     "bootswatch": "^4.1.0",
     "filesize": "^3.6.0",
-    "fraction.js": "^4.0.4"
+    "fraction.js": "^4.0.4",
+    "highcharts": "^6.1.1"
   }
 }

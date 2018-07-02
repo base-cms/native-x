@@ -11,13 +11,19 @@ export default Component.extend(ActionMixin, {
   campaignId: null,
   creativeId: null,
 
+
+  canModifyStatus: false,
+  canRemove: false,
+  displayEditButton: false,
+  editRouteName: 'manage.campaign.edit.creatives.edit',
+
   apollo: inject(),
 
   init() {
     this._super(...arguments);
 
     // Ensure the action has ended.
-    // Fixes issue with calling set on destroyed object after status is updated.
+    // Fixes issue with calling set on destroyed object after status is updated or creative is removed.
     this.endAction();
   },
 
@@ -28,12 +34,11 @@ export default Component.extend(ActionMixin, {
 
       const mutation = removeCreative;
       const variables = { input: { campaignId, creativeId } };
-      const refetchQueries = ['CampaignCreatives'];
+      const refetchQueries = ['CampaignCreatives', 'CampaignHash'];
       try {
         await this.get('apollo').mutate({ mutation, variables, refetchQueries }, 'removeCampaignCreative');
       } catch (e) {
-        this.get('graphErrors').show(e)
-      } finally {
+        this.get('graphErrors').show(e);
         this.endAction();
       }
     },

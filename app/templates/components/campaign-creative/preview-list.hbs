@@ -1,0 +1,10 @@
+<div class="row">
+  <div class="col-5 pr-0">
+    <img src="{{ creative.image.src }}?w=300&h=169&crop=focalPoint&fit=crop&dpr=1&fp-x={{ creative.image.focalPoint.x }}&fp-y={{ creative.image.focalPoint.y }}" class="img-fluid">
+  </div>
+  <div class="col-7">
+    <h5 class="font-weight-bold">{{ creative.title }}</h5>
+    <p><strong>Sponsored</strong> - {{moment-format campaign.criteria.start "MMM DD, YYYY"}}</p>
+  </div>
+</div>
+<hr class="mt-4 mt-lg-0">

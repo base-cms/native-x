@@ -1,7 +1,11 @@
-#import 'fortnight/gql/fragments/campaign/list'
+#import 'fortnight/gql/fragments/campaign/details'
+#import 'fortnight/gql/fragments/campaign-creative'
 
 query CampaignHash($input: CampaignHashInput!) {
   campaignHash(input: $input) {
-    ...CampaignListFragment
+    ...CampaignDetailsFragment
+    creatives {
+      ...CampaignCreativeFragment
+    }
   }
 }

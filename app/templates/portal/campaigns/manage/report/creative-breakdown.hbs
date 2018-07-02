@@ -1,0 +1,60 @@
+<div class="container my-3">
+
+  <div class="row mb-3">
+    <div class="col">
+      <h3 class="mb-0 font-weight-bold text-muted">
+        <span class="text-uppercase">Creative Report</span>
+        <span class="h6 text-muted">a breakdown of how your individual creatives are performing</span>
+      </h3>
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+          {{-report/campaign-title campaign=campaign}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {{#each model.creatives as |creativeSummary|}}
+  <div class="row">
+    <div class="col">
+      {{-report/creative-card
+        creative=creativeSummary.creative
+        campaign=model.campaignHash
+        clicks=creativeSummary.clicks
+        views=creativeSummary.views
+        ctr=creativeSummary.ctr
+        totalClicks=clicks
+        totalViews=impressions
+        totalCtr=ctr
+      }}
+    </div>
+  </div>
+  {{/each}}
+
+
+  <div class="row mb-3">
+    <div class="col">
+      {{-report/data-chart
+        title="Daily impressions by creative"
+        series=impressionSummary.data
+        options=impressionSummary.options
+      }}
+    </div>
+  </div>
+
+  <div class="row mb-3">
+    <div class="col">
+      {{-report/data-chart
+        title="Daily click-through rate by creative"
+        series=ctrSummary.data
+        options=ctrSummary.options
+      }}
+    </div>
+  </div>
+
+</div>

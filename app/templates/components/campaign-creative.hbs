@@ -1,5 +1,5 @@
 {{#if image.src}}
-  {{#link-to "manage.campaign.edit.creatives.edit" creativeId}}
+  {{#link-to editRouteName creativeId}}
     {{image-crop
       imgClass="card-img-top border-bottom"
       aspectRatio="16:9"
@@ -13,7 +13,7 @@
 
 <div class="card-body">
   {{#if title}}
-    <h5 class="card-title">{{#link-to "manage.campaign.edit.creatives.edit" creativeId}}{{title}}{{/link-to}}</h5>
+    <h5 class="card-title">{{#link-to editRouteName creativeId}}{{title}}{{/link-to}}</h5>
   {{/if}}
 
   {{#if teaser}}
@@ -22,15 +22,31 @@
 
 </div>
 <div class="card-footer d-flex justify-content-between">
-  {{campaign-creative/status-selector status=status disabled=isActionRunning onChange=(action "updateStatus")}}
+  {{#if displayEditButton}}
+    {{#link-to editRouteName creativeId class="btn btn-sm btn-success"}}
+      {{entypo-icon "pencil"}} Edit
+    {{/link-to}}
+  {{/if}}
 
-  {{confirm-button
-    icon="trash"
-    confirmIcon="warning"
-    label=""
-    confirmLabel=""
-    class="btn-sm btn-danger"
-    disabled=isActionRunning
-    onConfirm=(action "remove")
-  }}
+  {{#if displayPreviewButton}}
+    {{#link-to previewRouteName creativeId class="btn btn-sm btn-info"}}
+      {{entypo-icon "eye"}} Preview
+    {{/link-to}}
+  {{/if}}
+
+  {{#if canModifyStatus}}
+    {{campaign-creative/status-selector status=status disabled=isActionRunning onChange=(action "updateStatus")}}
+  {{/if}}
+
+  {{#if canRemove}}
+    {{confirm-button
+      icon="trash"
+      confirmIcon="warning"
+      label=""
+      confirmLabel="You Sure?"
+      class="btn-sm btn-danger"
+      disabled=isActionRunning
+      onConfirm=(action "remove")
+    }}
+  {{/if}}
 </div>

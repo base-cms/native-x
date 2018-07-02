@@ -1,0 +1,33 @@
+{{yield (hash
+  isChanging=isChanging
+  changeError=changeError
+  changeComplete=changeComplete
+  isValid=isValid
+  validationMessage=validationMessage
+  element=(component "auto-save/wrapped"
+    id=id
+    class=_class
+    type=type
+    value=_value
+    name=name
+    title=title
+    required=required
+    placeholder=placeholder
+    disabled=disabled
+    readonly=_readonly
+    aria-describedby=aria-describedby
+    pattern=pattern
+    min=min
+    max=max
+    step=step
+    maxlength=maxlength
+    onchange=(action "debounceChange")
+    oninput=(action "debounceInput")
+  )
+  elements=(hash
+    indicator=(component "auto-save/indicator" visible=shouldSendChange input=this)
+    invalid-feedback=(component "auto-save/invalid-feedback" message=validationMessage)
+  )
+)}}
+
+

@@ -1,1 +1,87 @@
-<h3 class="mt-3">{{model.name}}</h3>
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-12 col-lg-9 mx-auto">
+
+
+      <h3 class="font-weight-bold text-muted mb-4">
+        <span class="text-uppercase">Ad Builder</span>
+        <span class="h6 text-muted">Please submit your native ad campaign.</span>
+      </h3>
+
+      <div class="card mb-4 border-0 z-depth-half">
+        <div class="card-body">
+          {{-report/campaign-title campaign=model.campaign}}
+
+          {{#auto-save/form as |form|}}
+            <div class="form-group mb-0">
+              <label for="campaign-url" class="font-weight-bold text-muted">Click URL {{required-field-label}}</label>
+
+              {{#form.elements.input
+                id="campaign-url"
+                class="form-control"
+                type="url"
+                value=model.campaign.url
+                placeholder="https://www.yourlink.com"
+                required=true
+                on-change=(action "saveField" "url" "Click URL")
+                on-validate=(action "validateUrl") as |input|
+              }}
+                <div class="input-group">
+                  {{input.element}}
+                  {{input.elements.indicator}}
+                  {{input.elements.invalid-feedback}}
+                </div>
+              {{/form.elements.input}}
+            </div>
+          {{/auto-save/form}}
+
+        </div>
+      </div>
+
+      <div class="card mb-4 border-0 z-depth-half">
+        <div class="card-body pb-1">
+          <h5 class="card-title font-weight-bold text-uppercase text-info mb-0">
+            Creatives
+          </h5>
+          <div class="text-muted mb-3">
+            Build your native ad unit.
+          </div>
+
+          <div class="row">
+            {{#each model.campaign.creatives as |creative|}}
+              <div class="mb-3 col-12 col-lg-6">
+                {{campaign-creative
+                  canRemove=canRemoveCreatives
+                  editRouteName="portal.campaigns.manage.materials.creatives.edit"
+                  displayEditButton=true
+                  displayPreviewButton=true
+                  previewRouteName="portal.campaigns.manage.materials.creatives.edit.preview"
+                  creativeId=creative.id
+                  campaignId=model.campaign.id
+                  title=creative.title
+                  teaser=creative.teaser
+                  status=creative.status
+                  image=creative.image
+                }}
+              </div>
+            {{/each}}
+            <div class="mb-3 col-12 col-lg-6">
+
+              {{#link-to "portal.campaigns.manage.materials.creatives.create" class="card mnh-100 border-success text-success"}}
+                <div class="card-body text-center d-flex flex-column justify-content-center">
+                  {{entypo-icon "circle-with-plus" class="h1"}}
+                  <span class="h4">Add Creative</span>
+                </div>
+              {{/link-to}}
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{{outlet}}

@@ -60,8 +60,21 @@ Router.map(function() {
   this.route('portal', { path: ':hash' }, function() {
     this.route('campaigns', function() {
       this.route('manage', { path: ':campaign_hash' }, function() {
-        this.route('materials');
-        this.route('report');
+        this.route('materials', function() {
+          this.route('creatives', function() {
+            this.route('create', function() {
+              this.route('image');
+            });
+            this.route('edit', { path: ':creative_id' }, function() {
+              this.route('image');
+              this.route('preview');
+            });
+          });
+        });
+        this.route('report', function() {
+          this.route('summary');
+          this.route('creative-breakdown');
+        });
       });
     });
   });

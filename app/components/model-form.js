@@ -35,14 +35,14 @@ export default Component.extend({
    *
    * @param {*} event
    */
-  async submit(event) {
+  submit(event) {
     const form = this.element;
     event.preventDefault();
     event.stopPropagation();
 
     const model = this.get('model');
 
-    const preValidate = await this.sendEvent('preValidate', form, model);
+    const preValidate = this.sendEvent('preValidate', form, model);
     if (preValidate === false) return false;
 
     const isValid = form.checkValidity();
@@ -59,11 +59,8 @@ export default Component.extend({
   actions: {
     autosave(delay) {
       if (this.get('shouldAutosave')) {
-        if (typeof delay === 'number') {
-          debounce(this, 'triggerSubmit', delay);
-        } else {
-          this.triggerSubmit();
-        }
+        const wait = typeof delay === 'number' ? delay : 0;
+        debounce(this, 'triggerSubmit', wait);
       }
     },
     setAndAutosave(field, value) {
