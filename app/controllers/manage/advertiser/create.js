@@ -12,9 +12,11 @@ export default Controller.extend(ActionMixin, {
      *
      * @param {object} fields
      */
-    async create({ name, logo }) {
+    async create({ name, logo, notify }) {
       this.startAction();
-      const payload = { name, logo };
+      notify.internal = notify.internal.map(i => i.id);
+      notify.external = notify.external.map(i => i.id);
+      const payload = { name, logo, notify };
       const variables = { input: { payload } };
       try {
         const response = await this.get('apollo').mutate({ mutation, variables }, 'createAdvertiser');
