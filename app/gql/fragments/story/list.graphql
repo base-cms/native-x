@@ -5,6 +5,18 @@ fragment StoryListFragment on Story {
     id
     name
   }
+  disposition
   updatedAt
+  createdAt
   publishedAt
+  createdBy {
+    id
+    givenName
+    familyName
+  }
+  updatedBy {
+    id
+    givenName
+    familyName
+  }
 }

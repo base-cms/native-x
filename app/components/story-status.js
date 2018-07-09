@@ -6,9 +6,16 @@ export default Component.extend({
   tagName: 'span',
   classNameBindings: ['color'],
 
+  disposition: null,
+  publishedAt: null,
+
   dateFormat: 'MMM Do, YYYY',
 
-  status: computed('publishedAt', function() {
+  status: computed('disposition', 'publishedAt', function() {
+    const disposition = this.get('disposition');
+    if (['Deleted', 'Draft', 'Placeholder'].includes(disposition)) {
+      return disposition;
+    }
     const publishedAt = this.get('publishedAt');
     if (!publishedAt) return 'Draft';
     const date = moment(publishedAt);
@@ -35,6 +42,8 @@ export default Component.extend({
 
   color: computed('status', function() {
     switch (this.get('status')) {
+      case 'Deleted':
+        return 'text-danger';
       case 'Draft':
         return 'text-warning';
       case 'Scheduled':

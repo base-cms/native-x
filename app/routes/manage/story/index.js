@@ -26,7 +26,9 @@ export default Route.extend(RouteQueryManager, {
 
   search(phrase, pagination) {
     const controller = this.controllerFor(this.get('routeName'));
-    const variables = { pagination, phrase };
+
+    const input = { dispositions: ['Draft', 'Ready'] };
+    const variables = { input, pagination, phrase };
     const resultKey = 'searchStories';
     controller.set('resultKey', resultKey);
     return this.get('apollo').watchQuery({ query: search, variables, fetchPolicy: 'network-only' }, resultKey)
@@ -45,7 +47,8 @@ export default Route.extend(RouteQueryManager, {
       return this.search(phrase, pagination);
     }
     const sort = { field: sortBy, order: ascending ? 1 : -1 };
-    const variables = { pagination, sort };
+    const input = { dispositions: ['Draft', 'Ready'] };
+    const variables = { pagination, sort, input };
     if (!sortBy) delete variables.sort.field;
     const resultKey = 'allStories';
     controller.set('resultKey', resultKey);
