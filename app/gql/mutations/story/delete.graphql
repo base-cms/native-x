@@ -1,0 +1,3 @@
+mutation DeleteStory($input: ModelIdInput!) {
+  deleteStory(input: $input)
+}
