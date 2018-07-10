@@ -20,17 +20,6 @@ export default Component.extend({
   readOnlyWhileChanging: true,
 
   /**
-   * The formatted value used by the input.
-   * Is passed to the input element.
-   * Will converted falsey values to an empty string.
-   */
-  _value: computed('value', function() {
-    const value = this.get('value');
-    if (!value) return '';
-    return value;
-  }),
-
-  /**
    * Determines if the field should be readonly.
    * Is passed to the input element.
    * Forces the field into readonly mode while changing, or if
@@ -86,17 +75,25 @@ export default Component.extend({
     this.resetState();
     this.validate();
     const fn = this.get('on-change');
-    const shouldSave = this.get('shouldSave');
     if (typeof fn === 'function' && this.get('_input.isValid')) {
+      const { id, name, shouldSave } = this.getProperties('id', 'name', 'shouldSave');
+      const props = {
+        id,
+        name,
+        value,
+        label: this.get('data-label'),
+        shouldSave,
+        event,
+      };
       this.set('isChanging', true);
       try {
-        await fn(value, shouldSave, event);
+        await fn(props);
         this.set('changeComplete', true);
       } catch (e) {
         this.set('_input.validationMessage', e.message);
         const onError = this.get('on-error');
         if (typeof onError === 'function') {
-          onError(e, value, shouldSave, event);
+          onError(e, props);
         }
       } finally {
         this.set('isChanging', false);
@@ -147,7 +144,7 @@ export default Component.extend({
     debounceInput(event) {
       const { target } = event;
       const { value } = target;
-      const isDirty = this.get('_value') !== value;
+      const isDirty = this.get('value') !== value;
       this.resetState(); // Reset when inputting (but not on change)
       if (isDirty) {
         debounce(this, 'sendOnChange', value, event, this.get('typeDelay'));
@@ -165,7 +162,7 @@ export default Component.extend({
     debounceChange(event) {
       const { target } = event;
       const { value } = target;
-      const isDirty = this.get('_value') !== value;
+      const isDirty = this.get('value') !== value;
       if (isDirty) {
         debounce(this, 'sendOnChange', value, event, 0);
       }
