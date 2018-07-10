@@ -4,11 +4,14 @@
   changeComplete=changeComplete
   isValid=isValid
   validationMessage=validationMessage
-  element=(component "auto-save/wrapped"
+  element=(component "form-elements/input"
     id=id
-    class=_class
+    autocomplete=autocomplete
+    tabindex=tabindex
+    autofocus=autofocus
+    class=class
     type=type
-    value=_value
+    value=value
     name=name
     title=title
     required=required
@@ -21,12 +24,22 @@
     max=max
     step=step
     maxlength=maxlength
-    onchange=(action "debounceChange")
-    oninput=(action "debounceInput")
+
+    validator=validator
+    on-insert=(action "setChildInputComponent")
+    input=(action "debounceInput")
+    change=(action "debounceChange")
   )
   elements=(hash
-    indicator=(component "auto-save/indicator" visible=shouldSendChange input=this)
-    invalid-feedback=(component "auto-save/invalid-feedback" message=validationMessage)
+    indicator=(component "auto-save/indicator"
+      visible=shouldSendChange
+      isChanging=isChanging
+      changeComplete=changeComplete
+      validationMessage=_input.validationMessage
+    )
+    invalid-feedback=(component "auto-save/invalid-feedback"
+      message=_input.validationMessage
+    )
   )
 )}}
 
