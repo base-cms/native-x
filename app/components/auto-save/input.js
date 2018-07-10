@@ -9,9 +9,9 @@ export default Component.extend({
   tagName: '',
 
   /**
-   * Whether autosave/change events should be fired.
+   * Whether the change event should be saved.
    */
-  shouldSendChange: true,
+  shouldSave: true,
 
   /**
    * Whether to set the element to readonly
@@ -20,10 +20,15 @@ export default Component.extend({
   readOnlyWhileChanging: true,
 
   /**
-   * Whether this element should be considered "two-way" bound.
-   * In other words, input/change events will also set the incoming value.
+   * The formatted value used by the input.
+   * Is passed to the input element.
+   * Will converted falsey values to an empty string.
    */
-  twoWay: false,
+  _value: computed('value', function() {
+    const value = this.get('value');
+    if (!value) return '';
+    return value;
+  }),
 
   /**
    * Determines if the field should be readonly.
@@ -79,17 +84,19 @@ export default Component.extend({
    */
   async sendOnChange(value, event) {
     this.resetState();
+    this.validate();
     const fn = this.get('on-change');
+    const shouldSave = this.get('shouldSave');
     if (typeof fn === 'function' && this.get('_input.isValid')) {
       this.set('isChanging', true);
       try {
-        await fn(value, event);
+        await fn(value, shouldSave, event);
         this.set('changeComplete', true);
       } catch (e) {
         this.set('_input.validationMessage', e.message);
         const onError = this.get('on-error');
         if (typeof onError === 'function') {
-          onError(e, value, event);
+          onError(e, value, shouldSave, event);
         }
       } finally {
         this.set('isChanging', false);
@@ -131,11 +138,6 @@ export default Component.extend({
 
     /**
      * Debounces the input input event.
-     * The change event will only fire if the input value is
-     * actually dirty. This prevents events from being fired when
-     * no-modifying keys are pressed, such as arrows, home/end, etc.
-     *
-     * When `shouldSendChange` is false, no events are fired.
      *
      * The change event will be debounced based on the
      * milliseconds defined in the `typeDelay` property.
@@ -145,27 +147,15 @@ export default Component.extend({
     debounceInput(event) {
       const { target } = event;
       const { value } = target;
-
-      if (this.get('shouldSendChange')) {
-        this.resetState(); // Reset when inputting (but not on change)
-        const isDirty = this.get('_value') !== value;
-
-        this.validate();
-
-        if (isDirty) {
-          debounce(this, 'sendOnChange', value, event, this.get('typeDelay'));
-        }
-      } else {
-        // When autosave events are disabled, re-run validation if previously validated
-        if (this.get('twoWay')) this.set('value', value);
-        if (this.get('_input.wasValidated')) this.validate();
+      const isDirty = this.get('_value') !== value;
+      this.resetState(); // Reset when inputting (but not on change)
+      if (isDirty) {
+        debounce(this, 'sendOnChange', value, event, this.get('typeDelay'));
       }
     },
 
     /**
      * Debounces the input onchange event.
-     *
-     * When `shouldSendChange` is false, no events are fired.
      *
      * Will immediately fire the change, if dirty, and
      * will cancel any other pending change events.
@@ -175,18 +165,9 @@ export default Component.extend({
     debounceChange(event) {
       const { target } = event;
       const { value } = target;
-      if (this.get('shouldSendChange')) {
-        const isDirty = this.get('_value') !== value;
-
-        this.validate();
-
-        if (isDirty) {
-          debounce(this, 'sendOnChange', value, event, 0);
-        }
-      } else {
-        // When autosave events are disabled, re-run validation if previously validated
-        if (this.get('twoWay')) this.set('value', value);
-        if (this.get('_input.wasValidated')) this.validate();
+      const isDirty = this.get('_value') !== value;
+      if (isDirty) {
+        debounce(this, 'sendOnChange', value, event, 0);
       }
     },
   },

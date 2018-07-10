@@ -11,7 +11,7 @@
     autofocus=autofocus
     class=class
     type=type
-    value=value
+    value=_value
     name=name
     title=title
     required=required
@@ -32,7 +32,7 @@
   )
   elements=(hash
     indicator=(component "auto-save/indicator"
-      visible=shouldSendChange
+      visible=shouldSave
       isChanging=isChanging
       changeComplete=changeComplete
       validationMessage=_input.validationMessage
