@@ -20,27 +20,26 @@ const Imgix = (props) => {
   }).filter(kv => kv !== '').join('&');
 
   src = qs ? `${src}?${qs}` : src;
-  
+
   let img;
   if (src) {
-    if (props.tag == 'img') {
+    if (props.tag === 'img') {
       img = <img className={props.className} src={src} alt={props.alt} title={props.title} />;
-    } else if (props.tag == 'div') {
+    } else if (props.tag === 'div') {
       const divStyle = {
-        backgroundImage: `url(${src})`
-      }
+        backgroundImage: `url(${src})`,
+      };
       img = <div className={props.className} style={divStyle}>{props.children}</div>;
     }
-    
   }
-  
+
   return (
     img
   );
 };
 
 Imgix.defaultProps = {
-  //dpr: process.browser ? window.devicePixelRatio || 1 : 1,
+  // dpr: process.browser ? window.devicePixelRatio || 1 : 1,
   dpr: 1,
   title: null,
   alt: null,
