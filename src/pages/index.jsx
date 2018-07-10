@@ -46,15 +46,9 @@ const Index = () => {
   const input = { pagination: { first: 10 } };
   return (
     <PageWrapper>
-      <style jsx global>{`
-        nav.navbar.fixed-top + * {
-          margin-top: 80px;
-        }
-      `}
-      </style>
       <Container>
         <Head>
-          <title>Homepage asdfadg</title>
+          <title>Homepage</title>
         </Head>
 
         <Row>

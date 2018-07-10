@@ -55,7 +55,7 @@ const Story = ({ id }) => {
         max-width: 100%
       }
       nav.navbar.fixed-top + * {
-        margin-top: 80px;
+        margin-top: 55px;
       }
       a.card-title {
         color: white;
@@ -141,9 +141,9 @@ const Story = ({ id }) => {
       // }
 
       .post-heading h1 {
-        text-shadow: -3px -3px 3px rgba(0,0,0,.5), 3px 3px 3px #000;
+        text-shadow: -3px -3px 3px rgba(0,0,0,.25), 3px 3px 3px #000;
         color: #fff;
-        font-size: 7vw;
+        font-size: 5vw;
       }
 
 

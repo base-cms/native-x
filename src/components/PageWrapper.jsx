@@ -17,6 +17,12 @@ const PageWrapper = props => (
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossOrigin="anonymous" />
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.8.4/css/froala_style.css" type="text/css" />
+      <style jsx gloabal>{`
+        nav.navbar.fixed-top + * {
+          margin-top: 55px;
+        }
+      `}
+      </style>
     </Head>
     <Navbar dark color="dark" expand fixed="top">
       <Link href="/" passHref>
