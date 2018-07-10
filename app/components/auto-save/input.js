@@ -143,7 +143,6 @@ export default Component.extend({
      * @param {Event} event
      */
     debounceInput(event) {
-      console.info('input', this.get('shouldSendChange'));
       const { target } = event;
       const { value } = target;
 
