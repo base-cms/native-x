@@ -6,6 +6,7 @@ export default Component.extend({
   classNameBindings: ['validityClass'],
   attributeBindings: [
     '_value:value',
+    'data-label',
     'readonly',
     'aria-describedby',
     'autocomplete',
