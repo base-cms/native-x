@@ -53,7 +53,7 @@ const Index = () => {
 
         <Row>
           <Col>
-            <Card>
+            <Card className="border-0 p-5">
               <Query query={STORIES} variables={{ input }}>
                 {({ loading, error, data }) => {
                   if (loading) return <p>Loading...</p>;

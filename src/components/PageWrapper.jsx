@@ -9,7 +9,10 @@ import {
 import PropTypes from 'prop-types';
 // import ActiveNavItem from '../components/ActiveNavItem';
 
-const publisher = { name: 'Firehouse' };
+const publisher = {
+  name: 'Firehouse',
+  pubCode: 'fh',
+};
 
 const PageWrapper = props => (
   <div>
@@ -17,14 +20,16 @@ const PageWrapper = props => (
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossOrigin="anonymous" />
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.8.4/css/froala_style.css" type="text/css" />
-      <style jsx gloabal>{`
-        nav.navbar.fixed-top + * {
+      <link href="https://fonts.googleapis.com/css?family=News+Cycle:400,700|Open+Sans+Condensed:300,700|Roboto:400,700" rel="stylesheet" type="text/css" />
+    </Head>
+    <style jsx global>{`
+        nav.navbar.fixed-top + section {
           margin-top: 55px;
         }
       `}
-      </style>
-    </Head>
+    </style>
     <Navbar dark color="dark" expand fixed="top">
+
       <Link href="/" passHref>
         <NavbarBrand>{ publisher.name }</NavbarBrand>
       </Link>
@@ -33,7 +38,9 @@ const PageWrapper = props => (
         <ActiveNavItem href="/about" title="About">About</ActiveNavItem> */}
       </Nav>
     </Navbar>
-    {props.children}
+    <section>
+      {props.children}
+    </section>
   </div>
 );
 
