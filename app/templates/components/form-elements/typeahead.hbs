@@ -1,0 +1,27 @@
+{{#if multiple}}
+  {{#power-select-multiple
+    triggerClass=_triggerClass
+    search=(perform search)
+    selected=value
+    placeholder=placeholder
+    onchange=(action change)
+    closeOnSelect=closeOnSelect
+    disabled=disabled
+    as |item|}}
+      {{ yield item }}
+  {{/power-select-multiple}}
+{{else}}
+  {{#power-select
+    triggerClass=_triggerClass
+    search=(perform search)
+    selected=value
+    placeholder=placeholder
+    allowClear=_allowClear
+    closeOnSelect=closeOnSelect
+    disabled=disabled
+    onchange=(action change)
+    as |item|}}
+      {{ yield item }}
+  {{/power-select}}
+{{/if}}
+{{form-elements/input on-insert=(action "setInputElement") show=false}}

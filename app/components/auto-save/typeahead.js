@@ -1,6 +1,4 @@
 import Component from '@ember/component';
-import { computed } from '@ember/object';
-import { debounce } from '@ember/runloop';
 import OnInsertMixin from '../form-elements/mixins/on-insert';
 
 export default Component.extend(OnInsertMixin, {
@@ -21,26 +19,13 @@ export default Component.extend(OnInsertMixin, {
   readOnlyWhileChanging: true,
 
   /**
-   * Determines if the field should be readonly.
-   * Is passed to the input element.
-   * Forces the field into readonly mode while changing, or if
-   * passed to the component.
-   */
-  _readonly: computed('readonly', 'shouldSave', 'isChanging', 'readOnlyWhileChanging', function() {
-    if (this.get('readonly')) return true;
-    if (!this.get('shouldSave')) return false;
-    if (!this.get('readOnlyWhileChanging')) return false;
-    return this.get('isChanging');
-  }),
-
-  /**
    * Whether the change event is currently being processed.
    */
   isChanging: false,
 
   /**
-   * The number of milliseconds to debounce the
-   * change event by when typing.
+   * The number of milliseconds wait before triggering the
+   * typeahead search function
    */
   typeDelay: 750,
 
@@ -61,7 +46,7 @@ export default Component.extend(OnInsertMixin, {
    * @param {string} value
    * @param {Event} event
    */
-  async sendOnChange(value, event) {
+  async sendOnChange(value, select) {
     this.resetState();
     this.validate();
     const fn = this.get('on-change');
@@ -73,7 +58,7 @@ export default Component.extend(OnInsertMixin, {
         value,
         label,
         shouldSave,
-        event,
+        select,
       };
       this.set('isChanging', true);
       try {
@@ -114,48 +99,13 @@ export default Component.extend(OnInsertMixin, {
 
   actions: {
     /**
-     * Sets the wrapped/child, `input` component so it can
+     * Sets the wrapped/child, `typeahead` component so it can
      * be accessed in this context.
      *
      * @param {Component} component
      */
     setChildInputComponent(component) {
       this.set('_child', component);
-    },
-
-    /**
-     * Debounces the input input event.
-     *
-     * The change event will be debounced based on the
-     * milliseconds defined in the `typeDelay` property.
-     *
-     * @param {Event} event
-     */
-    debounceInput(event) {
-      const { target } = event;
-      const { value } = target;
-      const isDirty = this.get('value') !== value;
-      this.resetState(); // Reset when inputting (but not on change)
-      if (isDirty) {
-        debounce(this, 'sendOnChange', value, event, this.get('typeDelay'));
-      }
-    },
-
-    /**
-     * Debounces the input onchange event.
-     *
-     * Will immediately fire the change, if dirty, and
-     * will cancel any other pending change events.
-     *
-     * @param {Event} event
-     */
-    debounceChange(event) {
-      const { target } = event;
-      const { value } = target;
-      const isDirty = this.get('value') !== value;
-      if (isDirty) {
-        debounce(this, 'sendOnChange', value, event, 0);
-      }
     },
   },
 });

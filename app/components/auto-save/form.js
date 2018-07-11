@@ -42,6 +42,7 @@ export default Component.extend({
      * @param {*} component
      */
     addFormElement(component) {
+      console.info('auto-save/form::actions.addFormElement', component);
       this.get('_formElements').pushObject(component);
     },
   },
