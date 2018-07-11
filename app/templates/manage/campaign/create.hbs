@@ -3,18 +3,24 @@
   {{#crumbs.item active=true}}Create New{{/crumbs.item}}
 {{/nav-breadcrumbs}}
 
-{{#model-form
+{{!-- {{#model-form
   model=model
   shouldAutosave=false
   onSubmit=(action "create") as |form|
+}} --}}
+{{#auto-save/form
+  shouldAutosave=false
+  on-submit=(action "testCreate")
+  as |form|
 }}
   <div class="card model-form">
     <div class="card-header"></div>
     <div class="card-body">
-      {{ partial "manage/campaign/forms/details" }}
+      {{ partial "manage/campaign/forms/create" }}
     </div>
     <div class="card-footer">
       {{model-save-button disabled=isActionRunning}}
     </div>
   </div>
-{{/model-form}}
+{{/auto-save/form}}
+{{!-- {{/model-form}} --}}
