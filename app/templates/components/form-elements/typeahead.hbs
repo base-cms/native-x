@@ -24,4 +24,4 @@
       {{ yield item }}
   {{/power-select}}
 {{/if}}
-{{form-elements/input on-insert=(action "setInputElement") show=false}}
+{{form-elements/input name=name on-insert=(action "setInputElement") autocomplete=autocomplete show=false}}
