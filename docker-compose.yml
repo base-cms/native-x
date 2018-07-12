@@ -15,7 +15,7 @@ services:
     environment:
       NODE_ENV: development
       PORT: ${APP_PORT-3005}
-      GRAPH_PROXY: ${GRAPH_PROXY-http://docker.for.mac.host.internal:8100}
+      ROOT_URI: ${ROOT_URI-http://docker.for.mac.host.internal:8100}
 volumes:
   node_modules: {}
   next:

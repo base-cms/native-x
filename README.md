@@ -19,9 +19,9 @@ Production environment variables are *not* under version control, per [Part 3 of
 2. Set (or change) values for the following variables:
 ```ini
 APP_PORT=3005
-GRAPH_PROXY=http://docker.for.mac.host.internal:8100
+ROOT_URI=http://docker.for.mac.host.internal:8100
 ```
- **Note:** If you are not running on OSX, or you have customized the [cygnusb2b/fortnight-graph](https://github.com/cygnusb2b/fortnight-graph) port, you will need to customize the `EGRAPH_PROXY` URL to point to the IP/Hostname and port of your graph instance:
+ **Note:** If you are not running on OSX, or you have customized the [cygnusb2b/fortnight-graph](https://github.com/cygnusb2b/fortnight-graph) port, you will need to customize the `ROOT_URI` URL to point to the IP/Hostname and port of your graph instance:
  - AWS: `curl http://169.254.169.254/latest/meta-data/local-ipv4`
  - *nix: `ip -4 addr show docker0 | grep -Po 'inet \K[\d.]+'`
 

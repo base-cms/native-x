@@ -4,7 +4,7 @@ module.exports = {
   distDir: '../.next/build',
 
   webpack: (config, { dev }) => {
-    config.plugins.push(new EnvironmentPlugin(['NODE_ENV', 'GRAPH_PROXY']));
+    config.plugins.push(new EnvironmentPlugin(['NODE_ENV']));
 
     if (dev) {
       config.module.rules.push({

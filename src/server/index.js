@@ -2,9 +2,15 @@ const express = require('express');
 const helmet = require('helmet');
 const routes = require('./routes');
 
-const { PORT } = process.env;
+const { PORT, ROOT_URI } = process.env;
+
+const applyProxy = (req, res, next) => {
+  req.ROOT_URI = ROOT_URI;
+  next();
+};
 
 const server = express();
+server.use(applyProxy)
 server.use(helmet());
 
 module.exports = (client) => {

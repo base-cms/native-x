@@ -40,7 +40,7 @@ export default function initApollo(config, initialState, req) {
   // On the server, ensure a new client is created for every request.
   // @see https://www.apollographql.com/docs/react/features/server-side-rendering.html#server-initialization
   if (!process.browser) {
-    return create(apolloConfig, initialState);
+    return create(apolloConfig, initialState, req);
   }
 
   // Reuse the same client instance.
