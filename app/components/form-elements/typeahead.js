@@ -22,20 +22,6 @@ export default Component.extend(OnInsertMixin, ValidityMixin, {
   disabled: false,
 
   /**
-   * The internal value used by the component.
-   */
-  _value: computed.oneWay('value'),
-
-  /**
-   * Computes whether the control can be cleared.
-   * Automatically disallows clearing when required.
-   */
-  _allowClear: computed('allowClear', 'required', function() {
-    if (this.get('required')) return false;
-    return this.get('allowClear');
-  }).readOnly(),
-
-  /**
    * Computes the class names to be added to the power select component.
    */
   _triggerClass: computed('triggerClass', 'validityClass', function() {
@@ -53,13 +39,15 @@ export default Component.extend(OnInsertMixin, ValidityMixin, {
   }),
 
   /**
-   * Ensures a multiple value is an array.
+   * Ensures a multiple value is an array and sets the internal
+   * value used by the power select component.
    */
   init() {
     this._super(...arguments);
     if (this.get('multiple') && !Array.isArray(this.get('value'))) {
       this.set('value', []);
     }
+    this.set('_value', this.get('value'));
   },
 
   /**
@@ -70,6 +58,7 @@ export default Component.extend(OnInsertMixin, ValidityMixin, {
   change(value) {
     // Reset the internal validation states.
     this.set('validationMessage', '');
+    // Set the internal value.
     this.set('_value', value);
     const fn = this.get('on-change');
     if (typeof fn === 'function') {
@@ -122,6 +111,9 @@ export default Component.extend(OnInsertMixin, ValidityMixin, {
     this.set('wasValidated', true);
   },
 
+  /**
+   * Performs the search task by sending the `on-search` action.
+   */
   search: task(function* (phrase) {
     yield timeout(this.get('timeout'));
     const fn = this.get('on-search');
