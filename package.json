@@ -38,7 +38,7 @@
     "react": "^16.4.0",
     "react-apollo": "^2.1.4",
     "react-dom": "^16.4.0",
-    "reactstrap": "^6.0.1"
+    "reactstrap": "^6.3.0"
   },
   "devDependencies": {
     "eslint": "^4.19.1",
