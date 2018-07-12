@@ -6,6 +6,7 @@ export default Component.extend({
   novalidate: true,
 
   shouldAutosave: true,
+  disabled: false,
 
   init() {
     this._super(...arguments);
