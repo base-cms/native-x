@@ -5,6 +5,7 @@ import fetch from 'isomorphic-unfetch';
 import withApollo from './WithApollo';
 
 const headers = {};
+const { GRAPH_PROXY } = process.env;
 
 const config = {
   link: ApolloLink.from([
@@ -17,7 +18,7 @@ const config = {
       if (networkError) console.error(`[Network error]: ${networkError}`);
     }),
     new HttpLink({
-      uri: process.browser ? '/graphql' : 'http://localhost:3005/graphql',
+      uri: `${GRAPH_PROXY}/graph`,
       headers,
       fetch,
     }),
