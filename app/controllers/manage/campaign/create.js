@@ -46,7 +46,6 @@ export default Controller.extend(ActionMixin, {
       const query = autocompleteAdvertisers;
       try {
         const results = await this.get('apollo').query({ query, variables, fetchPolicy: 'network-only' }, 'autocompleteAdvertisers');
-        console.info(results, results.edges.map(edge => edge.node));
         return results.edges.map(edge => edge.node);
       } catch (e) {
         this.get('graphErrors').show(e);
