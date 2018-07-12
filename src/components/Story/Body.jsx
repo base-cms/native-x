@@ -12,7 +12,7 @@ const Body = (props) => {
   return (
     <div id="story-body" className="position-relative">
       <style jsx global>{`
-        #story-body *{
+        #story-body .container *{
           max-width: 100%;
         }
         #story-body {
@@ -23,7 +23,7 @@ const Body = (props) => {
           margin-top: -10vh;
 
         }
-        @media screen and (max-width: 1600px) {
+        @media screen and (max-width: 600px) {
           .fr-img-caption,
           iframe {
             min-width: 100%;

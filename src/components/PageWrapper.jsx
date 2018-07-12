@@ -7,11 +7,14 @@ import {
   Nav,
 } from 'reactstrap';
 import PropTypes from 'prop-types';
+import Imgix from './Imgix';
 // import ActiveNavItem from '../components/ActiveNavItem';
 
-const publisher = {
-  name: 'Firehouse',
-  pubCode: 'fh',
+const brand = {
+  name: 'Firehouse.com',
+  logo: {
+    src: 'https://fortnight.imgix.net/ebm/5b476cd5e4f5510001847c65/fh_logo.png',
+  },
 };
 
 const PageWrapper = props => (
@@ -31,7 +34,9 @@ const PageWrapper = props => (
     <Navbar dark color="dark" expand fixed="top">
 
       <Link href="/" passHref>
-        <NavbarBrand>{ publisher.name }</NavbarBrand>
+        <NavbarBrand>
+          <Imgix className="d-flex bg-imgIx img-fluid" src={brand.logo.src} alt={brand.name} title={brand.name} w="250" h="45" />
+        </NavbarBrand>
       </Link>
       <Nav className="mr-auto" navbar>
         {/* <ActiveNavItem href="/" title="Home">Home</ActiveNavItem>
