@@ -1,15 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Head from 'next/head';
 import gql from 'graphql-tag';
-import {
-  Row,
-  Col,
-  Card,
-  CardTitle,
-  CardBody,
-} from 'reactstrap';
 import { Query } from 'react-apollo';
+import PageWrapper from '../components/PageWrapper';
+import Header from '../components/Story/Header';
+import Body from '../components/Story/Body';
 import withApollo from '../apollo/client';
 
 const STORY = gql`
@@ -19,50 +14,54 @@ const STORY = gql`
       title
       teaser
       body
+      primaryImage {
+        src
+      }
+      advertiser {
+        id
+        name
+        logo {
+          id
+          src
+          filename
+          mimeType
+          size
+          width
+          height
+        }
+      }
     }
   }
 `;
 
-const createMarkup = html => ({ __html: html });
-
 const Story = ({ id }) => {
   const input = { id };
   return (
-    <Row>
-      <Col>
-        <Card>
-          <Query query={STORY} variables={{ input }}>
-            {({ loading, error, data }) => {
-              if (loading) {
-                return (
-                  <CardBody>
-                    <p>Loading...</p>
-                  </CardBody>
-                );
-              }
-              if (error) return <p><strong>{error.message}</strong></p>;
+    <PageWrapper>
+      <Query query={STORY} variables={{ input }}>
+        {({ loading, error, data }) => {
+          if (loading) {
+            return (
+              <p>Loading...</p>
+            );
+          }
+          if (error) return <p><strong>{error.message}</strong></p>;
 
-              const { story } = data;
+          const { story } = data;
 
-              return (
-                <div>
-                  <Head>
-                    <title>{story.title}</title>
-                    <meta name="description" story={story.teaser} />
-                  </Head>
-                  <CardBody>
-                    <CardTitle tag="h1">{story.title}</CardTitle>
-                    <h3>{story.teaser}</h3>
-                    {/* eslint-disable-next-line react/no-danger */}
-                    <div dangerouslySetInnerHTML={createMarkup(story.body)} />
-                  </CardBody>
-                </div>
-              );
-            }}
-          </Query>
-        </Card>
-      </Col>
-    </Row>
+          return (
+            <div className="story-wrapper">
+              <Header
+                title={story.title}
+                primaryImgSrc={story.primaryImage.src}
+                primaryImgCaption={story.primaryImage.caption}
+              />
+              <Body teaser={story.teaser} body={story.body} />
+            </div>
+          );
+        }}
+      </Query>
+    </PageWrapper>
   );
 };
 
