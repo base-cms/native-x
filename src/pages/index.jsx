@@ -26,9 +26,11 @@ const STORIES = gql`
           title
           slug
           primaryImage {
+            id
             src
           }
           advertiser {
+            id
             name
           }
         }
@@ -64,7 +66,7 @@ const Index = () => {
                   return (
                     <div className="card-columns">
                       {allStories.edges.map(edge => (
-                        <Card>
+                        <Card key={edge.node.id}>
                           <Imgix className="card-img" src={edge.node.primaryImage.src} title={edge.node.title} w="300" h="300" fit="crop" crop="faces,edges" />
                           <CardImgOverlay className="d-flex align-items-end" style={{ background: 'linear-gradient(to top, #000000bf, #0000)' }}>
                             <Col className="px-1">

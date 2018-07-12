@@ -15,6 +15,7 @@ const STORY = gql`
       teaser
       body
       primaryImage {
+        id
         src
       }
       advertiser {
