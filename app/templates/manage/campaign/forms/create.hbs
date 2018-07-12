@@ -2,22 +2,31 @@
   <div class="col">
     <div class="form-group">
       <label for="campaign-type">Campaign Type</label>
-      {{#form-elements/select
+      {{#form.elements.select
         id="campaign-type"
+        autocomplete="campaign-type"
         class="custom-select"
-        selected=campaignType
-        required=true
-        change=(action "setType" value="target.value") as |select|
+        name="type"
+        label="Type"
+        value=campaignType
+        aria-labeledby="campaign-type-help"
+        on-change=(action "setType")
+        required=true as |control|
       }}
-        {{#each campaignTypes as |type|}}
-          {{#select.option value=type.value}}{{type.label}}{{/select.option}}
-        {{/each}}
-      {{/form-elements/select}}
+        {{#control.element as |select|}}
+          {{#each campaignTypes as |type|}}
+            {{#select.option value=type.value}}{{type.label}}{{/select.option}}
+          {{/each}}
+        {{/control.element}}
+        {{control.elements.invalid-feedback}}
+      {{/form.elements.select}}
     </div>
   </div>
 </div>
 
-{{partial formPartial}}
+{{#if campaignType}}
+  {{partial formPartial}}
+{{/if}}
 
 {{!-- <div class="row">
   <div class="col-sm-6">
