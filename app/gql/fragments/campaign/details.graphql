@@ -3,7 +3,6 @@
 
 fragment CampaignDetailsFragment on Campaign {
   ...CampaignListFragment
-  isNew
   description
   url
   hash

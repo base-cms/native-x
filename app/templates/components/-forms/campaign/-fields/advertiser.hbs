@@ -1,0 +1,22 @@
+<label for="name">Advertiser {{required-field-label}}</label>
+{{#form.elements.typeahead
+  id="campaign-advertiser"
+  placeholder="Being typing to search..."
+  autocomplete="off"
+  class="form-control"
+  name="advertiser"
+  label="Advertiser"
+  value=model.advertiser
+  disabled=disabled
+  required=true
+  aria-labeledby="campaign-advertiser-help"
+  allowClear=false
+  on-search=(action "search")
+  on-change=on-change as |typeahead|
+}}
+  {{#typeahead.element as |advertiser|}}
+    {{advertiser.name}}
+  {{/typeahead.element}}
+  {{typeahead.elements.invalid-feedback}}
+{{/form.elements.typeahead}}
+<small id="campaign-advertiser-help" class="form-text text-muted">The advertiser running the campaign.</small>
