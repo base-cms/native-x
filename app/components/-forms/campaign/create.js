@@ -6,6 +6,8 @@ import moment from 'moment';
 import ActionMixin from 'fortnight/mixins/action';
 
 import createExternalUrlCampaign from 'fortnight/gql/mutations/campaign/create/external-url';
+import createNewStoryCampaign from 'fortnight/gql/mutations/campaign/create/new-story';
+import createExistingStoryCampaign from 'fortnight/gql/mutations/campaign/create/existing-story';
 
 export default Component.extend(ActionMixin, ComponentQueryManager, {
   tagName: '',
@@ -13,20 +15,29 @@ export default Component.extend(ActionMixin, ComponentQueryManager, {
   campaignType: 'external-url',
 
   createExternalUrlCampaign,
+  createNewStoryCampaign,
+  createExistingStoryCampaign,
 
   actions: {
     async create() {
       this.startAction();
 
-      const key = `create${classify(this.get('campaignType'))}Campaign`;
+      const type = this.get('campaignType');
+
+      const key = `create${classify(type)}Campaign`;
 
       const startDate = moment().startOf('day').valueOf();
-      const { advertiser, name } = this.get('model');
+      const { advertiser, name, story } = this.get('model');
       const input = {
         name,
         startDate,
-        advertiserId: get(advertiser, 'id'),
       };
+      if (['new-story', 'external-url'].includes(type)) {
+        input.advertiserId = get(advertiser, 'id');
+      }
+      if (type === 'existing-story') {
+        input.storyId = get(story, 'id');
+      }
 
       const mutation = this.get(key);
       const variables = { input };

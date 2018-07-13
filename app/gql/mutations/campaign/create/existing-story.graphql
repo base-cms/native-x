@@ -1,0 +1,5 @@
+mutation CreateExistingStoryCampaign($input: CreateExistingStoryCampaignInput!) {
+  createExistingStoryCampaign(input: $input) {
+    id
+  }
+}
