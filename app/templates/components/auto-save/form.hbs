@@ -2,9 +2,21 @@
   {{yield (hash
     shouldAutosave=shouldAutosave
     elements=(hash
-      input=(component "auto-save/input" shouldSave=shouldAutosave on-insert=(action "addFormElement"))
-      typeahead=(component "auto-save/typeahead" shouldSave=shouldAutosave on-insert=(action "addFormElement"))
-      select=(component "auto-save/select" shouldSave=shouldAutosave on-insert=(action "addFormElement"))
+      input=(component "auto-save/input"
+        shouldSave=shouldAutosave
+        on-insert=(action "addFormElement")
+        on-destroy=(action "removeFormElement")
+      )
+      typeahead=(component "auto-save/typeahead"
+        shouldSave=shouldAutosave
+        on-insert=(action "addFormElement")
+        on-destroy=(action "removeFormElement")
+      )
+      select=(component "auto-save/select"
+        shouldSave=shouldAutosave
+        on-insert=(action "addFormElement")
+        on-destroy=(action "removeFormElement")
+      )
     )
   )}}
 </fieldset>

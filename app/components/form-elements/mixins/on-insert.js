@@ -11,4 +11,15 @@ export default Mixin.create({
       fn(this);
     }
   },
+
+  /**
+   * Fires the `on-destroy` event with this component instance.
+   */
+  willDestroyElement() {
+    this._super(...arguments);
+    const fn = this.get('on-destroy');
+    if (typeof fn === 'function') {
+      fn(this);
+    }
+  },
 });

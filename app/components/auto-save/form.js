@@ -45,5 +45,9 @@ export default Component.extend({
     addFormElement(component) {
       this.get('_formElements').pushObject(component);
     },
+
+    removeFormElement(component) {
+      this.get('_formElements').removeObject(component);
+    },
   },
 });
