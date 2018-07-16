@@ -32,7 +32,7 @@ const Header = (props) => {
         }
 
         div.bg-imgIx:before {
-          backgound: transparent
+          backgound: transparent;
           transition: background 0.5s linear;
           margin-bottom: calc(20vh - 55px);
         }
@@ -44,7 +44,7 @@ const Header = (props) => {
           right: 0;
           bottom: 0;
           left: 0;
-          background:rgba(0,0,0,0.25);
+          background:rgba(0,0,0,0.45);
           -webkit-transition: background 1.5s ease-out;
           -moz-transition: background 1.5s ease-out;
           -o-transition: background 1.5s ease-out;
@@ -64,10 +64,10 @@ const Header = (props) => {
         }
 
         .post-heading h1 {
-          text-shadow: -3px -3px 3px rgba(0,0,0,.25), 3px 3px 3px #000;
+          // text-shadow: -3px -3px 3px rgba(0,0,0,.25), 3px 3px 3px #000;
           color: #fff;
-          font-size: 6vmax;
-          font-family: 'Roboto', sans-serif;
+          font-size: 5vmax;
+          font-family: 'Ubuntu', sans-serif;
         }
       `}
       </style>
