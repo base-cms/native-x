@@ -10,12 +10,12 @@ const Body = (props) => {
   const createMarkup = html => ({ __html: html });
 
   return (
-    <div id="story-body" className="position-relative">
+    <div id="story-body" className="position-relative mx-3">
       <style jsx global>{`
         #story-body .container *{
           max-width: 100%;
         }
-        
+
         #story-body {
           font-family: 'Raleway', sans-serif;
         }
