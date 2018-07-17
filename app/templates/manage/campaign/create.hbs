@@ -5,7 +5,7 @@
 
 {{#-forms/campaign/create
   model=model
-  on-success=(route-action "transitionToEdit")
+  on-success=(route-action "transitionWithModel" "manage.campaign.edit")
   on-error=(route-action "error")
   as |form|
 }}
