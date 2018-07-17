@@ -19,13 +19,17 @@ const brand = {
 const PageWrapper = props => (
   <div>
     <style jsx global>{`
-        nav.navbar.fixed-top + section {
-          margin-top: 55px;
+        nav.fixed-top {
+          transition: top 0.1s ease-in-out;
+          background-color: transparent;
+        }
+
+        .fixed-top.nav-up {
+          top: -71px;
         }
       `}
     </style>
-    <Navbar dark color="dark" expand fixed="top">
-
+    <Navbar expand fixed="top">
       <Link href="/" passHref>
         <NavbarBrand>
           <Imgix className="d-flex bg-imgIx img-fluid" src={brand.logo.src} alt={brand.name} title={brand.name} w="250" h="45" />

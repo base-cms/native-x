@@ -48,7 +48,7 @@ const Index = () => {
   const input = { pagination: { first: 10 } };
   return (
     <PageWrapper>
-      <Container>
+      <Container className="mt-5">
         <Head>
           <title>Homepage</title>
         </Head>
