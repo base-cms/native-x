@@ -28,6 +28,18 @@ const Body = (props) => {
           margin-top: 2rem;
         }
 
+        #story-body .fr-video.fr-fvl,
+        #story-body .fr-view img.fr-dii.fr-fil,
+        #story-body .fr-view span.fr-dii.fr-fil {
+          margin: 5px 20px 5px 0;
+        }
+
+        #story-body .fr-video.fr-fvr,
+        #story-body .fr-view img.fr-dii.fr-fir,
+        #story-body .fr-view span.fr-dii.fr-fir {
+          margin: 5px 0 5px 20px;
+        }
+
         #story-body h2.teaser {
           font-size: 1.5rem;
         }
