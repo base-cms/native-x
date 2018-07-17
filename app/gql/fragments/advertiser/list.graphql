@@ -4,5 +4,4 @@ fragment AdvertiserListFragment on Advertiser {
   name
   deleted
   updatedAt
-  campaignCount
 }
