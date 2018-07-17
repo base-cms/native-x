@@ -64,7 +64,6 @@ const Header = (props) => {
         }
 
         .post-heading h1 {
-          // text-shadow: -3px -3px 3px rgba(0,0,0,.25), 3px 3px 3px #000;
           color: #fff;
           font-size: 5vmax;
           font-family: 'Ubuntu', sans-serif;
