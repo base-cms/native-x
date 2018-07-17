@@ -1,7 +1,7 @@
 #import 'fortnight/gql/fragments/advertiser/edit'
 
-query AdvertiserHash($input: AdvertiserHashInput!) {
-  advertiserHash(input: $input) {
+query EditAdvertiser($input: ModelIdInput!) {
+  advertiser(input: $input) {
     ...AdvertiserEditFragment
   }
 }

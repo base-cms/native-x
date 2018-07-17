@@ -1,7 +1,7 @@
-#import 'fortnight/gql/fragments/advertiser/view'
+#import 'fortnight/gql/fragments/advertiser/edit'
 
 mutation UpdateAdvertiser($input: UpdateAdvertiserInput!) {
-	updateAdvertiser(input: $input) {
-    ...AdvertiserFragment
-	}
+  updateAdvertiser(input: $input) {
+	...AdvertiserEditFragment
+  }
 }

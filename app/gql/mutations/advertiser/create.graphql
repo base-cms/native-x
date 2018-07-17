@@ -1,7 +1,5 @@
-#import 'fortnight/gql/fragments/advertiser/view'
-
 mutation CreateAdvertiser($input: CreateAdvertiserInput!) {
   createAdvertiser(input: $input) {
-    ...AdvertiserFragment
+    id
   }
 }

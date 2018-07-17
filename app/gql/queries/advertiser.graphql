@@ -1,7 +1,0 @@
-#import 'fortnight/gql/fragments/advertiser/view'
-
-query Advertiser($input: ModelIdInput!) {
-  advertiser(input: $input) {
-    ...AdvertiserFragment
-  }
-}
