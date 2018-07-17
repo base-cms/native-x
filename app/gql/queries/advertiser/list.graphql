@@ -1,6 +1,6 @@
 #import 'fortnight/gql/fragments/advertiser/list'
 
-query AllAdvertisers($pagination: PaginationInput, $sort: AdvertiserSortInput) {
+query ListAdvertisers($pagination: PaginationInput, $sort: AdvertiserSortInput) {
   allAdvertisers(pagination: $pagination, sort: $sort) {
     totalCount
     edges {
