@@ -45,7 +45,7 @@ const Body = (props) => {
 
         #story-body h2.teaser {
           font-size: 1.6rem;
-          line-height: 2.2rem;
+          line-height: 2.4rem;
         }
 
         @media screen and (max-width: 600px) {
