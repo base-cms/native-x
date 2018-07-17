@@ -1,0 +1,5 @@
+mutation UndeleteAdvertiser($input: ModelIdInput!) {
+  undeleteAdvertiser(input: $input) {
+    id
+  }
+}
