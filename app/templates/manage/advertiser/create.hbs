@@ -3,20 +3,27 @@
   {{#crumbs.item active=true}}Create New{{/crumbs.item}}
 {{/nav-breadcrumbs}}
 
-{{#model-form
+{{#-forms/advertiser/create
   model=model
-  shouldAutosave=false
-  onSubmit=(action "create") as |form|
+  on-success=(route-action "transitionWithModel" "manage.advertiser.edit")
+  on-error=(route-action "error")
+  as |form|
 }}
   <div class="card model-form">
     <div class="card-header"></div>
     <div class="card-body">
-      {{ partial "manage/advertiser/form" }}
+
+      <div class="row">
+        <div class="col">
+          {{form.fields.name class="mb-0"}}
+        </div>
+      </div>
+
     </div>
     <div class="card-footer">
-      {{model-save-button disabled=isActionRunning}}
+      {{form.buttons.save}}
     </div>
   </div>
-{{/model-form}}
+{{/-forms/advertiser/create}}
 
 
