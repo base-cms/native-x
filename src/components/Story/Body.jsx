@@ -18,13 +18,16 @@ const Body = (props) => {
 
         #story-body {
           font-family: 'Raleway', sans-serif;
+          font-size: 1.1rem;
+          line-height: 1.7rem;
         }
 
         #story-body > .container {
           margin-top: -10vh;
         }
 
-        #story-body h3 {
+        #story-body h3,
+        #story-body h2:not(.teaser) {
           margin-top: 2rem;
         }
 
@@ -41,7 +44,8 @@ const Body = (props) => {
         }
 
         #story-body h2.teaser {
-          font-size: 1.5rem;
+          font-size: 1.6rem;
+          line-height: 2.2rem;
         }
 
         @media screen and (max-width: 600px) {
@@ -49,11 +53,17 @@ const Body = (props) => {
           iframe {
             min-width: 100%;
           }
+
+          #story-body h2.teaser {
+            font-size: 1.2rem;
+            line-height: 2rem;
+          }
+
         }
       `}
       </style>
       <Container className="shadow-lg p-3 mb-4 p-lg-5 bg-white rounded">
-        <h2 className="mb-4 font-weight-light teaser">
+        <h2 className="mb-4 font-weight-light font-italic teaser">
           {teaser}
         </h2>
         <hr className="mt-4 mb-4" />
