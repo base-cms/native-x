@@ -137,7 +137,12 @@ export default Component.extend(OnInsertMixin, {
       const isDirty = this.get('value') !== value;
       this.resetState(); // Reset when inputting (but not on change)
       if (isDirty) {
-        debounce(this, 'sendOnChange', value, event, this.get('typeDelay'));
+        if (this.get('shouldSave')) {
+          // Debounce when saving.
+          debounce(this, 'sendOnChange', value, event, this.get('typeDelay'));
+        } else {
+          this.sendOnChange(value, event);
+        }
       }
     },
 
@@ -154,7 +159,12 @@ export default Component.extend(OnInsertMixin, {
       const { value } = target;
       const isDirty = this.get('value') !== value;
       if (isDirty) {
-        debounce(this, 'sendOnChange', value, event, 0);
+        if (this.get('shouldSave')) {
+          // Debounce when saving.
+          debounce(this, 'sendOnChange', value, event, 0);
+        } else {
+          this.sendOnChange(value, event);
+        }
       }
     },
   },
