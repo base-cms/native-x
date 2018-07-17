@@ -1,7 +1,19 @@
 fragment AdvertiserListFragment on Advertiser {
   id
-  hash
   name
-  deleted
   updatedAt
+  createdAt
+  createdBy {
+    id
+    givenName
+    familyName
+  }
+  updatedBy {
+    id
+    givenName
+    familyName
+  }
+  campaigns(pagination: { first: 1 }, sort: { field: createdAt, order: 1}) {
+    totalCount
+  }
 }
