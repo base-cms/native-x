@@ -34,7 +34,7 @@ const Header = (props) => {
         div.bg-imgIx:before {
           backgound: transparent;
           transition: background 0.5s linear;
-          margin-bottom: calc(20vh - 55px);
+          margin-bottom: 20vh;
         }
 
         div.bg-imgIx:before {
