@@ -3,10 +3,20 @@
   class="list-group-item list-group-item-action flex-column align-items-start"
 }}
   <div class="d-flex flex-row justify-content-between">
+
     <div class="d-flex flex-column">
-      <h4 class="mb-1">{{item.name}}</h4>
-      <p class="mb-1">Campaigns: {{if item.campaigns.totalCount item.campaigns.totalCount 0}}</p>
-      <small>ID: {{item.id}}</small>
+      <div class="d-flex flex-row">
+        {{#if item.logo.src}}
+          <div class="d-flex flex-column my-auto mr-3">
+            {{imgix-img originalSrc=item.logo.src width=75 w="75" trim=auto fit="clip"}}
+          </div>
+        {{/if}}
+        <div class="d-flex flex-column">
+          <h4 class="mb-1">{{item.name}}</h4>
+          <p class="mb-1">Campaigns: {{if item.campaigns.totalCount item.campaigns.totalCount 0}}</p>
+          <small class="d-none d-sm-block">ID: {{item.id}}</small>
+        </div>
+      </div>
     </div>
     <div class="d-flex flex-column align-items-end text-right">
       {{user-attribution class="mb-2" label="Updated" user=item.updatedBy date=item.updatedAt}}

@@ -1,3 +1,5 @@
+#import 'fortnight/gql/fragments/image/src'
+
 fragment AdvertiserListFragment on Advertiser {
   id
   name
@@ -15,5 +17,8 @@ fragment AdvertiserListFragment on Advertiser {
   }
   campaigns(pagination: { first: 1 }, sort: { field: createdAt, order: 1}) {
     totalCount
+  }
+  logo {
+    ...ImageSrcFragment
   }
 }
