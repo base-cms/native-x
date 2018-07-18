@@ -19,7 +19,14 @@
       });
       fortnight('event', 'load', { pid: '1234' }, {
         callback: (...args) => {
-          // console.info('event callback', ...args);
+          console.info('event callback', ...args);
+        }
+      });
+
+      fortnight('event', 'load', {"uuid":"48289cf0-dcf7-4882-9ba6-66d2c45d799b","pid":"5aa1552b4795e6000122d9f5","kv":{"chan_id":"1234"}}, {
+        transport: 'beacon',
+        callback: (...args) => {
+          console.info('event callback with KVs', ...args);
         }
       });
 
