@@ -23,6 +23,7 @@ export default class EventTransport {
    * @param {string} fields.cid The campaign ID
    * @param {string} fields.uuid The unique request UUID
    * @param {string} fields.cre The creative ID
+   * @param {object} fields.kv The request custom key/values
    * @param {?object} options The event options
    * @param {?string} options.transport The transport type. Image is the default.
    * @param {?Function} options.callback The callback to fire once complete.
@@ -34,6 +35,7 @@ export default class EventTransport {
       cid,
       uuid,
       cre,
+      kv,
     } = {},
     { transport, callback } = {},
   ) {
@@ -48,6 +50,7 @@ export default class EventTransport {
       cid,
       uuid,
       cre,
+      kv,
       _,
     };
 
