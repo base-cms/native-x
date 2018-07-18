@@ -27,7 +27,11 @@ export function withTimeout(callback, wait = 2000) {
  * @return {string}
  */
 export function buildQuery(obj) {
-  return Object.keys(obj).filter(k => obj[k]).map(k => `${encodeURIComponent(k)}=${encodeURIComponent(obj[k])}`).join('&');
+  return Object.keys(obj).filter(k => obj[k]).map((k) => {
+    const value = obj[k];
+    const v = typeof value === 'object' ? JSON.stringify(value) : value;
+    return `${encodeURIComponent(k)}=${encodeURIComponent(v)}`;
+  }).join('&');
 }
 
 /**
