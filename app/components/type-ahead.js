@@ -8,6 +8,7 @@ import autocompletePublishers from 'fortnight/gql/queries/autocomplete-publisher
 import autocompleteAdvertisers from 'fortnight/gql/queries/autocomplete-advertisers';
 import autocompleteContacts from 'fortnight/gql/queries/autocomplete-contacts';
 import autocompletePlacements from 'fortnight/gql/queries/autocomplete-placements';
+import autocompleteTemplates from 'fortnight/gql/queries/template/autocomplete';
 
 export default Component.extend(ComponentQueryManager, {
   closeOnSelect: true,
@@ -60,6 +61,8 @@ export default Component.extend(ComponentQueryManager, {
         return { query: autocompleteContacts, resultKey: 'autocompleteContacts' };
       case 'placement':
         return { query: autocompletePlacements, resultKey: 'autocompletePlacements' };
+      case 'template':
+        return { query: autocompleteTemplates, resultKey: 'autocompleteTemplates' };
       default:
         this.get('graphErrors').show(new Error(`The model type ${type} is not searchable.`));
     }
