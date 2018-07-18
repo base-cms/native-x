@@ -65,3 +65,25 @@
     </div>
   </div>
 </div>
+
+{{#if form.model.publisher}}
+  <div class="row">
+  <div class="col">
+    <div class="form-group mt-3 mb-0">
+      <label>Topic</label>
+      {{#type-ahead
+        placeholder="Begin typing to search..."
+        triggerClass="form-control"
+        wasFormValidated=form.wasValidated
+        type="topic"
+        closeOnSelect=true
+        allowClear=false
+        onChange=(action form.actions.autosave)
+        selected=form.model.topic as |item|
+      }}
+        {{item.name}}
+      {{/type-ahead}}
+    </div>
+  </div>
+</div>
+{{/if}}
