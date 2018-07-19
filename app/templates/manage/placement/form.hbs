@@ -1,49 +1,6 @@
 <div class="row">
   <div class="col">
     <div class="form-group">
-      <label for="placement-name">Name {{required-field-label}}</label>
-      {{input
-        type="text"
-        required=true
-        value=form.model.name
-        class="form-control"
-        id="placement-name"
-        placeholder="Name"
-        focusOut=(action form.actions.autosave)
-        keyUp=(action form.actions.autosave 750)
-      }}
-      <div class="invalid-feedback">
-        Please provide a placement name.
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col">
-    <div class="form-group">
-      <label>Publisher {{required-field-label}}</label>
-      {{#type-ahead
-        required=true
-        placeholder="Begin typing to search..."
-        triggerClass="form-control"
-        wasFormValidated=form.wasValidated
-        invalidFeedback="Please select a publisher."
-        type="publisher"
-        closeOnSelect=true
-        allowClear=false
-        onChange=(action form.actions.autosave)
-        selected=form.model.publisher as |item|
-      }}
-        {{item.name}}
-      {{/type-ahead}}
-    </div>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col">
-    <div class="form-group mb-0">
       <label>Template {{required-field-label}}</label>
       {{#type-ahead
         required=true
@@ -66,24 +23,26 @@
   </div>
 </div>
 
-{{#if form.model.publisher}}
-  <div class="row">
+{{placement/publisher-topic
+  wasValidated=form.wasValidated
+  publisher=form.model.publisher
+  topic=form.model.topic
+  onChange=(action form.actions.autosave)
+}}
+
+<div class="row">
   <div class="col">
-    <div class="form-group mt-3 mb-0">
-      <label>Topic</label>
-      {{#type-ahead
-        placeholder="Begin typing to search..."
-        triggerClass="form-control"
-        wasFormValidated=form.wasValidated
-        type="topic"
-        closeOnSelect=true
-        allowClear=false
-        onChange=(action form.actions.autosave)
-        selected=form.model.topic as |item|
+    <div class="form-group mb-0">
+      <label for="placement-name">Label</label>
+      {{input
+        type="text"
+        value=form.model.name
+        class="form-control"
+        id="placement-name"
+        focusOut=(action form.actions.autosave)
+        keyUp=(action form.actions.autosave 750)
       }}
-        {{item.name}}
-      {{/type-ahead}}
+      <small class="form-text text-muted">An optional label to append to the placement name.</small>
     </div>
   </div>
 </div>
-{{/if}}
