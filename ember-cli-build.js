@@ -12,6 +12,9 @@ module.exports = function(defaults) {
       tabSize: 2,
       useWrapMode: false,
     },
+    babel: {
+      plugins: ['transform-object-rest-spread']
+    },
     'ember-froala-editor': {
       plugins: [
         'paragraph_format',
