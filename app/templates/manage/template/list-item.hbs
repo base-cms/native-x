@@ -10,5 +10,8 @@
       </small>
     {{/if}}
   </div>
+  {{#if item.description}}
+    <p class="mb-1">{{item.description}}</p>
+  {{/if}}
   <small>ID: {{item.id}}</small>
 {{/link-to}}
