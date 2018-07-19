@@ -1,3 +1,10 @@
+{{placement/publisher-topic
+  wasValidated=form.wasValidated
+  publisher=form.model.publisher
+  topic=form.model.topic
+  onChange=(action form.actions.autosave)
+}}
+
 <div class="row">
   <div class="col">
     <div class="form-group">
@@ -23,13 +30,6 @@
   </div>
 </div>
 
-{{placement/publisher-topic
-  wasValidated=form.wasValidated
-  publisher=form.model.publisher
-  topic=form.model.topic
-  onChange=(action form.actions.autosave)
-}}
-
 <div class="row">
   <div class="col">
     <div class="form-group mb-0">
@@ -42,7 +42,7 @@
         focusOut=(action form.actions.autosave)
         keyUp=(action form.actions.autosave 750)
       }}
-      <small class="form-text text-muted">An optional label to append to the placement name.</small>
+      <small class="form-text text-muted">Optional label text to append to the placement name.</small>
     </div>
   </div>
 </div>
