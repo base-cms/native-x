@@ -15,9 +15,9 @@ export default Route.extend(RouteQueryManager, ActionMixin, {
   },
 
   actions: {
-    async update({ id, name, html, fallback }) {
+    async update({ id, name, description, html, fallback }) {
       this.startRouteAction();
-      const payload = { name, html, fallback };
+      const payload = { name, description, html, fallback };
       const variables = { input: { id, payload } };
       try {
         await this.get('apollo').mutate({ mutation, variables }, 'updateTemplate');
