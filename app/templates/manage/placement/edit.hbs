@@ -1,6 +1,12 @@
 {{#nav-breadcrumbs as |crumbs|}}
   {{#crumbs.item}}{{#link-to "manage.placement.index"}}{{entypo-icon "browser"}} Placements{{/link-to}}{{/crumbs.item}}
-  {{#crumbs.item active=true}}{{ model.name }}{{/crumbs.item}}
+  {{#crumbs.item active=true}}
+    {{model.publisher.name}}
+    {{#if model.topic.name}}
+      ({{model.topic.name}})
+    {{/if}}
+    - {{model.template.name}}
+  {{/crumbs.item}}
 {{/nav-breadcrumbs}}
 
 {{#model-form

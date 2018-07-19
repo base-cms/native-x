@@ -7,4 +7,13 @@ fragment PlacementListFragment on Placement {
     id
     name
   }
+  template {
+    id
+    name
+    description
+  }
+  topic {
+    id
+    name
+  }
 }
