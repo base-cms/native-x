@@ -51,8 +51,7 @@
 {{#each model.criteria.placements as |placement|}}
   <div class="row">
     <div class="col">
-      {{entypo-icon "browser"}} {{placement.name}}
-      <small class="text-muted">[{{placement.publisher.name}}]</small>
+      {{entypo-icon "browser"}} {{placement/-name placement=placement}}
     </div>
   </div>
 {{else}}
