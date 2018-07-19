@@ -72,7 +72,7 @@ export default Component.extend(ComponentQueryManager, {
     set(value) {
       this.set('selected', value);
       const fn = this.get('onChange');
-      if (typeof fn === 'function') fn();
+      if (typeof fn === 'function') fn(value);
     },
   },
 
