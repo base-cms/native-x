@@ -4,7 +4,7 @@ import { computed } from '@ember/object';
 import { task, timeout } from 'ember-concurrency';
 import ComponentQueryManager from 'ember-apollo-client/mixins/component-query-manager';
 
-import autocompletePublishers from 'fortnight/gql/queries/autocomplete-publishers';
+import autocompletePublishers from 'fortnight/gql/queries/publisher/autocomplete';
 import autocompleteAdvertisers from 'fortnight/gql/queries/autocomplete-advertisers';
 import autocompleteContacts from 'fortnight/gql/queries/autocomplete-contacts';
 import autocompletePlacements from 'fortnight/gql/queries/autocomplete-placements';
