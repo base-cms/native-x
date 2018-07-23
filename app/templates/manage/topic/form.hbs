@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col">
+  <div class="col-md-6">
     <div class="form-group">
       <label for="topic-name">Name {{required-field-label}}</label>
       {{input
@@ -15,6 +15,21 @@
       <div class="invalid-feedback">
         Please provide a topic name.
       </div>
+      <small class="form-text text-muted">Usually mimics a section or topic on the publisher's website.</small>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group">
+      <label for="topic-external-id">External ID</label>
+      {{input
+        type="text"
+        value=form.model.externalId
+        class="form-control"
+        id="topic-external-id"
+        focusOut=(action form.actions.autosave)
+        keyUp=(action form.actions.autosave 750)
+      }}
+      <small class="form-text text-muted">An external identifier for this topic. Used for informational purposes only.</small>
     </div>
   </div>
 </div>
