@@ -1,0 +1,7 @@
+#import 'fortnight/gql/fragments/topic/view'
+
+query Topic($input: ModelIdInput!) {
+  topic(input: $input) {
+    ...TopicViewFragment
+  }
+}

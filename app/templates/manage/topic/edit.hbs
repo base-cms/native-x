@@ -1,12 +1,6 @@
 {{#nav-breadcrumbs as |crumbs|}}
-  {{#crumbs.item}}{{#link-to "manage.placement.index"}}{{entypo-icon "browser"}} Placements{{/link-to}}{{/crumbs.item}}
-  {{#crumbs.item active=true}}
-    {{model.publisher.name}}
-    {{#if model.topic.name}}
-      ({{model.topic.name}})
-    {{/if}}
-    - {{model.template.name}}
-  {{/crumbs.item}}
+  {{#crumbs.item}}{{#link-to "manage.topic.index"}}{{entypo-icon "price-tag"}} Topics{{/link-to}}{{/crumbs.item}}
+  {{#crumbs.item active=true}}{{ model.name }}{{/crumbs.item}}
 {{/nav-breadcrumbs}}
 
 {{#model-form
@@ -17,7 +11,7 @@
   <div class="card model-form">
     <div class="card-header"></div>
     <div class="card-body">
-      {{ partial "manage/placement/form" }}
+      {{ partial "manage/topic/form" }}
     </div>
     <div class="card-footer">
       <div class="btn-group float-right">
@@ -26,7 +20,7 @@
           label="Delete"
           class="btn-danger"
           disabled=isActionRunning
-          onConfirm=(action "delete" model.id "manage.placement.index")
+          onConfirm=(action "delete" model.id "manage.topic.index")
         }}
       </div>
     </div>

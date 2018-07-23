@@ -11,14 +11,24 @@ export default Controller.extend(ActionMixin, {
   actions: {
     /**
      *
-     * @param {object} fields
      */
-    async create({ name, publisher }) {
+    async create() {
       this.startAction();
-      const payload = { name, publisherId: get(publisher || {}, 'id') };
+      const {
+        name,
+        publisher,
+        template,
+        topic,
+      } = this.get('model');
+
+      const payload = {
+        name,
+        publisherId: get(publisher || {}, 'id'),
+        templateId: get(template || {}, 'id'),
+        topicId: get(topic || {}, 'id'),
+      };
       const variables = { input: { payload } };
       try {
-        if (!payload.publisherId) throw new Error('You must select a publisher to continue.');
         const response = await this.get('apollo').mutate({ mutation, variables }, 'createPlacement');
         this.get('notify').info('Placement successfully created.');
         return this.transitionToRoute('manage.placement.edit', response.id);

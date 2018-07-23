@@ -3,7 +3,7 @@ import { inject } from '@ember/service';
 import { get } from '@ember/object';
 import ActionMixin from 'fortnight/mixins/action-mixin';
 
-import mutation from 'fortnight/gql/mutations/update-placement';
+import mutation from 'fortnight/gql/mutations/topic/update';
 
 export default Controller.extend(ActionMixin, {
   apollo: inject(),
@@ -11,27 +11,15 @@ export default Controller.extend(ActionMixin, {
   actions: {
     /**
      *
+     * @param {object} fields
      */
-    async update() {
+    async update({ id, name, publisher }) {
       this.startAction();
-      const {
-        id,
-        name,
-        publisher,
-        template,
-        topic,
-      } = this.get('model');
-
-      const payload = {
-        name,
-        publisherId: get(publisher || {}, 'id'),
-        templateId: get(template || {}, 'id'),
-        topicId: get(topic || {}, 'id'),
-      };
+      const payload = { name, publisherId: get(publisher || {}, 'id') };
       const variables = { input: { id, payload } };
       try {
         if (!payload.publisherId) throw new Error('You must select a publisher to continue.');
-        await this.get('apollo').mutate({ mutation, variables }, 'updatePlacement');
+        await this.get('apollo').mutate({ mutation, variables }, 'updateTopic');
       } catch (e) {
         this.get('graphErrors').show(e);
       } finally {

@@ -9,6 +9,14 @@ fragment CampaignCriteriaFragment on CampaignCriteria {
       id
       name
     }
+    template {
+      id
+      name
+    }
+    topic {
+      id
+      name
+    }
   }
   kvs {
     key

@@ -55,6 +55,11 @@ Router.map(function() {
       this.route('create');
       this.route('edit', { path: ':id' });
     });
+
+    this.route('topic', function() {
+      this.route('create');
+      this.route('edit', { path: ':id' });
+    });
   });
 
   this.route('portal', { path: ':hash' }, function() {

@@ -1,0 +1,14 @@
+query AutocompletePublisherTopics($publisherId: String!, $pagination: PaginationInput, $phrase: String!) {
+  autocompletePublisherTopics(publisherId: $publisherId, pagination: $pagination, phrase: $phrase) {
+    edges {
+      node {
+        id
+        name
+        publisher {
+          id
+          name
+        }
+      }
+    }
+  }
+}

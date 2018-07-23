@@ -1,5 +1,6 @@
 fragment TemplateListFragment on Template {
   id
   name
+  description
   updatedAt
 }

@@ -1,5 +1,5 @@
 {{#link-to
-  "manage.template.edit" item.id
+  "manage.topic.edit" item.id
   class="list-group-item list-group-item-action flex-column align-items-start"
 }}
   <div class="d-flex w-100 justify-content-between">
@@ -10,8 +10,7 @@
       </small>
     {{/if}}
   </div>
-  {{#if item.description}}
-    <p class="mb-1">{{item.description}}</p>
-  {{/if}}
+
+  <p class="mb-1">Publisher: {{item.publisher.name}}</p>
   <small>ID: {{item.id}}</small>
 {{/link-to}}

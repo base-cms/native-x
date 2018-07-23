@@ -1,5 +1,17 @@
-#import 'fortnight/gql/fragments/placement/list'
-
 fragment PlacementFragment on Placement {
-  ...PlacementListFragment
+  id
+  name
+  publisher {
+    id
+    name
+  }
+  template {
+    id
+    name
+    description
+  }
+  topic {
+    id
+    name
+  }
 }

@@ -1,0 +1,10 @@
+fragment TopicListFragment on Topic {
+  id
+  name
+  createdAt
+  updatedAt
+  publisher {
+    id
+    name
+  }
+}
