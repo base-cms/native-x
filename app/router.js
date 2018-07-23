@@ -61,7 +61,6 @@ Router.map(function() {
       this.route('edit', { path: ':id' }, function() {
         this.route('placement', function() {
           this.route('create');
-          this.route('edit', { path: ':placement_id' });
         });
       });
     });
