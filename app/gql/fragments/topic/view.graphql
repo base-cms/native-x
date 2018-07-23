@@ -1,5 +1,0 @@
-#import 'fortnight/gql/fragments/topic/list'
-
-fragment TopicViewFragment on Topic {
-  ...TopicListFragment
-}

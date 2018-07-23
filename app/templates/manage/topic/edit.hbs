@@ -1,28 +1,14 @@
 {{#nav-breadcrumbs as |crumbs|}}
   {{#crumbs.item}}{{#link-to "manage.topic.index"}}{{entypo-icon "price-tag"}} Topics{{/link-to}}{{/crumbs.item}}
-  {{#crumbs.item active=true}}{{ model.name }}{{/crumbs.item}}
+  {{#crumbs.item active=true}}{{ model.name }} - {{model.publisher.name}}{{/crumbs.item}}
 {{/nav-breadcrumbs}}
 
-{{#model-form
-  model=model
-  shouldAutosave=true
-  onSubmit=(action "update") as |form|
-}}
-  <div class="card model-form">
-    <div class="card-header"></div>
-    <div class="card-body">
-      {{ partial "manage/topic/form" }}
-    </div>
-    <div class="card-footer">
-      <div class="btn-group float-right">
-        {{confirm-button
-          icon="trash"
-          label="Delete"
-          class="btn-danger"
-          disabled=isActionRunning
-          onConfirm=(action "delete" model.id "manage.topic.index")
-        }}
-      </div>
-    </div>
+<div class="card model-form">
+  <div class="card-header">
+    <ul class="nav nav-pills card-header-pills" role="tablist">
+      <li class="nav-item">{{#link-to "manage.topic.edit.index" model.id class="nav-link" role="tab"}}Details{{/link-to}}</li>
+      <li class="nav-item">{{#link-to "manage.topic.edit.placement" model.id class="nav-link" role="tab"}}Placements{{/link-to}}</li>
+    </ul>
   </div>
-{{/model-form}}
+  {{outlet}}
+</div>
