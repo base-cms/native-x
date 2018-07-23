@@ -1,3 +1,31 @@
-{{outlet}}
+<div class="card-body"></div>
+{{#fetch-more
+  query=observable
+  edges=model.placements.edges
+  hasNextPage=model.placements.pageInfo.hasNextPage
+  endCursor=model.placements.pageInfo.endCursor
+  on-fetch-start=(route-action "showLoading")
+  on-fetch-end=(route-action "hideLoading")
+  resultKey=resultKey
+  applyToField="placements" as |fetch|
+}}
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item pt-0"><h5 class="mb-0 text-muted">Total Results: {{model.placements.totalCount}}</h5></li>
+    {{#each fetch.nodes as |item|}}
+      {{partial "manage/placement/list-item"}}
+    {{/each}}
+  </ul>
 
-{{model-create-button icon="browser" title="Add Placement for Topic" click=(route-action "transitionTo" "manage.topic.edit.placement.create")}}
+  <div class="card-footer border-0">
+    {{#if fetch.hasNextPage}}
+      <button class="btn btn-primary btn-lg" disabled={{fetch.isFetching}} {{action fetch.actions.loadMore}}>
+        {{entypo-icon "download"}} {{#if fetch.isFetching}}Loading...{{else}}Load More{{/if}}
+      </button>
+    {{/if}}
+  </div>
+
+{{/fetch-more}}
+
+{{model-create-button icon="browser" title="Create Placement for Topic" click=(route-action "transitionTo" "manage.topic.edit.placement.create")}}
+
+{{outlet}}
