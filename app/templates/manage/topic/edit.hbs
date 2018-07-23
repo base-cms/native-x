@@ -1,6 +1,6 @@
 {{#nav-breadcrumbs as |crumbs|}}
   {{#crumbs.item}}{{#link-to "manage.topic.index"}}{{entypo-icon "price-tag"}} Topics{{/link-to}}{{/crumbs.item}}
-  {{#crumbs.item active=true}}{{ model.name }}{{/crumbs.item}}
+  {{#crumbs.item active=true}}{{ model.name }} - {{model.publisher.name}}{{/crumbs.item}}
 {{/nav-breadcrumbs}}
 
 <div class="card model-form">
