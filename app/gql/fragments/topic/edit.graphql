@@ -1,0 +1,8 @@
+fragment TopicEditFragment on Topic {
+  id
+  name
+  publisher {
+    id
+    name
+  }
+}

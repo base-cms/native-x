@@ -1,7 +1,7 @@
-#import 'fortnight/gql/fragments/topic/view'
+#import 'fortnight/gql/fragments/topic/edit'
 
 mutation UpdateTopic($input: UpdateTopicInput!) {
   updateTopic(input: $input) {
-    ...TopicViewFragment
+    ...TopicEditFragment
   }
 }
