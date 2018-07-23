@@ -41,7 +41,11 @@ Router.map(function() {
 
     this.route('publisher', function() {
       this.route('create');
-      this.route('edit', { path: ':id' });
+      this.route('edit', { path: ':id' }, function() {
+        this.route('topics', function() {
+
+        });
+      });
     });
 
     this.route('story', function() {
