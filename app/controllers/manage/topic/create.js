@@ -13,9 +13,9 @@ export default Controller.extend(ActionMixin, {
      *
      * @param {object} fields
      */
-    async create({ name, publisher }) {
+    async create({ name, publisher, externalId }) {
       this.startAction();
-      const payload = { name, publisherId: get(publisher || {}, 'id') };
+      const payload = { name, publisherId: get(publisher || {}, 'id'), externalId };
       const variables = { input: { payload } };
       try {
         if (!payload.publisherId) throw new Error('You must select a publisher to continue.');

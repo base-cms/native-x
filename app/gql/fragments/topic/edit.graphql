@@ -1,6 +1,7 @@
 fragment TopicEditFragment on Topic {
   id
   name
+  externalId
   publisher {
     id
     name
