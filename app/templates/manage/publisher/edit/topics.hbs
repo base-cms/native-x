@@ -1,4 +1,26 @@
-<div class="card-body"></div>
+<div class="card-body">
+  <div class="row">
+  <div class="col">
+    <div class="row">
+      {{!-- Fix menu alignment, once https://github.com/twbs/bootstrap/pull/26255 is merged --}}
+      <div class="col-12">
+        <div class="btn-toolbar float-md-right" role="toolbar" aria-label="Filter Toolbar">
+          {{list-controls/sort
+            class="mr-2"
+            options=sortOptions
+            ascending=ascending
+            sortBy=sortBy
+            disabled=isSortDisabled
+            alignment="right"
+          }}
+          {{list-controls/limit options=limitOptions limit=first alignment="right"}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
 {{#fetch-more
   query=observable
   edges=model.topics.edges

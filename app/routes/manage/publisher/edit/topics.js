@@ -5,16 +5,33 @@ import { getObservable } from 'ember-apollo-client';
 import query from 'fortnight/gql/queries/publisher/edit/topics';
 
 export default Route.extend(RouteQueryManager, {
-  model() {
+  queryParams: {
+    first: {
+      refreshModel: true
+    },
+    sortBy: {
+      refreshModel: true
+    },
+    ascending: {
+      refreshModel: true
+    },
+  },
+
+  model({ first, sortBy, ascending }) {
     const controller = this.controllerFor(this.get('routeName'));
 
     const id = this.modelFor('manage.publisher.edit').get('id');
     const input = { id };
+
+    const pagination = { first };
+    const sort = { field: sortBy, order: ascending ? 1 : -1 };
+
     const variables = {
       input,
-      pagination: { first: 20 },
-      sort: { field: 'updatedAt', order: -1 },
+      pagination,
+      sort,
     };
+    if (!sortBy) delete variables.sort.field;
 
     const resultKey = 'publisher';
     controller.set('resultKey', resultKey);
