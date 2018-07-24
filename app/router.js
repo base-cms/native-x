@@ -64,8 +64,9 @@ Router.map(function() {
     this.route('topic', function() {
       this.route('create');
       this.route('edit', { path: ':id' }, function() {
-        this.route('placement', function() {
+        this.route('placements', function() {
           this.route('create');
+          this.route('edit', { path: ':placement_id' });
         });
       });
     });

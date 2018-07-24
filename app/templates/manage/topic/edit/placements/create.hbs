@@ -1,4 +1,4 @@
-{{#bs-modal show=true size="large" onHidden=(route-action "transitionTo" "manage.topic.edit.placement") as |modal|}}
+{{#bs-modal show=true size="large" onHidden=(route-action "transitionTo" "manage.topic.edit.placements") as |modal|}}
   {{#modal.header}}
     <h5 class="modal-title">Create Placement: {{model.publisher.name}} ({{model.topic.name}})</h5>
     <button {{action modal.actions.hide}} type="button" class="close" aria-label="Close">
@@ -12,7 +12,7 @@
     onSubmit=(action "create") as |form|
   }}
     {{#modal.body}}
-        {{partial "manage/topic/edit/placement/form"}}
+        {{partial "manage/topic/edit/placements/form"}}
     {{/modal.body}}
 
     {{#modal.footer}}

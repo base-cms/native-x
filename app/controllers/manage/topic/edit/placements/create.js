@@ -31,7 +31,7 @@ export default Controller.extend(ActionMixin, {
       try {
         const refetchQueries = ['EditTopicPlacements'];
         await this.get('apollo').mutate({ mutation, variables, refetchQueries }, 'createPlacement');
-        return this.transitionToRoute('manage.topic.edit.placement');
+        return this.transitionToRoute('manage.topic.edit.placements');
       } catch (e) {
         this.get('graphErrors').show(e);
       } finally {
