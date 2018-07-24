@@ -17,7 +17,7 @@
     "terminal": "docker exec -it fortnightapp_app_1 /bin/bash",
     "prestart": "$npm_package_docker_dev_install",
     "start": "$npm_package_docker_dev_up",
-    "start:local": "ember s --proxy http://localhost:8100 --port 4209",
+    "start:local": "ember s --proxy http://localhost:8100 --port 8105",
     "stop": "$npm_package_docker_dev_down",
     "prelint": "$npm_package_docker_test_install",
     "lint": "$npm_package_docker_test_lint",
