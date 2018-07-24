@@ -1,0 +1,14 @@
+{{#nav-breadcrumbs as |crumbs|}}
+  {{#crumbs.item}}{{#link-to "manage.topic.index"}}{{entypo-icon "price-tag"}} Topics{{/link-to}}{{/crumbs.item}}
+  {{#crumbs.item active=true}}{{ model.name }} - {{model.publisher.name}}{{/crumbs.item}}
+{{/nav-breadcrumbs}}
+
+<div class="card model-form">
+  <div class="card-header">
+    <ul class="nav nav-pills card-header-pills" role="tablist">
+      <li class="nav-item">{{#link-to "manage.topic.edit.index" model.id class="nav-link" role="tab"}}Details{{/link-to}}</li>
+      <li class="nav-item">{{#link-to "manage.topic.edit.placements" model.id class="nav-link" role="tab"}}Placements{{/link-to}}</li>
+    </ul>
+  </div>
+  {{outlet}}
+</div>

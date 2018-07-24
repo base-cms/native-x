@@ -41,7 +41,16 @@ Router.map(function() {
 
     this.route('publisher', function() {
       this.route('create');
-      this.route('edit', { path: ':id' });
+      this.route('edit', { path: ':id' }, function() {
+        this.route('topics', function() {
+          this.route('create');
+          this.route('edit', { path: ':topic_id' });
+        });
+        this.route('placements', function() {
+          this.route('create');
+          this.route('edit', { path: ':placement_id' });
+        });
+      });
     });
 
     this.route('story', function() {
@@ -54,6 +63,16 @@ Router.map(function() {
     this.route('template', function() {
       this.route('create');
       this.route('edit', { path: ':id' });
+    });
+
+    this.route('topic', function() {
+      this.route('create');
+      this.route('edit', { path: ':id' }, function() {
+        this.route('placements', function() {
+          this.route('create');
+          this.route('edit', { path: ':placement_id' });
+        });
+      });
     });
   });
 

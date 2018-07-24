@@ -2,8 +2,8 @@ import Route from '@ember/routing/route';
 import RouteQueryManager from 'ember-apollo-client/mixins/route-query-manager';
 import { getObservable } from 'ember-apollo-client';
 
-import query from 'fortnight/gql/queries/all-publishers';
-import search from 'fortnight/gql/queries/search-publishers';
+import query from 'fortnight/gql/queries/publisher/all';
+import search from 'fortnight/gql/queries/publisher/search';
 
 export default Route.extend(RouteQueryManager, {
   queryParams: {

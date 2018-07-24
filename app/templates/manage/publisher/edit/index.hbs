@@ -1,0 +1,22 @@
+{{#model-form
+  model=model
+  shouldAutosave=true
+  preValidate=(action "validateDomain")
+  onSubmit=(action "update") as |form|
+}}
+
+  <div class="card-body">
+    {{ partial "manage/publisher/form" }}
+  </div>
+  <div class="card-footer text-right">
+    <div class="btn-group">
+      {{confirm-button
+        icon="trash"
+        label="Delete"
+        class="btn-danger"
+        disabled=isActionRunning
+        onConfirm=(action "delete" model.id "manage.publisher.index")
+      }}
+    </div>
+  </div>
+{{/model-form}}

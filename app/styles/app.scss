@@ -4,6 +4,10 @@
 
 @import "ember-power-select/themes/bootstrap";
 @import "ember-power-select";
+.in-modal-dropdown {
+  z-index: 1100;
+}
+
 @import "ember-power-calendar";
 .ember-power-calendar {
   @include ember-power-calendar($cell-size: 30px);

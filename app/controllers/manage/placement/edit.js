@@ -1,25 +1,19 @@
 import Controller from '@ember/controller';
 import { inject } from '@ember/service';
-import { get } from '@ember/object';
 import ActionMixin from 'fortnight/mixins/action-mixin';
 
-import mutation from 'fortnight/gql/mutations/update-placement';
-
 export default Controller.extend(ActionMixin, {
-  apollo: inject(),
+  placementManager: inject(),
 
   actions: {
     /**
      *
-     * @param {object} fields
      */
-    async update({ id, name, publisher }) {
+    async update() {
       this.startAction();
-      const payload = { name, publisherId: get(publisher || {}, 'id') };
-      const variables = { input: { id, payload } };
+      const model = this.get('model');
       try {
-        if (!payload.publisherId) throw new Error('You must select a publisher to continue.');
-        await this.get('apollo').mutate({ mutation, variables }, 'updatePlacement');
+        await this.get('placementManager').update(model.get('id'), model);
       } catch (e) {
         this.get('graphErrors').show(e);
       } finally {

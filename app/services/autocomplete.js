@@ -1,9 +1,11 @@
 import Service, { inject } from '@ember/service';
 
-import autocompletePublishers from 'fortnight/gql/queries/autocomplete-publishers';
+import autocompletePublishers from 'fortnight/gql/queries/publisher/autocomplete';
 import autocompleteAdvertisers from 'fortnight/gql/queries/autocomplete-advertisers';
 import autocompleteContacts from 'fortnight/gql/queries/autocomplete-contacts';
 import autocompletePlacements from 'fortnight/gql/queries/autocomplete-placements';
+import autocompleteTemplates from 'fortnight/gql/queries/template/autocomplete';
+import autocompletePublisherTopics from 'fortnight/gql/queries/topic/publisher-autocomplete';
 
 export default Service.extend({
   apollo: inject(),
@@ -24,6 +26,10 @@ export default Service.extend({
         return { query: autocompleteContacts, resultKey: 'autocompleteContacts' };
       case 'placements':
         return { query: autocompletePlacements, resultKey: 'autocompletePlacements' };
+      case 'template':
+        return { query: autocompleteTemplates, resultKey: 'autocompleteTemplates' };
+      case 'publisher-topic':
+        return { query: autocompletePublisherTopics, resultKey: 'autocompletePublisherTopics' };
       default:
         throw new Error(`The autocomplete type '${type}' is not registered.`);
     }
@@ -35,11 +41,14 @@ export default Service.extend({
    * @param {string} type
    * @param {string} phrase
    * @param {object} options
+   * @param {object} options.pagination
+   * @param {object} options.vars
    */
-  async query(type, phrase, { pagination } = {}) {
+  async query(type, phrase, { pagination, vars } = {}) {
     const variables = {
       pagination: pagination || { first: 20 },
       phrase,
+      ...vars,
     };
     const { query, resultKey } = this.getQueryFor(type);
     try {

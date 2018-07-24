@@ -1,0 +1,8 @@
+fragment TopicAutocompleteFragment on Topic {
+  id
+  name
+  publisher {
+    id
+    name
+  }
+}

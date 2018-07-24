@@ -1,0 +1,17 @@
+{{#link-to
+  routeName item.id
+  class=class
+}}
+  <div class="d-flex w-100 justify-content-between">
+    <h5 class="mb-1">{{item.name}}</h5>
+    {{#if item.updatedAt}}
+      <small class="d-block" title="{{moment-format item.updatedAt 'MMM Do, YYYY h:mm a'}}">
+        {{entypo-icon "clock"}} Updated {{moment-from-now item.updatedAt}}
+      </small>
+    {{/if}}
+  </div>
+
+  <p class="mb-1">Publisher: {{item.publisher.name}}</p>
+  <p class="mb-1">Placements: {{item.placements.totalCount}}</p>
+  <small>ID: {{item.id}}</small>
+{{/link-to}}

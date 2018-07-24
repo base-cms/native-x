@@ -1,0 +1,5 @@
+fragment TemplateAutocompleteFragment on Template {
+  id
+  name
+  description
+}

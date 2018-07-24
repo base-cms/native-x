@@ -5,4 +5,13 @@ fragment PlacementAutocompleteFragment on Placement {
     id
     name
   }
+  template {
+    id
+    name
+    description
+  }
+  topic {
+    id
+    name
+  }
 }

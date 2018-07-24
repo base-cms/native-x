@@ -14,6 +14,7 @@ export default Component.extend({
   hasNextPage: false,
   endCursor: null,
   resultKey: null,
+  applyToField: null,
 
   isFetching: false,
 
@@ -43,20 +44,37 @@ export default Component.extend({
       const observable = this.get('query');
       const endCursor = this.get('endCursor');
       const resultKey = this.get('resultKey');
+      const applyToField = this.get('applyToField');
 
       const updateQuery = (previous, { fetchMoreResult }) => {
-        const { edges, pageInfo, totalCount } = fetchMoreResult[resultKey];
-        if (edges.length) {
+        if (applyToField) {
+          const { edges, pageInfo, totalCount } = fetchMoreResult[resultKey][applyToField];
+          if (!edges.length) return previous;
+
           return {
             [resultKey]: {
-              __typename: previous[resultKey].__typename,
-              totalCount,
-              edges: [...previous[resultKey].edges, ...edges],
-              pageInfo,
+              ...fetchMoreResult[resultKey],
+              [applyToField]: {
+                __typename: previous[resultKey][applyToField].__typename,
+                totalCount,
+                edges: [...previous[resultKey][applyToField].edges, ...edges],
+                pageInfo,
+              },
             },
           };
+
         }
-        return previous;
+
+        const { edges, pageInfo, totalCount } = fetchMoreResult[resultKey];
+        if (!edges.length) return previous;
+        return {
+          [resultKey]: {
+            __typename: previous[resultKey].__typename,
+            totalCount,
+            edges: [...previous[resultKey].edges, ...edges],
+            pageInfo,
+          },
+        };
       };
       const pagination = assign({}, observable.variables.pagination, { after: endCursor });
       const variables = { pagination };

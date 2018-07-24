@@ -3,27 +3,14 @@
   {{#crumbs.item active=true}}{{ model.name }}{{/crumbs.item}}
 {{/nav-breadcrumbs}}
 
-{{#model-form
-  model=model
-  shouldAutosave=true
-  preValidate=(action "validateDomain")
-  onSubmit=(action "update") as |form|
-}}
-  <div class="card model-form">
-    <div class="card-header"></div>
-    <div class="card-body">
-      {{ partial "manage/publisher/form" }}
-    </div>
-    <div class="card-footer">
-      <div class="btn-group float-right">
-        {{confirm-button
-          icon="trash"
-          label="Delete"
-          class="btn-danger"
-          disabled=isActionRunning
-          onConfirm=(action "delete" model.id "manage.publisher.index")
-        }}
-      </div>
-    </div>
+<div class="card model-form">
+  <div class="card-header">
+    <ul class="nav nav-pills card-header-pills" role="tablist">
+      <li class="nav-item">{{#link-to "manage.publisher.edit.index" model.id class="nav-link" role="tab"}}Details{{/link-to}}</li>
+      <li class="nav-item">{{#link-to "manage.publisher.edit.topics" model.id class="nav-link" role="tab"}}Topics{{/link-to}}</li>
+      <li class="nav-item">{{#link-to "manage.publisher.edit.placements" model.id class="nav-link" role="tab"}}Placements{{/link-to}}</li>
+    </ul>
   </div>
-{{/model-form}}
+  {{outlet}}
+</div>
+

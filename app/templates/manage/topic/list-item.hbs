@@ -1,5 +1,5 @@
 {{#link-to
-  "manage.placement.edit" item.id
+  "manage.topic.edit" item.id
   class="list-group-item list-group-item-action flex-column align-items-start"
 }}
   <div class="d-flex w-100 justify-content-between">
@@ -12,5 +12,6 @@
   </div>
 
   <p class="mb-1">Publisher: {{item.publisher.name}}</p>
+  <p class="mb-1">Placements: {{item.placements.totalCount}}</p>
   <small>ID: {{item.id}}</small>
 {{/link-to}}

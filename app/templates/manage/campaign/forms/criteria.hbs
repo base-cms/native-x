@@ -40,7 +40,7 @@
         onChange=(action form.actions.autosave)
         selected=form.model.criteria.placements as |item|
       }}
-        {{item.name}} <span class="text-muted">[{{item.publisher.name}}]</span>
+        {{placement/-name placement=item}}
       {{/type-ahead}}
     </div>
   </div>
