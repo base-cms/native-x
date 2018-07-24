@@ -5,7 +5,7 @@ fragment StoryListFragment on Story {
     id
     name
   }
-  disposition
+  status
   updatedAt
   createdAt
   publishedAt
