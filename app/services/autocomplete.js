@@ -1,6 +1,6 @@
 import Service, { inject } from '@ember/service';
 
-import autocompletePublishers from 'fortnight/gql/queries/autocomplete-publishers';
+import autocompletePublishers from 'fortnight/gql/queries/publisher/autocomplete';
 import autocompleteAdvertisers from 'fortnight/gql/queries/autocomplete-advertisers';
 import autocompleteContacts from 'fortnight/gql/queries/autocomplete-contacts';
 import autocompletePlacements from 'fortnight/gql/queries/autocomplete-placements';
