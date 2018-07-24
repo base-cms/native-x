@@ -9,6 +9,7 @@ export default ListController.extend({
       { key: 'name', label: 'Name' },
       { key: 'publisherName', label: 'Publisher' },
     ]);
-    this.set('sortBy', 'updatedAt');
+    this.set('sortBy', 'name');
+    this.set('ascending', true);
   },
 });
