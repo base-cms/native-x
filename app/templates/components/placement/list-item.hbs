@@ -3,7 +3,7 @@
   class=class
 }}
   <div class="d-flex w-100 justify-content-between">
-    <h5 class="mb-1">{{item.publisher.name}}</h5>
+    <h4 class="mb-1">{{item.publisher.name}}</h4>
     {{#if item.updatedAt}}
       <small class="d-block" title="{{moment-format item.updatedAt 'MMM Do, YYYY h:mm a'}}">
         {{entypo-icon "clock"}} Updated {{moment-from-now item.updatedAt}}
@@ -11,11 +11,12 @@
     {{/if}}
   </div>
 
+
   {{#if item.topic.name}}
-    <h6 class="mb-1">{{item.topic.name}}</h6>
+    <h5 class="mb-1">Topic: {{item.topic.name}}</h5>
   {{/if}}
   <p class="mb-1">
-    <span class="h6">{{item.template.name}}</span>
+    Template: {{item.template.name}}
     {{#if item.template.description}}
       <span class="text-muted">[{{item.template.description}}]</span>
     {{/if}}
