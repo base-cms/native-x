@@ -1,4 +1,4 @@
-{{#bs-modal show=true size="large" onHidden=(route-action "transitionTo" "manage.topic.edit.placements") as |modal|}}
+{{#bs-modal show=true size="large" onHidden=(route-action "transitionTo" "manage.publisher.edit.placements") as |modal|}}
   {{#modal.header}}
     <h5 class="modal-title">Edit Placement</h5>
     <button {{action modal.actions.hide}} type="button" class="close" aria-label="Close">
@@ -12,7 +12,7 @@
     onSubmit=(action "update") as |form|
   }}
     {{#modal.body}}
-      {{partial "manage/topic/edit/placements/form"}}
+      {{partial "manage/publisher/edit/placements/form"}}
     {{/modal.body}}
   {{/model-form}}
 
