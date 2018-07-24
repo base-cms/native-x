@@ -2,8 +2,8 @@ import Route from '@ember/routing/route';
 import RouteQueryManager from 'ember-apollo-client/mixins/route-query-manager';
 import { getObservable } from 'ember-apollo-client';
 
-import query from 'fortnight/gql/queries/all-stories';
-import search from 'fortnight/gql/queries/search-stories';
+import query from 'fortnight/gql/queries/story/all';
+import search from 'fortnight/gql/queries/story/search';
 
 export default Route.extend(RouteQueryManager, {
   queryParams: {
@@ -11,9 +11,6 @@ export default Route.extend(RouteQueryManager, {
       refreshModel: true
     },
     first: {
-      refreshModel: true
-    },
-    after: {
       refreshModel: true
     },
     sortBy: {
@@ -27,8 +24,7 @@ export default Route.extend(RouteQueryManager, {
   search(phrase, pagination) {
     const controller = this.controllerFor(this.get('routeName'));
 
-    const input = { dispositions: ['Draft', 'Ready'] };
-    const variables = { input, pagination, phrase };
+    const variables = { pagination, phrase };
     const resultKey = 'searchStories';
     controller.set('resultKey', resultKey);
     return this.get('apollo').watchQuery({ query: search, variables, fetchPolicy: 'network-only' }, resultKey)
@@ -39,16 +35,15 @@ export default Route.extend(RouteQueryManager, {
     ;
   },
 
-  model({ first, after, sortBy, ascending, phrase }) {
+  model({ first, sortBy, ascending, phrase }) {
     const controller = this.controllerFor(this.get('routeName'));
-    const pagination = { first, after };
+    const pagination = { first };
 
     if (phrase) {
       return this.search(phrase, pagination);
     }
     const sort = { field: sortBy, order: ascending ? 1 : -1 };
-    const input = { dispositions: ['Draft', 'Ready'] };
-    const variables = { pagination, sort, input };
+    const variables = { pagination, sort };
     if (!sortBy) delete variables.sort.field;
     const resultKey = 'allStories';
     controller.set('resultKey', resultKey);

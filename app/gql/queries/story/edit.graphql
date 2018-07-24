@@ -1,6 +1,6 @@
 #import 'fortnight/gql/fragments/story/view'
 
-query Story($input: ModelIdInput!) {
+query EditStory($input: ModelIdInput!) {
   story(input: $input) {
     ...StoryFragment
   }
