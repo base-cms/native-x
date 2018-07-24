@@ -1,6 +1,7 @@
 fragment PlacementFragment on Placement {
   id
   name
+  updatedAt
   publisher {
     id
     name

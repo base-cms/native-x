@@ -9,23 +9,17 @@ export default Controller.extend(ActionMixin, {
     /**
      *
      */
-    async update() {
+    async create() {
       this.startAction();
-      const model = this.get('model');
+      const refetchQueries = ['EditPublisherPlacements'];
       try {
-        await this.get('placementManager').update(model.get('id'), model);
+        await this.get('placementManager').create(this.get('model'), { refetchQueries });
+        return this.transitionToRoute('manage.publisher.edit.placements');
       } catch (e) {
         this.get('graphErrors').show(e);
       } finally {
         this.endAction();
       }
-    },
-
-    /**
-     *
-     */
-    async delete() {
-      this.get('notify').warning('Deleting objects is not yet supported.');
     },
   },
 });

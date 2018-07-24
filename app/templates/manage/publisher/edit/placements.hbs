@@ -1,4 +1,23 @@
-<div class="card-body"></div>
+<div class="card-body">
+
+  <div class="row">
+    {{!-- Fix menu alignment, once https://github.com/twbs/bootstrap/pull/26255 is merged --}}
+    <div class="col">
+      <div class="btn-toolbar float-md-right" role="toolbar" aria-label="Filter Toolbar">
+        {{list-controls/sort
+          class="mr-2"
+          options=sortOptions
+          ascending=ascending
+          sortBy=sortBy
+          disabled=isSortDisabled
+          alignment="right"
+        }}
+        {{list-controls/limit options=limitOptions limit=first alignment="right"}}
+      </div>
+    </div>
+  </div>
+
+</div>
 {{#fetch-more
   query=observable
   edges=model.placements.edges
@@ -12,7 +31,7 @@
   <ul class="list-group list-group-flush">
     <li class="list-group-item pt-0"><h5 class="mb-0 text-muted">Total Results: {{model.placements.totalCount}}</h5></li>
     {{#each fetch.nodes as |item|}}
-      {{partial "manage/placement/list-item"}}
+      {{placement/list-item routeName="manage.publisher.edit.placements.edit" item=item}}
     {{/each}}
   </ul>
 
@@ -26,6 +45,6 @@
 
 {{/fetch-more}}
 
-{{model-create-button icon="browser" title="Create Placement for Topic" click=(route-action "transitionTo" "manage.topic.edit.placement.create")}}
+{{model-create-button icon="browser" title="Create Placement for Publisher" click=(route-action "transitionTo" "manage.publisher.edit.placements.create")}}
 
 {{outlet}}

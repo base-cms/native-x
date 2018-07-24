@@ -1,0 +1,18 @@
+{{#bs-modal show=true size="large" onHidden=(route-action "transitionTo" "manage.publisher.edit.topics") as |modal|}}
+  {{#modal.header}}
+    <h5 class="modal-title">Edit Topic</h5>
+    <button {{action modal.actions.hide}} type="button" class="close" aria-label="Close">
+      {{entypo-icon "cross"}}
+    </button>
+  {{/modal.header}}
+  {{progress-bar show=isActionRunning}}
+  {{#model-form
+    model=model
+    shouldAutosave=true
+    onSubmit=(action "update") as |form|
+  }}
+    {{#modal.body}}
+      {{partial "manage/publisher/edit/topics/form"}}
+    {{/modal.body}}
+  {{/model-form}}
+{{/bs-modal}}

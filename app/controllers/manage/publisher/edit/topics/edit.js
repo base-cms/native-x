@@ -3,7 +3,7 @@ import { inject } from '@ember/service';
 import { get } from '@ember/object';
 import ActionMixin from 'fortnight/mixins/action-mixin';
 
-import mutation from 'fortnight/gql/mutations/create-placement';
+import mutation from 'fortnight/gql/mutations/topic/update';
 
 export default Controller.extend(ActionMixin, {
   apollo: inject(),
@@ -12,26 +12,23 @@ export default Controller.extend(ActionMixin, {
     /**
      *
      */
-    async create() {
-      this.startAction();
+    async update() {
       const {
+        id,
         name,
         publisher,
-        template,
-        topic,
+        externalId,
       } = this.get('model');
 
+      this.startAction();
       const payload = {
         name,
         publisherId: get(publisher || {}, 'id'),
-        templateId: get(template || {}, 'id'),
-        topicId: get(topic || {}, 'id'),
+        externalId,
       };
-      const variables = { input: { payload } };
+      const variables = { input: { id, payload } };
       try {
-        const refetchQueries = ['EditTopicPlacements'];
-        await this.get('apollo').mutate({ mutation, variables, refetchQueries }, 'createPlacement');
-        return this.transitionToRoute('manage.topic.edit.placement');
+        await this.get('apollo').mutate({ mutation, variables }, 'updateTopic');
       } catch (e) {
         this.get('graphErrors').show(e);
       } finally {

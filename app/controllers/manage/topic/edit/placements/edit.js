@@ -20,12 +20,5 @@ export default Controller.extend(ActionMixin, {
         this.endAction();
       }
     },
-
-    /**
-     *
-     */
-    async delete() {
-      this.get('notify').warning('Deleting objects is not yet supported.');
-    },
   },
 });

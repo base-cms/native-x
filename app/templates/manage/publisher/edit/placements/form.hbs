@@ -1,0 +1,51 @@
+{{placement/publisher-topic
+  wasValidated=form.wasValidated
+  publisher=form.model.publisher
+  topic=form.model.topic
+  showPublisher=false
+  dropdownClass="in-modal-dropdown"
+  onChange=(action form.actions.autosave)
+}}
+
+<div class="row">
+  <div class="col">
+    <div class="form-group">
+      <label>Template {{required-field-label}}</label>
+      {{#type-ahead
+        required=true
+        placeholder="Begin typing to search..."
+        triggerClass="form-control"
+        dropdownClass="in-modal-dropdown"
+        wasFormValidated=form.wasValidated
+        invalidFeedback="Please select a template."
+        type="template"
+        closeOnSelect=true
+        allowClear=false
+        onChange=(action form.actions.autosave)
+        selected=form.model.template as |item|
+      }}
+        {{item.name}}
+        {{#if item.description}}
+          <span class="text-muted">[{{item.description}}]</span>
+        {{/if}}
+      {{/type-ahead}}
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <div class="form-group mb-0">
+      <label for="placement-name">Label</label>
+      {{input
+        type="text"
+        value=form.model.name
+        class="form-control"
+        id="placement-name"
+        focusOut=(action form.actions.autosave)
+        keyUp=(action form.actions.autosave 750)
+      }}
+      <small class="form-text text-muted">Optional label text to append to the placement name.</small>
+    </div>
+  </div>
+</div>
