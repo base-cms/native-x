@@ -1,6 +1,6 @@
 {{#bs-modal show=true size="large" onHidden=(route-action "transitionTo" "manage.topic.edit.placements") as |modal|}}
   {{#modal.header}}
-    <h5 class="modal-title">Create Placement: {{model.publisher.name}} ({{model.topic.name}})</h5>
+    <h5 class="modal-title">Create Placement for <span class="text-muted">{{model.publisher.name}} ({{model.topic.name}})</span></h5>
     <button {{action modal.actions.hide}} type="button" class="close" aria-label="Close">
       {{entypo-icon "cross"}}
     </button>
