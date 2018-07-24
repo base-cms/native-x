@@ -46,6 +46,10 @@ Router.map(function() {
           this.route('create');
           this.route('edit', { path: ':topic_id' });
         });
+        this.route('placements', function() {
+          this.route('create');
+          this.route('edit', { path: ':placement_id' });
+        });
       });
     });
 

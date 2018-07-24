@@ -1,0 +1,20 @@
+#import 'fortnight/gql/fragments/placement/list'
+
+query EditPublisherPlacements($input: ModelIdInput!, $pagination: PaginationInput, $sort: PlacementSortInput) {
+  publisher(input: $input) {
+    id
+    placements(pagination: $pagination, sort: $sort) {
+      totalCount
+      edges {
+        node {
+          ...PlacementListFragment
+        }
+        cursor
+      }
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+    }
+  }
+}
