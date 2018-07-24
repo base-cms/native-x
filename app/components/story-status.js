@@ -13,7 +13,7 @@ export default Component.extend({
 
   status: computed('disposition', 'publishedAt', function() {
     const disposition = this.get('disposition');
-    if (['Deleted', 'Draft', 'Placeholder'].includes(disposition)) {
+    if (['Draft', 'Placeholder'].includes(disposition)) {
       return disposition;
     }
     const publishedAt = this.get('publishedAt');
@@ -42,8 +42,6 @@ export default Component.extend({
 
   color: computed('status', function() {
     switch (this.get('status')) {
-      case 'Deleted':
-        return 'text-danger';
       case 'Draft':
         return 'text-warning';
       case 'Scheduled':
