@@ -11,7 +11,6 @@ export default Controller.extend(ActionMixin, {
      */
     async create() {
       this.startAction();
-
       try {
         const response = await this.get('placementManager').create(this.get('model'));
         return this.transitionToRoute('manage.placement.edit', response.id);

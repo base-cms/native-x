@@ -28,6 +28,30 @@
       {{/type-ahead}}
     </div>
   </div>
+  <div class="col">
+    <div class="form-group">
+      <label for="placement-reservePct">Impression Reserve</label>
+
+      <div class="input-group">
+        {{input
+          type="number"
+          min=0
+          max=100
+          value=form.model.reservePct
+          class="form-control"
+          id="placement-reservePct"
+          focusOut=(action form.actions.autosave)
+          keyUp=(action form.actions.autosave 750)
+        }}
+        <div class="input-group-append">
+          <span class="input-group-text">%</span>
+        </div>
+      </div>
+
+      <small class="form-text text-muted">The share of impressions dedicated to serving content, rather than a campaign.</small>
+
+    </div>
+  </div>
 </div>
 
 <div class="row">
