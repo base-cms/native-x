@@ -4,9 +4,8 @@ import { onError } from 'apollo-link-error';
 import fetch from 'isomorphic-unfetch';
 import withApollo from './WithApollo';
 
-const headers = {};
-
 const config = (req) => {
+  const headers = req ? req.headers : {};
   const host = (req) ? req.ROOT_URI : '';
   return {
     link: ApolloLink.from([
