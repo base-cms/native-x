@@ -10,12 +10,13 @@ export default Controller.extend(ActionMixin, {
   campaignStatus: inject(),
 
   actions: {
-    async update({ id, name, description, advertiser, url, externalLinks, status }) {
+    async update({ id, name, description, advertiser, story, url, externalLinks, status }) {
       this.startAction();
       const payload = {
         name,
         description,
         advertiserId: get(advertiser || {}, 'id'),
+        storyId: get(story|| {}, 'id'),
         url,
         externalLinks: externalLinks.map(link => ({ label: link.label, url: link.url })),
         status,
