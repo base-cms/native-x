@@ -10,9 +10,7 @@ export default Component.extend({
     switch (this.get('value')) {
       case 'Draft':
         return 'text-warning';
-      case 'Paused':
-        return 'text-info';
-      case 'Active':
+      case 'Ready':
         return 'text-success';
       default:
         return 'text-muted';
