@@ -22,7 +22,7 @@ export default Component.extend({
   buttonColorClass: computed('status', function() {
     const status = this.get('status');
     switch (status) {
-      case 'Active':
+      case 'Ready':
         return 'btn-success';
       case 'Draft':
         return 'btn-warning';
@@ -34,7 +34,7 @@ export default Component.extend({
   init() {
     this._super(...arguments);
     if (!isArray(this.get('statuses'))) {
-      this.set('statuses', ['Active', 'Draft']);
+      this.set('statuses', ['Ready', 'Draft']);
     }
   },
 
