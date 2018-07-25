@@ -1,4 +1,8 @@
 fragment StoryAutocompleteFragment on Story {
   id
   title
+  advertiser {
+    id
+    name
+  }
 }

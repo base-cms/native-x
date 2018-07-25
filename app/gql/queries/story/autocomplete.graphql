@@ -1,0 +1,11 @@
+#import 'fortnight/gql/fragments/story/autocomplete'
+
+query AutocompleteStories($pagination: PaginationInput, $phrase: String!) {
+  autocompleteStories(pagination: $pagination, phrase: $phrase) {
+    edges {
+      node {
+        ...StoryAutocompleteFragment
+      }
+    }
+  }
+}
