@@ -1,0 +1,23 @@
+<label for="campaign-story">Story {{required-field-label}}</label>
+{{#form.elements.typeahead
+  id="campaign-story"
+  placeholder="Being typing to search..."
+  autocomplete="off"
+  class="form-control"
+  name="story"
+  label="Story"
+  value=model.story
+  disabled=disabled
+  required=true
+  aria-labeledby="campaign-story-help"
+  allowClear=false
+  on-search=(action "search")
+  on-change=on-change as |typeahead|
+}}
+  {{#typeahead.element as |story|}}
+    {{story.title}}
+    <span class="text-muted">[{{story.advertiser.name}}]</span>
+  {{/typeahead.element}}
+  {{typeahead.elements.invalid-feedback}}
+{{/form.elements.typeahead}}
+<small id="campaign-story-help" class="form-text text-muted">The story to use with this campaign.</small>

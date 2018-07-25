@@ -25,7 +25,7 @@
         </div>
         <div class="col-sm-6">
           {{#if (eq form.campaignType 'existing-story')}}
-
+            {{form.fields.story class="mb-0"}}
           {{else}}
             {{form.fields.advertiser class="mb-0"}}
           {{/if}}
