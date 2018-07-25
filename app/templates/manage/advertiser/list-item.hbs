@@ -14,12 +14,12 @@
         <div class="d-flex flex-column">
           <h4 class="mb-1">{{item.name}}</h4>
           <p class="mb-1">Campaigns: {{if item.campaigns.totalCount item.campaigns.totalCount 0}}</p>
-          <small class="d-none d-sm-block">ID: {{item.id}}</small>
+          <small>ID: {{item.id}}</small>
         </div>
       </div>
     </div>
 
-    <div class="d-flex flex-column align-items-end text-right">
+    <div class="d-none d-md-flex flex-column align-items-end text-right">
       {{user-attribution class="mb-2" label="Updated" user=item.updatedBy date=item.updatedAt}}
       {{user-attribution label="Created" user=item.createdBy date=item.createdAt}}
     </div>
