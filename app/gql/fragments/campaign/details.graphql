@@ -1,4 +1,5 @@
 #import 'fortnight/gql/fragments/campaign/list'
+#import 'fortnight/gql/fragments/story/autocomplete'
 #import 'fortnight/gql/fragments/campaign-criteria'
 
 fragment CampaignDetailsFragment on Campaign {
@@ -9,6 +10,9 @@ fragment CampaignDetailsFragment on Campaign {
   advertiser {
     id
     hash
+  }
+  story {
+    ...StoryAutocompleteFragment
   }
   criteria {
     ...CampaignCriteriaFragment
