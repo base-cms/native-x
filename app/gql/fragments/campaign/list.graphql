@@ -3,6 +3,11 @@ fragment CampaignListFragment on Campaign {
   name
   updatedAt
   status
+  requires
+  story {
+    id
+    title
+  }
   advertiser {
     id
     name

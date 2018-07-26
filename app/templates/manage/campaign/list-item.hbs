@@ -11,7 +11,12 @@
     {{/if}}
 
   </div>
-  <p class="mb-1">{{campaign-status value=item.status}}</p>
+  <p class="mb-1">
+    {{campaign-status status=item.status}}
+    {{#if item.requires}}
+      <span class="text-muted">(requires {{item.requires}})</span>
+    {{/if}}
+  </p>
   <p class="mb-1">Advertiser: {{item.advertiser.name}}</p>
   <small>ID: {{item.id}}</small>
 {{/link-to}}
