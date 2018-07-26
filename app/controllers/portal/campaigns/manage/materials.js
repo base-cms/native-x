@@ -15,7 +15,7 @@ export default Controller.extend(ActionMixin, {
   }),
 
   actions: {
-    async saveField(field, label, value) {
+    async saveField(field, label, { value }) {
       this.startAction();
       const input = {
         id: this.get('model.campaign.id'),
