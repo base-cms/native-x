@@ -1,13 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
-import {
-  Navbar,
-  NavbarBrand,
-  Nav,
-} from 'reactstrap';
 import PropTypes from 'prop-types';
+import { Navbar, NavbarBrand, Nav } from 'reactstrap';
 import Imgix from './Imgix';
-// import ActiveNavItem from '../components/ActiveNavItem';
 
 const brand = {
   name: 'Firehouse.com',
