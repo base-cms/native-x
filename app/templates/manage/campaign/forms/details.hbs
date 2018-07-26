@@ -84,22 +84,6 @@
 <div class="row">
   <div class="col">
     <div class="form-group">
-      <label for="name">Status {{required-field-label}}</label>
-      {{#power-select
-        options=campaignStatus.statii
-        selected=form.model.status
-        searchEnabled=false
-        onchange=(action form.actions.setAndAutosave "status") as |status|
-      }}
-        {{ status }}
-      {{/power-select}}
-    </div>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col">
-    <div class="form-group">
       <label for="campaign-description">Description</label>
       {{textarea
         value=form.model.description

@@ -7,10 +7,9 @@ import mutation from 'fortnight/gql/mutations/campaign/update';
 
 export default Controller.extend(ActionMixin, {
   apollo: inject(),
-  campaignStatus: inject(),
 
   actions: {
-    async update({ id, name, description, advertiser, story, url, externalLinks, status }) {
+    async update({ id, name, description, advertiser, story, url, externalLinks }) {
       this.startAction();
       const payload = {
         name,
@@ -19,7 +18,6 @@ export default Controller.extend(ActionMixin, {
         storyId: get(story|| {}, 'id'),
         url,
         externalLinks: externalLinks.map(link => ({ label: link.label, url: link.url })),
-        status,
       };
       const variables = { input: { id, payload } };
       try {

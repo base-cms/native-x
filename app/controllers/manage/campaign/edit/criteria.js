@@ -32,8 +32,9 @@ export default Controller.extend(ActionMixin, {
 
       const payload = { start: startDate, end: endDate, placementIds, kvs: keyValues };
       const variables = { input: { campaignId: id, payload } };
+      const refetchQueries = ['CampaignEdit'];
       try {
-        await this.get('apollo').mutate({ mutation, variables }, 'campaignCriteria')
+        await this.get('apollo').mutate({ mutation, variables, refetchQueries }, 'campaignCriteria')
       } catch (e) {
         this.get('graphErrors').show(e);
       } finally {

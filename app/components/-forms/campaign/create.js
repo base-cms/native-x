@@ -2,7 +2,6 @@ import Component from '@ember/component';
 import ComponentQueryManager from 'ember-apollo-client/mixins/component-query-manager';
 import { get } from '@ember/object';
 import { classify } from '@ember/string';
-import moment from 'moment';
 import ActionMixin from 'fortnight/mixins/action';
 
 import createExternalUrlCampaign from 'fortnight/gql/mutations/campaign/create/external-url';
@@ -26,12 +25,8 @@ export default Component.extend(ActionMixin, ComponentQueryManager, {
 
       const key = `create${classify(type)}Campaign`;
 
-      const startDate = moment().startOf('day').valueOf();
       const { advertiser, name, story } = this.get('model');
-      const input = {
-        name,
-        startDate,
-      };
+      const input = { name };
       if (['new-story', 'external-url'].includes(type)) {
         input.advertiserId = get(advertiser, 'id');
       }
