@@ -17,6 +17,7 @@ fragment CampaignListFragment on Campaign {
   story {
     id
     title
+    status
   }
   advertiser {
     id

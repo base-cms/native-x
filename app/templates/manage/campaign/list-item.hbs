@@ -21,7 +21,7 @@
           </p>
           <p class="mb-0">Advertiser: {{item.advertiser.name}}</p>
           {{#if item.story.id}}
-            <p class="mb-0">Story: {{item.story.title}}</p>
+            <p class="mb-0">Story: {{item.story.title}} <small>[ {{story-status status=item.story.status}} ]</small></p>
           {{/if}}
           <small class="mt-1">ID: {{item.id}}</small>
         </div>
@@ -37,7 +37,6 @@
         {{user-attribution label="Updated" user=item.updatedBy date=item.updatedAt}}
         {{user-attribution label="Created" user=item.createdBy date=item.createdAt}}
       </div>
-
     </div>
 
   </div>
