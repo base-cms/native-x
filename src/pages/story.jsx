@@ -1,45 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
 import PageWrapper from '../components/PageWrapper';
 import Header from '../components/Story/Header';
 import Body from '../components/Story/Body';
 import withApollo from '../apollo/client';
-
-const STORY = gql`
-  query Story($input: ModelIdInput!) {
-    story(input: $input) {
-      id
-      title
-      teaser
-      body
-      primaryImage {
-        id
-        src
-      }
-      advertiser {
-        id
-        name
-        logo {
-          id
-          src
-          filename
-          mimeType
-          size
-          width
-          height
-        }
-      }
-    }
-  }
-`;
+import gql from '../gql/story.graphql';
 
 const Story = ({ id }) => {
   const input = { id };
   return (
     <PageWrapper>
-      <Query query={STORY} variables={{ input }}>
+      <Query query={gql} variables={{ input }}>
         {({ loading, error, data }) => {
           if (loading) {
             return (

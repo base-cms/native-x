@@ -6,6 +6,12 @@ module.exports = {
   webpack: (config, { dev }) => {
     config.plugins.push(new EnvironmentPlugin(['NODE_ENV']));
 
+    config.module.rules.push({
+      test: /\.(graphql|gql)$/,
+      exclude: /node_modules/,
+      loader: 'graphql-tag/loader',
+    });
+
     if (dev) {
       config.module.rules.push({
         test: /\.jsx?$/,

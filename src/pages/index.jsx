@@ -11,38 +11,10 @@ import {
 } from 'reactstrap';
 import Link from 'next/link';
 import Head from 'next/head';
-import gql from 'graphql-tag';
 import Imgix from '../components/Imgix';
 import PageWrapper from '../components/PageWrapper';
 import withApollo from '../apollo/client';
-
-const STORIES = gql`
-  query AllStories($pagination: PaginationInput, $sort: StorySortInput) {
-    allStories(pagination: $pagination, sort: $sort) {
-      totalCount
-      edges {
-        node {
-          id
-          title
-          slug
-          primaryImage {
-            id
-            src
-          }
-          advertiser {
-            id
-            name
-          }
-        }
-        cursor
-      }
-      pageInfo {
-        hasNextPage
-        endCursor
-      }
-    }
-  }
-`;
+import query from '../gql/all-stories.graphql';
 
 const Index = () => {
   const input = { pagination: { first: 10 } };
@@ -56,7 +28,7 @@ const Index = () => {
         <Row>
           <Col>
             <Card className="border-0 p-5">
-              <Query query={STORIES} variables={{ input }}>
+              <Query query={query} variables={{ input }}>
                 {({ loading, error, data }) => {
                   if (loading) return <p>Loading...</p>;
                   if (error) return <p><strong>{error.message}</strong></p>;
