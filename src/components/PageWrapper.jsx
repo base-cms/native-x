@@ -1,43 +1,10 @@
 import React from 'react';
-import Link from 'next/link';
 import PropTypes from 'prop-types';
-import { Navbar, NavbarBrand, Nav } from 'reactstrap';
-import Imgix from './Imgix';
-
-const brand = {
-  name: 'Firehouse.com',
-  logo: {
-    src: 'https://fortnight.imgix.net/ebm/5b476cd5e4f5510001847c65/fh_logo.png',
-  },
-};
+import Navbar from './Navbar';
 
 const PageWrapper = props => (
   <div>
-    <style jsx global>{`
-        nav.fixed-top {
-          transition: top 0.1s ease-in-out;
-          transition: background-color 0.1s ease-in-out;
-          background-color: transparent;
-        }
-        .fixed-top.nav-down {
-          background-color: rgba(0,0,0,0.75);
-        }
-        .fixed-top.nav-up {
-          top: -71px;
-        }
-      `}
-    </style>
-    <Navbar expand fixed="top">
-      <Link href="/" passHref>
-        <NavbarBrand>
-          <Imgix className="d-flex bg-imgIx img-fluid" src={brand.logo.src} alt={brand.name} title={brand.name} w="250" h="45" />
-        </NavbarBrand>
-      </Link>
-      <Nav className="mr-auto" navbar>
-        {/* <ActiveNavItem href="/" title="Home">Home</ActiveNavItem>
-        <ActiveNavItem href="/about" title="About">About</ActiveNavItem> */}
-      </Nav>
-    </Navbar>
+    <Navbar />
     <section>
       {props.children}
     </section>
