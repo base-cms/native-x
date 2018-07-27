@@ -6,9 +6,9 @@
 
     <div class="d-flex flex-column">
       <div class="d-flex flex-row">
-        {{#if item.creatives.0.image.src}}
+        {{#if item.primaryImage.src}}
           <div class="d-flex flex-column my-auto mr-3">
-            {{imgix-img originalSrc=item.creatives.0.image.src width=100 height=100 w="100" h="100" fit="crop" crop="focalpoint"}}
+            {{imgix-img originalSrc=item.primaryImage.src width=100 height=100 w="100" h="100" fit="crop" crop="focalpoint"}}
           </div>
         {{/if}}
         <div class="d-flex flex-column">
