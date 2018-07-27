@@ -9,14 +9,16 @@ export default Component.extend({
 
   color: computed('status', function() {
     switch (this.get('status')) {
-      case 'Draft':
-        return 'text-muted';
+      case 'Finished':
+        return 'text-primary'
       case 'Running':
         return 'text-success';
       case 'Scheduled':
         return 'text-info';
       case 'Incomplete':
         return 'text-warning';
+      case 'Paused':
+        return 'text-secondary';
       default:
         return 'text-muted';
     }
