@@ -17,8 +17,6 @@ export default Component.extend({
         return 'text-info';
       case 'Incomplete':
         return 'text-warning';
-      case 'Paused':
-        return 'text-secondary';
       default:
         return 'text-muted';
     }

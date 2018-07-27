@@ -99,3 +99,11 @@ form .progress {
 .mnh-100 {
   min-height: 100%;
 }
+
+// Fixes label issues with ember-toggle
+.x-toggle-component label {
+  margin-bottom: 0 !important;
+}
+.x-toggle-flip.medium {
+  width: 4.5em;
+}

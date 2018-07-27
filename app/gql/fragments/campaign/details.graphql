@@ -21,6 +21,7 @@ fragment CampaignDetailsFragment on Campaign {
     label
     url
   }
+  paused
   notify {
     internal {
       id

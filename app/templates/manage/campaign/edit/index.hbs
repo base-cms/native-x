@@ -14,13 +14,33 @@
     </div>
   </div>
 
-  <div class="card-footer text-right">
-    {{confirm-button
-      icon="trash"
-      label="Delete"
-      class="btn-danger"
-      disabled=isActionRunning
-      onConfirm=(action "delete")
-    }}
+  <div class="card-footer d-flex w-100 justify-content-between">
+
+    <div class="d-flex flex-column">
+      {{#x-toggle
+        class="justify-content-start"
+        size="medium"
+        theme="material"
+        value=active
+        onLabel="Active"
+        offLabel="Paused"
+        showLabels=true
+        onToggle=(action "togglePaused") as |toggle|
+      }}
+        {{toggle.switch class="w-auto px-0"}}
+        {{toggle.onLabel}}
+      {{/x-toggle}}
+    </div>
+
+
+    <div class="d-flex flex-column">
+      {{confirm-button
+        icon="trash"
+        label="Delete"
+        class="btn-danger justify-content-end"
+        disabled=isActionRunning
+        onConfirm=(action "delete")
+      }}
+    </div>
   </div>
 {{/model-form}}
