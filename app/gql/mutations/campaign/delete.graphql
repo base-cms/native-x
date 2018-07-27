@@ -1,0 +1,3 @@
+mutation DeleteCampaign($input: ModelIdInput!) {
+  deleteCampaign(input: $input)
+}

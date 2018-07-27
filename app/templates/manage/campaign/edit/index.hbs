@@ -14,6 +14,13 @@
     </div>
   </div>
 
-  <div class="card-footer">
+  <div class="card-footer text-right">
+    {{confirm-button
+      icon="trash"
+      label="Delete"
+      class="btn-danger"
+      disabled=isActionRunning
+      onConfirm=(action "delete")
+    }}
   </div>
 {{/model-form}}
