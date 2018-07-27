@@ -1,0 +1,9 @@
+{{#if date}}
+  <small class="d-block">
+    {{entypo-icon "calendar"}} {{label}} {{moment-format date format}} ({{moment-from-now date}})
+  </small>
+{{else}}
+  <small class="d-block">
+    {{entypo-icon "calendar"}} {{label}} Never
+  </small>
+{{/if}}

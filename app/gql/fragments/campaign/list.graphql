@@ -2,8 +2,14 @@ fragment CampaignListFragment on Campaign {
   id
   name
   updatedAt
+  createdAt
   status
   requires
+  criteria {
+    id
+    start
+    end
+  }
   story {
     id
     title
