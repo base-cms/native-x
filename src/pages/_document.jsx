@@ -1,5 +1,6 @@
 import React from 'react';
 import Document, { Head, Main, NextScript } from 'next/document';
+import { GA_TRACKING_ID } from '../lib/gtag';
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -19,6 +20,26 @@ export default class MyDocument extends Document {
           <script src="https://code.jquery.com/jquery-3.3.1.min.js" />
           <script src="https://s3.amazonaws.com/media.cygnus.com/fortnight/theme.js" />
           {/* END OF @TODO */}
+
+          {/* Global Site Tag (gtag.js) - Google Analytics */}
+          {/* https://github.com/zeit/next.js/blob/master/examples/with-google-analytics */}
+          <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`} />
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                window.gtag('config', '${GA_TRACKING_ID}', {
+                  send_page_view: false,
+                  custom_map: {
+                    dimension1: 'account',
+                    dimension2: 'storyId',
+                  },
+                });
+              `,
+            }}
+          />
         </Head>
         <body>
           <Main />
