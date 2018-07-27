@@ -1,0 +1,8 @@
+<small class="d-block">
+  {{entypo-icon "calendar"}}
+  {{#if date}}
+    {{moment-format date format}} ({{moment-from-now date}})
+  {{else}}
+    Unpublished
+  {{/if}}
+</small>
