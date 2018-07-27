@@ -24,4 +24,14 @@ fragment CampaignListFragment on Campaign {
     id
     name
   }
+  createdBy {
+    id
+    givenName
+    familyName
+  }
+  updatedBy {
+    id
+    givenName
+    familyName
+  }
 }

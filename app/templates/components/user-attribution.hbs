@@ -1,10 +1,9 @@
+{{entypo-icon "clock"}} {{label}}
 {{#if date}}
-  <small class="d-block" title="{{moment-format date format}}">
-    {{entypo-icon "clock"}} {{label}} {{moment-from-now date}}
-  </small>
+  <span title="{{moment-format date format}}">
+    {{moment-from-now date}}
+  </span>
 {{/if}}
 {{#if user}}
-  <small class="d-block" title="{{user.givenName}} {{user.familyName}}">
-    {{entypo-icon "user"}} {{user.givenName}} {{user.familyName}}
-  </small>
+  by {{user.givenName}} {{user.familyName}}
 {{/if}}
