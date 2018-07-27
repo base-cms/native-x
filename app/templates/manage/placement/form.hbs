@@ -30,7 +30,7 @@
   </div>
   <div class="col">
     <div class="form-group">
-      <label for="placement-reservePct">Impression Reserve</label>
+      <label for="placement-reserve-pct">Impression Reserve</label>
 
       <div class="input-group">
         {{input
@@ -39,7 +39,7 @@
           max=100
           value=form.model.reservePct
           class="form-control"
-          id="placement-reservePct"
+          id="placement-reserve-pct"
           focusOut=(action form.actions.autosave)
           keyUp=(action form.actions.autosave 750)
         }}
