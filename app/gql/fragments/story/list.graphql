@@ -14,6 +14,9 @@ fragment StoryListFragment on Story {
   primaryImage {
     ...ImageSrcFragment
   }
+  campaigns(pagination: { first: 1 }, sort: { field: createdAt, order: 1}) {
+    totalCount
+  }
   createdBy {
     id
     givenName
