@@ -21,8 +21,10 @@
     </div>
 
     <div class="d-none d-md-flex flex-column align-items-end text-right">
-      {{user-attribution class="mb-2" label="Updated" user=item.updatedBy date=item.updatedAt}}
-      {{user-attribution label="Created" user=item.createdBy date=item.createdAt}}
+      <div class="mt-auto">
+        {{user-attribution label="Updated" user=item.updatedBy date=item.updatedAt}}
+        {{user-attribution label="Created" user=item.createdBy date=item.createdAt}}
+      </div>
     </div>
 
   </div>
