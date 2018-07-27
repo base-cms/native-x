@@ -17,7 +17,7 @@
   {{#typeahead.element as |story|}}
     {{story.title}}
     <span class="text-muted">[{{story.advertiser.name}}]</span>
-    {{story-status publishedAt=story.publishedAt disposition=story.status}}
+    {{story-status status=story.status}}
   {{/typeahead.element}}
   {{typeahead.elements.invalid-feedback}}
 {{/form.elements.typeahead}}
