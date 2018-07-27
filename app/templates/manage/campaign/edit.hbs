@@ -1,6 +1,6 @@
 {{#nav-breadcrumbs as |crumbs|}}
   {{#crumbs.item}}{{#link-to "manage.campaign.index"}}{{entypo-icon "calendar"}} Campaigns{{/link-to}}{{/crumbs.item}}
-  {{#crumbs.item active=true}}{{model.name}} ({{model.advertiser.name}}) <span class="h4">[ {{campaign-status status=model.status}}]</span>{{/crumbs.item}}
+  {{#crumbs.item active=true}}{{model.name}} ({{#link-to "manage.advertiser.edit" model.advertiser.id}}{{model.advertiser.name}}{{/link-to}}) <span class="h4">[ {{campaign-status status=model.status}}]</span>{{/crumbs.item}}
 {{/nav-breadcrumbs}}
 
 <div class="card model-form">

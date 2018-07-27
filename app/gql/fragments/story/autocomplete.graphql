@@ -2,6 +2,7 @@ fragment StoryAutocompleteFragment on Story {
   id
   title
   publishedAt
+  placeholder
   status
   advertiser {
     id

@@ -44,7 +44,15 @@
   <div class="col">
     <div class="form-group">
       {{#if form.model.story}}
-        <label for="campaign-story">Story {{required-field-label}}</label>
+        <label for="campaign-story">
+          Story
+          {{#unless form.model.story.placeholder}}
+            <small class="form-text d-inline">
+              [{{#link-to "manage.story.edit" form.model.story.id}}view{{/link-to}}]
+            </small>
+          {{/unless}}
+          {{required-field-label}}
+        </label>
         {{#type-ahead
           required=true
           wasFormValidated=form.wasValidated

@@ -1,6 +1,6 @@
 {{#nav-breadcrumbs as |crumbs|}}
   {{#crumbs.item}}{{#link-to "manage.story.index"}}{{entypo-icon "open-book"}} Stories{{/link-to}}{{/crumbs.item}}
-  {{#crumbs.item active=true}}{{ model.title }} ({{model.advertiser.name}}){{/crumbs.item}}
+  {{#crumbs.item active=true}}{{ model.title }} ({{#link-to "manage.advertiser.edit" model.advertiser.id}}{{model.advertiser.name}}{{/link-to}}){{/crumbs.item}}
 {{/nav-breadcrumbs}}
 
 <div class="card model-form">
