@@ -13,7 +13,8 @@
         {{/if}}
         <div class="d-flex flex-column">
           <h4 class="mb-1">{{item.name}}</h4>
-          <p class="mb-1">Campaigns: {{if item.campaigns.totalCount item.campaigns.totalCount 0}}</p>
+          <p class="mb-0">Campaigns: {{if item.campaigns.totalCount item.campaigns.totalCount 0}}</p>
+          <p class="mb-1">Stories: {{if item.stories.totalCount item.stories.totalCount 0}}</p>
           <small>ID: {{item.id}}</small>
         </div>
       </div>

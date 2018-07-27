@@ -18,6 +18,9 @@ fragment AdvertiserListFragment on Advertiser {
   campaigns(pagination: { first: 1 }, sort: { field: createdAt, order: 1}) {
     totalCount
   }
+  stories(pagination: { first: 1 }, sort: { field: createdAt, order: 1}) {
+    totalCount
+  }
   logo {
     ...ImageSrcFragment
   }
