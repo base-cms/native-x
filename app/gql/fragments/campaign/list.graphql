@@ -5,6 +5,13 @@ fragment CampaignListFragment on Campaign {
   createdAt
   status
   requires
+  creatives {
+    id
+    image {
+      id
+      src
+    }
+  }
   criteria {
     id
     start
