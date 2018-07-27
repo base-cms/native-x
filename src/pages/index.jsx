@@ -14,12 +14,17 @@ import Head from 'next/head';
 import Imgix from '../components/Imgix';
 import PageWrapper from '../components/PageWrapper';
 import withApollo from '../apollo/client';
+import Analytics from '../components/Analytics';
 import query from '../gql/all-stories.graphql';
+import { AccountContext } from '../components/AccountProvider';
 
 const Index = () => {
   const input = { pagination: { first: 10 } };
   return (
     <PageWrapper>
+      <AccountContext.Consumer>
+        {({ account }) => <Analytics accountKey={account.key} /> }
+      </AccountContext.Consumer>
       <Container className="mt-5">
         <Head>
           <title>Homepage</title>

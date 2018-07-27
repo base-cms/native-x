@@ -1,14 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { AccountProvider } from './AccountProvider';
 import Navbar from './Navbar';
 
 const PageWrapper = props => (
-  <div>
+  <AccountProvider>
     <Navbar />
     <section>
       {props.children}
     </section>
-  </div>
+  </AccountProvider>
 );
 
 PageWrapper.propTypes = {

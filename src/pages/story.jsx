@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Query } from 'react-apollo';
+import Analytics from '../components/Analytics';
 import PageWrapper from '../components/PageWrapper';
 import Header from '../components/Story/Header';
 import Body from '../components/Story/Body';
 import withApollo from '../apollo/client';
 import gql from '../gql/story.graphql';
+import { AccountContext } from '../components/AccountProvider';
 
 const Story = ({ id }) => {
   const input = { id };
@@ -24,6 +26,9 @@ const Story = ({ id }) => {
 
           return (
             <div className="story-wrapper">
+              <AccountContext.Consumer>
+                {({ account }) => <Analytics accountKey={account.key} storyId={story.id} /> }
+              </AccountContext.Consumer>
               <Header
                 title={story.title}
                 primaryImgSrc={story.primaryImage.src}
