@@ -8,6 +8,10 @@
   z-index: 1100;
 }
 
+.ember-power-select-trigger {
+  padding: 2px;
+}
+
 @import "ember-power-calendar";
 .ember-power-calendar {
   @include ember-power-calendar($cell-size: 30px);
