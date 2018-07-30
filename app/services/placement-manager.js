@@ -52,13 +52,15 @@ export default Service.extend(ObjectQueryManager, {
     name,
     publisher,
     template,
-    topic
+    topic,
+    reservePct,
   } = {}) {
     return {
       name,
       publisherId: get(publisher || {}, 'id'),
       templateId: get(template || {}, 'id'),
       topicId: get(topic || {}, 'id'),
+      reservePct: reservePct || 0,
     };
   },
 });
