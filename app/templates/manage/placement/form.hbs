@@ -31,10 +31,28 @@
 
     </div>
   </div>
+</div>
+
+
+<div class="row">
+
+  <div class="col-sm-6 col-md-9 col-lg-10">
+    <div class="form-group mb-3 mb-sm-0">
+      <label for="placement-name">Label</label>
+      {{input
+        type="text"
+        value=form.model.name
+        class="form-control"
+        id="placement-name"
+        focusOut=(action form.actions.autosave)
+        keyUp=(action form.actions.autosave 750)
+      }}
+      <small class="form-text text-muted">Optional label text to append to the placement name.</small>
+    </div>
   </div>
-  <div class="row">
-  <div class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
-    <div class="form-group">
+
+  <div class="col-sm-6 col-md-3 col-lg-2">
+    <div class="form-group mb-0">
       <label for="placement-reserve-pct">Impression Reserve</label>
 
       <div class="input-group">
@@ -57,21 +75,5 @@
 
     </div>
   </div>
-</div>
 
-<div class="row">
-  <div class="col">
-    <div class="form-group mb-0">
-      <label for="placement-name">Label</label>
-      {{input
-        type="text"
-        value=form.model.name
-        class="form-control"
-        id="placement-name"
-        focusOut=(action form.actions.autosave)
-        keyUp=(action form.actions.autosave 750)
-      }}
-      <small class="form-text text-muted">Optional label text to append to the placement name.</small>
-    </div>
-  </div>
 </div>
