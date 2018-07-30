@@ -3,17 +3,7 @@ import { Query } from 'react-apollo';
 import PropTypes from 'prop-types';
 import query from '../gql/account.graphql';
 
-export const AccountContext = React.createContext({
-  account: {
-    key: '1234',
-  },
-  brand: {
-    name: 'Firehouse.com',
-    logo: {
-      src: 'https://fortnight.imgix.net/ebm/5b476cd5e4f5510001847c65/fh_logo.png',
-    },
-  },
-});
+export const AccountContext = React.createContext({});
 
 export const AccountProvider = props => (
   <Query query={query}>
