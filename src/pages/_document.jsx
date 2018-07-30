@@ -33,7 +33,7 @@ export default class MyDocument extends Document {
                 window.gtag('config', '${GA_TRACKING_ID}', {
                   send_page_view: false,
                   custom_map: {
-                    dimension1: 'account',
+                    dimension1: 'accountKey',
                     dimension2: 'storyId',
                   },
                 });
