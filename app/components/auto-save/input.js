@@ -1,28 +1,24 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { debounce } from '@ember/runloop';
+import OnInsertMixin from '../form-elements/mixins/on-insert';
 
-export default Component.extend({
+export default Component.extend(OnInsertMixin, {
   /**
-   * Makes this a "tagless" wrapping component.
+   * Tagless wrapping component.
    */
   tagName: '',
 
   /**
-   * The input value.
+   * Whether the change event should be saved.
    */
-  value: '',
+  shouldSave: true,
 
   /**
-   * The formatted value used by the input.
-   * Is passed to the input element.
-   * Will converted falsey values to an empty string.
+   * Whether to set the element to readonly
+   * while the element is in the mild of a change.
    */
-  _value: computed('value', function() {
-    const value = this.get('value');
-    if (!value) return '';
-    return value;
-  }),
+  readOnlyWhileChanging: true,
 
   /**
    * Determines if the field should be readonly.
@@ -30,32 +26,12 @@ export default Component.extend({
    * Forces the field into readonly mode while changing, or if
    * passed to the component.
    */
-  _readonly: computed('readonly', 'isChanging', function() {
+  _readonly: computed('readonly', 'shouldSave', 'isChanging', 'readOnlyWhileChanging', function() {
     if (this.get('readonly')) return true;
+    if (!this.get('shouldSave')) return false;
+    if (!this.get('readOnlyWhileChanging')) return false;
     return this.get('isChanging');
   }),
-
-  /**
-   * Builds the class names for the input field.
-   * Will append the validity class names.
-   */
-  _class: computed('class', 'validityClass', function() {
-    const names = this.get('class');
-    const validity = this.get('validityClass');
-    if (!names) return validity;
-    if (!validity) return names;
-    return `${names} ${validity}`;
-  }),
-
-  /**
-   * The default input type.
-   */
-  type: 'text',
-
-  /**
-   * Whether autosave/change events should be fired.
-   */
-  shouldSendChange: true,
 
   /**
    * Whether the change event is currently being processed.
@@ -79,37 +55,6 @@ export default Component.extend({
   changeComplete: false,
 
   /**
-   * Whether validation was attempted on the field.
-   */
-  wasValidated: false,
-
-  /**
-   * Whether the field is considered valid.
-   * A valid field is one with a falsey `validationMessage`.
-   * Otherwise the field is considered invalid.
-   */
-  isValid: computed('validationMessage', function() {
-    const message = this.get('validationMessage');
-    if (message) return false;
-    return true;
-  }),
-
-  /**
-   * Computes the validity class based on whether the field has been validated
-   * and it's current validity state.
-   */
-  validityClass: computed('isValid', 'wasValidated', function() {
-    if (!this.get('wasValidated')) return null;
-    return this.get('isValid') ? 'is-valid' : 'is-invalid';
-  }),
-
-  /**
-   * The validation message.
-   * If set, the field is considered invalid.
-   */
-  validationMessage: '',
-
-  /**
    * Sends the on-change events.
    * Will only fire when the field is valid.
    *
@@ -118,17 +63,27 @@ export default Component.extend({
    */
   async sendOnChange(value, event) {
     this.resetState();
+    this.validate();
     const fn = this.get('on-change');
-    if (typeof fn === 'function' && this.get('isValid')) {
+    if (typeof fn === 'function' && this.get('_child.isValid')) {
+      const { id, name, shouldSave, label } = this.getProperties('id', 'name', 'shouldSave', 'label');
+      const props = {
+        id,
+        name,
+        value,
+        label,
+        shouldSave,
+        event,
+      };
       this.set('isChanging', true);
       try {
-        await fn(value, event);
+        await fn(props);
         this.set('changeComplete', true);
       } catch (e) {
-        this.set('validationMessage', e.message);
+        this.set('_child.validationMessage', e.message);
         const onError = this.get('on-error');
         if (typeof onError === 'function') {
-          onError(e, value, event);
+          onError(e, props);
         }
       } finally {
         this.set('isChanging', false);
@@ -136,39 +91,40 @@ export default Component.extend({
     }
   },
 
+  /**
+   * Resets the change state of this component.
+   */
   resetState() {
     this.set('changeError', null);
     this.set('changeComplete', false);
   },
 
   /**
-   * Validates the input element.
-   * Supports custom validation by providing an `on-validate` function.
+   * Validates the wrapped/child input component.
+   * Supports custom validation by providing a `validator` function property on this component.
    * If a custom validation function is called, it is up to the
    * function to set the elements validation message via `element.setCustomValidity()`
    *
    * @see https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement
-   * @param {HTMLInputElement} element
    */
-  validate(element) {
-    const fn = this.get('on-validate');
-    if (typeof fn === 'function') {
-      fn(element);
-    }
-    element.checkValidity();
-    const { validationMessage } = element;
-    this.set('validationMessage', validationMessage);
-    this.set('wasValidated', true);
+  validate() {
+    const child = this.get('_child');
+    child.validate();
   },
 
   actions: {
     /**
-     * Debounces the input input event.
-     * The change event will only fire if the input value is
-     * actually dirty. This prevents events from being fired when
-     * no-modifying keys are pressed, such as arrows, home/end, etc.
+     * Sets the wrapped/child, `input` component so it can
+     * be accessed in this context.
      *
-     * When `shouldSendChange` is false, no events are fired.
+     * @param {Component} component
+     */
+    setChildInputComponent(component) {
+      this.set('_child', component);
+    },
+
+    /**
+     * Debounces the input input event.
      *
      * The change event will be debounced based on the
      * milliseconds defined in the `typeDelay` property.
@@ -176,16 +132,16 @@ export default Component.extend({
      * @param {Event} event
      */
     debounceInput(event) {
-      if (this.get('shouldSendChange')) {
-        this.resetState(); // Reset when inputting (but not on change)
-        const { target } = event;
-        const { value } = target;
-        const isDirty = this.get('_value') !== value;
-
-        this.validate(target);
-
-        if (isDirty) {
+      const { target } = event;
+      const { value } = target;
+      const isDirty = this.get('value') !== value;
+      this.resetState(); // Reset when inputting (but not on change)
+      if (isDirty) {
+        if (this.get('shouldSave')) {
+          // Debounce when saving.
           debounce(this, 'sendOnChange', value, event, this.get('typeDelay'));
+        } else {
+          this.sendOnChange(value, event);
         }
       }
     },
@@ -193,23 +149,21 @@ export default Component.extend({
     /**
      * Debounces the input onchange event.
      *
-     * When `shouldSendChange` is false, no events are fired.
-     *
      * Will immediately fire the change, if dirty, and
      * will cancel any other pending change events.
      *
      * @param {Event} event
      */
     debounceChange(event) {
-      if (this.get('shouldSendChange')) {
-        const { target } = event;
-        const { value } = target;
-        const isDirty = this.get('_value') !== value;
-
-        this.validate(target);
-
-        if (isDirty) {
+      const { target } = event;
+      const { value } = target;
+      const isDirty = this.get('value') !== value;
+      if (isDirty) {
+        if (this.get('shouldSave')) {
+          // Debounce when saving.
           debounce(this, 'sendOnChange', value, event, 0);
+        } else {
+          this.sendOnChange(value, event);
         }
       }
     },

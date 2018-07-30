@@ -1,6 +1,7 @@
 import Route from '@ember/routing/route';
 import ApplicationRouteMixin from 'ember-simple-auth/mixins/application-route-mixin';
 import ActionMixin from 'fortnight/mixins/action-mixin';
+import { get } from '@ember/object';
 
 export default Route.extend(ApplicationRouteMixin, ActionMixin, {
   routeAfterAuthentication: 'manage',
@@ -16,6 +17,10 @@ export default Route.extend(ApplicationRouteMixin, ActionMixin, {
 
     transitionTo(name) {
       return this.transitionTo(name);
+    },
+
+    transitionWithModel(routeName, model) {
+      return this.transitionTo(routeName, get(model, 'id'));
     },
 
     scrollToTop() {

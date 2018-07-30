@@ -1,6 +1,6 @@
 {{#basic-dropdown as |dropdown|}}
   <div class="input-group">
-    <a class="btn btn-block form-control btn-outline-secondary dropdown-toggle" data-ebd-id="{{dropdown.uniqueId}}-trigger" {{action dropdown.actions.toggle}}>
+    <a class="btn btn-block form-control btn-light dropdown-toggle" data-ebd-id="{{dropdown.uniqueId}}-trigger" {{action dropdown.actions.toggle}}>
       {{entypo-icon "calendar"}}
       {{#if publishedAt}}
         {{moment-format publishedAt displayFormat}}
@@ -9,7 +9,7 @@
       {{/if}}
     </a>
     <div class="input-group-append">
-      <button class="btn btn-secondary" {{action 'removeDate'}}>
+      <button class="btn btn-light" {{action 'removeDate'}}>
         {{entypo-icon "cross"}}
       </button>
     </div>

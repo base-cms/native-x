@@ -1,9 +1,10 @@
-#import 'fortnight/gql/fragments/advertiser/list'
 #import 'fortnight/gql/fragments/advertiser/contacts'
 #import 'fortnight/gql/fragments/image/src'
 
-fragment AdvertiserFragment on Advertiser {
-  ...AdvertiserListFragment
+fragment AdvertiserEditFragment on Advertiser {
+  id
+  name
+  hash
   logo {
     ...ImageSrcFragment
   }

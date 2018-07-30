@@ -1,0 +1,5 @@
+mutation CreateExternalUrlCampaign($input: CreateExternalUrlCampaignInput!) {
+  createExternalUrlCampaign(input: $input) {
+    id
+  }
+}

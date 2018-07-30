@@ -1,6 +1,6 @@
 {
   "name": "fortnight",
-  "version": "0.0.0",
+  "version": "0.1.5",
   "private": true,
   "description": "Small description for fortnight goes here",
   "license": "MIT",
@@ -55,6 +55,7 @@
     "ember-body-class": "^1.0.1",
     "ember-cli": "~3.1.2",
     "ember-cli-app-version": "^3.0.0",
+    "ember-cli-autoprefixer": "^0.8.1",
     "ember-cli-babel": "^6.6.0",
     "ember-cli-dependency-checker": "^2.0.0",
     "ember-cli-eslint": "^4.2.1",
@@ -84,6 +85,7 @@
     "ember-route-action-helper": "^2.0.6",
     "ember-simple-auth": "^1.6.0",
     "ember-source": "~3.1.0",
+    "ember-toggle": "^5.2.4",
     "ember-wormhole": "^0.5.4",
     "eslint-plugin-ember": "^5.0.0",
     "loader.js": "^4.2.3",
@@ -110,7 +112,8 @@
     ]
   },
   "dependencies": {
-    "bootswatch": "^4.1.0",
+    "bootstrap": "4.1.2",
+    "bootswatch": "4.1.2",
     "filesize": "^3.6.0",
     "fraction.js": "^4.0.4",
     "highcharts": "^6.1.1"

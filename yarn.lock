@@ -180,7 +180,7 @@ amd-name-resolver@0.0.7:
   dependencies:
     ensure-posix-path "^1.0.1"
 
-amd-name-resolver@^1.2.0:
+amd-name-resolver@1.2.0, amd-name-resolver@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/amd-name-resolver/-/amd-name-resolver-1.2.0.tgz#fc41b3848824b557313897d71f8d5a0184fbe679"
   dependencies:
@@ -189,6 +189,10 @@ amd-name-resolver@^1.2.0:
 amdefine@>=0.0.4:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
+
+animation-frame@~0.2.4:
+  version "0.2.5"
+  resolved "https://registry.yarnpkg.com/animation-frame/-/animation-frame-0.2.5.tgz#cdf5a91a69ad2c85ddac2b82daf7290300f05960"
 
 ansi-escapes@^1.1.0:
   version "1.4.0"
@@ -508,6 +512,17 @@ atob@^2.0.0:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.0.3.tgz#19c7a760473774468f20b2d2d03372ad7d4cbf5d"
 
+autoprefixer@^7.0.0:
+  version "7.2.6"
+  resolved "https://registry.yarnpkg.com/autoprefixer/-/autoprefixer-7.2.6.tgz#256672f86f7c735da849c4f07d008abb056067dc"
+  dependencies:
+    browserslist "^2.11.3"
+    caniuse-lite "^1.0.30000805"
+    normalize-range "^0.1.2"
+    num2fraction "^1.2.2"
+    postcss "^6.0.17"
+    postcss-value-parser "^3.2.3"
+
 aws-sign2@~0.6.0:
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/aws-sign2/-/aws-sign2-0.6.0.tgz#14342dd38dbcc94d0e5b87d763cd63612c0e794f"
@@ -756,9 +771,21 @@ babel-plugin-debug-macros@^0.1.10, babel-plugin-debug-macros@^0.1.11:
   dependencies:
     semver "^5.3.0"
 
+babel-plugin-debug-macros@^0.2.0-beta.6:
+  version "0.2.0-beta.6"
+  resolved "https://registry.yarnpkg.com/babel-plugin-debug-macros/-/babel-plugin-debug-macros-0.2.0-beta.6.tgz#ecdf6e408d5c863ab21740d7ad7f43f027d2f912"
+  dependencies:
+    semver "^5.3.0"
+
 babel-plugin-ember-modules-api-polyfill@^2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-ember-modules-api-polyfill/-/babel-plugin-ember-modules-api-polyfill-2.3.0.tgz#0c01f359658cfb9c797f705af6b09f6220205ae0"
+  dependencies:
+    ember-rfc176-data "^0.3.0"
+
+babel-plugin-ember-modules-api-polyfill@^2.3.2:
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/babel-plugin-ember-modules-api-polyfill/-/babel-plugin-ember-modules-api-polyfill-2.3.2.tgz#56ea34bea963498d070a2b7dc2ce18a92c434093"
   dependencies:
     ember-rfc176-data "^0.3.0"
 
@@ -1074,7 +1101,7 @@ babel-plugin-undefined-to-void@^1.1.6:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/babel-plugin-undefined-to-void/-/babel-plugin-undefined-to-void-1.1.6.tgz#7f578ef8b78dfae6003385d8417a61eda06e2f81"
 
-babel-polyfill@^6.16.0:
+babel-polyfill@^6.16.0, babel-polyfill@^6.26.0:
   version "6.26.0"
   resolved "https://registry.yarnpkg.com/babel-polyfill/-/babel-polyfill-6.26.0.tgz#379937abc67d7895970adc621f284cd966cf2153"
   dependencies:
@@ -1114,6 +1141,41 @@ babel-preset-env@^1.5.1:
     babel-plugin-transform-exponentiation-operator "^6.22.0"
     babel-plugin-transform-regenerator "^6.22.0"
     browserslist "^2.1.2"
+    invariant "^2.2.2"
+    semver "^5.3.0"
+
+babel-preset-env@^1.7.0:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/babel-preset-env/-/babel-preset-env-1.7.0.tgz#dea79fa4ebeb883cd35dab07e260c1c9c04df77a"
+  dependencies:
+    babel-plugin-check-es2015-constants "^6.22.0"
+    babel-plugin-syntax-trailing-function-commas "^6.22.0"
+    babel-plugin-transform-async-to-generator "^6.22.0"
+    babel-plugin-transform-es2015-arrow-functions "^6.22.0"
+    babel-plugin-transform-es2015-block-scoped-functions "^6.22.0"
+    babel-plugin-transform-es2015-block-scoping "^6.23.0"
+    babel-plugin-transform-es2015-classes "^6.23.0"
+    babel-plugin-transform-es2015-computed-properties "^6.22.0"
+    babel-plugin-transform-es2015-destructuring "^6.23.0"
+    babel-plugin-transform-es2015-duplicate-keys "^6.22.0"
+    babel-plugin-transform-es2015-for-of "^6.23.0"
+    babel-plugin-transform-es2015-function-name "^6.22.0"
+    babel-plugin-transform-es2015-literals "^6.22.0"
+    babel-plugin-transform-es2015-modules-amd "^6.22.0"
+    babel-plugin-transform-es2015-modules-commonjs "^6.23.0"
+    babel-plugin-transform-es2015-modules-systemjs "^6.23.0"
+    babel-plugin-transform-es2015-modules-umd "^6.23.0"
+    babel-plugin-transform-es2015-object-super "^6.22.0"
+    babel-plugin-transform-es2015-parameters "^6.23.0"
+    babel-plugin-transform-es2015-shorthand-properties "^6.22.0"
+    babel-plugin-transform-es2015-spread "^6.22.0"
+    babel-plugin-transform-es2015-sticky-regex "^6.22.0"
+    babel-plugin-transform-es2015-template-literals "^6.22.0"
+    babel-plugin-transform-es2015-typeof-symbol "^6.23.0"
+    babel-plugin-transform-es2015-unicode-regex "^6.22.0"
+    babel-plugin-transform-exponentiation-operator "^6.22.0"
+    babel-plugin-transform-regenerator "^6.22.0"
+    browserslist "^3.2.6"
     invariant "^2.2.2"
     semver "^5.3.0"
 
@@ -1317,15 +1379,13 @@ boom@5.x.x:
   dependencies:
     hoek "4.x.x"
 
-bootstrap@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.1.0.tgz#110b05c31a236d56dbc9adcda6dd16f53738a28a"
+bootstrap@4.1.2:
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.1.2.tgz#aee2a93472e61c471fc79fb475531dcbc87de326"
 
-bootswatch@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/bootswatch/-/bootswatch-4.1.0.tgz#77d26d6b47a6882c85624d3c3ba2d8e07556384a"
-  dependencies:
-    bootstrap "^4.1.0"
+bootswatch@4.1.2:
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/bootswatch/-/bootswatch-4.1.2.tgz#b4dfa68cdeafe711e513c500db903e8ef400e202"
 
 bower-config@^1.3.0:
   version "1.4.1"
@@ -1393,6 +1453,14 @@ broccoli-asset-rewrite@^1.1.0:
   dependencies:
     broccoli-filter "^1.2.3"
 
+broccoli-autoprefixer@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/broccoli-autoprefixer/-/broccoli-autoprefixer-5.0.0.tgz#68c9f3bfdfff9df2d39e46545b9cf9d4443d6a16"
+  dependencies:
+    autoprefixer "^7.0.0"
+    broccoli-persistent-filter "^1.1.6"
+    postcss "^6.0.1"
+
 broccoli-babel-transpiler@^5.6.2:
   version "5.7.2"
   resolved "https://registry.yarnpkg.com/broccoli-babel-transpiler/-/broccoli-babel-transpiler-5.7.2.tgz#756c30544775144e984333b7115f42c916ba08e0"
@@ -1422,6 +1490,21 @@ broccoli-babel-transpiler@^6.0.0, broccoli-babel-transpiler@^6.1.2:
     json-stable-stringify "^1.0.0"
     rsvp "^3.5.0"
     workerpool "^2.2.1"
+
+broccoli-babel-transpiler@^6.4.5:
+  version "6.5.0"
+  resolved "https://registry.yarnpkg.com/broccoli-babel-transpiler/-/broccoli-babel-transpiler-6.5.0.tgz#aa501a227b298a99742fdd0309b1eaad7124bba0"
+  dependencies:
+    babel-core "^6.26.0"
+    broccoli-funnel "^2.0.1"
+    broccoli-merge-trees "^2.0.0"
+    broccoli-persistent-filter "^1.4.3"
+    clone "^2.0.0"
+    hash-for-dep "^1.2.3"
+    heimdalljs-logger "^0.1.7"
+    json-stable-stringify "^1.0.0"
+    rsvp "^4.8.2"
+    workerpool "^2.3.0"
 
 broccoli-builder@^0.18.8:
   version "0.18.11"
@@ -1497,7 +1580,7 @@ broccoli-config-replace@^1.1.2:
     debug "^2.2.0"
     fs-extra "^0.24.0"
 
-broccoli-debug@^0.6.1, broccoli-debug@^0.6.2, broccoli-debug@^0.6.3:
+broccoli-debug@^0.6.1, broccoli-debug@^0.6.2, broccoli-debug@^0.6.3, broccoli-debug@^0.6.4:
   version "0.6.4"
   resolved "https://registry.yarnpkg.com/broccoli-debug/-/broccoli-debug-0.6.4.tgz#986eb3d2005e00e3bb91f9d0a10ab137210cd150"
   dependencies:
@@ -1836,12 +1919,19 @@ browserify-zlib@^0.2.0:
   dependencies:
     pako "~1.0.5"
 
-browserslist@^2.1.2, browserslist@^2.2.2:
+browserslist@^2.1.2, browserslist@^2.11.3, browserslist@^2.2.2:
   version "2.11.3"
   resolved "https://registry.yarnpkg.com/browserslist/-/browserslist-2.11.3.tgz#fe36167aed1bbcde4827ebfe71347a2cc70b99b2"
   dependencies:
     caniuse-lite "^1.0.30000792"
     electron-to-chromium "^1.3.30"
+
+browserslist@^3.2.6:
+  version "3.2.8"
+  resolved "https://registry.yarnpkg.com/browserslist/-/browserslist-3.2.8.tgz#b0005361d6471f0f5952797a76fc985f1f978fc6"
+  dependencies:
+    caniuse-lite "^1.0.30000844"
+    electron-to-chromium "^1.3.47"
 
 bser@^2.0.0:
   version "2.0.0"
@@ -1967,6 +2057,14 @@ can-symlink@^1.0.0:
 caniuse-lite@^1.0.30000792:
   version "1.0.30000792"
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000792.tgz#d0cea981f8118f3961471afbb43c9a1e5bbf0332"
+
+caniuse-lite@^1.0.30000805:
+  version "1.0.30000864"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000864.tgz#7a08c78da670f23c06f11aa918831b8f2dd60ddc"
+
+caniuse-lite@^1.0.30000844:
+  version "1.0.30000865"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000865.tgz#70026616e8afe6e1442f8bb4e1092987d81a2f25"
 
 capture-exit@^1.1.0:
   version "1.2.0"
@@ -2743,6 +2841,10 @@ electron-to-chromium@^1.3.30:
   version "1.3.31"
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.31.tgz#00d832cba9fe2358652b0c48a8816c8e3a037e9f"
 
+electron-to-chromium@^1.3.47:
+  version "1.3.52"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.52.tgz#d2d9f1270ba4a3b967b831c40ef71fb4d9ab5ce0"
+
 elliptic@^6.0.0:
   version "6.4.0"
   resolved "https://registry.yarnpkg.com/elliptic/-/elliptic-6.4.0.tgz#cac9af8762c85836187003c8dfe193e5e2eae5df"
@@ -2825,6 +2927,13 @@ ember-cli-app-version@^3.0.0:
     ember-cli-babel "^6.8.0"
     git-repo-version "^1.0.0"
 
+ember-cli-autoprefixer@^0.8.1:
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/ember-cli-autoprefixer/-/ember-cli-autoprefixer-0.8.1.tgz#071dd9574451057b03dcc03b71f5bd9cb07ef332"
+  dependencies:
+    broccoli-autoprefixer "^5.0.0"
+    lodash "^4.0.0"
+
 ember-cli-babel@^5.1.6, ember-cli-babel@^5.1.7:
   version "5.2.4"
   resolved "https://registry.yarnpkg.com/ember-cli-babel/-/ember-cli-babel-5.2.4.tgz#5ce4f46b08ed6f6d21e878619fb689719d6e8e13"
@@ -2870,6 +2979,24 @@ ember-cli-babel@^6.12.0:
     clone "^2.0.0"
     ember-cli-version-checker "^2.1.0"
     semver "^5.4.1"
+
+ember-cli-babel@^6.9.0:
+  version "6.16.0"
+  resolved "https://registry.yarnpkg.com/ember-cli-babel/-/ember-cli-babel-6.16.0.tgz#623b4a2764ece72b65f1572fc8aeb5714a450228"
+  dependencies:
+    amd-name-resolver "1.2.0"
+    babel-plugin-debug-macros "^0.2.0-beta.6"
+    babel-plugin-ember-modules-api-polyfill "^2.3.2"
+    babel-plugin-transform-es2015-modules-amd "^6.24.0"
+    babel-polyfill "^6.26.0"
+    babel-preset-env "^1.7.0"
+    broccoli-babel-transpiler "^6.4.5"
+    broccoli-debug "^0.6.4"
+    broccoli-funnel "^2.0.0"
+    broccoli-source "^1.1.0"
+    clone "^2.0.0"
+    ember-cli-version-checker "^2.1.2"
+    semver "^5.5.0"
 
 ember-cli-broccoli-sane-watcher@^2.0.4:
   version "2.0.4"
@@ -3098,7 +3225,7 @@ ember-cli-version-checker@^2.0.0, ember-cli-version-checker@^2.1.0:
     resolve "^1.3.3"
     semver "^5.3.0"
 
-ember-cli-version-checker@^2.1.1:
+ember-cli-version-checker@^2.1.1, ember-cli-version-checker@^2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/ember-cli-version-checker/-/ember-cli-version-checker-2.1.2.tgz#305ce102390c66e4e0f1432dea9dc5c7c19fed98"
   dependencies:
@@ -3283,19 +3410,45 @@ ember-froala-editor@^2.8.1:
     ember-cli-version-checker "^2.0.0"
     froala-editor "^2.6.3"
 
-ember-get-config@^0.2.3:
+ember-gestures@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/ember-gestures/-/ember-gestures-1.1.0.tgz#4e6cc10dcb42c4d149af72b8ac88e37d2da3c7c2"
+  dependencies:
+    animation-frame "~0.2.4"
+    broccoli-funnel "^2.0.1"
+    broccoli-merge-trees "^2.0.0"
+    broccoli-stew "^1.5.0"
+    ember-cli-babel "^6.8.2"
+    ember-cli-htmlbars "^2.0.1"
+    ember-cli-version-checker "^2.1.0"
+    ember-getowner-polyfill "^2.2.0"
+    hammerjs "^2.0.8"
+    rsvp "^3.1.0"
+
+ember-get-config@^0.2.3, ember-get-config@^0.2.4:
   version "0.2.4"
   resolved "https://registry.yarnpkg.com/ember-get-config/-/ember-get-config-0.2.4.tgz#118492a2a03d73e46004ed777928942021fe1ecd"
   dependencies:
     broccoli-file-creator "^1.1.1"
     ember-cli-babel "^6.3.0"
 
-"ember-getowner-polyfill@^1.1.0 || ^2.0.0", ember-getowner-polyfill@^2.0.0, ember-getowner-polyfill@^2.0.1:
+"ember-getowner-polyfill@^1.1.0 || ^2.0.0", ember-getowner-polyfill@^2.0.0, ember-getowner-polyfill@^2.0.1, ember-getowner-polyfill@^2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/ember-getowner-polyfill/-/ember-getowner-polyfill-2.2.0.tgz#38e7dccbcac69d5ec694000329ec0b2be651d2b2"
   dependencies:
     ember-cli-version-checker "^2.1.0"
     ember-factory-for-polyfill "^1.3.1"
+
+ember-hammertime@^1.4.1:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/ember-hammertime/-/ember-hammertime-1.5.0.tgz#205a9b4afd83e580b37e86b69cd79ebfa34b3bfa"
+  dependencies:
+    broccoli-funnel "^2.0.1"
+    broccoli-merge-trees "^2.0.0"
+    broccoli-stew "^1.5.0"
+    ember-cli-babel "^6.6.0"
+    ember-get-config "^0.2.4"
+    hammer-timejs "^1.1.0"
 
 ember-load-initializers@^1.0.0:
   version "1.0.0"
@@ -3435,6 +3588,13 @@ ember-router-generator@^1.2.3:
   dependencies:
     recast "^0.11.3"
 
+ember-runtime-enumerable-includes-polyfill@^2.0.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/ember-runtime-enumerable-includes-polyfill/-/ember-runtime-enumerable-includes-polyfill-2.1.0.tgz#dc6d4a028471e4acc350dfd2a149874fb20913f5"
+  dependencies:
+    ember-cli-babel "^6.9.0"
+    ember-cli-version-checker "^2.1.0"
+
 ember-simple-auth@^1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/ember-simple-auth/-/ember-simple-auth-1.6.0.tgz#68a80cdc4f2928a87af0f68aefae5abfd70f2e36"
@@ -3486,6 +3646,16 @@ ember-text-measurer@^0.4.0:
   resolved "https://registry.yarnpkg.com/ember-text-measurer/-/ember-text-measurer-0.4.0.tgz#a676195378d4eb4c1617678c2d198a2344b4d12b"
   dependencies:
     ember-cli-babel "^6.8.2"
+
+ember-toggle@^5.2.4:
+  version "5.2.4"
+  resolved "https://registry.yarnpkg.com/ember-toggle/-/ember-toggle-5.2.4.tgz#71e23333fe0276155e3cb4c4fcf14f703b649acc"
+  dependencies:
+    ember-cli-babel "^6.6.0"
+    ember-cli-htmlbars "^2.0.1"
+    ember-gestures "^1.1.0"
+    ember-hammertime "^1.4.1"
+    ember-runtime-enumerable-includes-polyfill "^2.0.0"
 
 ember-truth-helpers@^2.0.0:
   version "2.0.0"
@@ -4537,6 +4707,14 @@ growly@^1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/growly/-/growly-1.3.0.tgz#f10748cbe76af964b7c96c93c6bcc28af120c081"
 
+hammer-timejs@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/hammer-timejs/-/hammer-timejs-1.1.0.tgz#fc07ec1e4012228fe51b6a51218ec12661a32a42"
+
+hammerjs@^2.0.8:
+  version "2.0.8"
+  resolved "https://registry.yarnpkg.com/hammerjs/-/hammerjs-2.0.8.tgz#04ef77862cff2bb79d30f7692095930222bf60f1"
+
 handlebars@^4.0.3, handlebars@^4.0.4, handlebars@^4.0.6:
   version "4.0.11"
   resolved "https://registry.yarnpkg.com/handlebars/-/handlebars-4.0.11.tgz#630a35dfe0294bc281edae6ffc5d329fc7982dcc"
@@ -4666,7 +4844,7 @@ hash-base@^3.0.0:
     inherits "^2.0.1"
     safe-buffer "^5.0.1"
 
-hash-for-dep@^1.0.2:
+hash-for-dep@^1.0.2, hash-for-dep@^1.2.3:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/hash-for-dep/-/hash-for-dep-1.2.3.tgz#5ec69fca32c23523972d52acb5bb65ffc3664cab"
   dependencies:
@@ -6509,6 +6687,10 @@ normalize-path@^2.0.0, normalize-path@^2.0.1:
   dependencies:
     remove-trailing-separator "^1.0.1"
 
+normalize-range@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/normalize-range/-/normalize-range-0.1.2.tgz#2d10c06bdfd312ea9777695a4d28439456b75942"
+
 normalize-url@2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/normalize-url/-/normalize-url-2.0.1.tgz#835a9da1551fa26f70e92329069a23aa6574d7e6"
@@ -6540,6 +6722,10 @@ npm-run-path@^2.0.0:
     console-control-strings "~1.1.0"
     gauge "~2.7.3"
     set-blocking "~2.0.0"
+
+num2fraction@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/num2fraction/-/num2fraction-1.2.2.tgz#6f682b6a027a4e9ddfa4564cd2589d1d4e669ede"
 
 number-is-nan@^1.0.0:
   version "1.0.1"
@@ -6928,6 +7114,18 @@ portfinder@^1.0.7:
 posix-character-classes@^0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/posix-character-classes/-/posix-character-classes-0.1.1.tgz#01eac0fe3b5af71a2a6c02feabb8c1fef7e00eab"
+
+postcss-value-parser@^3.2.3:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/postcss-value-parser/-/postcss-value-parser-3.3.0.tgz#87f38f9f18f774a4ab4c8a232f5c5ce8872a9d15"
+
+postcss@^6.0.1, postcss@^6.0.17:
+  version "6.0.23"
+  resolved "https://registry.yarnpkg.com/postcss/-/postcss-6.0.23.tgz#61c82cc328ac60e677645f979054eb98bc0e3324"
+  dependencies:
+    chalk "^2.4.1"
+    source-map "^0.6.1"
+    supports-color "^5.4.0"
 
 postcss@^6.0.14:
   version "6.0.22"
@@ -7500,6 +7698,10 @@ rsvp@^3.0.14, rsvp@^3.0.16, rsvp@^3.0.17, rsvp@^3.0.18, rsvp@^3.0.21, rsvp@^3.0.
 rsvp@^4.6.1, rsvp@^4.7.0:
   version "4.8.0"
   resolved "https://registry.yarnpkg.com/rsvp/-/rsvp-4.8.0.tgz#dc1dc400e2d48bcf3b1991f2a3b714f038fc432e"
+
+rsvp@^4.8.2:
+  version "4.8.3"
+  resolved "https://registry.yarnpkg.com/rsvp/-/rsvp-4.8.3.tgz#25d4b9fdd0f95e216eb5884d9b3767d3fbfbe2cd"
 
 rsvp@~3.0.6:
   version "3.0.21"
@@ -8769,6 +8971,12 @@ wordwrap@~1.0.0:
 workerpool@^2.2.1:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/workerpool/-/workerpool-2.3.0.tgz#86c5cbe946b55e7dc9d12b1936c8801a6e2d744d"
+  dependencies:
+    object-assign "4.1.1"
+
+workerpool@^2.3.0:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/workerpool/-/workerpool-2.3.1.tgz#6872d3a749dd820d42b8390abaac20fb14ce4c81"
   dependencies:
     object-assign "4.1.1"
 

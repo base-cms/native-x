@@ -1,6 +1,6 @@
 {{#basic-dropdown as |dropdown|}}
   <div class="input-group">
-    <a class="btn btn-block form-control btn-outline-secondary dropdown-toggle" data-ebd-id="{{dropdown.uniqueId}}-trigger" {{action dropdown.actions.toggle}}>
+    <a class="btn btn-block form-control btn-light dropdown-toggle" data-ebd-id="{{dropdown.uniqueId}}-trigger" {{action dropdown.actions.toggle}}>
       {{entypo-icon "calendar"}}
       {{#if (moment-is-valid currentDay)}}
         {{moment-format currentDay displayFormat}}
@@ -10,7 +10,7 @@
     </a>
     {{#if canRemove}}
       <div class="input-group-append">
-        <button class="btn btn-secondary" {{action 'removeDate'}} disabled={{isRemoveDisabled}}>
+        <button class="btn btn-light" {{action 'removeDate'}} disabled={{isRemoveDisabled}}>
           {{entypo-icon "cross"}}
         </button>
       </div>
@@ -27,7 +27,7 @@
         }}
 
           {{calendar.nav}}
-          <button class="btn btn-sm btn-outline-secondary btn-block mt-3" {{action "centerToday"}}>Go to Today</button>
+          <button class="btn btn-sm btn-primary btn-block mt-3" {{action "centerToday"}}>Go to Today</button>
           <div {{action dropdown.actions.close}}>
             {{calendar.days showDaysAround=showDaysAround minDate=(readonly minDate) maxDate=(readonly maxDate)}}
           </div>

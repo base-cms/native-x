@@ -1,3 +1,5 @@
+#import 'fortnight/gql/fragments/image/src'
+
 fragment StoryListFragment on Story {
   id
   title
@@ -5,6 +7,24 @@ fragment StoryListFragment on Story {
     id
     name
   }
+  status
   updatedAt
+  createdAt
   publishedAt
+  primaryImage {
+    ...ImageSrcFragment
+  }
+  campaigns(pagination: { first: 1 }, sort: { field: createdAt, order: 1}) {
+    totalCount
+  }
+  createdBy {
+    id
+    givenName
+    familyName
+  }
+  updatedBy {
+    id
+    givenName
+    familyName
+  }
 }

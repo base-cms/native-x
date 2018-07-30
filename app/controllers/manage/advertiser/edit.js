@@ -5,6 +5,8 @@ import { all } from 'rsvp';
 import ActionMixin from 'fortnight/mixins/action-mixin';
 
 import updateAdvertiser from 'fortnight/gql/mutations/advertiser/update';
+import deleteAdvertiser from 'fortnight/gql/mutations/advertiser/delete';
+import undeleteAdvertiser from 'fortnight/gql/mutations/advertiser/undelete';
 import advertiserLogo from 'fortnight/gql/mutations/advertiser/logo';
 import setContacts from 'fortnight/gql/mutations/advertiser/set-contacts';
 
@@ -65,10 +67,41 @@ export default Controller.extend(ActionMixin, {
     },
 
     /**
+     * Deletes the advertiser
      *
      */
     async delete() {
-      this.get('notify').warning('Deleting objects is not yet supported.');
+      this.startAction();
+      const id = this.get('model.id');
+      const variables = { input: { id } };
+      const mutation = deleteAdvertiser;
+      try {
+        await this.get('apollo').mutate({ mutation, variables }, 'deleteAdvertiser');
+        return this.transitionToRoute('manage.advertiser.index');
+      } catch (e) {
+        this.get('graphErrors').show(e);
+      } finally {
+        this.endAction();
+      }
+    },
+
+    /**
+     * Restores (undeletes) the advertiser
+     *
+     */
+    async undelete() {
+      this.startAction();
+      const id = this.get('model.id');
+      const variables = { input: { id } };
+      const mutation = undeleteAdvertiser;
+      try {
+        await this.get('apollo').mutate({ mutation, variables }, 'undeleteAdvertiser');
+        return this.transitionToRoute('manage.advertiser.index');
+      } catch (e) {
+        this.get('graphErrors').show(e);
+      } finally {
+        this.endAction();
+      }
     },
   },
 });

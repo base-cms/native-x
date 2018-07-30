@@ -13,10 +13,18 @@
 </div>
 <div class="row">
   <div class="col d-flex justify-content-between">
-    <span>{{entypo-icon "flag"}} Status</span> {{campaign-status value=model.status}}
+    <span>{{entypo-icon "flag"}} Status</span> {{campaign-status status=model.status}}
   </div>
 </div>
-
+{{#if model.requires}}
+  <hr>
+  <h6>Requires</h6>
+  <div class="row">
+    <div class="col">
+      {{entypo-icon "warning" class="text-danger"}} {{model.requires}}
+    </div>
+  </div>
+{{/if}}
 <hr>
 <h6>Links</h6>
 <div class="row">
@@ -62,7 +70,7 @@
   </div>
 {{/each}}
 
-{{#if model.criteria.kvs.length}}
+{{!-- {{#if model.criteria.kvs.length}}
   <hr>
   <h6>Custom Variables</h6>
   {{#each model.criteria.kvs as |kv|}}
@@ -72,7 +80,7 @@
       </div>
     </div>
   {{/each}}
-{{/if}}
+{{/if}} --}}
 
 <hr>
 <h6>Internal Notifications</h6>

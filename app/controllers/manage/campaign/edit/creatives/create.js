@@ -48,11 +48,11 @@ export default Controller.extend(ActionMixin, {
      */
     async create({ title, teaser, image }) {
       this.startAction();
-      const status = 'Active';
+      const active = true;
       const campaignId = this.get('campaignId');
       const imageId = get(image, 'id');
 
-      const payload = { title, teaser, status, imageId };
+      const payload = { title, teaser, active, imageId };
       const variables = { input: { campaignId, payload } };
       const refetchQueries = ['CampaignCreatives'];
       try {

@@ -1,4 +1,8 @@
 fragment ImageSrcFragment on Image {
   id
   src
+  focalPoint {
+    x
+    y
+  }
 }

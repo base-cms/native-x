@@ -1,6 +1,6 @@
-@import "node_modules/bootswatch/dist/yeti/variables";
+@import "node_modules/bootswatch/dist/cosmo/variables";
 @import "node_modules/bootstrap/scss/bootstrap";
-@import "node_modules/bootswatch/dist/yeti/bootswatch";
+@import "node_modules/bootswatch/dist/cosmo/bootswatch";
 
 @import "ember-power-select/themes/bootstrap";
 @import "ember-power-select";
@@ -102,4 +102,12 @@ form .progress {
 // Add min-height utility
 .mnh-100 {
   min-height: 100%;
+}
+
+// Fixes label issues with ember-toggle
+.x-toggle-component label {
+  margin-bottom: 0 !important;
+}
+.x-toggle-flip.medium {
+  width: 4.5em;
 }

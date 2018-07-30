@@ -23,7 +23,6 @@ export default Controller.extend(ActionMixin, {
       const variables = { input: { payload } };
       try {
         const response = await this.get('apollo').mutate({ mutation, variables }, 'createStory');
-        this.get('notify').info('Story successfully created.');
         return this.transitionToRoute('manage.story.edit', response.id);
       } catch (e) {
         this.get('graphErrors').show(e);

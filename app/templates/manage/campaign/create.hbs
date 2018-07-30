@@ -3,18 +3,38 @@
   {{#crumbs.item active=true}}Create New{{/crumbs.item}}
 {{/nav-breadcrumbs}}
 
-{{#model-form
+{{#-forms/campaign/create
   model=model
-  shouldAutosave=false
-  onSubmit=(action "create") as |form|
+  on-success=(route-action "transitionWithModel" "manage.campaign.edit")
+  on-error=(route-action "error")
+  as |form|
 }}
   <div class="card model-form">
     <div class="card-header"></div>
     <div class="card-body">
-      {{ partial "manage/campaign/forms/details" }}
+
+      <div class="row">
+        <div class="col">
+          {{form.fields.type}}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6">
+          {{form.fields.name class="mb-3 mb-sm-0"}}
+        </div>
+        <div class="col-sm-6">
+          {{#if (eq form.campaignType 'existing-story')}}
+            {{form.fields.story class="mb-0"}}
+          {{else}}
+            {{form.fields.advertiser class="mb-0"}}
+          {{/if}}
+        </div>
+      </div>
+
     </div>
     <div class="card-footer">
-      {{model-save-button disabled=isActionRunning}}
+      {{form.buttons.save}}
     </div>
   </div>
-{{/model-form}}
+{{/-forms/campaign/create}}

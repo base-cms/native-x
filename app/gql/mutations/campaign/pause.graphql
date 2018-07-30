@@ -1,0 +1,7 @@
+mutation PauseCampaign($id: String!, $paused: Boolean!) {
+	pauseCampaign(id: $id, paused: $paused) {
+    id
+    paused
+    status
+  }
+}
