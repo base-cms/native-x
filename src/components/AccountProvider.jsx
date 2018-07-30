@@ -7,14 +7,8 @@ export const AccountContext = React.createContext({});
 
 export const AccountProvider = props => (
   <Query query={query}>
-    {({ loading, error, data }) => {
-      if (loading) {
-        return (
-          <p>Loading...</p>
-        );
-      }
+    {({ error, data }) => {
       if (error) return <p><strong>{error.message}</strong></p>;
-
       return (
         <AccountContext.Provider value={data}>
           {props.children}
