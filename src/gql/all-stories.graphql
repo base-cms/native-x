@@ -1,0 +1,25 @@
+query AllStories($pagination: PaginationInput, $sort: StorySortInput) {
+  allStories(pagination: $pagination, sort: $sort) {
+    totalCount
+    edges {
+      node {
+        id
+        title
+        slug
+        primaryImage {
+          id
+          src
+        }
+        advertiser {
+          id
+          name
+        }
+      }
+      cursor
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}

@@ -1,0 +1,25 @@
+query Story($input: ModelIdInput!) {
+  story(input: $input) {
+    id
+    title
+    teaser
+    body
+    primaryImage {
+      id
+      src
+    }
+    advertiser {
+      id
+      name
+      logo {
+        id
+        src
+        filename
+        mimeType
+        size
+        width
+        height
+      }
+    }
+  }
+}

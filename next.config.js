@@ -4,7 +4,13 @@ module.exports = {
   distDir: '../.next/build',
 
   webpack: (config, { dev }) => {
-    config.plugins.push(new EnvironmentPlugin(['NODE_ENV']));
+    config.plugins.push(new EnvironmentPlugin(['NODE_ENV', 'GA_TRACKING_ID']));
+
+    config.module.rules.push({
+      test: /\.(graphql|gql)$/,
+      exclude: /node_modules/,
+      loader: 'graphql-tag/loader',
+    });
 
     if (dev) {
       config.module.rules.push({
