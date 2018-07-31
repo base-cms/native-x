@@ -1,6 +1,5 @@
 import React from 'react';
-import Link from 'next/link';
-import { Navbar, NavbarBrand, Nav } from 'reactstrap';
+import { Navbar, Nav } from 'reactstrap';
 import NavbarStyle from './NavbarStyle';
 import { StoryContext } from './StoryProvider';
 import Imgix from './Imgix';
@@ -9,26 +8,26 @@ import Imgix from './Imgix';
 export default () => (
   <Navbar expand fixed="top">
     <NavbarStyle />
-      <Nav className="position-absolute">
-        {/* <AccountContext.Consumer>
-          {({ branding }) => {
-            return (
-              <Imgix
-                className="d-flex bg-imgIx img-fluid"
-                src={branding.logo.url}
-                alt={branding.name}
-                title={branding.name}
-                w="250"
-                h="45"
-              />
-          ) }}
-        </AccountContext.Consumer> */}
-      </Nav>
+    <Nav className="position-absolute">
+      {/* <AccountContext.Consumer>
+        {({ branding }) => {
+          return (
+            <Imgix
+              className="d-flex bg-imgIx img-fluid"
+              src={branding.logo.url}
+              alt={branding.name}
+              title={branding.name}
+              w="250"
+              h="45"
+            />
+        ) }}
+      </AccountContext.Consumer> */}
+    </Nav>
     <Nav className="mx-auto navbar-logo" navbar>
       <StoryContext.Consumer>
         {({ story }) => {
           if (story.advertiser && story.advertiser.logo) {
-            return(
+            return (
               <Imgix
                 className="d-flex bg-imgIx img-fluid"
                 src={story.advertiser.logo.src}
@@ -38,10 +37,13 @@ export default () => (
                 h="50"
                 fit="clip"
               />
-            )
-          } else {
-            return;
+            );
           }
+          return (
+            {/*
+              figure out what to put instead of advertiser
+            */}
+          );
         }}
       </StoryContext.Consumer>
       {/* <ActiveNavItem href="/" title="Home">Home</ActiveNavItem>

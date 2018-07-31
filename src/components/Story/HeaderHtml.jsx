@@ -22,29 +22,28 @@ const HeaderHtml = (props) => {
         </Container>
       </Imgix>
     );
-  } else {
-      return (
-        <div className="d-flex bg-imgIx">
-          <Container className="align-self-center">
-            <Row>
-              <Col className="post-heading">
-                <h1 className="p-2 text-white">{title}</h1>
-              </Col>
-            </Row>
-          </Container>
-        </div>
-      );
-    }
+  }
+  return (
+    <div className="d-flex bg-imgIx">
+      <Container className="align-self-center">
+        <Row>
+          <Col className="post-heading">
+            <h1 className="p-2 text-white">{title}</h1>
+          </Col>
+        </Row>
+      </Container>
+    </div>
+  );
 };
 
-HeaderHtml.propTypes = {
+HeaderHtml.defaultProps = {
   title: '',
   primaryImgCaption: '',
   primaryImgSrc: '',
 };
 
 HeaderHtml.propTypes = {
-  teaser: PropTypes.string,
+  title: PropTypes.string,
   primaryImgSrc: PropTypes.string,
   primaryImgCaption: PropTypes.string,
 };

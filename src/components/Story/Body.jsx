@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Imgix from '../Imgix';
 import { Container } from 'reactstrap';
 
 const Body = (props) => {
   const {
-    body, advertiser, teaser,
+    body, teaser,
   } = props;
 
   const createMarkup = html => ({ __html: html });
@@ -77,17 +76,10 @@ const Body = (props) => {
 
 Body.defaultProps = {
   teaser: '',
-  advertiser: {
-    name: '',
-    logo: {
-      src: '',
-    },
-  },
 };
 
 Body.propTypes = {
   teaser: PropTypes.string,
-  advertiser: PropTypes.object,
   body: PropTypes.string.isRequired,
 };
 

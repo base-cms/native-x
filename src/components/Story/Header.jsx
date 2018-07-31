@@ -19,7 +19,11 @@ const Header = (props) => {
         <title>{title}</title>
         <meta name="description" story={teaser} />
       </Head>
-      <HeaderHtml title={title} primaryImgSrc={primaryImgSrc} primaryImgCaption={primaryImgCaption}/>
+      <HeaderHtml
+        title={title}
+        primaryImgSrc={primaryImgSrc}
+        primaryImgCaption={primaryImgCaption}
+      />
     </div>
   );
 };
