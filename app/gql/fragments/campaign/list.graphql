@@ -1,4 +1,5 @@
 #import 'fortnight/gql/fragments/image/src'
+#import 'fortnight/gql/fragments/user-attribution'
 
 fragment CampaignListFragment on Campaign {
   id
@@ -24,14 +25,5 @@ fragment CampaignListFragment on Campaign {
     id
     name
   }
-  createdBy {
-    id
-    givenName
-    familyName
-  }
-  updatedBy {
-    id
-    givenName
-    familyName
-  }
+  ...UserAttributionFragment
 }

@@ -1,4 +1,5 @@
 #import 'fortnight/gql/fragments/image/src'
+#import 'fortnight/gql/fragments/user-attribution'
 
 fragment StoryListFragment on Story {
   id
@@ -17,14 +18,5 @@ fragment StoryListFragment on Story {
   campaigns(pagination: { first: 1 }, sort: { field: createdAt, order: 1}) {
     totalCount
   }
-  createdBy {
-    id
-    givenName
-    familyName
-  }
-  updatedBy {
-    id
-    givenName
-    familyName
-  }
+  ...UserAttributionFragment
 }
