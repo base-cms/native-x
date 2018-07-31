@@ -1,10 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
-import { Row, Col, Container } from 'reactstrap';
-import Imgix from '../Imgix';
-import HeaderText from './HeaderText';
 import HeaderStyle from './HeaderStyle';
+import HeaderHtml from './HeaderHtml';
 
 const Header = (props) => {
   const {
@@ -14,17 +12,6 @@ const Header = (props) => {
     primaryImgCaption,
   } = props;
 
-  const headerHTML = primaryImgSrc
-    ?
-    <Imgix tag="div" className="d-flex bg-imgIx img-fluid" src={primaryImgSrc} alt={primaryImgCaption} title={title} w="1200" h="600" fit="crop" crop="faces,edges">
-      <HeaderText title={title} />
-    </Imgix>
-    :
-    <div className="d-flex bg-imgIx">
-      <HeaderText title={title} />
-    </div>
-    ;
-
   return (
     <div className="story-header">
       <HeaderStyle />
@@ -32,7 +19,7 @@ const Header = (props) => {
         <title>{title}</title>
         <meta name="description" story={teaser} />
       </Head>
-      {headerHTML}
+      <HeaderHtml title={title} primaryImgSrc={primaryImgSrc} primaryImgCaption={primaryImgCaption}/>
     </div>
   );
 };
