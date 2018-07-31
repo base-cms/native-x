@@ -1,1 +1,1 @@
-{"__schema":{"types":[{"kind":"INTERFACE","name":"UserAttribution","possibleTypes":[{"name":"Advertiser"},{"name":"Campaign"},{"name":"Story"},{"name":"Publisher"},{"name":"Topic"}]}]}}
+{"__schema":{"types":[{"kind":"INTERFACE","name":"UserAttribution","possibleTypes":[{"name":"Advertiser"},{"name":"Campaign"},{"name":"Story"},{"name":"Publisher"},{"name":"Topic"},{"name":"Placement"}]}]}}
