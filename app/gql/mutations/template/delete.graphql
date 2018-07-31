@@ -1,0 +1,3 @@
+mutation DeleteTemplate($input: ModelIdInput!) {
+  deleteTemplate(input: $input)
+}

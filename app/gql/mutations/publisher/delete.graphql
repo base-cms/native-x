@@ -1,0 +1,3 @@
+mutation DeletePublisher($input: ModelIdInput!) {
+  deletePublisher(input: $input)
+}
