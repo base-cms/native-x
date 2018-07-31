@@ -1,6 +1,9 @@
+#import 'fortnight/gql/fragments/user-attribution'
+
 fragment PublisherListFragment on Publisher {
   id
   name
   createdAt
   updatedAt
+  ...UserAttributionFragment
 }
