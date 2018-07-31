@@ -1,3 +1,5 @@
+#import 'fortnight/gql/fragments/user-attribution'
+
 fragment TopicListFragment on Topic {
   id
   name
@@ -10,4 +12,5 @@ fragment TopicListFragment on Topic {
   placements(pagination: { first: 1 }, sort: { field: createdAt, order: 1 }) {
     totalCount
   }
+  ...UserAttributionFragment
 }
