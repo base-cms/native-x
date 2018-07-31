@@ -4,6 +4,7 @@ import { get } from '@ember/object';
 import ActionMixin from 'fortnight/mixins/action-mixin';
 
 import mutation from 'fortnight/gql/mutations/topic/update';
+import deleteTopic from 'fortnight/gql/mutations/topic/delete';
 
 export default Controller.extend(ActionMixin, {
   apollo: inject(),
@@ -28,10 +29,22 @@ export default Controller.extend(ActionMixin, {
     },
 
     /**
+     * Deletes the topic
      *
      */
     async delete() {
-      this.get('notify').warning('Deleting objects is not yet supported.');
+      this.startAction();
+      const id = this.get('model.id');
+      const variables = { input: { id } };
+      const mutation = deleteTopic;
+      try {
+        await this.get('apollo').mutate({ mutation, variables }, 'deleteTopic');
+        await this.transitionToRoute('manage.topic.index');
+      } catch (e) {
+        this.get('graphErrors').show(e);
+      } finally {
+        this.endAction();
+      }
     },
   },
 });
