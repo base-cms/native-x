@@ -27,7 +27,7 @@ export default Controller.extend(ActionMixin, {
     },
 
     /**
-     * Deletes the advertiser
+     * Deletes the contact
      *
      */
     async delete() {
