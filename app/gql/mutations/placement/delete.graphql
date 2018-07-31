@@ -1,0 +1,3 @@
+mutation DeletePlacement($input: ModelIdInput!) {
+  deletePlacement(input: $input)
+}
