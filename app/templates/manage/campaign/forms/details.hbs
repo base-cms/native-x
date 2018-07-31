@@ -19,9 +19,10 @@
   </div>
   <div class="col-sm-6">
     <div class="form-group">
-      <label for="name">Advertiser {{required-field-label}}</label>
+      <label for="campaign-advertiser">Advertiser {{required-field-label}}</label>
       {{#type-ahead
         required=true
+        disabled=(if form.model.story true false)
         wasFormValidated=form.wasValidated
         invalidFeedback="Please select an advertiser."
         triggerClass="form-control"
@@ -42,40 +43,51 @@
 <div class="row">
   <div class="col">
     <div class="form-group">
-      <label for="campaign-url">URL</label>
-      {{input
-        type="url"
-        value=form.model.url
-        class="form-control"
-        id="campaign-url"
-        placeholder="https://www.domain.com..."
-        focusOut=(action form.actions.autosave)
-        keyUp=(action form.actions.autosave 750)
-      }}
-      <div class="invalid-feedback">
-        Please provide a valid URL.
-      </div>
+      {{#if form.model.story}}
+        <label for="campaign-story">
+          Story
+          {{#unless form.model.story.placeholder}}
+            <small class="form-text d-inline">
+              [{{#link-to "manage.story.edit" form.model.story.id}}view{{/link-to}}]
+            </small>
+          {{/unless}}
+          {{required-field-label}}
+        </label>
+        {{#type-ahead
+          required=true
+          wasFormValidated=form.wasValidated
+          invalidFeedback="Please select a story."
+          triggerClass="form-control"
+          placeholder="Begin typing to search..."
+          type="story"
+          closeOnSelect=true
+          allowClear=false
+          onChange=(action form.actions.autosave)
+          selected=form.model.story as |item|
+        }}
+          {{item.title}}
+          <span class="text-muted">[{{item.advertiser.name}}]</span>
+          {{story-status status=item.status}}
+        {{/type-ahead}}
+      {{else}}
+
+        <label for="campaign-url">URL</label>
+        {{input
+          type="url"
+          value=form.model.url
+          class="form-control"
+          id="campaign-url"
+          placeholder="https://www.domain.com..."
+          focusOut=(action form.actions.autosave)
+          keyUp=(action form.actions.autosave 750)
+        }}
+        <div class="invalid-feedback">
+          Please provide a valid URL.
+        </div>
+      {{/if}}
     </div>
   </div>
 </div>
-
-{{#unless model.isNew}}
-  <div class="row">
-    <div class="col">
-      <div class="form-group">
-        <label for="name">Status {{required-field-label}}</label>
-        {{#power-select
-          options=campaignStatus.statii
-          selected=form.model.status
-          searchEnabled=false
-          onchange=(action form.actions.setAndAutosave "status") as |status|
-        }}
-          {{ status }}
-        {{/power-select}}
-      </div>
-    </div>
-  </div>
-{{/unless}}
 
 <div class="row">
   <div class="col">
@@ -92,7 +104,6 @@
     </div>
   </div>
 </div>
-
 
 <div class="row">
   <div class="col">

@@ -2,5 +2,5 @@ fragment CampaignCreativeDetailsFragment on CampaignCreative {
   id
   title
   teaser
-  status
+  active
 }

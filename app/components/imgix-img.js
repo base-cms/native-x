@@ -3,18 +3,26 @@ import { computed } from '@ember/object';
 import { isPresent } from '@ember/utils';
 
 const properties = [
+  'border',
+  'border-radius',
+  'border-radius-inner',
+  'crop',
+  'dpr',
+  'fit',
   'fp-x',
   'fp-y',
-  'w',
   'h',
-  'crop',
-  'fit',
-  'dpr',
+  'max-h',
+  'max-w',
+  'min-h',
+  'min-w',
+  'trim',
+  'w',
 ];
 
 export default Component.extend({
   tagName: 'img',
-  attributeBindings: ['src', 'alt', 'title'],
+  attributeBindings: ['src', 'alt', 'title', 'width', 'height'],
 
   originalSrc: null,
 

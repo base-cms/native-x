@@ -2,15 +2,44 @@
   "manage.story.edit" item.id
   class="list-group-item list-group-item-action flex-column align-items-start"
 }}
-  <div class="d-flex w-100 justify-content-between">
-    <h5 class="mb-1">{{item.title}}</h5>
-    {{#if item.updatedAt}}
-      <small class="d-block" title="{{moment-format item.updatedAt 'MMM Do, YYYY h:mm a'}}">
-        {{entypo-icon "clock"}} Updated {{moment-from-now item.updatedAt}}
-      </small>
-    {{/if}}
+  <div class="d-flex flex-row justify-content-between">
+
+    <div class="d-flex flex-column">
+      <div class="d-flex flex-row">
+        {{#if item.primaryImage.src}}
+          <div class="d-flex flex-column my-auto mr-3">
+            {{imgix-img
+              originalSrc=item.primaryImage.src
+              width=100
+              height=100
+              w="100"
+              h="100"
+              fit="crop"
+              crop="focalpoint"
+              fp-x=item.primaryImage.focalPoint.x
+              fp-y=item.primaryImage.focalPoint.y
+            }}
+          </div>
+        {{/if}}
+        <div class="d-flex flex-column">
+          <h4 class="mb-1">{{item.title}}</h4>
+          <p class="mb-1">{{story-status status=item.status}}</p>
+          <p class="mb-0">Advertiser: {{item.advertiser.name}}</p>
+          <p class="mb-1">Campaigns: {{if item.campaigns.totalCount item.campaigns.totalCount 0}}</p>
+          <small>ID: {{item.id}}</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-none d-md-flex flex-column align-items-end text-right">
+      <div>
+        {{story-date class="mb-2" date=item.publishedAt}}
+      </div>
+      <div class="mt-auto">
+        {{user-attribution label="Updated" user=item.updatedBy date=item.updatedAt}}
+        {{user-attribution label="Created" user=item.createdBy date=item.createdAt}}
+      </div>
+    </div>
+
   </div>
-  <p class="mb-1">{{story-status publishedAt=item.publishedAt}}</p>
-  <p class="mb-1">Advertiser: {{item.advertiser.name}}</p>
-  <small>ID: {{item.id}}</small>
 {{/link-to}}

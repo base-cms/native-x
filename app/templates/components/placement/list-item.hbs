@@ -1,0 +1,28 @@
+{{#link-to
+  routeName item.id
+  class=class
+}}
+  <div class="d-flex w-100 justify-content-between">
+    <h4 class="mb-1">{{item.publisher.name}}</h4>
+    {{#if item.updatedAt}}
+      <small class="d-block" title="{{moment-format item.updatedAt 'MMM Do, YYYY h:mm a'}}">
+        {{entypo-icon "clock"}} Updated {{moment-from-now item.updatedAt}}
+      </small>
+    {{/if}}
+  </div>
+
+
+  {{#if item.topic.name}}
+    <h5 class="mb-1">Topic: {{item.topic.name}}</h5>
+  {{/if}}
+  <p class="mb-1">
+    Template: {{item.template.name}}
+    {{#if item.template.description}}
+      <span class="text-muted">[{{item.template.description}}]</span>
+    {{/if}}
+  </p>
+  {{#if item.name}}
+    <p class="mb-1">{{item.name}}</p>
+  {{/if}}
+  <small>ID: {{item.id}}</small>
+{{/link-to}}

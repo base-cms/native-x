@@ -5,6 +5,7 @@ import ActionMixin from 'fortnight/mixins/action-mixin';
 
 import updateStory from 'fortnight/gql/mutations/story/update';
 import removeStoryImage from 'fortnight/gql/mutations/story/remove-image';
+import deleteStory from 'fortnight/gql/mutations/story/delete';
 import addStoryImage from 'fortnight/gql/mutations/story/add-image';
 import imageDimensions from 'fortnight/gql/mutations/image/dimensions';
 
@@ -155,10 +156,20 @@ export default Controller.extend(ActionMixin, {
     /**
      * Deletes the story
      *
-     * @todo Implement.
      */
     async delete() {
-      this.get('notify').warning('Deleting objects is not yet supported.');
+      this.startAction();
+      const id = this.get('model.id');
+      const variables = { input: { id } };
+      const mutation = deleteStory;
+      try {
+        await this.get('apollo').mutate({ mutation, variables }, 'deleteStory');
+        return this.transitionToRoute('manage.story.index');
+      } catch (e) {
+        this.get('graphErrors').show(e);
+      } finally {
+        this.endAction();
+      }
     },
   },
 });

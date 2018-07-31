@@ -4,11 +4,12 @@ import { computed } from '@ember/object';
 import { task, timeout } from 'ember-concurrency';
 import ComponentQueryManager from 'ember-apollo-client/mixins/component-query-manager';
 
-import autocompletePublishers from 'fortnight/gql/queries/autocomplete-publishers';
+import autocompletePublishers from 'fortnight/gql/queries/publisher/autocomplete';
 import autocompleteAdvertisers from 'fortnight/gql/queries/autocomplete-advertisers';
 import autocompleteContacts from 'fortnight/gql/queries/autocomplete-contacts';
 import autocompletePlacements from 'fortnight/gql/queries/autocomplete-placements';
 import autocompleteTemplates from 'fortnight/gql/queries/template/autocomplete';
+import autocompleteStories from 'fortnight/gql/queries/story/autocomplete';
 
 export default Component.extend(ComponentQueryManager, {
   closeOnSelect: true,
@@ -63,6 +64,8 @@ export default Component.extend(ComponentQueryManager, {
         return { query: autocompletePlacements, resultKey: 'autocompletePlacements' };
       case 'template':
         return { query: autocompleteTemplates, resultKey: 'autocompleteTemplates' };
+      case 'story':
+        return { query: autocompleteStories, resultKey: 'autocompleteStories' };
       default:
         this.get('graphErrors').show(new Error(`The model type ${type} is not searchable.`));
     }

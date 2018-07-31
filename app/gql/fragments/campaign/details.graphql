@@ -1,15 +1,18 @@
 #import 'fortnight/gql/fragments/campaign/list'
+#import 'fortnight/gql/fragments/story/autocomplete'
 #import 'fortnight/gql/fragments/campaign-criteria'
 
 fragment CampaignDetailsFragment on Campaign {
   ...CampaignListFragment
-  isNew
   description
   url
   hash
   advertiser {
     id
     hash
+  }
+  story {
+    ...StoryAutocompleteFragment
   }
   criteria {
     ...CampaignCriteriaFragment
@@ -18,6 +21,7 @@ fragment CampaignDetailsFragment on Campaign {
     label
     url
   }
+  paused
   notify {
     internal {
       id

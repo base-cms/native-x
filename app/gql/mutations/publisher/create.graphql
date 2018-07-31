@@ -1,7 +1,5 @@
-#import 'fortnight/gql/fragments/publisher/view'
-
-mutation createPublisher($input: CreatePublisherInput!) {
-	createPublisher(input: $input) {
-    ...PublisherFragment
-	}
+mutation CreatePublisher($input: CreatePublisherInput!) {
+  createPublisher(input: $input) {
+	id
+  }
 }

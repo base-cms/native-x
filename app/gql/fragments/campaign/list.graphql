@@ -1,10 +1,37 @@
+#import 'fortnight/gql/fragments/image/src'
+
 fragment CampaignListFragment on Campaign {
   id
   name
   updatedAt
+  createdAt
   status
+  requires
+  primaryImage {
+    ...ImageSrcFragment
+  }
+  criteria {
+    id
+    start
+    end
+  }
+  story {
+    id
+    title
+    status
+  }
   advertiser {
     id
     name
+  }
+  createdBy {
+    id
+    givenName
+    familyName
+  }
+  updatedBy {
+    id
+    givenName
+    familyName
   }
 }

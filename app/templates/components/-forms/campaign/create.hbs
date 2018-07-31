@@ -1,0 +1,20 @@
+{{#auto-save/form
+  id="campaign-create"
+  shouldAutosave=false
+  disabled=isActionRunning
+  on-submit=(action "create")
+  as |form|
+}}
+  {{yield (hash
+    campaignType=campaignType
+    fields=(hash
+      type=(component "-forms/campaign/-fields/type" form=form value=campaignType on-change=(action "setCampaignType"))
+      name=(component "-forms/campaign/-fields/name" form=form value=model.name on-change=(action "setFieldValue"))
+      advertiser=(component "-forms/campaign/-fields/advertiser" form=form disabled=isActionRunning value=model.advertiser on-change=(action "setFieldValue"))
+      story=(component "-forms/campaign/-fields/story" form=form disabled=isActionRunning value=model.story on-change=(action "setFieldValue"))
+    )
+    buttons=(hash
+      save=(component "-forms/-elements/save-button" class="btn btn-success" isSaving=isActionRunning)
+    )
+  )}}
+{{/auto-save/form}}

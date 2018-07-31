@@ -31,7 +31,7 @@ export default Controller.extend({
     this.set('sortOptions', [
       { key: 'createdAt', label: 'Created' },
     ]);
-    this.set('limitOptions', [20, 50, 100, 200]);
+    this.set('limitOptions', [10, 20, 50, 100, 200]);
     this.set('sortBy', 'createdAt');
   },
 

@@ -1,0 +1,20 @@
+<label for="campaign-name">Name {{required-field-label}}</label>
+{{#form.elements.input
+  id="campaign-name"
+  class="form-control"
+  autocomplete="off"
+  type="text"
+  name="name"
+  label="Name"
+  value=value
+  aria-labeledby="campaign-name-help"
+  on-change=on-change
+  required=true as |input|
+}}
+  <div class="input-group">
+    {{input.element}}
+    {{input.elements.indicator}}
+    {{input.elements.invalid-feedback}}
+  </div>
+{{/form.elements.input}}
+<small id="campaign-name-help" class="form-text text-muted">An internal name for the campaign.</small>

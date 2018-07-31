@@ -1,7 +1,7 @@
 import Route from '@ember/routing/route';
 import RouteQueryManager from 'ember-apollo-client/mixins/route-query-manager';
 
-import query from 'fortnight/gql/queries/publisher';
+import query from 'fortnight/gql/queries/publisher/edit';
 
 export default Route.extend(RouteQueryManager, {
   model({ id }) {

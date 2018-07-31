@@ -8,6 +8,7 @@ export default Component.extend({
 
   classNames: ['row'],
 
+  showPublisher: true,
   publisher: null,
   topic: null,
   wasValidated: false,

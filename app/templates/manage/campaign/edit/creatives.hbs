@@ -1,4 +1,4 @@
-<div class="card-body">
+<div class="card-body pb-0">
   <div class="row">
     {{#each model.creatives as |creative|}}
       <div class="mb-3 col-12 col-md-6 col-lg-4">
@@ -9,7 +9,7 @@
           campaignId=model.id
           title=creative.title
           teaser=creative.teaser
-          status=creative.status
+          active=creative.active
           image=creative.image
         }}
       </div>

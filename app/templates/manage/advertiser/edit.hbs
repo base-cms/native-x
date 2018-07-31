@@ -1,6 +1,6 @@
 {{#nav-breadcrumbs as |crumbs|}}
   {{#crumbs.item}}{{#link-to "manage.advertiser.index"}}{{entypo-icon "news"}} Advertisers{{/link-to}}{{/crumbs.item}}
-  {{#crumbs.item active=true}}{{ model.name }}{{/crumbs.item}}
+  {{#crumbs.item active=true}}{{ model.name }}{{#if model.deleted}} (<span class="text-danger">Deleted</span>){{/if}}{{/crumbs.item}}
 {{/nav-breadcrumbs}}
 
 {{#model-form
@@ -15,14 +15,25 @@
     </div>
     <div class="card-footer">
       {{#link-to "portal" model.hash class="btn btn-info"}}{{entypo-icon "eye"}} Portal{{/link-to}}
+
       <div class="btn-group float-right">
-        {{confirm-button
-          icon="trash"
-          label="Delete"
-          class="btn-danger"
-          disabled=isActionRunning
-          onConfirm=(action "delete" model.id "manage.advertiser.index")
-        }}
+        {{#if model.deleted}}
+          {{confirm-button
+            icon="cw"
+            label="Restore (Undelete)"
+            class="btn-success"
+            disabled=isActionRunning
+            onConfirm=(action "undelete")
+          }}
+        {{else}}
+          {{confirm-button
+            icon="trash"
+            label="Delete"
+            class="btn-danger"
+            disabled=isActionRunning
+            onConfirm=(action "delete")
+          }}
+        {{/if}}
       </div>
     </div>
   </div>

@@ -1,11 +1,12 @@
 import Service, { inject } from '@ember/service';
 
-import autocompletePublishers from 'fortnight/gql/queries/autocomplete-publishers';
+import autocompletePublishers from 'fortnight/gql/queries/publisher/autocomplete';
 import autocompleteAdvertisers from 'fortnight/gql/queries/autocomplete-advertisers';
 import autocompleteContacts from 'fortnight/gql/queries/autocomplete-contacts';
 import autocompletePlacements from 'fortnight/gql/queries/autocomplete-placements';
 import autocompleteTemplates from 'fortnight/gql/queries/template/autocomplete';
 import autocompletePublisherTopics from 'fortnight/gql/queries/topic/publisher-autocomplete';
+import autocompleteStories from 'fortnight/gql/queries/story/autocomplete';
 
 export default Service.extend({
   apollo: inject(),
@@ -30,6 +31,8 @@ export default Service.extend({
         return { query: autocompleteTemplates, resultKey: 'autocompleteTemplates' };
       case 'publisher-topic':
         return { query: autocompletePublisherTopics, resultKey: 'autocompletePublisherTopics' };
+      case 'stories':
+        return { query: autocompleteStories, resultKey: 'autocompleteStories' };
       default:
         throw new Error(`The autocomplete type '${type}' is not registered.`);
     }

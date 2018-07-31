@@ -43,12 +43,12 @@ export default Component.extend(ActionMixin, {
       }
     },
 
-    async updateStatus(status) {
+    async updateStatus(active) {
       this.startAction();
       const { campaignId, creativeId } = this.getProperties('campaignId', 'creativeId');
 
       const mutation = creativeStatus;
-      const variables = { input: { campaignId, creativeId, status } };
+      const variables = { input: { campaignId, creativeId, active } };
       try {
         await this.get('apollo').mutate({ mutation, variables }, 'campaignCreativeStatus');
       } catch (e) {

@@ -1,0 +1,16 @@
+{{#auto-save/form
+  id="advertiser-create"
+  shouldAutosave=false
+  disabled=isActionRunning
+  on-submit=(action "create")
+  as |form|
+}}
+  {{yield (hash
+    fields=(hash
+      name=(component "-forms/advertiser/-fields/name" form=form value=model.name on-change=(action "setFieldValue"))
+    )
+    buttons=(hash
+      save=(component "-forms/-elements/save-button" class="btn btn-success" isSaving=isActionRunning)
+    )
+  )}}
+{{/auto-save/form}}
