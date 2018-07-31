@@ -2,14 +2,14 @@ import React from 'react';
 import Link from 'next/link';
 import { Navbar, NavbarBrand, Nav } from 'reactstrap';
 import NavbarStyle from './NavbarStyle';
-// import Imgix from './Imgix';
+import { StoryContext } from './StoryProvider';
+import Imgix from './Imgix';
 // import { AccountContext } from './AccountProvider';
 
 export default () => (
   <Navbar expand fixed="top">
     <NavbarStyle />
-    <Link href="/" passHref>
-      <NavbarBrand>
+      <Nav className="position-absolute">
         {/* <AccountContext.Consumer>
           {({ branding }) => {
             return (
@@ -23,9 +23,27 @@ export default () => (
               />
           ) }}
         </AccountContext.Consumer> */}
-      </NavbarBrand>
-    </Link>
-    <Nav className="mr-auto" navbar>
+      </Nav>
+    <Nav className="mx-auto navbar-logo" navbar>
+      <StoryContext.Consumer>
+        {({ story }) => {
+          if (story.advertiser && story.advertiser.logo) {
+            return(
+              <Imgix
+                className="d-flex bg-imgIx img-fluid"
+                src={story.advertiser.logo.src}
+                alt={story.advertiser.name}
+                title={story.advertiser.name}
+                w="300"
+                h="50"
+                fit="clip"
+              />
+            )
+          } else {
+            return;
+          }
+        }}
+      </StoryContext.Consumer>
       {/* <ActiveNavItem href="/" title="Home">Home</ActiveNavItem>
       <ActiveNavItem href="/about" title="About">About</ActiveNavItem> */}
     </Nav>

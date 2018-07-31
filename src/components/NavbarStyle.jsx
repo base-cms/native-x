@@ -5,7 +5,7 @@ export default () => (
     nav.fixed-top {
       transition: top 0.1s ease-in-out;
       transition: background-color 0.1s ease-in-out;
-      background-color: transparent;
+      background-color: #000;
     }
     .fixed-top.nav-down {
       background-color: rgba(0,0,0,0.75);

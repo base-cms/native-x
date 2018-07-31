@@ -63,7 +63,6 @@ const Body = (props) => {
         }
       `}
       </style>
-      <Imgix src={advertiser.logo.src} title={advertiser.name} fit="clip" w="300" h="50" />
       <Container className="shadow-lg p-3 mb-4 p-lg-5 bg-white rounded">
         <h2 className="mb-4 font-weight-light font-italic teaser">
           {teaser}
