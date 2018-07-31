@@ -3,6 +3,7 @@
 fragment PublisherListFragment on Publisher {
   id
   name
+  domainName
   createdAt
   updatedAt
   ...UserAttributionFragment

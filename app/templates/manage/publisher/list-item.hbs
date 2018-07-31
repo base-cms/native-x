@@ -13,6 +13,10 @@
         {{/if}} --}}
         <div class="d-flex flex-column">
           <h4 class="mb-1">{{item.name}}</h4>
+          {{#if item.domainName}}
+            {{!-- @todo This should fallback and display the account domain if not set --}}
+            <p class="mb-1">{{item.domainName}}</p>
+          {{/if}}
           <small>ID: {{item.id}}</small>
         </div>
       </div>
