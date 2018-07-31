@@ -1,5 +1,6 @@
 #import 'fortnight/gql/fragments/image/src'
 #import 'fortnight/gql/fragments/user-attribution'
+#import 'fortnight/gql/fragments/timestampable'
 
 fragment StoryListFragment on Story {
   id
@@ -9,8 +10,6 @@ fragment StoryListFragment on Story {
     name
   }
   status
-  updatedAt
-  createdAt
   publishedAt
   primaryImage {
     ...ImageSrcFragment
@@ -18,5 +17,6 @@ fragment StoryListFragment on Story {
   campaigns(pagination: { first: 1 }, sort: { field: createdAt, order: 1}) {
     totalCount
   }
+  ...TimestampableFragment
   ...UserAttributionFragment
 }

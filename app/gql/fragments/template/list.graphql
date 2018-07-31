@@ -1,9 +1,11 @@
 #import 'fortnight/gql/fragments/user-attribution'
+#import 'fortnight/gql/fragments/timestampable'
 
 fragment TemplateListFragment on Template {
   id
   name
   description
   updatedAt
+  ...TimestampableFragment
   ...UserAttributionFragment
 }

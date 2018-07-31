@@ -1,10 +1,10 @@
 #import 'fortnight/gql/fragments/user-attribution'
+#import 'fortnight/gql/fragments/timestampable'
 
 fragment ContactListFragment on Contact {
   id
   name
   email
-  updatedAt
-  createdAt
+  ...TimestampableFragment
   ...UserAttributionFragment
 }
