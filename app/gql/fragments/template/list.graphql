@@ -1,6 +1,9 @@
+#import 'fortnight/gql/fragments/user-attribution'
+
 fragment TemplateListFragment on Template {
   id
   name
   description
   updatedAt
+  ...UserAttributionFragment
 }
