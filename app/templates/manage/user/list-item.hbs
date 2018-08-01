@@ -1,0 +1,21 @@
+{{#link-to
+  "manage.topic.edit" item.id
+  class="list-group-item list-group-item-action flex-column align-items-start"
+}}
+  <div class="d-flex w-100 justify-content-between">
+
+    <div class="d-flex flex-column">
+      <h4 class="mb-1">{{item.givenName}} {{item.familyName}}</h4>
+      <p class="mb-1">{{item.email}}</p>
+      <small>ID: {{item.id}}</small>
+    </div>
+
+    <div class="d-none d-md-flex flex-column align-items-end text-right">
+      <div class="mt-auto">
+        {{user-attribution label="Updated" date=item.updatedAt}}
+        {{user-attribution label="Created" date=item.createdAt}}
+      </div>
+    </div>
+
+  </div>
+{{/link-to}}
