@@ -6,6 +6,7 @@
 
     <div class="d-flex flex-column">
       <h4 class="mb-1">{{item.givenName}} {{item.familyName}}</h4>
+      {{#if item.deleted}}<p class="mb-1 text-warning">Deleted</p>{{/if}}
       <p class="mb-1">{{item.email}}</p>
       <small>ID: {{item.id}}</small>
     </div>
