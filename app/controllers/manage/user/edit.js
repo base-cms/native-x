@@ -3,7 +3,7 @@ import { inject } from '@ember/service';
 import ActionMixin from 'fortnight/mixins/action-mixin';
 
 import updateUser from 'fortnight/gql/mutations/user/update';
-import deleteUser from 'fortnight/gql/mutations/contact/delete';
+import deleteUser from 'fortnight/gql/mutations/user/delete';
 
 export default Controller.extend(ActionMixin, {
   apollo: inject(),
@@ -37,18 +37,18 @@ export default Controller.extend(ActionMixin, {
      *
      */
     async delete() {
-      // this.startAction();
-      // const id = this.get('model.id');
-      // const variables = { input: { id } };
-      // const mutation = deleteUser;
-      // try {
-      //   await this.get('apollo').mutate({ mutation, variables }, 'deleteUser');
-      //   await this.transitionToRoute('manage.contact.index');
-      // } catch (e) {
-      //   this.get('graphErrors').show(e);
-      // } finally {
-      //   this.endAction();
-      // }
+      this.startAction();
+      const id = this.get('model.id');
+      const variables = { input: { id } };
+      const mutation = deleteUser;
+      try {
+        await this.get('apollo').mutate({ mutation, variables }, 'deleteUser');
+        await this.transitionToRoute('manage.user.index');
+      } catch (e) {
+        this.get('graphErrors').show(e);
+      } finally {
+        this.endAction();
+      }
     },
   },
 });
