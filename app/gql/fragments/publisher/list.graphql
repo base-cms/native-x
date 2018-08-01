@@ -1,6 +1,14 @@
+#import 'fortnight/gql/fragments/user-attribution'
+#import 'fortnight/gql/fragments/image/src'
+#import 'fortnight/gql/fragments/timestampable'
+
 fragment PublisherListFragment on Publisher {
   id
   name
-  createdAt
-  updatedAt
+  domainName
+  logo {
+    ...ImageSrcFragment
+  }
+  ...TimestampableFragment
+  ...UserAttributionFragment
 }

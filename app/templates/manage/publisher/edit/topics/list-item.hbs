@@ -1,12 +1,12 @@
 {{#link-to
-  "manage.contact.edit" item.id
+  "manage.publisher.edit.topics.edit" item.id
   class="list-group-item list-group-item-action flex-column align-items-start"
 }}
   <div class="d-flex w-100 justify-content-between">
 
     <div class="d-flex flex-column">
       <h4 class="mb-1">{{item.name}}</h4>
-      <p class="mb-1">{{item.email}}</p>
+      <p class="mb-1">Placements: {{item.placements.totalCount}}</p>
       <small>ID: {{item.id}}</small>
     </div>
 

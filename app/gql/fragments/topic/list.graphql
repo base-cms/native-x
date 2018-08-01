@@ -1,8 +1,9 @@
+#import 'fortnight/gql/fragments/user-attribution'
+#import 'fortnight/gql/fragments/timestampable'
+
 fragment TopicListFragment on Topic {
   id
   name
-  createdAt
-  updatedAt
   publisher {
     id
     name
@@ -10,4 +11,6 @@ fragment TopicListFragment on Topic {
   placements(pagination: { first: 1 }, sort: { field: createdAt, order: 1 }) {
     totalCount
   }
+  ...TimestampableFragment
+  ...UserAttributionFragment
 }
