@@ -3,5 +3,11 @@ query EditAdvertiser($input: ModelIdInput!) {
     id
     name
     deleted
+    campaigns(pagination: { first: 1 }, sort: { field: createdAt, order: 1}) {
+      totalCount
+    }
+    stories(pagination: { first: 1 }, sort: { field: createdAt, order: 1}) {
+      totalCount
+    }
   }
 }

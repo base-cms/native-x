@@ -8,7 +8,7 @@
     <ul class="nav nav-pills card-header-pills" role="tablist">
       <li class="nav-item">{{#link-to "manage.story.edit.index" model.id class="nav-link" role="tab"}}Details{{/link-to}}</li>
       <li class="nav-item">{{#link-to "manage.story.edit.primary-image" model.id class="nav-link" role="tab"}}Primary Image{{/link-to}}</li>
-      <li class="nav-item">{{#link-to "manage.story.edit.campaigns" model.id class="nav-link" role="tab"}}Campaigns{{/link-to}}</li>
+      <li class="nav-item">{{#link-to "manage.story.edit.campaigns" model.id class="nav-link" role="tab"}}Campaigns <span class="badge badge-light">{{model.campaigns.totalCount}}</span>{{/link-to}}</li>
     </ul>
   </div>
   {{outlet}}

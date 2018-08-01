@@ -8,8 +8,8 @@
   <div class="card-header">
     <ul class="nav nav-pills card-header-pills" role="tablist">
       <li class="nav-item">{{#link-to "manage.advertiser.edit.index" model.id class="nav-link" role="tab"}}Details{{/link-to}}</li>
-      <li class="nav-item">{{#link-to "manage.advertiser.edit.stories" model.id class="nav-link" role="tab"}}Stories{{/link-to}}</li>
-      <li class="nav-item">{{#link-to "manage.advertiser.edit.campaigns" model.id class="nav-link" role="tab"}}Campaigns{{/link-to}}</li>
+      <li class="nav-item">{{#link-to "manage.advertiser.edit.stories" model.id class="nav-link" role="tab"}}Stories <span class="badge badge-light">{{model.stories.totalCount}}</span>{{/link-to}}</li>
+      <li class="nav-item">{{#link-to "manage.advertiser.edit.campaigns" model.id class="nav-link" role="tab"}}Campaigns <span class="badge badge-light">{{model.campaigns.totalCount}}</span>{{/link-to}}</li>
     </ul>
   </div>
   {{outlet}}
