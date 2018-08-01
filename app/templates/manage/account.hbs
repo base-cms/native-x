@@ -1,0 +1,41 @@
+{{#nav-breadcrumbs as |crumbs|}}
+  {{#crumbs.item active=true}}{{entypo-icon "cog"}} Account Settings{{/crumbs.item}}
+{{/nav-breadcrumbs}}
+
+{{#model-form
+  model=model
+  shouldAutosave=true
+  onSubmit=(action "update") as |form|
+}}
+
+  <div class="card model-form">
+    <div class="card-header d-flex justify-content-between">
+      <span>Key: <code>{{model.key}}</code></span>
+      <span>ID: <code>{{model.id}}</code></span>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="account-name">Name {{required-field-label}}</label>
+            {{input
+              type="text"
+              required=true
+              value=form.model.name
+              class="form-control"
+              id="accout-name"
+              placeholder="Name"
+              focusOut=(action form.actions.autosave)
+              keyUp=(action form.actions.autosave 750)
+            }}
+            <div class="invalid-feedback">
+              Please provide an account name.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer"></div>
+  </div>
+
+{{/model-form}}
