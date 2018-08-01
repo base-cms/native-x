@@ -6,6 +6,7 @@ fragment StoryFragment on Story {
   slug
   teaser
   body
+  previewUrl
   primaryImage {
     ...ImageViewFragment
   }
