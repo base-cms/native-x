@@ -62,6 +62,7 @@ Router.map(function() {
       this.route('create');
       this.route('edit', { path: ':id' }, function() {
         this.route('primary-image');
+        this.route('campaigns');
       });
     });
 
