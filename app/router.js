@@ -74,6 +74,12 @@ Router.map(function() {
         });
       });
     });
+
+    this.route('user', function() {
+      this.route('create');
+      this.route('edit', { path: ':id' });
+    });
+
   });
 
   this.route('portal', { path: ':hash' }, function() {
