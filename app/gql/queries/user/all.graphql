@@ -1,0 +1,17 @@
+#import 'fortnight/gql/fragments/user/list'
+
+query AllUsers($pagination: PaginationInput, $sort: UserSortInput) {
+  allUsers(pagination: $pagination, sort: $sort) {
+    totalCount
+    edges {
+      node {
+        ...UserListFragment
+      }
+      cursor
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}

@@ -1,0 +1,10 @@
+#import 'fortnight/gql/fragments/timestampable'
+
+fragment UserListFragment on User {
+  id
+  givenName
+  familyName
+  email
+  deleted
+  ...TimestampableFragment
+}
