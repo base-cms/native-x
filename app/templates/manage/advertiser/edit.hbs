@@ -3,38 +3,14 @@
   {{#crumbs.item active=true}}{{ model.name }}{{#if model.deleted}} (<span class="text-danger">Deleted</span>){{/if}}{{/crumbs.item}}
 {{/nav-breadcrumbs}}
 
-{{#model-form
-  model=model
-  shouldAutosave=true
-  onSubmit=(action "update") as |form|
-}}
-  <div class="card model-form">
-    <div class="card-header"></div>
-    <div class="card-body">
-      {{ partial "manage/advertiser/form" }}
-    </div>
-    <div class="card-footer">
-      {{#link-to "portal" model.hash class="btn btn-info"}}{{entypo-icon "eye"}} Portal{{/link-to}}
 
-      <div class="btn-group float-right">
-        {{#if model.deleted}}
-          {{confirm-button
-            icon="cw"
-            label="Restore (Undelete)"
-            class="btn-success"
-            disabled=isActionRunning
-            onConfirm=(action "undelete")
-          }}
-        {{else}}
-          {{confirm-button
-            icon="trash"
-            label="Delete"
-            class="btn-danger"
-            disabled=isActionRunning
-            onConfirm=(action "delete")
-          }}
-        {{/if}}
-      </div>
-    </div>
+<div class="card model-form">
+  <div class="card-header">
+    <ul class="nav nav-pills card-header-pills" role="tablist">
+      <li class="nav-item">{{#link-to "manage.advertiser.edit.index" model.id class="nav-link" role="tab"}}Details{{/link-to}}</li>
+      <li class="nav-item">{{#link-to "manage.advertiser.edit.stories" model.id class="nav-link" role="tab"}}Stories{{/link-to}}</li>
+      <li class="nav-item">{{#link-to "manage.advertiser.edit.campaigns" model.id class="nav-link" role="tab"}}Campaigns{{/link-to}}</li>
+    </ul>
   </div>
-{{/model-form}}
+  {{outlet}}
+</div>
