@@ -15,13 +15,23 @@
     </div>
     <div class="card-footer">
       <div class="btn-group float-right">
-        {{confirm-button
-          icon="trash"
-          label="Delete"
-          class="btn-danger"
-          disabled=isActionRunning
-          onConfirm=(action "delete" model.id "manage.user.index")
-        }}
+        {{#if model.deleted}}
+          {{confirm-button
+            icon="cw"
+            label="Restore (Undelete)"
+            class="btn-success"
+            disabled=isActionRunning
+            onConfirm=(action "undelete")
+          }}
+        {{else}}
+          {{confirm-button
+            icon="trash"
+            label="Delete"
+            class="btn-danger"
+            disabled=isActionRunning
+            onConfirm=(action "delete")
+          }}
+        {{/if}}
       </div>
     </div>
   </div>

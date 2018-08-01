@@ -1,0 +1,5 @@
+mutation UndeleteUser($input: ModelIdInput!) {
+  undeleteUser(input: $input) {
+    id
+  }
+}
