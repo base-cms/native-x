@@ -1,0 +1,7 @@
+fragment UserEditFragment on User {
+  id
+  givenName
+  familyName
+  email
+  deleted
+}
