@@ -1,0 +1,9 @@
+#import 'fortnight/gql/fragments/timestampable'
+
+fragment TopicListFragment on Topic {
+  id
+  givenName
+  familyName
+  email
+  ...TimestampableFragment
+}
