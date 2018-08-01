@@ -1,0 +1,11 @@
+query AccountSettings {
+  account {
+    id
+    key
+    name
+    settings {
+      id
+      reservePct
+    }
+  }
+}
