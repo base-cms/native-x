@@ -1,6 +1,6 @@
 #import 'fortnight/gql/fragments/timestampable'
 
-fragment TopicListFragment on Topic {
+fragment UserListFragment on User {
   id
   givenName
   familyName
