@@ -64,7 +64,7 @@
         options=userRoles.roles
         selected=model.role
         searchEnabled=false
-        onchange=(action (mut model.role)) as |role|}}
+        onchange=(action form.actions.setAndAutosave "role") as |role|}}
         {{role}}
       {{/power-select}}
     </div>
