@@ -8,6 +8,8 @@ const Router = EmberRouter.extend({
 
 Router.map(function() {
   this.route('manage', { path: '' }, function() {
+    this.route('account');
+
     this.route('advertiser', function() {
       this.route('create');
       this.route('edit', { path: ':id' });

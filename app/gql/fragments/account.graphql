@@ -1,0 +1,9 @@
+fragment AccountFragment on Account {
+  id
+  key
+  name
+  settings {
+    id
+    reservePct
+  }
+}

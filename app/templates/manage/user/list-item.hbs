@@ -12,6 +12,9 @@
     </div>
 
     <div class="d-none d-md-flex flex-column align-items-end text-right">
+      <div>
+        <small class="d-block">{{#if (eq item.role "Admin")}}{{entypo-icon "lock-open"}}{{else}}{{entypo-icon "lock"}}{{/if}} {{item.role}}</small>
+      </div>
       <div class="mt-auto">
         {{user-attribution label="Updated" date=item.updatedAt}}
         {{user-attribution label="Created" date=item.createdAt}}
