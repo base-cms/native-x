@@ -1,0 +1,32 @@
+<div class="row">
+  <div class="col-sm-6">
+    <div class="form-group">
+      <label for="user-given-name">First Name {{required-field-label}}</label>
+      {{input type="text" required=true autocomplete="given-name" value=model.givenName class="form-control" id="user-given-name" placeholder="Jane"}}
+      <div class="invalid-feedback">
+        Please provide a first name.
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="form-group">
+      <label for="user-family-name">Last Name {{required-field-label}}</label>
+      {{input type="text" required=true autocomplete="family-name" value=model.familyName class="form-control" id="user-family-name" placeholder="Doe"}}
+      <div class="invalid-feedback">
+        Please provide a last name.
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <div class="form-group">
+      <label for="user-email">Email Address {{required-field-label}}</label>
+      {{input type="email" required=true autocomplete="email" value=model.email class="form-control" id="user-email" placeholder="jdoe@domain.com"}}
+      <div class="invalid-feedback">
+        Please provide a valid email address.
+      </div>
+    </div>
+  </div>
+</div>
