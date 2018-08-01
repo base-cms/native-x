@@ -5,6 +5,7 @@ import ActionMixin from 'fortnight/mixins/action-mixin';
 import mutation from 'fortnight/gql/mutations/user/create';
 
 export default Controller.extend(ActionMixin, {
+  userRoles: inject(),
   apollo: inject(),
 
   actions: {

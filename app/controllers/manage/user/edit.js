@@ -7,6 +7,7 @@ import deleteUser from 'fortnight/gql/mutations/user/delete';
 import undeleteUser from 'fortnight/gql/mutations/user/undelete';
 
 export default Controller.extend(ActionMixin, {
+  userRoles: inject(),
   apollo: inject(),
 
   actions: {

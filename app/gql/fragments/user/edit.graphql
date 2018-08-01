@@ -4,4 +4,5 @@ fragment UserEditFragment on User {
   familyName
   email
   deleted
+  role
 }

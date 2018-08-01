@@ -58,5 +58,16 @@
         Please provide a valid email address.
       </div>
     </div>
+    <div class="form-group">
+      <label>Role/Permissions</label>
+      {{#power-select
+        options=userRoles.roles
+        selected=model.role
+        searchEnabled=false
+        onchange=(action (mut model.role)) as |role|}}
+        {{role}}
+      {{/power-select}}
+    </div>
   </div>
 </div>
+
