@@ -10,7 +10,17 @@ export default Controller.extend(ActionMixin, {
   userRoles: inject(),
   apollo: inject(),
 
+  isChangePasswordOpen: false,
+
   actions: {
+    /**
+     *
+     */
+    displayChangePassword() {
+      this.set('isChangePasswordOpen', true);
+      console.info(this.get('isChangePasswordOpen'))
+    },
+
     /**
      *
      */

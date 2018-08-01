@@ -15,6 +15,9 @@
     </div>
     <div class="card-footer">
       <div class="btn-group float-right">
+        <button class="btn btn-info clickable" {{action "displayChangePassword"}}>
+          {{entypo-icon "key"}} Change Password
+        </button>
         {{#if model.deleted}}
           {{confirm-button
             icon="cw"
@@ -36,3 +39,5 @@
     </div>
   </div>
 {{/model-form}}
+
+{{change-password-modal isOpen=isChangePasswordOpen model=model}}
