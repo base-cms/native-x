@@ -38,6 +38,11 @@
       </li>
       {{partial "manage/navigation/models"}}
       {{partial "manage/navigation/user"}}
+      {{#if (eq user.role "Admin")}}
+        <li class="nav-item">
+          {{#link-to "manage.account" class="nav-link" title="Account Settings"}}{{entypo-icon "cog"}}{{/link-to}}
+        </li>
+      {{/if}}
     </ul>
 
   </nav>
