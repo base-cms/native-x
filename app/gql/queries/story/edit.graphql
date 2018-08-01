@@ -3,5 +3,8 @@
 query EditStory($input: ModelIdInput!) {
   story(input: $input) {
     ...StoryFragment
+    campaigns(pagination: { first: 1 }, sort: { field: createdAt, order: 1}) {
+      totalCount
+    }
   }
 }

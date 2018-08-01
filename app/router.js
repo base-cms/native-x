@@ -12,7 +12,10 @@ Router.map(function() {
 
     this.route('advertiser', function() {
       this.route('create');
-      this.route('edit', { path: ':id' });
+      this.route('edit', { path: ':id' }, function() {
+        this.route('campaigns');
+        this.route('stories');
+      });
     });
 
     this.route('campaign', function() {
@@ -59,6 +62,7 @@ Router.map(function() {
       this.route('create');
       this.route('edit', { path: ':id' }, function() {
         this.route('primary-image');
+        this.route('campaigns');
       });
     });
 
