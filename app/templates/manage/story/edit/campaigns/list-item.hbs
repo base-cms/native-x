@@ -1,0 +1,49 @@
+{{#link-to
+  "manage.campaign.edit.index" item.id
+  class="list-group-item list-group-item-action flex-column align-items-start"
+}}
+  <div class="d-flex w-100 justify-content-between">
+
+    <div class="d-flex flex-column">
+      <div class="d-flex flex-row">
+        {{#if item.primaryImage.src}}
+          <div class="d-flex flex-column my-auto mr-3">
+            {{imgix-img
+              originalSrc=item.primaryImage.src
+              width=100
+              height=100
+              w="100"
+              h="100"
+              fit="crop"
+              crop="focalpoint"
+              fp-x=item.primaryImage.focalPoint.x
+              fp-y=item.primaryImage.focalPoint.y
+            }}
+          </div>
+        {{/if}}
+        <div class="d-flex flex-column">
+          <h4 class="mb-1">{{item.name}}</h4>
+          <p class="mb-1">
+            {{campaign-status status=item.status}}
+            {{#if item.requires}}
+              <span class="text-muted">(requires {{item.requires}})</span>
+            {{/if}}
+          </p>
+          <small class="mt-1">ID: {{item.id}}</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-none d-md-flex flex-column align-items-end text-right">
+      <div>
+        {{campaign-date futureLabel="Starts" pastLabel="Started" date=item.criteria.start}}
+        {{campaign-date class="mb-2" futureLabel="Ends" pastLabel="Ended" date=item.criteria.end}}
+      </div>
+      <div class="mt-auto">
+        {{user-attribution label="Updated" user=item.updatedBy date=item.updatedAt}}
+        {{user-attribution label="Created" user=item.createdBy date=item.createdAt}}
+      </div>
+    </div>
+
+  </div>
+{{/link-to}}
