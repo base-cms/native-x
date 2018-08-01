@@ -6,5 +6,6 @@ fragment UserListFragment on User {
   familyName
   email
   deleted
+  role
   ...TimestampableFragment
 }
