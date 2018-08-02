@@ -35,7 +35,7 @@ export default () => (
                 title={story.advertiser.name}
                 w="300"
                 h="50"
-                fit="clip"
+                fit="max"
               />
             );
           }
