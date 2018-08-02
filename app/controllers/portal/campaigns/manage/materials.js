@@ -7,6 +7,7 @@ import ActionMixin from 'fortnight/mixins/action-mixin';
 import mutation from 'fortnight/gql/mutations/campaign/url';
 import assignCampaignValue from 'fortnight/gql/mutations/campaign/assign-value';
 import storyTitle from 'fortnight/gql/mutations/story/title';
+import storyTeaser from 'fortnight/gql/mutations/story/teaser';
 
 export default Controller.extend(ActionMixin, {
   apollo: inject(),
@@ -40,6 +41,21 @@ export default Controller.extend(ActionMixin, {
       const variables = { id: this.get('model.campaign.story.id'), value };
       try {
         await this.get('apollo').mutate({ mutation: storyTitle, variables }, 'storyTitle');
+      } catch (e) {
+        throw this.get('graphErrors').handle(e);
+      } finally {
+        this.endAction();
+      }
+    },
+
+    async setStoryTeaser({ value }) {
+      this.startAction();
+      const variables = {
+        id: this.get('model.campaign.story.id'),
+        value: value.replace(/[\n\r]/g, ' '),
+      };
+      try {
+        await this.get('apollo').mutate({ mutation: storyTeaser, variables }, 'storyTeaser');
       } catch (e) {
         throw this.get('graphErrors').handle(e);
       } finally {
