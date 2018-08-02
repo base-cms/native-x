@@ -8,10 +8,10 @@ import Imgix from './Imgix';
 export default () => (
   <Container className="fixed-top bg-white px-0" fluid>
     <NavbarStyle />
-    <Navbar id="publisher-bar" className="small d-flex flex-row justify-content-start bg-dark">
+    {/* <Navbar id="publisher-bar" className="small d-flex flex-row justify-content-start bg-dark">
       <div class="arrow-left align-self-center mr-1"/>
       <small class="text-uppercase align-self-center mr-1 text-white">[cname].com</small>
-    </Navbar>
+    </Navbar> */}
     <Navbar id="branding-bar" expand>
       <NavbarStyle />
       <Nav className="position-absolute">
