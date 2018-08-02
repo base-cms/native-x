@@ -9,13 +9,13 @@
       </h3>
 
       <div class="card mb-4 border-0 z-depth-half">
-        <div class="card-body">
-          {{#if model.campaign.story.id}}
-            {{partial "portal/campaigns/manage/materials/story"}}
-          {{else}}
-            {{partial "portal/campaigns/manage/materials/campaign"}}
-          {{/if}}
-        </div>
+
+        {{#if model.campaign.story.id}}
+          {{partial "portal/campaigns/manage/materials/story"}}
+        {{else}}
+          {{partial "portal/campaigns/manage/materials/campaign"}}
+        {{/if}}
+
       </div>
 
       <div class="card mb-4 border-0 z-depth-half">

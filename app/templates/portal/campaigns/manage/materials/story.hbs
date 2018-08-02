@@ -1,96 +1,102 @@
-<h5 class="card-title font-weight-bold text-uppercase text-danger mb-0">
-  Story
-</h5>
-<div class="text-muted mb-3">
-  Create your sponsored content.
-</div>
-
 {{#with model.campaign.story as |story|}}
-
-  {{#auto-save/form as |form|}}
-
-    <div class="form-group">
-      <label for="story-title" class="font-weight-bold text-muted">Title / Headline {{required-field-label}}</label>
-      {{#form.elements.input
-        id="story-title"
-        class="form-control form-control-lg"
-        type="text"
-        value=(if story.placeholder "" story.title)
-        required=true
-        on-change=(action "setStoryTitle" ) as |input|
-      }}
-        {{input.element}}
-        {{input.elements.invalid-feedback}}
-      {{/form.elements.input}}
+  <div class="card-body">
+    <h5 class="card-title font-weight-bold text-uppercase text-danger mb-0">
+      Story
+    </h5>
+    <div class="text-muted mb-3">
+      Create your sponsored content.
     </div>
 
+
+
+    {{#auto-save/form as |form|}}
+
+      <div class="form-group">
+        <label for="story-title" class="font-weight-bold text-muted">Title / Headline {{required-field-label}}</label>
+        {{#form.elements.input
+          id="story-title"
+          class="form-control form-control-lg"
+          type="text"
+          value=(if story.placeholder "" story.title)
+          required=true
+          on-change=(action "setStoryTitle" ) as |input|
+        }}
+          {{input.element}}
+          {{input.elements.invalid-feedback}}
+        {{/form.elements.input}}
+      </div>
+
+      <div class="form-group">
+        <label for="story-teaser" class="font-weight-bold text-muted">Teaser / Deck</label>
+        {{#form.elements.textarea
+          id="story-teaser"
+          class="form-control"
+          value=story.teaser
+          on-change=(action "setStoryTeaser" ) as |textarea|
+        }}
+          {{textarea.element}}
+          {{textarea.elements.invalid-feedback}}
+        {{/form.elements.textarea}}
+      </div>
+    {{/auto-save/form}}
+
     <div class="form-group">
-      <label for="story-teaser" class="font-weight-bold text-muted">Teaser / Deck</label>
-      {{#form.elements.textarea
-        id="story-teaser"
-        class="form-control"
-        value=story.teaser
-        on-change=(action "setStoryTeaser" ) as |textarea|
-      }}
-        {{textarea.element}}
-        {{textarea.elements.invalid-feedback}}
-      {{/form.elements.textarea}}
+      <label for="story-body" class="font-weight-bold text-muted">Body {{required-field-label}}</label>
+      {{story-editor class="mb-3" value=story.body storyId=story.id update=(action "setStoryBody")}}
     </div>
-  {{/auto-save/form}}
 
-  <div class="form-group">
-    <label for="story-body" class="font-weight-bold text-muted">Body {{required-field-label}}</label>
-    {{story-editor class="mb-3" value=story.body storyId=story.id update=(action "setStoryBody")}}
-  </div>
+    <hr>
+    <label for="story-primary-image" class="font-weight-bold text-muted">Featured Image {{required-field-label}}</label>
 
-  <hr>
-  <label for="story-primary-image" class="font-weight-bold text-muted">Featured Image {{required-field-label}}</label>
-
-  <div class="row">
-    <div class="col-12 col-lg-6">
-      {{#if story.primaryImage.id}}
-        <div class="card">
-          {{#link-to "portal.campaigns.manage.materials.primary-image"}}
-            {{image-crop
-              imgClass="card-img-top border-bottom"
-              aspectRatio="16:9"
-              originalSrc=story.primaryImage.src
-              fpX=story.primaryImage.focalPoint.x
-              fpY=story.primaryImage.focalPoint.y
-              alt="Image Preview"
-            }}
-          {{/link-to}}
-          <div class="card-body py-3">
-            {{#link-to "portal.campaigns.manage.materials.primary-image" class="btn btn-sm btn-success"}}
-              {{entypo-icon "pencil"}} Edit
+    <div class="row">
+      <div class="col-12 col-lg-6">
+        {{#if story.primaryImage.id}}
+          <div class="card">
+            {{#link-to "portal.campaigns.manage.materials.primary-image"}}
+              {{image-crop
+                imgClass="card-img-top border-bottom"
+                aspectRatio="16:9"
+                originalSrc=story.primaryImage.src
+                fpX=story.primaryImage.focalPoint.x
+                fpY=story.primaryImage.focalPoint.y
+                alt="Image Preview"
+              }}
             {{/link-to}}
+            <div class="card-body py-3">
+              {{#link-to "portal.campaigns.manage.materials.primary-image" class="btn btn-sm btn-success"}}
+                {{entypo-icon "pencil"}} Edit
+              {{/link-to}}
+            </div>
           </div>
-        </div>
-      {{else}}
-        {{#link-to "portal.campaigns.manage.materials.primary-image" class="card mnh-100 border-success text-success"}}
-          <div class="card-body text-center d-flex flex-column justify-content-center">
-            <span class="h1">{{entypo-icon "image"}}</span>
-            <span class="h4">Upload Story Image</span>
-          </div>
-        {{/link-to}}
-      {{/if}}
+        {{else}}
+          {{#link-to "portal.campaigns.manage.materials.primary-image" class="card mnh-100 border-success text-success"}}
+            <div class="card-body text-center d-flex flex-column justify-content-center">
+              <span class="h1">{{entypo-icon "image"}}</span>
+              <span class="h4">Upload Story Image</span>
+            </div>
+          {{/link-to}}
+        {{/if}}
+      </div>
     </div>
+
+    <hr>
+
+    <p class="form-text">Once your story is complete, click the toggle below to publish it. You <em>must</em> publish your story or it will not display when visited.</p>
+    {{#x-toggle
+      class="justify-content-start"
+      size="medium"
+      theme="material"
+      value=isPublished
+      onLabel="Published"
+      offLabel="Draft"
+      showLabels=true
+      onToggle=(action "togglePublished") as |toggle|
+    }}
+      {{toggle.switch class="w-auto px-0"}}
+      {{toggle.onLabel class="font-weight-bold text-muted"}}
+    {{/x-toggle}}
   </div>
-
-  <hr>
-
-  <p class="form-text">Once your story is complete, click the toggle below to publish it. You <em>must</em> publish your story or it will not display when visited.</p>
-  {{#x-toggle
-    class="justify-content-start"
-    size="medium"
-    theme="material"
-    value=isPublished
-    onLabel="Published"
-    offLabel="Draft"
-    showLabels=true
-    onToggle=(action "togglePublished") as |toggle|
-  }}
-    {{toggle.switch class="w-auto px-0"}}
-    {{toggle.onLabel class="font-weight-bold text-muted"}}
-  {{/x-toggle}}
+  <div class="card-footer text-right">
+    <a href={{story.previewUrl}} class="btn btn-info" role="button" target="_blank">{{entypo-icon "eye"}} Preview</a>
+  </div>
 {{/with}}
