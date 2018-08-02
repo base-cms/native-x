@@ -1,0 +1,16 @@
+{{#bs-modal show=true size="large" onHidden=(route-action "transitionTo" "portal.campaigns.manage.materials") as |modal|}}
+  {{#modal.header}}
+    <h5 class="modal-title">Story Featured Image</h5>
+    <button {{action modal.actions.hide}} type="button" class="close" aria-label="Close">
+      {{entypo-icon "cross"}}
+    </button>
+  {{/modal.header}}
+  {{#modal.body}}
+    {{#model-form
+      model=model
+      shouldAutosave=false as |form|
+    }}
+      {{ partial "manage/story/forms/primary-image" }}
+    {{/model-form}}
+  {{/modal.body}}
+{{/bs-modal}}

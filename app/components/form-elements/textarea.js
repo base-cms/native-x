@@ -1,31 +1,28 @@
 import Component from '@ember/component';
-import { computed } from '@ember/object';
+import { computed, observer } from '@ember/object';
 import { htmlSafe } from '@ember/string';
 import ValidityMixin from './mixins/validity';
 import OnInsertMixin from './mixins/on-insert';
 
 export default Component.extend(OnInsertMixin, ValidityMixin, {
-  tagName: 'input',
+  tagName: 'textarea',
   classNameBindings: ['validityClass'],
   attributeBindings: [
     'aria-describedby',
     'autocomplete',
     'autofocus',
-    'data-label',
+    'cols',
     'disabled',
-    'max',
     'maxlength',
-    'min',
+    'minlength',
     'name',
-    'pattern',
     'placeholder',
     'readonly',
     'required',
-    'step',
+    'rows',
     'style',
     'tabindex',
-    'type',
-    'value:value',
+    'wrap',
   ],
 
   /**
@@ -38,10 +35,21 @@ export default Component.extend(OnInsertMixin, ValidityMixin, {
    */
   value: '',
 
+  _value: observer('value', function() {
+    this.$().val(this.get('value'));
+  }),
+
+  didInsertElement() {
+    this._super(...arguments);
+    this.$().val(this.get('value'));
+  },
+
   /**
    * Whether to show the element.
    */
   show: true,
+
+  wrap: 'soft',
 
   style: computed('show', function() {
     const style = this.get('show') ? '' : 'display: none;';

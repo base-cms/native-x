@@ -1,0 +1,6 @@
+mutation SetStoryBody($id: String!, $value: String!) {
+  storyBody(id: $id, value: $value) {
+    id
+    teaser
+  }
+}

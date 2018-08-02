@@ -1,17 +1,7 @@
-#import 'fortnight/gql/fragments/campaign/details'
-#import 'fortnight/gql/fragments/campaign-creative'
+#import 'fortnight/gql/fragments/campaign/materials'
 
 query CampaignHash($input: CampaignHashInput!) {
   campaignHash(input: $input) {
-    ...CampaignDetailsFragment
-    story {
-      id
-      title
-      teaser
-      body
-    }
-    creatives {
-      ...CampaignCreativeFragment
-    }
+    ...CampaignMaterialsFragment
   }
 }

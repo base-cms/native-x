@@ -4,38 +4,17 @@
 
 
       <h3 class="font-weight-bold text-muted mb-4">
-        <span class="text-uppercase">Ad Builder</span>
-        <span class="h6 text-muted">Please submit your native ad campaign.</span>
+        <span class="text-uppercase">Materials Builder</span>
       </h3>
 
       <div class="card mb-4 border-0 z-depth-half">
-        <div class="card-body">
-          {{-report/campaign-title campaign=model.campaign}}
 
-          {{#auto-save/form as |form|}}
-            <div class="form-group mb-0">
-              <label for="campaign-url" class="font-weight-bold text-muted">Click URL {{required-field-label}}</label>
+        {{#if model.campaign.story.id}}
+          {{partial "portal/campaigns/manage/materials/story"}}
+        {{else}}
+          {{partial "portal/campaigns/manage/materials/campaign"}}
+        {{/if}}
 
-              {{#form.elements.input
-                id="campaign-url"
-                class="form-control"
-                type="url"
-                value=model.campaign.url
-                placeholder="https://www.yourlink.com"
-                required=true
-                on-change=(action "saveField" "url" "Click URL")
-                validator=(action "validateUrl") as |input|
-              }}
-                <div class="input-group">
-                  {{input.element}}
-                  {{input.elements.indicator}}
-                  {{input.elements.invalid-feedback}}
-                </div>
-              {{/form.elements.input}}
-            </div>
-          {{/auto-save/form}}
-
-        </div>
       </div>
 
       <div class="card mb-4 border-0 z-depth-half">

@@ -62,7 +62,7 @@ export default Controller.extend(ActionMixin, {
       this.startAction();
 
       const campaignId = this.get('model.campaign.id');
-      const payload = { title, teaser };
+      const payload = { title, teaser, active: true };
 
       const mutation = campaignCreativeDetails;
       const input = { creativeId: id, campaignId, payload }

@@ -1,0 +1,23 @@
+{{froala-editor
+  content=value
+  update=(action update)
+  on-image-loaded=(action "addImageToStory")
+  on-image-inserted=(action "sendDimensionsAndSave")
+  on-image-removed=(action "removeImageFromStory")
+  options=(hash
+    toolbarStickyOffset=60
+    imageDefaultAlign="left"
+    imageDefaultDisplay="inline"
+    paragraphFormat=(hash
+      N="Normal"
+      H2="Heading 2"
+      H3="Heading 3"
+      H4="Heading 4"
+    )
+    paragraphFormatSelection=true
+    imageUploadURL="/upload/story-image"
+    imageUploadParams=(hash
+      storyId=storyId
+    )
+  )
+}}
