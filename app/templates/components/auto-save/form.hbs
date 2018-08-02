@@ -7,6 +7,11 @@
         on-insert=(action "addFormElement")
         on-destroy=(action "removeFormElement")
       )
+      textarea=(component "auto-save/textarea"
+        shouldSave=shouldAutosave
+        on-insert=(action "addFormElement")
+        on-destroy=(action "removeFormElement")
+      )
       typeahead=(component "auto-save/typeahead"
         shouldSave=shouldAutosave
         on-insert=(action "addFormElement")
