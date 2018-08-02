@@ -14,7 +14,7 @@
         id="story-title"
         class="form-control form-control-lg"
         type="text"
-        value=(if (eq story.title "Placeholder Story") "" story.title)
+        value=(if story.placeholder "" story.title)
         required=true
         on-change=(action "setStoryTitle" ) as |input|
       }}

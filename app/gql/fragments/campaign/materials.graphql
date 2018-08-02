@@ -14,7 +14,7 @@ fragment CampaignMaterialsFragment on Campaign {
     title
     teaser
     body
-    status
+    placeholder
     publishedAt
   }
   creatives {
