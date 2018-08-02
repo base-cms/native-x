@@ -63,6 +63,10 @@ export default Controller.extend(ActionMixin, {
       }
     },
 
+    async setStoryBody(value) {
+      console.info(value);
+    },
+
     validateUrl(element) {
       const { value } = element;
       let message = '';

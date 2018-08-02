@@ -5,9 +5,10 @@
   Create your sponsored content.
 </div>
 
+{{#with model.campaign.story as |story|}}
 
-{{#auto-save/form as |form|}}
-  {{#with model.campaign.story as |story|}}
+  {{#auto-save/form as |form|}}
+
     <div class="form-group">
       <label for="story-title" class="font-weight-bold text-muted">Title / Headline {{required-field-label}}</label>
       {{#form.elements.input
@@ -36,5 +37,12 @@
         {{textarea.elements.invalid-feedback}}
       {{/form.elements.textarea}}
     </div>
-  {{/with}}
-{{/auto-save/form}}
+  {{/auto-save/form}}
+
+  <div class="form-group">
+    <label for="story-teaser" class="font-weight-bold text-muted">Body {{required-field-label}}</label>
+    <div class="form-group mb-0">
+      {{story-editor value=story.body storyId=story.id update=(action "setStoryBody")}}
+    </div>
+  </div>
+{{/with}}
