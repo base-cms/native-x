@@ -31,14 +31,14 @@ const Header = (props) => {
         <meta name="description" story={teaser} />
       </Head>
       {primaryImgSrc ? (
-        <Imgix tag="div" className="d-flex bg-imgIx img-fluid" src={primaryImgSrc} alt={primaryImgCaption} title={title} w="1200" h="600" fit="crop" crop="focal">
+        <Imgix tag="div" className="d-flex bg-imgIx img-fluid" src={primaryImgSrc} alt={primaryImgCaption} title={title} w="1200" h="600" fit="crop" crop="facial,edge">
           {contents}
         </Imgix>
       ) : (
         <div className="d-flex bg-imgIx">
           {contents}
         </div>
-      )};
+      )}
     </div>
   );
 };
