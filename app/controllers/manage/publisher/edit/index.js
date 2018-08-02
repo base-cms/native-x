@@ -59,9 +59,9 @@ export default Controller.extend(ActionMixin, {
      *
      * @param {object} fields
      */
-    async update({ id, name, domainName }) {
+    async update({ id, name }) {
       this.startAction();
-      const payload = { name, domainName };
+      const payload = { name };
       const variables = { input: { id, payload } };
       try {
         await this.get('apollo').mutate({ mutation: updatePublisher, variables }, 'updatePublisher');

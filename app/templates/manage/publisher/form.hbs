@@ -28,8 +28,8 @@
           type="text"
           value=form.model.domainName
           class="form-control"
+          disabled=true
           id="publisher-domain-name"
-          placeholder="www.domain.com"
           aria-describedby="publisher-domain-name-help"
           focusOut=(action form.actions.autosave)
           keyUp=(action form.actions.autosave 750)
@@ -38,7 +38,7 @@
           The provided domain name is invalid.
         </div>
         <small id="publisher-domain-name-help" class="form-text text-muted">
-          A custom domain where your story content will be served. Must have a CNAME entry in place before using.
+          A custom domain where your story content will be served. Must be configured by NativeX support.
         </small>
       </div>
     </div>
