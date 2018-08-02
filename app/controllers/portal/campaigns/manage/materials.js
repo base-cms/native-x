@@ -1,5 +1,5 @@
 import Controller from '@ember/controller';
-import { computed } from '@ember/object';
+import { computed, get } from '@ember/object';
 import { inject } from '@ember/service';
 import { isURL } from 'validator';
 import ActionMixin from 'fortnight/mixins/action-mixin';
@@ -9,12 +9,18 @@ import assignCampaignValue from 'fortnight/gql/mutations/campaign/assign-value';
 import storyTitle from 'fortnight/gql/mutations/story/title';
 import storyTeaser from 'fortnight/gql/mutations/story/teaser';
 import storyBody from 'fortnight/gql/mutations/story/body';
+import storyPublisedAt from 'fortnight/gql/mutations/story/published-at';
 
 export default Controller.extend(ActionMixin, {
   apollo: inject(),
 
   canRemoveCreatives: computed('model.campaign.creatives.length', function() {
     return this.get('model.campaign.creatives.length') > 1;
+  }),
+
+  isPublished: computed('model.campaign.story.publishedAt', function() {
+    if (this.get('model.campaign.story.publishedAt')) return true;
+    return false;
   }),
 
   actions: {
@@ -72,8 +78,28 @@ export default Controller.extend(ActionMixin, {
       };
       try {
         await this.get('apollo').mutate({ mutation: storyBody, variables }, 'storyBody');
+        if (!value) {
+          await this.send('togglePublished', false);
+        }
       } catch (e) {
-        throw this.get('graphErrors').handle(e);
+        this.get('graphErrors').show(e);
+      } finally {
+        this.endAction();
+      }
+    },
+
+    async togglePublished(active) {
+      this.startAction();
+      const story = this.get('model.campaign.story');
+      const value = active ? Date.now() : null;
+      const variables = {
+        id: story.id,
+        value,
+      };
+      try {
+        await this.get('apollo').mutate({ mutation: storyPublisedAt, variables }, 'storyPublisedAt');
+      } catch (e) {
+        this.get('graphErrors').show(e);
       } finally {
         this.endAction();
       }

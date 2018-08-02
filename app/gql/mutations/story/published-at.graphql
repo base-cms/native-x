@@ -1,0 +1,6 @@
+mutation SetStoryPublishedAt($id: String!, $value: Date) {
+  storyPublishedAt(id: $id, value: $value) {
+    id
+    publishedAt
+  }
+}

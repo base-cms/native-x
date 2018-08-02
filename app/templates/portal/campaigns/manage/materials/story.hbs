@@ -25,12 +25,11 @@
     </div>
 
     <div class="form-group">
-      <label for="story-teaser" class="font-weight-bold text-muted">Teaser / Deck {{required-field-label}}</label>
+      <label for="story-teaser" class="font-weight-bold text-muted">Teaser / Deck</label>
       {{#form.elements.textarea
         id="story-teaser"
         class="form-control"
         value=story.teaser
-        required=true
         on-change=(action "setStoryTeaser" ) as |textarea|
       }}
         {{textarea.element}}
@@ -45,7 +44,7 @@
   </div>
 
   <hr>
-  <label for="story-body" class="font-weight-bold text-muted">Featured Image {{required-field-label}}</label>
+  <label for="story-primary-image" class="font-weight-bold text-muted">Featured Image {{required-field-label}}</label>
 
   <div class="row">
     <div class="col-12 col-lg-6">
@@ -78,4 +77,20 @@
     </div>
   </div>
 
+  <hr>
+
+  <p class="form-text">Once your story is complete, click the toggle below to publish it. You <em>must</em> publish your story or it will not display when visited.</p>
+  {{#x-toggle
+    class="justify-content-start"
+    size="medium"
+    theme="material"
+    value=isPublished
+    onLabel="Published"
+    offLabel="Draft"
+    showLabels=true
+    onToggle=(action "togglePublished") as |toggle|
+  }}
+    {{toggle.switch class="w-auto px-0"}}
+    {{toggle.onLabel class="font-weight-bold text-muted"}}
+  {{/x-toggle}}
 {{/with}}
