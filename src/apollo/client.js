@@ -7,6 +7,10 @@ import withApollo from './WithApollo';
 const config = (req) => {
   const headers = req ? req.headers : {};
   const host = (req) ? req.ROOT_URI : '';
+  if (headers.host) {
+    headers['x-forwarded-host'] = headers.host;
+    delete headers.host;
+  }
   return {
     link: ApolloLink.from([
       onError(({ graphQLErrors, networkError }) => {
