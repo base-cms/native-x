@@ -39,8 +39,21 @@
     </div>
   {{/auto-save/form}}
 
-  <div class="form-group mb-0">
-    <label for="story-teaser" class="font-weight-bold text-muted">Body {{required-field-label}}</label>
-    {{story-editor value=story.body storyId=story.id update=(action "setStoryBody")}}
+  <div class="form-group">
+    <label for="story-body" class="font-weight-bold text-muted">Body {{required-field-label}}</label>
+    {{story-editor class="mb-3" value=story.body storyId=story.id update=(action "setStoryBody")}}
   </div>
+
+  <hr>
+
+  {{#if story.primaryImage.id}}
+
+  {{else}}
+    {{#link-to "portal.campaigns.manage.materials.creatives.create" class="card mnh-100 border-success text-success"}}
+      <div class="card-body text-center d-flex flex-column justify-content-center">
+        <span class="h1">{{entypo-icon "image"}}</span>
+        <span class="h4">Add Story Feature Image</span>
+      </div>
+    {{/link-to}}
+  {{/if}}
 {{/with}}
