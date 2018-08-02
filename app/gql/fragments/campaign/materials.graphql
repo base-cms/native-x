@@ -1,0 +1,30 @@
+#import 'fortnight/gql/fragments/campaign-creative'
+
+fragment CampaignMaterialsFragment on Campaign {
+  id
+  name
+  description
+  status
+  url
+  criteria {
+    start
+  }
+  story {
+    id
+    title
+    teaser
+    body
+    status
+    publishedAt
+  }
+  creatives {
+    ...CampaignCreativeFragment
+  }
+  notify {
+    external {
+      id
+      name
+      email
+    }
+  }
+}
