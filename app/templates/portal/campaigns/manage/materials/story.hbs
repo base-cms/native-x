@@ -39,10 +39,8 @@
     </div>
   {{/auto-save/form}}
 
-  <div class="form-group">
+  <div class="form-group mb-0">
     <label for="story-teaser" class="font-weight-bold text-muted">Body {{required-field-label}}</label>
-    <div class="form-group mb-0">
-      {{story-editor value=story.body storyId=story.id update=(action "setStoryBody")}}
-    </div>
+    {{story-editor value=story.body storyId=story.id update=(action "setStoryBody")}}
   </div>
 {{/with}}

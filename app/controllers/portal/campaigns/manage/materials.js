@@ -8,6 +8,7 @@ import mutation from 'fortnight/gql/mutations/campaign/url';
 import assignCampaignValue from 'fortnight/gql/mutations/campaign/assign-value';
 import storyTitle from 'fortnight/gql/mutations/story/title';
 import storyTeaser from 'fortnight/gql/mutations/story/teaser';
+import storyBody from 'fortnight/gql/mutations/story/body';
 
 export default Controller.extend(ActionMixin, {
   apollo: inject(),
@@ -64,7 +65,18 @@ export default Controller.extend(ActionMixin, {
     },
 
     async setStoryBody(value) {
-      console.info(value);
+      this.startAction();
+      const variables = {
+        value,
+        id: this.get('model.campaign.story.id'),
+      };
+      try {
+        await this.get('apollo').mutate({ mutation: storyBody, variables }, 'storyBody');
+      } catch (e) {
+        throw this.get('graphErrors').handle(e);
+      } finally {
+        this.endAction();
+      }
     },
 
     validateUrl(element) {
