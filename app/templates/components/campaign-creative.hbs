@@ -35,7 +35,6 @@
   {{/if}}
 
   {{#if canModifyStatus}}
-    {{log active}}
     {{campaign-creative/status-selector active=active disabled=isActionRunning onChange=(action "updateStatus")}}
   {{/if}}
 
