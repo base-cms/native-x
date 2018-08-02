@@ -8,7 +8,7 @@ export default Component.extend(OnInsertMixin, ValidityMixin, {
   tagName: 'input',
   classNameBindings: ['validityClass'],
   attributeBindings: [
-    '_value:value',
+    'value:value',
     'data-label',
     'readonly',
     'aria-describedby',
