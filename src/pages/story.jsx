@@ -19,7 +19,6 @@ const Story = ({ id }) => (
             </AccountContext.Consumer>
             <Header
               title={story.title}
-              primaryImgSrc={story.primaryImage.src}
               primaryImgCaption={story.primaryImage.caption}
             />
             <Body teaser={story.teaser} body={story.body} />

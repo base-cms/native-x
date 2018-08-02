@@ -35,7 +35,9 @@ const Header = (props) => {
           {contents}
         </Imgix>
       ) : (
-        { contents }
+        <div className="d-flex bg-imgIx">
+          {contents}
+        </div>
       )};
     </div>
   );
