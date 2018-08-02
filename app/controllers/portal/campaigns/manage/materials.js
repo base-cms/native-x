@@ -1,5 +1,5 @@
 import Controller from '@ember/controller';
-import { computed, get } from '@ember/object';
+import { computed } from '@ember/object';
 import { inject } from '@ember/service';
 import { isURL } from 'validator';
 import ActionMixin from 'fortnight/mixins/action-mixin';
