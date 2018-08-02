@@ -6,6 +6,7 @@ import ActionMixin from 'fortnight/mixins/action-mixin';
 
 import mutation from 'fortnight/gql/mutations/campaign/url';
 import assignCampaignValue from 'fortnight/gql/mutations/campaign/assign-value';
+import storyTitle from 'fortnight/gql/mutations/story/title';
 
 export default Controller.extend(ActionMixin, {
   apollo: inject(),
@@ -28,6 +29,18 @@ export default Controller.extend(ActionMixin, {
         this.get('notify').success(`${label || field} saved.`)
       } catch (e) {
         // Handle and throw so the error displays in the field.
+        throw this.get('graphErrors').handle(e);
+      } finally {
+        this.endAction();
+      }
+    },
+
+    async setStoryTitle({ value }) {
+      this.startAction();
+      const variables = { id: this.get('model.campaign.story.id'), value };
+      try {
+        await this.get('apollo').mutate({ mutation: storyTitle, variables }, 'storyTitle');
+      } catch (e) {
         throw this.get('graphErrors').handle(e);
       } finally {
         this.endAction();

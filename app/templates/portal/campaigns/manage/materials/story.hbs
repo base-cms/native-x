@@ -1,3 +1,26 @@
 <h5 class="card-title font-weight-bold text-uppercase text-danger mb-0">
   Story
 </h5>
+<div class="text-muted mb-3">
+  Create your sponsored content.
+</div>
+
+
+{{#auto-save/form as |form|}}
+  {{#with model.campaign.story as |story|}}
+    <div class="form-group mb-0">
+      <label for="story-title" class="font-weight-bold text-muted">Title / Headline {{required-field-label}}</label>
+      {{#form.elements.input
+        id="story-title"
+        class="form-control form-control-lg"
+        type="text"
+        value=(if (eq story.title "Placeholder Story") "" story.title)
+        required=true
+        on-change=(action "setStoryTitle" ) as |input|
+      }}
+        {{input.element}}
+        {{input.elements.invalid-feedback}}
+      {{/form.elements.input}}
+    </div>
+  {{/with}}
+{{/auto-save/form}}
