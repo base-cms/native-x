@@ -24,7 +24,7 @@
               required=true
               value=form.model.name
               class="form-control"
-              id="accout-name"
+              id="account-name"
               placeholder="Name"
               focusOut=(action form.actions.autosave)
               keyUp=(action form.actions.autosave 750)
@@ -33,6 +33,28 @@
               Please provide an account name.
             </div>
           </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+
+          <div class="form-group mb-0">
+            <label for="account-cname">Custom CNAME</label>
+            {{input
+              type="text"
+              disabled=true
+              value=form.model.settings.cname
+              class="form-control"
+              id="account-cname"
+              focusOut=(action form.actions.autosave)
+              keyUp=(action form.actions.autosave 750)
+            }}
+          </div>
+          <small class="form-text text-muted">A custom CNAME for your account, configured by NativeX support.</small>
+
+        </div>
+        <div class="col-md-6">
 
           <div class="form-group mb-0">
             <label for="account-reserve-pct">Impression Reserve</label>
@@ -56,6 +78,7 @@
           </div>
 
         </div>
+
       </div>
     </div>
     <div class="card-footer"></div>
