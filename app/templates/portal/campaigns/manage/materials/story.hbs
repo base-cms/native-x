@@ -45,15 +45,37 @@
   </div>
 
   <hr>
+  <label for="story-body" class="font-weight-bold text-muted">Featured Image {{required-field-label}}</label>
 
-  {{#if story.primaryImage.id}}
+  <div class="row">
+    <div class="col-12 col-lg-6">
+      {{#if story.primaryImage.id}}
+        <div class="card">
+          {{#link-to "portal.campaigns.manage.materials.primary-image"}}
+            {{image-crop
+              imgClass="card-img-top border-bottom"
+              aspectRatio="16:9"
+              originalSrc=story.primaryImage.src
+              fpX=story.primaryImage.focalPoint.x
+              fpY=story.primaryImage.focalPoint.y
+              alt="Image Preview"
+            }}
+          {{/link-to}}
+          <div class="card-body py-3">
+            {{#link-to "portal.campaigns.manage.materials.primary-image" class="btn btn-sm btn-success"}}
+              {{entypo-icon "pencil"}} Edit
+            {{/link-to}}
+          </div>
+        </div>
+      {{else}}
+        {{#link-to "portal.campaigns.manage.materials.primary-image" class="card mnh-100 border-success text-success"}}
+          <div class="card-body text-center d-flex flex-column justify-content-center">
+            <span class="h1">{{entypo-icon "image"}}</span>
+            <span class="h4">Upload Story Image</span>
+          </div>
+        {{/link-to}}
+      {{/if}}
+    </div>
+  </div>
 
-  {{else}}
-    {{#link-to "portal.campaigns.manage.materials.creatives.create" class="card mnh-100 border-success text-success"}}
-      <div class="card-body text-center d-flex flex-column justify-content-center">
-        <span class="h1">{{entypo-icon "image"}}</span>
-        <span class="h4">Add Story Feature Image</span>
-      </div>
-    {{/link-to}}
-  {{/if}}
 {{/with}}
