@@ -16,6 +16,10 @@ fragment CampaignMaterialsFragment on Campaign {
     body
     placeholder
     publishedAt
+    previewUrl
+    primaryImage {
+      ...ImageViewFragment
+    }
   }
   creatives {
     ...CampaignCreativeFragment
