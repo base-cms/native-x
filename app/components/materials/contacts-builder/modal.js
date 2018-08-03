@@ -1,6 +1,4 @@
 import Component from '@ember/component';
-import { computed } from '@ember/object';
-import { oneWay } from '@ember/object/computed';
 import ActionMixin from 'fortnight/mixins/action-mixin';
 import ComponentQueryManager from 'ember-apollo-client/mixins/component-query-manager';
 

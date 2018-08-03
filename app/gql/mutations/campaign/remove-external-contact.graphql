@@ -1,0 +1,12 @@
+mutation AssignCampaignExternalContact($input: RemoveCampaignExternalContactInput!) {
+  removeCampaignExternalContact(input: $input) {
+    id
+    notify {
+      external {
+        id
+        name
+        email
+      }
+    }
+  }
+}
