@@ -44,7 +44,7 @@
             {{/each}}
             <div class="mb-3 col-12 col-lg-6">
 
-              {{#link-to "portal.campaigns.manage.materials.creatives.create" class="card mnh-100 border-success text-success"}}
+              {{#link-to "portal.campaigns.manage.materials.creatives.create" class="card mnh-100 border-success text-success no-underline"}}
                 <div class="card-body text-center d-flex flex-column justify-content-center">
                   {{entypo-icon "circle-with-plus" class="h1"}}
                   <span class="h4">Add Creative</span>
@@ -56,6 +56,8 @@
 
         </div>
       </div>
+
+      {{materials/contacts-builder campaign=model.campaign}}
 
     </div>
   </div>

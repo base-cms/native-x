@@ -1,0 +1,22 @@
+<div class="card-body">
+  {{#materials/section-header class="text-warning mb-0"}}Contacts{{/materials/section-header}}
+  <div class="text-muted">Assign people to received notifications for this campaign.</div>
+</div>
+
+<ul class="list-group list-group-flush">
+  {{#each campaign.notify.external as |contact|}}
+    <a class="list-group-item list-group-item-action flex-column align-items-start" {{action "openModal" contact.id}}>
+      <div class="d-flex flex-row justify-content-between">
+        <div class="d-flex flex-column">
+          <h4 class="mb-1">{{item.name}}</h4>
+          <p class="mb-0">{{item.email}}</p>
+        </div>
+      </div>
+    </a>
+  {{/each}}
+  <a class="list-group-item list-group-item-action text-success" {{action "openModal" null}}>
+    <span class="font-weight-bold">{{entypo-icon "circle-with-plus"}} Add Contact</span>
+  </a>
+</ul>
+
+{{materials/contacts-builder/modal isOpen=isModalOpen contactId=selectedContactId}}
