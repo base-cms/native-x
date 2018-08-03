@@ -101,11 +101,17 @@ Router.map(function() {
               this.route('preview');
             });
           });
-          this.route('primary-image');
         });
         this.route('report', function() {
           this.route('summary');
           this.route('creative-breakdown');
+        });
+      });
+    });
+    this.route('stories', function() {
+      this.route('manage', { path: ':story_hash' }, function() {
+        this.route('materials', function() {
+
         });
       });
     });

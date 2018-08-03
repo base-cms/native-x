@@ -21,6 +21,10 @@
 @import "z-depth";
 @import "portal";
 
+// Utility for removing underlines in links.
+a.no-underline {
+  text-decoration: none;
+}
 
 // Compensate for bottom progress bar. Ensures nav bar links are vertically centered.
 nav.navbar {

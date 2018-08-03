@@ -7,15 +7,13 @@
         <span class="text-uppercase">Materials Builder</span>
       </h3>
 
-      <div class="card mb-4 border-0 z-depth-half">
-
-        {{#if model.campaign.story.id}}
-          {{partial "portal/campaigns/manage/materials/story"}}
-        {{else}}
+      {{#if model.campaign.story.id}}
+        {{materials/story-builder class="mb-4" story=model.campaign.story}}
+      {{else}}
+        <div class="card mb-4 border-0 z-depth-half">
           {{partial "portal/campaigns/manage/materials/campaign"}}
-        {{/if}}
-
-      </div>
+        </div>
+      {{/if}}
 
       <div class="card mb-4 border-0 z-depth-half">
         <div class="card-body pb-1">
