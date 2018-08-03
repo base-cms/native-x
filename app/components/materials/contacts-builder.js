@@ -4,11 +4,11 @@ export default Component.extend({
   classNames: ['card', 'border-0', 'z-depth-half'],
 
   isModalOpen: false,
-  selectedContactId: null,
+  selectedContact: null,
 
   actions: {
-    openModal(contactId) {
-      this.set('selectedContactId', contactId);
+    openModal(contact) {
+      this.set('selectedContact', contact);
       this.set('isModalOpen', true);
     },
   },

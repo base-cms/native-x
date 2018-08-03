@@ -5,7 +5,7 @@
 
 <ul class="list-group list-group-flush">
   {{#each campaign.notify.external as |contact|}}
-    <a class="list-group-item list-group-item-action flex-column align-items-start" {{action "openModal" contact.id}}>
+    <a class="list-group-item list-group-item-action flex-column align-items-start" {{action "openModal" contact}}>
       <div class="d-flex flex-row justify-content-between">
         <div class="d-flex flex-column">
           <h4 class="mb-1">{{item.name}}</h4>
@@ -19,4 +19,4 @@
   </a>
 </ul>
 
-{{materials/contacts-builder/modal isOpen=isModalOpen contactId=selectedContactId}}
+{{materials/contacts-builder/modal isOpen=isModalOpen contact=selectedContact}}

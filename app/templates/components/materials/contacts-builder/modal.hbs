@@ -16,13 +16,7 @@
   }}
 
     {{#modal.body}}
-      {{#if isLoading}}
-        <div class="text-center h5">
-          Loading contact...
-        </div>
-      {{else}}
-        {{ partial "manage/contact/form" }}
-      {{/if}}
+      {{materials/contacts-builder/form form=form}}
     {{/modal.body}}
 
     {{#if isNew}}

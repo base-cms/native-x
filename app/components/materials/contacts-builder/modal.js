@@ -4,27 +4,23 @@ import ActionMixin from 'fortnight/mixins/action-mixin';
 import ComponentQueryManager from 'ember-apollo-client/mixins/component-query-manager';
 
 export default Component.extend(ActionMixin, ComponentQueryManager, {
-  contactId: null,
+  contact: null,
   isOpen: false,
-  isLoading: false,
 
-  isNew: computed('contactId', function() {
-    if (this.get('contactId')) return false;
+  isNew: computed('contact.id', function() {
+    if (this.get('contact.id')) return false;
     return true;
   }),
 
-  didInsertElement() {
-    this.loadContact();
-  },
-
-  async loadContact() {
-    console.info('loadContact');
-    if (this.get('isNew')) {
+  init() {
+    this._super(...arguments);
+    const contact = this.get('contact');
+    if (!contact) {
       this.set('contact', {});
-      return;
+    } else {
+      // Clone the contact so it's one-way.
+      this.set('contact', { ...contact });
     }
-    this.set('isLoading', true);
-    this.startAction();
   },
 
   actions: {
