@@ -1,0 +1,45 @@
+{{#bs-modal show=isOpen size="large" as |modal|}}
+  {{#modal.header}}
+    <h5 class="modal-title">Featured Image</h5>
+    <button {{action modal.actions.hide}} type="button" class="close" aria-label="Close">
+      {{entypo-icon "cross"}}
+    </button>
+  {{/modal.header}}
+
+  {{#modal.body}}
+
+    {{log storyId}}
+    {{story/primary-image storyId=storyId image=image}}
+  {{/modal.body}}
+
+  {{!-- <form {{action "saveProfile" on="submit"}}>
+    {{#modal.header}}
+      <h5 class="modal-title">Update Profile</h5>
+      <button {{action modal.actions.hide}} type="button" class="close" aria-label="Close">
+        {{entypo-icon "cross"}}
+      </button>
+    {{/modal.header}}
+
+    {{#modal.body}}
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="name">First Name</label>
+            {{input class="form-control" autocomplete="given-name" value=model.givenName}}
+          </div>
+          <div class="form-group mb-0">
+            <label for="name">Last Name</label>
+            {{input class="form-control" autocomplete="family-name" value=model.familyName}}
+          </div>
+        </div>
+      </div>
+    {{/modal.body}}
+
+    {{#modal.footer}}
+      <button class="btn btn-success" disabled={{isActionRunning}}>
+        {{entypo-icon "check"}} Save
+      </button>
+    {{/modal.footer}}
+    {{progress-bar show=isActionRunning}}
+  </form> --}}
+{{/bs-modal}}
