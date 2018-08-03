@@ -36,6 +36,7 @@ export default Component.extend(ActionMixin, ComponentQueryManager, {
     },
 
     setModal(modal) {
+      this.set('contact', {});
       this.set('modal', modal);
     },
   },
