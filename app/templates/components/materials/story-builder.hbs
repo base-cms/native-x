@@ -19,5 +19,23 @@
       {{/form.elements.input}}
     </div>
 
+    <div class="form-group">
+      {{#materials/field-label for="story-teaser"}}Teaser / Deck{{/materials/field-label}}
+      {{#form.elements.textarea
+        id="story-teaser"
+        class="form-control"
+        value=story.teaser
+        on-change=(action "setTeaser" ) as |textarea|
+      }}
+        {{textarea.element}}
+        {{textarea.elements.invalid-feedback}}
+      {{/form.elements.textarea}}
+    </div>
+
   {{/auto-save/form}}
+
+  <div class="form-group">
+    {{#materials/field-label for="story-body"}}Body {{required-field-label}}{{/materials/field-label}}
+    {{story-editor class="mb-3" value=story.body storyId=story.id update=(action "setBody")}}
+  </div>
 </div>
