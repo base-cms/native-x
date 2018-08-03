@@ -11,37 +11,17 @@ export default Component.extend(ActionMixin, ComponentQueryManager, {
   contact: null,
   isOpen: false,
 
-  isNew: computed('contact.id', function() {
-    if (this.get('contact.id')) return false;
-    return true;
-  }),
-
-  email: oneWay('contact.email'),
-  familyName: oneWay('contact.familyName'),
-  givenName: oneWay('contact.givenName'),
-
-  model: computed('email', 'familyName', 'givenName', function() {
-    return {
-      id: this.get('contact.id'),
-      email: this.get('email'),
-      givenName: this.get('givenName'),
-      familyName: this.get('familyName'),
-    };
-  }),
-
   init() {
     this._super(...arguments);
-    const contact = this.get('contact');
-    if (!contact) this.set('contact', {});
+    this.set('contact', {});
   },
 
   actions: {
     async assign(contact) {
       this.startAction();
-      const { id, email, givenName, familyName } = contact;
+      const { email, givenName, familyName } = contact;
       const payload = { email, givenName, familyName };
       const input = {
-        contactId: id || null,
         campaignId: this.get('campaignId'),
         payload,
       };

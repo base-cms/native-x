@@ -1,7 +1,7 @@
 {{#bs-modal show=isOpen size="large" onShow=(action "setModal") as |modal|}}
   {{#modal.header}}
     <h5 class="modal-title">
-      {{#if isNew}}Create{{else}}Edit{{/if}} Contact
+      Create Contact
     </h5>
     <button {{action modal.actions.hide}} type="button" class="close" aria-label="Close">
       {{entypo-icon "cross"}}
@@ -10,7 +10,7 @@
   {{progress-bar show=isActionRunning}}
 
   {{#model-form
-    model=model
+    model=contact
     shouldAutosave=false
     onSubmit=(action "assign") as |form|
   }}

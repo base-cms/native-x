@@ -11,5 +11,9 @@ export default Component.extend({
       this.set('selectedContact', contact);
       this.set('isModalOpen', true);
     },
+
+    async removeContact(contactId) {
+
+    },
   },
 });
