@@ -68,4 +68,24 @@
     </div>
   </div>
 
+  <hr>
+
+  <p class="form-text">Once your story is complete, click the toggle below to publish it. You <em>must</em> publish your story or it will not display when visited.</p>
+  {{#x-toggle
+    class="justify-content-start"
+    size="medium"
+    theme="material"
+    value=isPublished
+    onLabel="Published"
+    offLabel="Draft"
+    showLabels=true
+    onToggle=(action "togglePublished") as |toggle|
+  }}
+    {{toggle.switch class="w-auto px-0"}}
+    {{toggle.onLabel class="font-weight-bold text-muted"}}
+  {{/x-toggle}}
+
+</div>
+<div class="card-footer text-right">
+  <a href={{story.previewUrl}} class="btn btn-info" role="button" target="_blank">{{entypo-icon "eye"}} Preview</a>
 </div>

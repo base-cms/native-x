@@ -1,4 +1,5 @@
 import Component from '@ember/component';
+import { computed } from '@ember/object';
 import ActionMixin from 'fortnight/mixins/action-mixin';
 import ComponentQueryManager from 'ember-apollo-client/mixins/component-query-manager';
 
@@ -9,6 +10,11 @@ import storyPublisedAt from 'fortnight/gql/mutations/story/published-at';
 
 export default Component.extend(ActionMixin, ComponentQueryManager, {
   classNames: ['card', 'border-0', 'z-depth-half'],
+
+  isPublished: computed('story.publishedAt', function() {
+    if (this.get('story.publishedAt')) return true;
+    return false;
+  }),
 
   actions: {
     async setTitle({ value }) {
