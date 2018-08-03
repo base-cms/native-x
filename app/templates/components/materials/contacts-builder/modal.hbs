@@ -1,4 +1,4 @@
-{{#bs-modal show=isOpen size="large" as |modal|}}
+{{#bs-modal show=isOpen size="large" onShow=(action "setModal") as |modal|}}
   {{#modal.header}}
     <h5 class="modal-title">
       {{#if isNew}}Create{{else}}Edit{{/if}} Contact
@@ -10,20 +10,19 @@
   {{progress-bar show=isActionRunning}}
 
   {{#model-form
-    model=contact
-    shouldAutosave=(eq isNew false)
-    onSubmit=(action "create") as |form|
+    model=model
+    shouldAutosave=false
+    onSubmit=(action "assign") as |form|
   }}
 
     {{#modal.body}}
       {{materials/contacts-builder/form form=form}}
     {{/modal.body}}
 
-    {{#if isNew}}
-      {{#modal.footer class="d-flex justify-content-between"}}
-        {{model-save-button disabled=isActionRunning}}
-      {{/modal.footer}}
-    {{/if}}
+
+    {{#modal.footer class="d-flex justify-content-between"}}
+      {{model-save-button disabled=isActionRunning}}
+    {{/modal.footer}}
 
   {{/model-form}}
 {{/bs-modal}}

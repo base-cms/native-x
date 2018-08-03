@@ -8,8 +8,8 @@
     <a class="list-group-item list-group-item-action flex-column align-items-start" {{action "openModal" contact}}>
       <div class="d-flex flex-row justify-content-between">
         <div class="d-flex flex-column">
-          <h4 class="mb-1">{{item.name}}</h4>
-          <p class="mb-0">{{item.email}}</p>
+          <h5 class="mb-1">{{contact.name}}</h5>
+          <p class="mb-0">{{contact.email}}</p>
         </div>
       </div>
     </a>
@@ -19,4 +19,4 @@
   </a>
 </ul>
 
-{{materials/contacts-builder/modal isOpen=isModalOpen contact=selectedContact}}
+{{materials/contacts-builder/modal isOpen=isModalOpen campaignId=campaign.id contact=selectedContact}}

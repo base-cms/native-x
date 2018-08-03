@@ -28,6 +28,8 @@ fragment CampaignMaterialsFragment on Campaign {
     external {
       id
       name
+      givenName
+      familyName
       email
     }
   }
