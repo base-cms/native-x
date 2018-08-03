@@ -1,0 +1,23 @@
+<div class="card-body">
+  {{#materials/section-header class="text-success mb-0"}}Story{{/materials/section-header}}
+  <div class="text-muted mb-3">Create your sponsored content.</div>
+
+  {{#auto-save/form as |form|}}
+
+    <div class="form-group">
+      {{#materials/field-label for="story-title"}}Title / Headline {{required-field-label}}{{/materials/field-label}}
+      {{#form.elements.input
+        id="story-title"
+        class="form-control form-control-lg"
+        type="text"
+        value=(if story.placeholder "" story.title)
+        required=true
+        on-change=(action "setTitle") as |input|
+      }}
+        {{input.element}}
+        {{input.elements.invalid-feedback}}
+      {{/form.elements.input}}
+    </div>
+
+  {{/auto-save/form}}
+</div>
