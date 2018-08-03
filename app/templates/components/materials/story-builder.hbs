@@ -46,7 +46,7 @@
     <div class="col-12 col-lg-6">
       {{#if story.primaryImage.id}}
         {{#with story.primaryImage as |image|}}
-          {{#link-to "manage.story.edit.primary-image" story.id}}
+          <a {{action "openImageModal"}}>
             {{image-crop
               imgClass="img-fluid img-thumbnail"
               aspectRatio="16:9"
@@ -55,15 +55,15 @@
               fpY=image.focalPoint.y
               alt="Image Preview"
             }}
-          {{/link-to}}
+          </a>
         {{/with}}
       {{else}}
-        {{#link-to "manage.story.edit.primary-image" story.id class="card text-success border-success no-underline"}}
+        <a class="card text-success border-success no-underline" {{action "openImageModal"}}>
           <div class="card-body text-center d-flex flex-column justify-content-center">
             <span class="h1">{{entypo-icon "image"}}</span>
             <span class="h4">Upload Image</span>
           </div>
-        {{/link-to}}
+        </a>
       {{/if}}
     </div>
   </div>
@@ -89,3 +89,5 @@
 <div class="card-footer text-right">
   <a href={{story.previewUrl}} class="btn btn-info" role="button" target="_blank">{{entypo-icon "eye"}} Preview</a>
 </div>
+
+{{materials/story-builder/image-modal isOpen=isImageModalOpen storyId=story.id image=story.primaryImage}}

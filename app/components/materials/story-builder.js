@@ -16,7 +16,13 @@ export default Component.extend(ActionMixin, ComponentQueryManager, {
     return false;
   }),
 
+  isImageModalOpen: false,
+
   actions: {
+    openImageModal() {
+      this.set('isImageModalOpen', true);
+    },
+
     async setTitle({ value }) {
       this.startAction();
       const variables = { id: this.get('story.id'), value };

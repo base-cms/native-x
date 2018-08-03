@@ -101,7 +101,6 @@ Router.map(function() {
               this.route('preview');
             });
           });
-          this.route('primary-image');
         });
         this.route('report', function() {
           this.route('summary');
