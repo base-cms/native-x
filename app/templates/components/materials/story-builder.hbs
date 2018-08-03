@@ -38,4 +38,34 @@
     {{#materials/field-label for="story-body"}}Body {{required-field-label}}{{/materials/field-label}}
     {{story-editor class="mb-3" value=story.body storyId=story.id update=(action "setBody")}}
   </div>
+
+  <hr>
+
+  {{#materials/field-label for="story-primary-image"}}Featured Image {{required-field-label}}{{/materials/field-label}}
+  <div class="row">
+    <div class="col-12 col-lg-6">
+      {{#if story.primaryImage.id}}
+        {{#with story.primaryImage as |image|}}
+          {{#link-to "manage.story.edit.primary-image" story.id}}
+            {{image-crop
+              imgClass="img-fluid img-thumbnail"
+              aspectRatio="16:9"
+              originalSrc=image.src
+              fpX=image.focalPoint.x
+              fpY=image.focalPoint.y
+              alt="Image Preview"
+            }}
+          {{/link-to}}
+        {{/with}}
+      {{else}}
+        {{#link-to "manage.story.edit.primary-image" story.id class="card text-success border-success no-underline"}}
+          <div class="card-body text-center d-flex flex-column justify-content-center">
+            <span class="h1">{{entypo-icon "image"}}</span>
+            <span class="h4">Upload Image</span>
+          </div>
+        {{/link-to}}
+      {{/if}}
+    </div>
+  </div>
+
 </div>
