@@ -1,0 +1,80 @@
+<div class="row">
+  <div class="col-12 col-lg-8">
+
+    <div class="row">
+      <div class="col">
+        {{partial "manage/story/fields/title"}}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-6">
+        {{partial "manage/story/fields/advertiser"}}
+      </div>
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label for="start">Published Date</label>
+          {{story-published-at
+            publishedAt=form.model.publishedAt
+            onSelect=(action form.actions.setAndAutosave "publishedAt")
+          }}
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <div class="form-group">
+          <label for="teaser">Teaser</label>
+          {{textarea
+            value=form.model.teaser
+            class="form-control"
+            id="teaser"
+            placeholder="Teaser"
+            focusOut=(action form.actions.autosave)
+            keyUp=(action form.actions.autosave 750)
+          }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-lg-4">
+
+    <label>Primary Image</label>
+    {{#if model.primaryImage.id}}
+      {{#with model.primaryImage as |image|}}
+        <div class="card border-0">
+          {{#link-to "manage.story.edit.primary-image"}}
+            {{image-crop
+              imgClass="card-img-top border-bottom"
+              aspectRatio="16:9"
+              originalSrc=image.src
+              fpX=image.focalPoint.x
+              fpY=image.focalPoint.y
+              alt="Image Preview"
+            }}
+          {{/link-to}}
+        </div>
+      {{/with}}
+    {{else}}
+      {{#link-to "manage.story.edit.primary-image" class="card text-muted border-muted no-underline"}}
+        <div class="card-body text-center d-flex flex-column justify-content-center">
+          <span class="h1">{{entypo-icon "image"}}</span>
+          <span class="h4">Upload Image</span>
+        </div>
+      {{/link-to}}
+    {{/if}}
+
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col">
+    <div class="form-group">
+      <label for="body">Body</label>
+      {{story-editor value=form.model.body storyId=form.model.id update=(action form.actions.setAndAutosave "body")}}
+    </div>
+  </div>
+</div>
+
+
