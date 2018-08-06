@@ -46,6 +46,16 @@
           {{/each}}
 
         </tbody>
+
+        {{#if fetch.hasNextPage}}
+          <tfoot>
+            <tr colspan="7">
+              <button class="btn btn-primary btn-sm mt-2" disabled={{fetch.isFetching}} {{action fetch.actions.loadMore}}>
+                {{entypo-icon "download"}} {{#if fetch.isFetching}}Loading...{{else}}Load More{{/if}}
+              </button>
+            </tr>
+          </tfoot>
+        {{/if}}
       </table>
     {{/fetch-more}}
   {{/if}}
