@@ -4,90 +4,49 @@
 
 <div class="row mt-3">
   <div class="col">
-    <h4 class="text-muted px-3 mb-2">Campaign Activity for {{moment-format (now) "MMMM Do, YYYY"}}</h4>
+    <h4 class="text-muted px-3 mb-2">Activity for {{moment-format (now) "MMMM Do, YYYY"}}</h4>
   </div>
 </div>
 
 <div class="row">
   <div class="col-sm-6 col-lg-3 mb-4">
-    {{-report/data-card
+    {{dashboard/data-card
       icon="calendar"
       title="Campaigns"
-      value=model.dailyCampaignMetrics.campaigns
       format="0"
+      value=model.dailyCampaignMetrics.campaigns
+      secondaryValue=model.dailyFallbackMetrics.placements
       color="text-primary"
     }}
   </div>
   <div class="col-sm-6 col-lg-3 mb-4">
-    {{-report/data-card
+    {{dashboard/data-card
       icon="eye"
       title="Views"
-      value=model.dailyCampaignMetrics.views
       format="0.[00]a"
+      value=model.dailyCampaignMetrics.views
+      secondaryValue=model.dailyFallbackMetrics.views
       color="text-info"
     }}
   </div>
   <div class="col-sm-6 col-lg-3 mb-4">
-    {{-report/data-card
+    {{dashboard/data-card
       icon="direction"
       title="Clicks"
-      value=model.dailyCampaignMetrics.clicks
       format="0.[0]a"
+      value=model.dailyCampaignMetrics.clicks
+      secondaryValue=model.dailyFallbackMetrics.clicks
       color="text-warning"
     }}
   </div>
   <div class="col-sm-6 col-lg-3 mb-4">
-    {{-report/data-card
+    {{dashboard/data-card
       icon="area-graph"
       title="CTR"
+      format="0.[000]%"
       value=model.dailyCampaignMetrics.ctr
-      format="0.[000]%"
+      secondaryValue=model.dailyFallbackMetrics.ctr
       color="text-success"
-    }}
-  </div>
-</div>
-
-<div class="row mt-3">
-  <div class="col">
-    <h4 class="text-muted px-3 mb-2">Fallback Activity for {{moment-format (now) "MMMM Do, YYYY"}}</h4>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-sm-6 col-lg-3 mb-4">
-    {{-report/data-card
-      icon="browser"
-      title="Placements"
-      value=model.dailyFallbackMetrics.placements
-      format="0"
-      color="text-muted"
-    }}
-  </div>
-  <div class="col-sm-6 col-lg-3 mb-4">
-    {{-report/data-card
-      icon="eye"
-      title="Views"
-      value=model.dailyFallbackMetrics.views
-      format="0.[00]a"
-      color="text-muted"
-    }}
-  </div>
-  <div class="col-sm-6 col-lg-3 mb-4">
-    {{-report/data-card
-      icon="direction"
-      title="Clicks"
-      value=model.dailyFallbackMetrics.clicks
-      format="0.[0]a"
-      color="text-muted"
-    }}
-  </div>
-  <div class="col-sm-6 col-lg-3 mb-4">
-    {{-report/data-card
-      icon="area-graph"
-      title="CTR"
-      value=model.dailyFallbackMetrics.ctr
-      format="0.[000]%"
-      color="text-muted"
     }}
   </div>
 </div>
