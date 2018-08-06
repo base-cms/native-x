@@ -15,14 +15,16 @@
       icon="calendar"
       title="Campaigns"
       value=model.campaigns
+      format="0"
       color="text-primary"
     }}
   </div>
   <div class="col-sm-6 col-lg-3 mb-4">
     {{-report/data-card
       icon="eye"
-      title="Impressions"
+      title="Views"
       value=model.views
+      format="0.[00]a"
       color="text-info"
     }}
   </div>
@@ -31,7 +33,7 @@
       icon="direction"
       title="Clicks"
       value=model.clicks
-      format="0a"
+      format="0.[0]a"
       color="text-warning"
     }}
   </div>
@@ -40,7 +42,7 @@
       icon="area-graph"
       title="CTR"
       value=model.ctr
-      format="0.000%"
+      format="0.[000]%"
       color="text-success"
     }}
   </div>
