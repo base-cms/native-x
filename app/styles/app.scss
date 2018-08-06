@@ -21,6 +21,24 @@
 @import "z-depth";
 @import "portal";
 
+// Fluid container that acts like fixed. Main wrapper.
+@include media-breakpoint-up(lg) {
+  .container-fluid .col.main {
+    padding-left: 5.5rem;
+    padding-right: 5.5rem;
+  }
+}
+@include media-breakpoint-up(xl) {
+  .container-fluid .col.main {
+    padding-left: 7.0rem;
+    padding-right: 7.0rem;
+  }
+}
+.container-fluid .col.main {
+  padding-bottom: 1rem;
+}
+
+
 // Utility for removing underlines in links.
 a.no-underline {
   text-decoration: none;
