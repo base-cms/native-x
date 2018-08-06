@@ -3,11 +3,11 @@ import { computed } from '@ember/object';
 import moment from 'moment';
 
 export default Controller.extend({
-  placementEndDate: computed(function() {
+  endDate: computed(function() {
     return moment().toDate();
   }),
 
-  placementStartDate: computed('placementEndDate', function() {
-    return moment(this.get('placementEndDate')).startOf('month').toDate();
+  startDate: computed('endDate', function() {
+    return moment(this.get('endDate')).startOf('month').toDate();
   }),
 });
