@@ -1,11 +1,11 @@
-#import 'fortnight/gql/fragments/campaign/list'
+#import 'fortnight/gql/fragments/campaign/incomplete'
 
 query IncompleteCampaigns($pagination: PaginationInput, $sort: CampaignSortInput) {
   incompleteCampaigns(pagination: $pagination, sort: $sort) {
     totalCount
     edges {
       node {
-        ...CampaignListFragment
+        ...IncompleteCampaignFragment
       }
       cursor
     }
