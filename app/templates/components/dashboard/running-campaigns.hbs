@@ -3,5 +3,48 @@
   {{#if isLoading}}
     <small class="text-muted">Loading data...</small>
     {{progress-bar show=true}}
+  {{else}}
+    {{#if data.totalCount}}
+      <h5 class="text-muted card-title">Total Results: {{data.totalCount}}</h5>
+    {{/if}}
+    {{#fetch-more
+      class="table-responsive"
+      query=observable
+      edges=data.edges
+      hasNextPage=data.pageInfo.hasNextPage
+      endCursor=data.pageInfo.endCursor
+      on-fetch-start=(route-action "showLoading")
+      on-fetch-end=(route-action "hideLoading")
+      resultKey="runningCampaigns" as |fetch|
+    }}
+      <table class="table table-sm table-hover mb-0">
+        <thead>
+          <tr>
+            <th>Advertiser</th>
+            <th>Name</th>
+            <th>Starts</th>
+            <th>Ends</th>
+            <th>Views</th>
+            <th>Clicks</th>
+            <th>CTR</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          {{#each fetch.nodes as |item|}}
+            <tr>
+              <td>{{item.advertiser.name}}</td>
+              <td>{{#link-to "manage.campaign.edit" item.id}}{{item.name}}{{/link-to}}</td>
+              <td>{{if item.criteria.start (moment-format item.criteria.start "MMM Do, YYYY @ h:mma") "Never"}}</td>
+              <td>{{if item.criteria.end (moment-format item.criteria.end "MMM Do, YYYY @ h:mma") "Never"}}</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+            </tr>
+          {{/each}}
+
+        </tbody>
+      </table>
+    {{/fetch-more}}
   {{/if}}
 </div>

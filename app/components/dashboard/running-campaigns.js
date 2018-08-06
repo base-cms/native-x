@@ -1,5 +1,6 @@
 import Component from '@ember/component';
 import ComponentQueryManager from 'ember-apollo-client/mixins/component-query-manager';
+import { getObservable } from 'ember-apollo-client';
 
 import query from 'fortnight/gql/queries/campaign/running';
 
@@ -21,6 +22,7 @@ export default Component.extend(ComponentQueryManager, {
 
     try {
       const data = await this.get('apollo').watchQuery({ query, variables }, 'runningCampaigns');
+      this.set('observable', getObservable(data));
       this.set('data', data);
     } catch (e) {
       this.get('graphErrors').show(e);
