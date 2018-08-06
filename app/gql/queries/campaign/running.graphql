@@ -1,11 +1,11 @@
-#import 'fortnight/gql/fragments/campaign/list'
+#import 'fortnight/gql/fragments/campaign/running'
 
 query RunningCampaigns($pagination: PaginationInput, $sort: CampaignSortInput) {
   runningCampaigns(pagination: $pagination, sort: $sort) {
     totalCount
     edges {
       node {
-        ...CampaignListFragment
+        ...RunningCampaignFragment
       }
       cursor
     }

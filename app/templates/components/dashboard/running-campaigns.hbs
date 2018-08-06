@@ -22,7 +22,7 @@
           <tr>
             <th>Advertiser</th>
             <th>Name</th>
-            <th>Starts</th>
+            <th>Started</th>
             <th>Ends</th>
             <th>Views</th>
             <th>Clicks</th>
@@ -37,9 +37,11 @@
               <td>{{#link-to "manage.campaign.edit" item.id}}{{item.name}}{{/link-to}}</td>
               <td>{{if item.criteria.start (moment-format item.criteria.start "MMM Do, YYYY @ h:mma") "Never"}}</td>
               <td>{{if item.criteria.end (moment-format item.criteria.end "MMM Do, YYYY @ h:mma") "Never"}}</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
-              <td>&nbsp;</td>
+              {{#with item.metrics as |metrics|}}
+                <td>{{number-format metrics.views "0,0"}}</td>
+                <td>{{number-format metrics.clicks "0,0"}}</td>
+                <td>{{number-format metrics.ctr "0.[00]%"}}</td>
+              {{/with}}
             </tr>
           {{/each}}
 
