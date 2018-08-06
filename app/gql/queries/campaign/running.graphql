@@ -1,0 +1,17 @@
+#import 'fortnight/gql/fragments/campaign/list'
+
+query RunningCampaigns($pagination: PaginationInput, $sort: CampaignSortInput) {
+  runningCampaigns(pagination: $pagination, sort: $sort) {
+    totalCount
+    edges {
+      node {
+        ...CampaignListFragment
+      }
+      cursor
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}
