@@ -10,6 +10,8 @@
     <span class="h4 mb-0 {{color}}" title={{value}}>{{number-format value format}}</span>
     {{#if secondaryValue}}
       <span class="h5 mb-0 text-muted" title={{secondaryValue}}>{{number-format secondaryValue format}}</span>
+    {{else}}
+      <span class="h5 mb-0 text-muted">&nbsp;</span>
     {{/if}}
   </div>
 </div>
