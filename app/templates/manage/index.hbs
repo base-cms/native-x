@@ -2,7 +2,6 @@
   {{#crumbs.item active=true}}{{entypo-icon "blackboard"}} Dashboard{{/crumbs.item}}
 {{/nav-breadcrumbs}}
 
-
 <div class="row mt-3">
   <div class="col">
     <h4 class="text-muted px-3 mb-2">Campaign Activity for {{moment-format (now) "MMMM Do, YYYY"}}</h4>
@@ -90,5 +89,20 @@
       format="0.[000]%"
       color="text-muted"
     }}
+  </div>
+</div>
+
+<div class="row mt-3">
+  <div class="col">
+    <h4 class="text-muted px-3 mb-2">Campaigns</h4>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-7">
+    {{dashboard/running-campaigns}}
+  </div>
+  <div class="col-5">
+    {{dashboard/incomplete-campaigns}}
   </div>
 </div>

@@ -1,0 +1,7 @@
+<div class="card-header text-uppercase">{{campaign-status status="Running" class="font-weight-bold"}} Campaigns</div>
+<div class="card-body">
+  {{#if isLoading}}
+    <small class="text-muted">Loading data...</small>
+    {{progress-bar show=true}}
+  {{/if}}
+</div>
