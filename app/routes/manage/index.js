@@ -8,6 +8,6 @@ export default Route.extend(RouteQueryManager, {
   model() {
     const day = moment().startOf('day').valueOf();
     const variables = { day };
-    return this.get('apollo').watchQuery({ query, variables, fetchPolicy: 'network-only' }, 'dailyCampaignMetrics');
+    return this.get('apollo').watchQuery({ query, variables, fetchPolicy: 'network-only' });
   },
 });

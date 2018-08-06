@@ -14,7 +14,7 @@
     {{-report/data-card
       icon="calendar"
       title="Campaigns"
-      value=model.campaigns
+      value=model.dailyCampaignMetrics.campaigns
       format="0"
       color="text-primary"
     }}
@@ -23,7 +23,7 @@
     {{-report/data-card
       icon="eye"
       title="Views"
-      value=model.views
+      value=model.dailyCampaignMetrics.views
       format="0.[00]a"
       color="text-info"
     }}
@@ -32,7 +32,7 @@
     {{-report/data-card
       icon="direction"
       title="Clicks"
-      value=model.clicks
+      value=model.dailyCampaignMetrics.clicks
       format="0.[0]a"
       color="text-warning"
     }}
@@ -41,9 +41,54 @@
     {{-report/data-card
       icon="area-graph"
       title="CTR"
-      value=model.ctr
+      value=model.dailyCampaignMetrics.ctr
       format="0.[000]%"
       color="text-success"
+    }}
+  </div>
+</div>
+
+<div class="row mt-3">
+  <div class="col">
+    <h4 class="text-muted px-3 mb-2">Fallback Activity for {{moment-format (now) "MMMM Do, YYYY"}}</h4>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-6 col-lg-3 mb-4">
+    {{-report/data-card
+      icon="browser"
+      title="Placements"
+      value=model.dailyFallbackMetrics.placements
+      format="0"
+      color="text-muted"
+    }}
+  </div>
+  <div class="col-sm-6 col-lg-3 mb-4">
+    {{-report/data-card
+      icon="eye"
+      title="Views"
+      value=model.dailyFallbackMetrics.views
+      format="0.[00]a"
+      color="text-muted"
+    }}
+  </div>
+  <div class="col-sm-6 col-lg-3 mb-4">
+    {{-report/data-card
+      icon="direction"
+      title="Clicks"
+      value=model.dailyFallbackMetrics.clicks
+      format="0.[0]a"
+      color="text-muted"
+    }}
+  </div>
+  <div class="col-sm-6 col-lg-3 mb-4">
+    {{-report/data-card
+      icon="area-graph"
+      title="CTR"
+      value=model.dailyFallbackMetrics.ctr
+      format="0.[000]%"
+      color="text-muted"
     }}
   </div>
 </div>
