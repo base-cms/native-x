@@ -1,0 +1,8 @@
+query Dashboard($day: Date!) {
+  dailyCampaignMetrics(day: $day) {
+    campaigns
+    views
+    clicks
+    ctr
+  }
+}

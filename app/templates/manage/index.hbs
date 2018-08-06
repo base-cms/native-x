@@ -1,3 +1,47 @@
 {{#nav-breadcrumbs as |crumbs|}}
   {{#crumbs.item active=true}}{{entypo-icon "blackboard"}} Dashboard{{/crumbs.item}}
 {{/nav-breadcrumbs}}
+
+
+<div class="row mt-3">
+  <div class="col">
+    <h4 class="text-muted px-3 mb-2">Campaign Activity for {{moment-format (now) "MMMM Do, YYYY"}}</h4>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-6 col-lg-3 mb-4">
+    {{-report/data-card
+      icon="calendar"
+      title="Campaigns"
+      value=model.campaigns
+      color="text-primary"
+    }}
+  </div>
+  <div class="col-sm-6 col-lg-3 mb-4">
+    {{-report/data-card
+      icon="eye"
+      title="Impressions"
+      value=model.views
+      color="text-info"
+    }}
+  </div>
+  <div class="col-sm-6 col-lg-3 mb-4">
+    {{-report/data-card
+      icon="direction"
+      title="Clicks"
+      value=model.clicks
+      format="0a"
+      color="text-warning"
+    }}
+  </div>
+  <div class="col-sm-6 col-lg-3 mb-4">
+    {{-report/data-card
+      icon="area-graph"
+      title="CTR"
+      value=model.ctr
+      format="0.000%"
+      color="text-success"
+    }}
+  </div>
+</div>
