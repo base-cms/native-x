@@ -17,7 +17,7 @@ export default Component.extend(ComponentQueryManager, {
     this.set('isLoading', true);
 
     const pagination = { first: 25 };
-    const sort = { field: 'criteria.end', order: 1 };
+    const sort = { field: 'criteria.start', order: -1 };
     const variables = { pagination, sort };
 
     try {
