@@ -21,7 +21,7 @@ export default Component.extend(ComponentQueryManager, {
     const variables = { pagination, sort };
 
     try {
-      const data = await this.get('apollo').watchQuery({ query, variables }, 'incompleteCampaigns');
+      const data = await this.get('apollo').watchQuery({ query, variables, fetchPolicy: 'network-only' }, 'incompleteCampaigns');
       this.set('observable', getObservable(data));
       this.set('data', data);
     } catch (e) {
