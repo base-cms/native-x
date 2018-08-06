@@ -1,0 +1,28 @@
+{{#bs-modal show=isOpen size="large" onShow=(action "setModal") as |modal|}}
+  {{#modal.header}}
+    <h5 class="modal-title">
+      Create Contact
+    </h5>
+    <button {{action modal.actions.hide}} type="button" class="close" aria-label="Close">
+      {{entypo-icon "cross"}}
+    </button>
+  {{/modal.header}}
+  {{progress-bar show=isActionRunning}}
+
+  {{#model-form
+    model=contact
+    shouldAutosave=false
+    onSubmit=(action "assign") as |form|
+  }}
+
+    {{#modal.body}}
+      {{materials/contacts-builder/form form=form}}
+    {{/modal.body}}
+
+
+    {{#modal.footer class="d-flex justify-content-between"}}
+      {{model-save-button disabled=isActionRunning}}
+    {{/modal.footer}}
+
+  {{/model-form}}
+{{/bs-modal}}
