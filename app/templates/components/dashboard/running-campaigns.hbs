@@ -33,7 +33,7 @@
 
           {{#each fetch.nodes as |item|}}
             <tr>
-              <td>{{item.advertiser.name}}</td>
+              <td>{{#link-to "manage.advertiser.edit" item.advertiser.id}}{{item.advertiser.name}}{{/link-to}}</td>
               <td>{{#link-to "manage.campaign.edit" item.id}}{{item.name}}{{/link-to}}</td>
               <td>{{if item.criteria.start (moment-format item.criteria.start "MMM Do, YYYY @ h:mma") "Never"}}</td>
               <td>{{if item.criteria.end (moment-format item.criteria.end "MMM Do, YYYY @ h:mma") "Never"}}</td>
