@@ -76,3 +76,16 @@
     {{dashboard/ending-soon class="h-100"}}
   </div>
 </div>
+
+<div class="row mt-3">
+  <div class="col">
+    <h4 class="text-muted px-3 mb-2">Placement Metrics since {{moment-format placementStartDate "MMMM Do, YYYY"}}</h4>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    {{dashboard/placement-metrics start=placementStartDate end=placementEndDate}}
+  </div>
+</div>
+
