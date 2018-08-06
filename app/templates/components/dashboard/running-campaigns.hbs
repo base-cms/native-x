@@ -22,8 +22,7 @@
           <tr>
             <th>Advertiser</th>
             <th>Name</th>
-            <th>Started</th>
-            <th>Ends</th>
+            <th colspan="2">&nbsp;</th>
             <th>Views</th>
             <th>Clicks</th>
             <th>CTR</th>
@@ -35,8 +34,8 @@
             <tr>
               <td>{{#link-to "manage.advertiser.edit" item.advertiser.id}}{{item.advertiser.name}}{{/link-to}}</td>
               <td>{{#link-to "manage.campaign.edit" item.id}}{{item.name}}{{/link-to}}</td>
-              <td>{{if item.criteria.start (moment-format item.criteria.start "MMM Do, YYYY @ h:mma") "Never"}}</td>
-              <td>{{if item.criteria.end (moment-format item.criteria.end "MMM Do, YYYY @ h:mma") "Never"}}</td>
+              <td>{{campaign-date tagName="div" futureLabel="Starts" pastLabel="Started" date=item.criteria.start}}</td>
+              <td>{{campaign-date tagName="div" futureLabel="Ends" pastLabel="Ended" date=item.criteria.end}}</td>
               {{#with item.metrics as |metrics|}}
                 <td>{{number-format metrics.views "0,0"}}</td>
                 <td>{{number-format metrics.clicks "0,0"}}</td>

@@ -18,6 +18,14 @@
       resultKey="incompleteCampaigns" as |fetch|
     }}
       <table class="table table-sm table-hover mb-0">
+        <thead>
+          <tr>
+            <th>Advertiser</th>
+            <th>Name</th>
+            <th colspan="2">&nbsp;</th>
+          </tr>
+        </thead>
+
         <tbody>
 
           {{#each fetch.nodes as |item|}}
