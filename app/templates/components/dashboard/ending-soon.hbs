@@ -4,9 +4,7 @@
     <small class="text-muted">Loading data...</small>
     {{progress-bar show=true}}
   {{else}}
-    {{#if data.totalCount}}
-      <h5 class="text-muted card-title">Total Results: {{data.totalCount}}</h5>
-    {{/if}}
+    <h5 class="text-muted card-title">Total Results: {{data.totalCount}}</h5>
     {{#fetch-more
       class="table-responsive"
       query=observable
@@ -23,9 +21,6 @@
             <th>Advertiser</th>
             <th>Name</th>
             <th colspan="2">&nbsp;</th>
-            <th>Views</th>
-            <th>Clicks</th>
-            <th>CTR</th>
           </tr>
         </thead>
         <tbody>
@@ -34,13 +29,12 @@
             <tr>
               <td>{{#link-to "manage.advertiser.edit" item.advertiser.id}}{{item.advertiser.name}}{{/link-to}}</td>
               <td>{{#link-to "manage.campaign.edit" item.id}}{{item.name}}{{/link-to}}</td>
-              <td>{{campaign-date tagName="div" futureLabel="Starts" pastLabel="Started" date=item.criteria.start}}</td>
               <td>{{campaign-date tagName="div" futureLabel="Ends" pastLabel="Ended" date=item.criteria.end}}</td>
-              {{#with item.metrics as |metrics|}}
-                <td>{{number-format metrics.views "0,0"}}</td>
-                <td>{{number-format metrics.clicks "0,0"}}</td>
-                <td>{{number-format metrics.ctr "0.[000]%"}}</td>
-              {{/with}}
+              <td>{{campaign-status status=item.status}}</td>
+            </tr>
+          {{else}}
+            <tr>
+              <td colspan="4" class="text-center text-muted">No Results</td>
             </tr>
           {{/each}}
 
@@ -48,7 +42,7 @@
 
         {{#if fetch.hasNextPage}}
           <tfoot>
-            <tr colspan="7">
+            <tr colspan="4">
               <button class="btn btn-primary btn-sm mt-2" disabled={{fetch.isFetching}} {{action fetch.actions.loadMore}}>
                 {{entypo-icon "download"}} {{#if fetch.isFetching}}Loading...{{else}}Load More{{/if}}
               </button>

@@ -35,13 +35,17 @@
               <td>Requires {{item.requires}}</td>
               <td>{{campaign-date tagName="div" futureLabel="Starts" pastLabel="Started" date=item.criteria.start}}</td>
             </tr>
+          {{else}}
+            <tr>
+              <td colspan="7" class="text-center text-muted">No campaigns found.</td>
+            </tr>
           {{/each}}
 
         </tbody>
 
         {{#if fetch.hasNextPage}}
           <tfoot>
-            <tr colspan="7">
+            <tr colspan="4">
               <button class="btn btn-primary btn-sm mt-2" disabled={{fetch.isFetching}} {{action fetch.actions.loadMore}}>
                 {{entypo-icon "download"}} {{#if fetch.isFetching}}Loading...{{else}}Load More{{/if}}
               </button>

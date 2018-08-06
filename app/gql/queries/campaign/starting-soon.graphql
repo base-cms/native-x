@@ -1,0 +1,17 @@
+#import 'fortnight/gql/fragments/campaign/soon'
+
+query CampaignsStartingSoon($pagination: PaginationInput, $sort: CampaignSortInput) {
+  campaignsStartingSoon(pagination: $pagination, sort: $sort) {
+    totalCount
+    edges {
+      node {
+        ...SoonCampaignFragment
+      }
+      cursor
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}
