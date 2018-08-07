@@ -1,5 +1,6 @@
-query AccountBranding {
-    account {
-      key
-    }
+query Account {
+  account {
+    id
+    key
+  }
 }
