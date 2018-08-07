@@ -9,10 +9,10 @@ fragment AdvertiserListFragment on Advertiser {
   createdAt
   ...TimestampableFragment
   ...UserAttributionFragment
-  campaigns(pagination: { first: 1 }, sort: { field: createdAt, order: 1}) {
+  campaigns(pagination: { first: 1 }, sort: { field: "createdAt", order: 1 }) {
     totalCount
   }
-  stories(pagination: { first: 1 }, sort: { field: createdAt, order: 1}) {
+  stories(pagination: { first: 1 }, sort: { field: createdAt, order: 1 }) {
     totalCount
   }
   logo {

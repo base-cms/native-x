@@ -3,6 +3,8 @@ import { computed } from '@ember/object';
 import moment from 'moment';
 
 export default Component.extend({
+  tagName: 'small',
+  classNames: ['d-block'],
   format: 'MMM Do, YYYY',
   futureLabel: 'Starts',
   pastLabel: 'Started',

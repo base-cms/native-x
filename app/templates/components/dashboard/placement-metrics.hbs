@@ -1,0 +1,69 @@
+<div class="card-body">
+  {{#if isLoading}}
+    <small class="text-muted">Loading data...</small>
+    {{progress-bar show=true}}
+  {{else}}
+    <h5 class="text-muted card-title">Total Results: {{data.totalCount}}</h5>
+    {{#fetch-more
+      class="table-responsive"
+      query=observable
+      edges=data.edges
+      hasNextPage=data.pageInfo.hasNextPage
+      endCursor=data.pageInfo.endCursor
+      on-fetch-start=(route-action "showLoading")
+      on-fetch-end=(route-action "hideLoading")
+      resultKey="allPlacements" as |fetch|
+    }}
+      <table class="table table-sm table-hover mb-0">
+        <thead>
+          <tr>
+            <th>Publisher</th>
+            <th>Topic</th>
+            <th>Template</th>
+            <th>Label</th>
+            <th>Views</th>
+            <th>Clicks</th>
+            <th>CTR</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          {{#each fetch.nodes as |item|}}
+            <tr>
+              <td>{{#link-to "manage.publisher.edit" item.publisher.id}}{{item.publisher.name}}{{/link-to}}</td>
+              <td>
+                {{#if item.topic.id}}
+                  {{#link-to "manage.topic.edit" item.topic.id}}{{item.topic.name}}{{/link-to}}
+                {{else}}
+                  (none)
+                {{/if}}
+              </td>
+              <td>{{#link-to "manage.template.edit" item.template.id}}{{item.template.name}}{{/link-to}}</td>
+              <td>{{item.name}}</td>
+              {{#with item.metrics as |metrics|}}
+                <td>{{number-format metrics.views "0,0"}}</td>
+                <td>{{number-format metrics.clicks "0,0"}}</td>
+                <td>{{number-format metrics.ctr "0.[000]%"}}</td>
+              {{/with}}
+            </tr>
+          {{else}}
+            <tr>
+              <td colspan="7" class="text-center text-muted">No placements found.</td>
+            </tr>
+          {{/each}}
+
+        </tbody>
+
+        {{#if fetch.hasNextPage}}
+          <tfoot>
+            <tr colspan="7">
+              <button class="btn btn-primary btn-sm mt-2" disabled={{fetch.isFetching}} {{action fetch.actions.loadMore}}>
+                {{entypo-icon "download"}} {{#if fetch.isFetching}}Loading...{{else}}Load More{{/if}}
+              </button>
+            </tr>
+          </tfoot>
+        {{/if}}
+      </table>
+    {{/fetch-more}}
+  {{/if}}
+</div>

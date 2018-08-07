@@ -1,0 +1,68 @@
+<div class="card-header text-uppercase">{{campaign-status status="Running" class="font-weight-bold"}} Campaigns</div>
+<div class="card-body">
+  {{#if isLoading}}
+    <small class="text-muted">Loading data...</small>
+    {{progress-bar show=true}}
+  {{else}}
+    {{#if data.totalCount}}
+      <h5 class="text-muted card-title">Total Results: {{data.totalCount}}</h5>
+    {{/if}}
+    {{#fetch-more
+      class="table-responsive"
+      query=observable
+      edges=data.edges
+      hasNextPage=data.pageInfo.hasNextPage
+      endCursor=data.pageInfo.endCursor
+      on-fetch-start=(route-action "showLoading")
+      on-fetch-end=(route-action "hideLoading")
+      resultKey="runningCampaigns" as |fetch|
+    }}
+      <table class="table table-sm table-hover mb-0">
+        <thead>
+          <tr>
+            <th>Advertiser</th>
+            <th>Name</th>
+            <th colspan="2">&nbsp;</th>
+            <th>Views</th>
+            <th>Clicks</th>
+            <th>CTR</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          {{#each fetch.nodes as |item|}}
+            <tr>
+              <td>{{#link-to "manage.advertiser.edit" item.advertiser.id}}{{item.advertiser.name}}{{/link-to}}</td>
+              <td>
+                {{#link-to "manage.campaign.edit" item.id}}{{item.name}}{{/link-to}}
+                {{#if (eq item.status "Paused")}}[ {{campaign-status status=item.status}} ]{{/if}}
+              </td>
+              <td>{{campaign-date tagName="div" futureLabel="Starts" pastLabel="Started" date=item.criteria.start}}</td>
+              <td>{{campaign-date tagName="div" futureLabel="Ends" pastLabel="Ended" date=item.criteria.end}}</td>
+              {{#with item.metrics as |metrics|}}
+                <td>{{number-format metrics.views "0,0"}}</td>
+                <td>{{number-format metrics.clicks "0,0"}}</td>
+                <td>{{number-format metrics.ctr "0.[000]%"}}</td>
+              {{/with}}
+            </tr>
+          {{else}}
+            <tr>
+              <td colspan="7" class="text-center text-muted">No campaigns found.</td>
+            </tr>
+          {{/each}}
+
+        </tbody>
+
+        {{#if fetch.hasNextPage}}
+          <tfoot>
+            <tr colspan="7">
+              <button class="btn btn-primary btn-sm mt-2" disabled={{fetch.isFetching}} {{action fetch.actions.loadMore}}>
+                {{entypo-icon "download"}} {{#if fetch.isFetching}}Loading...{{else}}Load More{{/if}}
+              </button>
+            </tr>
+          </tfoot>
+        {{/if}}
+      </table>
+    {{/fetch-more}}
+  {{/if}}
+</div>

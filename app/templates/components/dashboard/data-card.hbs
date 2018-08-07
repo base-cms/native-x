@@ -7,14 +7,16 @@
 
   <div class="d-flex flex-column text-right">
     <span class="text-uppercase">{{title}}</span>
-    <span class="h4 mb-0 {{color}}" title="{{value}}">{{number-format value format}}</span>
-    {{#if percentage}}
-      <small class="text-muted">({{number-format percentage "0%"}})</small>
+    <span class="h4 mb-0 {{color}}" title={{value}}>{{number-format value format}}</span>
+    {{#if secondaryValue}}
+      <span class="h5 mb-0 text-muted" title={{secondaryValue}}>{{number-format secondaryValue format}}</span>
+    {{else}}
+      <span class="h5 mb-0 text-muted">&nbsp;</span>
     {{/if}}
   </div>
 </div>
 {{#if subtitle}}
   <div class="text-center text-muted border-top py-2">
-    <small class="text-muted text-uppercase">{{ subtitle }}</small>
+    <small class="text-muted text-uppercase">{{subtitle}}</small>
   </div>
 {{/if}}
