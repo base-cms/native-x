@@ -5,25 +5,30 @@ import query from '../gql/account.graphql';
 
 export const AccountContext = React.createContext({});
 
-export const AccountProvider = props => (
+export const AccountProvider = ({ children }) => (
   <Query query={query}>
     {({ error, data }) => {
-      if (error) return <p><strong>{error.message}</strong></p>;
+      if (error) {
+        return (
+          <p>
+            <strong>
+              {error.message}
+            </strong>
+          </p>
+        );
+      }
       return (
         <AccountContext.Provider value={data}>
-          {props.children}
+          {children}
         </AccountContext.Provider>
       );
     }}
   </Query>
 );
 
-
 AccountProvider.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ]).isRequired,
-
 };
-
