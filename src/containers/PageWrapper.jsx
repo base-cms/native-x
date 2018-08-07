@@ -1,14 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { AccountProvider } from './AccountProvider';
-import Navbar from './Navbar';
+import { AccountProvider } from '../providers/AccountProvider';
 
-const PageWrapper = props => (
+const PageWrapper = ({ children }) => (
   <AccountProvider>
-    <Navbar />
-    <section>
-      {props.children}
-    </section>
+    {children}
   </AccountProvider>
 );
 
@@ -17,7 +13,6 @@ PageWrapper.propTypes = {
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node,
   ]).isRequired,
-
 };
 
 export default PageWrapper;
