@@ -1,70 +1,65 @@
 import React from 'react';
 import { Query } from 'react-apollo';
 import {
+  Container,
   Row,
   Col,
-  Card,
-  CardTitle,
-  CardImgOverlay,
-  CardSubtitle,
-  Container,
 } from 'reactstrap';
-import Link from 'next/link';
 import Head from 'next/head';
-import Imgix from '../components/Imgix';
-import PageWrapper from '../components/PageWrapper';
-import withApollo from '../apollo/client';
-import Analytics from '../components/Analytics';
-import query from '../gql/all-stories.graphql';
-import { AccountContext } from '../components/AccountProvider';
+import Link from 'next/link';
+import PageWrapper from '../containers/PageWrapper';
 
-const Index = () => {
+import query from '../gql/queries/pages/index.graphql';
+
+export default () => {
   const input = { pagination: { first: 10 } };
   return (
     <PageWrapper>
-      <AccountContext.Consumer>
-        {({ account }) => <Analytics accountKey={account.key} /> }
-      </AccountContext.Consumer>
-      <Container className="mt-5">
-        <Head>
-          <title>Homepage</title>
-        </Head>
-
-        <Row>
-          <Col>
-            <Card className="border-0 p-5">
-              <Query query={query} variables={{ input }}>
-                {({ loading, error, data }) => {
-                  if (loading) return <p>Loading...</p>;
-                  if (error) return <p><strong>{error.message}</strong></p>;
-
-                  const { allStories } = data;
-
+      <Head>
+        <title>
+          Home!
+        </title>
+      </Head>
+      <Container fluid>
+        <Row className="mt-5">
+          <Col className="mx-5">
+            <Query query={query} variables={{ input }}>
+              {({ loading, error, data }) => {
+                if (loading) {
                   return (
-                    <div className="card-columns">
-                      {allStories.edges.map(edge => (
-                        <Card key={edge.node.id}>
-                          <Imgix className="card-img" src={edge.node.primaryImage.src} title={edge.node.title} w="300" h="300" fit="crop" crop="faces,edges" />
-                          <CardImgOverlay className="d-flex align-items-end" style={{ background: 'linear-gradient(to top, #000000bf, #0000)' }}>
-                            <Col className="px-1">
-                              <Link key={edge.node.id} as={`/story/${edge.node.id}`} href={`/story?id=${edge.node.id}`} passHref>
-                                <CardTitle tag="a">{edge.node.title}</CardTitle>
-                              </Link>
-                              <CardSubtitle>{edge.node.advertiser.name}</CardSubtitle>
-                            </Col>
-                          </CardImgOverlay>
-                        </Card>
-                      ))}
-                    </div>
+                    <p>
+                      Loading...
+                    </p>
                   );
-                }}
-              </Query>
-            </Card>
+                }
+                if (error) {
+                  return (
+                    <p>
+                      <strong>
+                        {error.message}
+                      </strong>
+                    </p>
+                  );
+                }
+                const { allStories } = data;
+                return (
+                  <div>
+                    {allStories.edges.map(edge => (
+                      <p key={edge.node.id}>
+                        <Link as={`/story/${edge.node.id}`} href={`/story?id=${edge.node.id}`} passHref>
+                          <a>
+                            {edge.node.title}
+                          </a>
+                        </Link>
+                      </p>
+                    ))}
+                  </div>
+                );
+              }}
+            </Query>
           </Col>
         </Row>
       </Container>
     </PageWrapper>
   );
 };
-
-export default withApollo(Index);
