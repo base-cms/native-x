@@ -94,6 +94,7 @@ form .progress {
 }
 
 .fixed-bottom.right {
+  right: 0;
   left: inherit;
   border-top-right-radius: 0 !important;
   border-bottom-right-radius: 0 !important;
@@ -101,6 +102,8 @@ form .progress {
 }
 
 .fixed-bottom.left {
+  left: 0;
+  right: inherit;
   border-top-left-radius: 0 !important;
   border-bottom-left-radius: 0 !important;
   border-bottom-right-radius: 0 !important;
