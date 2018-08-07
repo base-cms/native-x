@@ -1,0 +1,17 @@
+#import '../../fragments/story/index-page.graphql'
+
+query IndexPage($pagination: PaginationInput, $sort: StorySortInput) {
+  allStories(pagination: $pagination, sort: $sort) {
+    totalCount
+    edges {
+      node {
+        ...IndexPageStoryFragment
+      }
+      cursor
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}
