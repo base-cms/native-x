@@ -3,8 +3,8 @@ import Document, { Head, Main, NextScript } from 'next/document';
 import GoogleAnalytics from '../components/GoogleAnalytics';
 
 export default class MyDocument extends Document {
-  static async getInitialProps(ctx) {
-    const initialProps = await Document.getInitialProps(ctx);
+  static async getInitialProps(args) {
+    const initialProps = await Document.getInitialProps(args);
     return { ...initialProps };
   }
 
