@@ -1,0 +1,16 @@
+#import '../image/display.graphql'
+
+fragment StoryViewFragment on Story {
+  id
+  title
+  teaser
+  publishedAt
+  advertiser {
+    id
+    name
+  }
+  body
+  primaryImage {
+    ...ImageDisplayFragment
+  }
+}

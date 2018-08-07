@@ -1,34 +1,57 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import Analytics from '../components/Analytics';
-import PageWrapper from '../components/PageWrapper';
-import Header from '../components/Story/Header';
-import Body from '../components/Story/Body';
-import withApollo from '../apollo/client';
-import { AccountContext } from '../components/AccountProvider';
-import { StoryContext, StoryProvider } from '../components/StoryProvider';
+import { Query } from 'react-apollo';
+import Head from 'next/head';
+import Link from 'next/link';
+import PageWrapper from '../containers/PageWrapper';
 
-const Story = ({ id }) => (
-  <StoryProvider id={id}>
+import pageQuery from '../gql/queries/pages/story.graphql';
+
+const Story = ({ id }) => {
+  const input = { id };
+  return (
     <PageWrapper>
-      <StoryContext.Consumer>
-        {({ story }) => (
-          <div className="story-wrapper">
-            <AccountContext.Consumer>
-              {({ account }) => <Analytics accountKey={account.key} storyId={story.id} /> }
-            </AccountContext.Consumer>
-            <Header
-              title={story.title}
-              primaryImgSrc={story.primaryImage.src}
-              primaryImgCaption={story.primaryImage.caption}
-            />
-            <Body teaser={story.teaser} body={story.body} />
-          </div>
-        )}
-      </StoryContext.Consumer>
+      <Query query={pageQuery} variables={{ input }}>
+        {({ loading, error, data }) => {
+          if (loading) {
+            return (
+              <p>
+                Loading...
+              </p>
+            );
+          }
+          if (error) {
+            return (
+              <p>
+                <strong>
+                  {error.message}
+                </strong>
+              </p>
+            );
+          }
+          const { story } = data;
+          return (
+            <Fragment>
+              <Head>
+                <title>
+                  {story.title}
+                </title>
+              </Head>
+              <h1>
+                {story.title}
+              </h1>
+              <Link href="/">
+                <a>
+                  Home
+                </a>
+              </Link>
+            </Fragment>
+          );
+        }}
+      </Query>
     </PageWrapper>
-  </StoryProvider>
-);
+  );
+};
 
 Story.getInitialProps = async ({ query }) => {
   const { id } = query;
@@ -39,4 +62,4 @@ Story.propTypes = {
   id: PropTypes.string.isRequired,
 };
 
-export default withApollo(Story);
+export default Story;
