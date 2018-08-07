@@ -2,9 +2,9 @@ import { HttpLink } from 'apollo-link-http';
 import { ApolloLink } from 'apollo-link';
 import { onError } from 'apollo-link-error';
 import fetch from 'isomorphic-unfetch';
-import withApollo from './WithApollo';
 
-const config = (req) => {
+export default (req) => {
+  // console.info('config', req);
   const headers = req ? req.headers : {};
   const host = (req) ? req.ROOT_URI : '';
   if (headers.host) {
@@ -29,5 +29,3 @@ const config = (req) => {
     ]),
   };
 };
-
-export default withApollo(config);
