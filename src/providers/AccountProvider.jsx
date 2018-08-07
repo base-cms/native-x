@@ -1,7 +1,7 @@
 import React from 'react';
 import { Query } from 'react-apollo';
 import PropTypes from 'prop-types';
-import query from '../gql/account.graphql';
+import query from '../gql/queries/account.graphql';
 
 export const AccountContext = React.createContext({});
 
