@@ -1,12 +1,12 @@
 #import 'fortnight/gql/fragments/campaign-creative'
 
-fragment CampaignMaterialsFragment on Campaign {
+fragment CampaignPortalFragment on Campaign {
   id
   name
   description
   status
-  url
   hash
+  url
   criteria {
     start
   }
