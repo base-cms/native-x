@@ -1,42 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Query } from 'react-apollo';
 import query from '../gql/queries/account.graphql';
 
-export const AccountContext = React.createContext({});
+const AccountContext = React.createContext({});
 
-export class AccountProvider extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { loading: true, account: {}, error: null };
-  }
+export const AccountConsumer = AccountContext.Consumer;
 
-  componentWillMount() {
-    this.retrieveAccount();
-  }
-
-  async retrieveAccount() {
-    this.setState({ loading: true });
-    const { apollo } = this.props;
-    try {
-      const response = await apollo.query({ query });
-      const { account } = response.data;
-      this.setState({ account });
-    } catch (error) {
-      this.setState({ error });
-    } finally {
-      this.setState({ loading: false });
-    }
-  }
-
-  render() {
-    const { children } = this.props;
-    return (
-      <AccountContext.Provider value={{ ...this.state }}>
-        {children}
-      </AccountContext.Provider>
-    );
-  }
-}
+export const AccountProvider = ({ children }) => (
+  <Query query={query}>
+    {({ error, data }) => {
+      if (error) {
+        return (
+          <p>
+            <strong>
+              {error.message}
+            </strong>
+          </p>
+        );
+      }
+      return (
+        <AccountContext.Provider value={data}>
+          {children}
+        </AccountContext.Provider>
+      );
+    }}
+  </Query>
+);
 
 AccountProvider.propTypes = {
   children: PropTypes.oneOfType([
