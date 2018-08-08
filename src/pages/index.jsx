@@ -21,7 +21,7 @@ export default () => {
             <title>
               Home
               {' | '}
-              {account.key}
+              {account.name}
             </title>
           </Head>
         )}
