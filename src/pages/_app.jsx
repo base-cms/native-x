@@ -10,7 +10,7 @@ class NativeX extends App {
     return (
       <Container>
         <ApolloProvider client={apollo}>
-          <AccountProvider>
+          <AccountProvider apollo={apollo}>
             <Component {...pageProps} />
           </AccountProvider>
         </ApolloProvider>
