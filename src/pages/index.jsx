@@ -8,6 +8,7 @@ import {
 import Head from 'next/head';
 import Link from 'next/link';
 import { AccountConsumer } from '../providers/AccountProvider';
+import { trackPageView } from '../lib/gtag';
 
 import query from '../gql/queries/pages/index.graphql';
 
@@ -47,6 +48,7 @@ export default () => {
                 );
               }
               const { allStories } = data;
+              trackPageView();
               return (
                 <div>
                   {allStories.edges.map(edge => (

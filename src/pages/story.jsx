@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Query } from 'react-apollo';
 import Head from 'next/head';
 import Link from 'next/link';
+import { trackPageView } from '../lib/gtag';
 
 import pageQuery from '../gql/queries/pages/story.graphql';
 
@@ -29,6 +30,7 @@ const Story = ({ id }) => {
             );
           }
           const { story } = data;
+          trackPageView({ storyId: story.id, page_title: story.title });
           return (
             <Fragment>
               <Head>
