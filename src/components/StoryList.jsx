@@ -4,6 +4,7 @@ import { Query } from 'react-apollo';
 import {
   Card,
   CardBody,
+  CardHeader,
   ListGroup,
 } from 'reactstrap';
 import LoadingBar from './LoadingBar';
@@ -19,6 +20,13 @@ const StoryList = ({ first, sort }) => {
   };
   return (
     <Card>
+      <CardHeader>
+        <h4 className="mb-0">
+          Latest
+          {' '}
+          Stories
+        </h4>
+      </CardHeader>
       <Query query={query} variables={variables}>
         {({ loading, error, data }) => {
           if (loading) {

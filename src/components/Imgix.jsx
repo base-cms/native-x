@@ -24,7 +24,7 @@ const Imgix = (props) => {
   let img;
   if (src) {
     if (props.tag === 'img') {
-      img = <img className={props.className} src={src} alt={props.alt} title={props.title} />;
+      img = <img className={props.className} width={props.width} height={props.height} src={src} alt={props.alt} title={props.title} />;
     } else if (props.tag === 'div') {
       const divStyle = {
         backgroundImage: `url(${src})`,

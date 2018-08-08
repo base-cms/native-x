@@ -10,6 +10,7 @@ const StoryListItem = ({
   teaser,
   primaryImage,
   advertiser,
+  publishedAt,
 }) => (
   <Link as={`/story/${id}`} href={`/story?id=${id}`} passHref>
     <ListGroupItem tag="a" href="#" className="flex-column align-items-start" action>
@@ -19,7 +20,18 @@ const StoryListItem = ({
           {primaryImage && primaryImage.src
             && (
               <div className="d-flex flex-column my-auto mr-3">
-                <Imgix src={primaryImage.src} w="150" h="150" fit="crop" crop="focalpoint" fp-x={primaryImage.focalPoint.x} fp-y={primaryImage.focalPoint.y} />
+                <Imgix
+                  src={primaryImage.src}
+                  w="150"
+                  h="150"
+                  width="150"
+                  height="150"
+                  fit="crop"
+                  crop="focalpoint"
+                  fp-x={primaryImage.focalPoint.x}
+                  fp-y={primaryImage.focalPoint.y}
+                  dpr={2}
+                />
               </div>
             )
           }
@@ -38,6 +50,7 @@ const StoryListItem = ({
                 </p>
               )
             }
+            <small className="mt-auto">Published: {publishedAt}</small>
           </div>
 
         </div>
