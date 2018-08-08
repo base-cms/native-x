@@ -3,5 +3,8 @@ query Account {
     id
     name
     key
+    settings {
+      googleAnalyticsId
+    }
   }
 }

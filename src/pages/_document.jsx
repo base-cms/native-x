@@ -3,8 +3,6 @@ import Document, { Head, Main, NextScript } from 'next/document';
 import GoogleAnalytics from '../components/GoogleAnalytics';
 import { AccountConsumer } from '../providers/AccountProvider';
 
-const { GA_TRACKING_ID } = process.env;
-
 export default class MyDocument extends Document {
   static async getInitialProps(args) {
     const initialProps = await Document.getInitialProps(args);
@@ -20,7 +18,7 @@ export default class MyDocument extends Document {
           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.8.4/css/froala_style.css" type="text/css" />
           <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,700|Raleway:300,400,500" rel="stylesheet" type="text/css" />
           <AccountConsumer>
-            {({ account }) => <GoogleAnalytics accountKey={account.key} trackingId={GA_TRACKING_ID} />}
+            {({ account }) => <GoogleAnalytics accountKey={account.key} trackingId={account.settings.googleAnalyticsId} />}
           </AccountConsumer>
         </Head>
         <body>

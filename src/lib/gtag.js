@@ -1,11 +1,9 @@
-const { GA_TRACKING_ID } = process.env;
-
-// https://developers.google.com/analytics/devguides/collection/gtagjs/pages
-const pageview = (accountKey, storyId) => {
-  window.gtag('event', 'page_view', { accountKey, storyId });
+export const trackEvent = (action, props) => {
+  if (process.browser && window.gtag) {
+    window.gtag('event', action, { ...props });
+  }
 };
 
-module.exports = {
-  GA_TRACKING_ID,
-  pageview,
+export const trackPageView = (props) => {
+  trackEvent('page_view', props);
 };
