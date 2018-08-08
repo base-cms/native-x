@@ -30,7 +30,7 @@ const Story = ({ id }) => {
             );
           }
           const { story } = data;
-          trackPageView({ storyId: story.id, page_title: story.title });
+          trackPageView({ story_id: story.id, page_title: story.title });
           return (
             <Fragment>
               <Head>

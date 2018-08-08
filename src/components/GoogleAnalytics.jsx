@@ -27,10 +27,10 @@ const GoogleAnalytics = ({ trackingId, accountKey }) => {
             window.gtag('config', '${trackingId}', {
               send_page_view: false,
               custom_map: {
-                dimension1: 'accountKey',
-                dimension2: 'storyId'
+                dimension1: 'account_key',
+                dimension2: 'story_id'
               },
-              accountKey: '${accountKey}'
+              account_key: '${accountKey}'
             });
           `,
         }}
