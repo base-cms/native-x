@@ -6,6 +6,7 @@ fragment CampaignMaterialsFragment on Campaign {
   description
   status
   url
+  hash
   criteria {
     start
   }
