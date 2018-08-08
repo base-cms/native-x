@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Query } from 'react-apollo';
 import {
   Container,
@@ -7,14 +7,13 @@ import {
 } from 'reactstrap';
 import Head from 'next/head';
 import Link from 'next/link';
-import PageWrapper from '../containers/PageWrapper';
 
 import query from '../gql/queries/pages/index.graphql';
 
 export default () => {
   const input = { pagination: { first: 10 } };
   return (
-    <PageWrapper>
+    <Fragment>
       <Head>
         <title>
           Home!
@@ -60,6 +59,6 @@ export default () => {
           </Col>
         </Row>
       </Container>
-    </PageWrapper>
+    </Fragment>
   );
 };

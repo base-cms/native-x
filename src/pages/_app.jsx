@@ -2,6 +2,7 @@ import App, { Container } from 'next/app';
 import React from 'react';
 import { ApolloProvider } from 'react-apollo';
 import withApollo from '../apollo/WithApollo';
+import { AccountProvider } from '../providers/AccountProvider';
 
 class NativeX extends App {
   render() {
@@ -9,7 +10,9 @@ class NativeX extends App {
     return (
       <Container>
         <ApolloProvider client={apollo}>
-          <Component {...pageProps} />
+          <AccountProvider>
+            <Component {...pageProps} />
+          </AccountProvider>
         </ApolloProvider>
       </Container>
     );

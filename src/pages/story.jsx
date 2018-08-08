@@ -3,14 +3,13 @@ import PropTypes from 'prop-types';
 import { Query } from 'react-apollo';
 import Head from 'next/head';
 import Link from 'next/link';
-import PageWrapper from '../containers/PageWrapper';
 
 import pageQuery from '../gql/queries/pages/story.graphql';
 
 const Story = ({ id }) => {
   const input = { id };
   return (
-    <PageWrapper>
+    <Fragment>
       <Query query={pageQuery} variables={{ input }}>
         {({ loading, error, data }) => {
           if (loading) {
@@ -49,7 +48,7 @@ const Story = ({ id }) => {
           );
         }}
       </Query>
-    </PageWrapper>
+    </Fragment>
   );
 };
 
