@@ -1,6 +1,6 @@
 #import '../image/display.graphql'
 
-fragment IndexPageStoryFragment on Story {
+fragment StoryListFragment on Story {
   id
   title
   teaser

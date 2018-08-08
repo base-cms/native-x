@@ -1,11 +1,11 @@
-#import '../../fragments/story/index-page.graphql'
+#import '../../fragments/story/list.graphql'
 
 query IndexPage($pagination: PaginationInput, $sort: StorySortInput) {
   allStories(pagination: $pagination, sort: $sort) {
     totalCount
     edges {
       node {
-        ...IndexPageStoryFragment
+        ...StoryListFragment
       }
       cursor
     }
