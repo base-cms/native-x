@@ -5,10 +5,9 @@ import {
   Row,
   Col,
 } from 'reactstrap';
-import Head from 'next/head';
 import Link from 'next/link';
-import { AccountConsumer } from '../providers/AccountProvider';
-import { trackPageView } from '../lib/gtag';
+import Title from '../components/Title';
+import TrackPageView from '../components/TrackPageView';
 
 import query from '../gql/queries/pages/index.graphql';
 
@@ -16,17 +15,9 @@ export default () => {
   const input = { pagination: { first: 10 } };
   return (
     <Container fluid>
-      <AccountConsumer>
-        {({ account }) => (
-          <Head>
-            <title>
-              Home
-              {' | '}
-              {account.name}
-            </title>
-          </Head>
-        )}
-      </AccountConsumer>
+      <Title value="Home" />
+      <TrackPageView params={{ page_title: 'Home' }} />
+
       <Row className="mt-5">
         <Col className="mx-5">
           <Query query={query} variables={{ input }}>
@@ -48,7 +39,6 @@ export default () => {
                 );
               }
               const { allStories } = data;
-              trackPageView();
               return (
                 <div>
                   {allStories.edges.map(edge => (
