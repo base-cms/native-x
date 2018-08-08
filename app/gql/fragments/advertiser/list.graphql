@@ -1,24 +1,18 @@
 #import 'fortnight/gql/fragments/image/src'
+#import 'fortnight/gql/fragments/user-attribution'
+#import 'fortnight/gql/fragments/timestampable'
 
 fragment AdvertiserListFragment on Advertiser {
   id
   name
   updatedAt
   createdAt
-  createdBy {
-    id
-    givenName
-    familyName
-  }
-  updatedBy {
-    id
-    givenName
-    familyName
-  }
-  campaigns(pagination: { first: 1 }, sort: { field: createdAt, order: 1}) {
+  ...TimestampableFragment
+  ...UserAttributionFragment
+  campaigns(pagination: { first: 1 }, sort: { field: "createdAt", order: 1 }) {
     totalCount
   }
-  stories(pagination: { first: 1 }, sort: { field: createdAt, order: 1}) {
+  stories(pagination: { first: 1 }, sort: { field: createdAt, order: 1 }) {
     totalCount
   }
   logo {

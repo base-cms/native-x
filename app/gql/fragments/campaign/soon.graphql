@@ -1,0 +1,14 @@
+fragment SoonCampaignFragment on Campaign {
+  id
+  name
+  status
+  criteria {
+    id
+    start
+    end
+  }
+  advertiser {
+    id
+    name
+  }
+}

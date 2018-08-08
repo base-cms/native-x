@@ -15,6 +15,14 @@
         {{entypo-icon "v-card" class="ml-1"}}
       </a>
 
+      {{#if (eq user.role "Admin")}}
+        <div class="dropdown-divider"></div>
+        {{#link-to "manage.account" class="dropdown-item dropdown-item d-flex justify-content-between" title="Account Settings"}}
+          Account Settings
+          {{entypo-icon "cog" class="ml-1"}}
+        {{/link-to}}
+      {{/if}}
+
       <div class="dropdown-divider"></div>
 
       {{#link-to "logout" class="dropdown-item d-flex justify-content-between" title="Logout of the Application"}}

@@ -4,10 +4,11 @@
   onSubmit=(action "update") as |form|
 }}
   <div class="card-body">
-    {{ partial "manage/story/forms/full" }}
+    {{ partial "manage/story/forms/edit" }}
   </div>
 
-  <div class="card-footer text-right">
+  <div class="card-footer d-flex justify-content-between">
+    <a href={{model.previewUrl}} class="btn btn-info" role="button" target="_blank">{{entypo-icon "eye"}} Preview</a>
     {{confirm-button
       icon="trash"
       label="Delete"

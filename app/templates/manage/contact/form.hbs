@@ -3,6 +3,7 @@
     <div class="form-group">
       <label for="contact-email">Email Address {{required-field-label}}</label>
       {{input
+        autocomplete="email"
         type="email"
         required=true
         value=form.model.email
@@ -23,6 +24,7 @@
     <div class="form-group mb-3 mb-sm-0">
       <label for="contact-given-name">First Name {{required-field-label}}</label>
       {{input
+        autocomplete="given-name"
         type="text"
         required=true
         value=form.model.givenName
@@ -41,6 +43,7 @@
     <div class="form-group mb-0">
       <label for="contact-family-name">Last Name {{required-field-label}}</label>
       {{input
+        autocomplete="family-name"
         type="text"
         required=true
         value=form.model.familyName

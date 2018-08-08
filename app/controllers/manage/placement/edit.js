@@ -22,10 +22,20 @@ export default Controller.extend(ActionMixin, {
     },
 
     /**
+     * Deletes the placement
      *
      */
     async delete() {
-      this.get('notify').warning('Deleting objects is not yet supported.');
+      this.startAction();
+      const model = this.get('model');
+      try {
+        await this.get('placementManager').delete(model.get('id'));
+        await this.transitionToRoute('manage.placement.index');
+      } catch (e) {
+        this.get('graphErrors').show(e);
+      } finally {
+        this.endAction();
+      }
     },
   },
 });

@@ -1,9 +1,5 @@
 {{#if date}}
-  <small class="d-block">
-    {{entypo-icon "calendar"}} {{label}} {{moment-from-now date}} on {{moment-format date format}}
-  </small>
+  {{entypo-icon "calendar"}} {{label}} {{moment-from-now date}} on {{moment-format date format}}
 {{else}}
-  <small class="d-block">
-    {{entypo-icon "calendar"}} {{label}} Never
-  </small>
+  {{entypo-icon "calendar"}} {{label}} Never
 {{/if}}

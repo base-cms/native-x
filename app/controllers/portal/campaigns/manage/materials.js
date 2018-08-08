@@ -14,6 +14,7 @@ export default Controller.extend(ActionMixin, {
     return this.get('model.campaign.creatives.length') > 1;
   }),
 
+
   actions: {
     async saveField(field, label, { value }) {
       this.startAction();

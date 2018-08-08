@@ -1,0 +1,7 @@
+#import 'fortnight/gql/fragments/advertiser/edit'
+
+query EditAdvertiserIndex($input: ModelIdInput!) {
+  advertiser(input: $input) {
+    ...AdvertiserEditFragment
+  }
+}

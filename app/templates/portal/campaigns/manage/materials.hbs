@@ -4,39 +4,16 @@
 
 
       <h3 class="font-weight-bold text-muted mb-4">
-        <span class="text-uppercase">Ad Builder</span>
-        <span class="h6 text-muted">Please submit your native ad campaign.</span>
+        <span class="text-uppercase">Materials Builder</span>
       </h3>
 
-      <div class="card mb-4 border-0 z-depth-half">
-        <div class="card-body">
-          {{-report/campaign-title campaign=model.campaign}}
-
-          {{#auto-save/form as |form|}}
-            <div class="form-group mb-0">
-              <label for="campaign-url" class="font-weight-bold text-muted">Click URL {{required-field-label}}</label>
-
-              {{#form.elements.input
-                id="campaign-url"
-                class="form-control"
-                type="url"
-                value=model.campaign.url
-                placeholder="https://www.yourlink.com"
-                required=true
-                on-change=(action "saveField" "url" "Click URL")
-                validator=(action "validateUrl") as |input|
-              }}
-                <div class="input-group">
-                  {{input.element}}
-                  {{input.elements.indicator}}
-                  {{input.elements.invalid-feedback}}
-                </div>
-              {{/form.elements.input}}
-            </div>
-          {{/auto-save/form}}
-
+      {{#if model.campaign.story.id}}
+        {{materials/story-builder class="mb-4" story=model.campaign.story}}
+      {{else}}
+        <div class="card mb-4 border-0 z-depth-half">
+          {{partial "portal/campaigns/manage/materials/campaign"}}
         </div>
-      </div>
+      {{/if}}
 
       <div class="card mb-4 border-0 z-depth-half">
         <div class="card-body pb-1">
@@ -67,7 +44,7 @@
             {{/each}}
             <div class="mb-3 col-12 col-lg-6">
 
-              {{#link-to "portal.campaigns.manage.materials.creatives.create" class="card mnh-100 border-success text-success"}}
+              {{#link-to "portal.campaigns.manage.materials.creatives.create" class="card mnh-100 border-success text-success no-underline"}}
                 <div class="card-body text-center d-flex flex-column justify-content-center">
                   {{entypo-icon "circle-with-plus" class="h1"}}
                   <span class="h4">Add Creative</span>
@@ -79,6 +56,8 @@
 
         </div>
       </div>
+
+      {{materials/contacts-builder campaign=model.campaign}}
 
     </div>
   </div>

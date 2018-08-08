@@ -2,15 +2,20 @@
   "manage.contact.edit" item.id
   class="list-group-item list-group-item-action flex-column align-items-start"
 }}
-   <div class="d-flex w-100 justify-content-between">
-    <h4 class="mb-1">{{item.name}}</h4>
-    {{#if item.updatedAt}}
-      <small class="d-block" title="{{moment-format item.updatedAt 'MMM Do, YYYY h:mm a'}}">
-        {{entypo-icon "clock"}} Updated {{moment-from-now item.updatedAt}}
-      </small>
-    {{/if}}
-  </div>
+  <div class="d-flex w-100 justify-content-between">
 
-  <p class="mb-1">{{item.email}}</p>
-  <small>ID: {{item.id}}</small>
+    <div class="d-flex flex-column">
+      <h4 class="mb-1">{{item.name}}</h4>
+      <p class="mb-1">{{item.email}}</p>
+      <small>ID: {{item.id}}</small>
+    </div>
+
+    <div class="d-none d-md-flex flex-column align-items-end text-right">
+      <div class="mt-auto">
+        {{user-attribution label="Updated" user=item.updatedBy date=item.updatedAt}}
+        {{user-attribution label="Created" user=item.createdBy date=item.createdAt}}
+      </div>
+    </div>
+
+  </div>
 {{/link-to}}

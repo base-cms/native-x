@@ -1,0 +1,17 @@
+#import 'fortnight/gql/fragments/publisher/dashboard'
+
+query PublishersDashboard($pagination: PaginationInput, $sort: PublisherSortInput, $metricsStartDate: Date!, $metricsEndDate: Date!) {
+  allPublishers(pagination: $pagination, sort: $sort) {
+    totalCount
+    edges {
+      node {
+        ...PublisherDashboardFragment
+      }
+      cursor
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}

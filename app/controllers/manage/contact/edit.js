@@ -3,6 +3,7 @@ import { inject } from '@ember/service';
 import ActionMixin from 'fortnight/mixins/action-mixin';
 
 import mutation from 'fortnight/gql/mutations/update-contact';
+import deleteContact from 'fortnight/gql/mutations/contact/delete';
 
 export default Controller.extend(ActionMixin, {
   apollo: inject(),
@@ -26,10 +27,22 @@ export default Controller.extend(ActionMixin, {
     },
 
     /**
+     * Deletes the contact
      *
      */
     async delete() {
-      this.get('notify').warning('Deleting objects is not yet supported.');
+      this.startAction();
+      const id = this.get('model.id');
+      const variables = { input: { id } };
+      const mutation = deleteContact;
+      try {
+        await this.get('apollo').mutate({ mutation, variables }, 'deleteContact');
+        await this.transitionToRoute('manage.contact.index');
+      } catch (e) {
+        this.get('graphErrors').show(e);
+      } finally {
+        this.endAction();
+      }
     },
   },
 });

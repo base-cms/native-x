@@ -1,0 +1,6 @@
+mutation SetStoryTeaser($id: String!, $value: String!) {
+  storyTeaser(id: $id, value: $value) {
+    id
+    teaser
+  }
+}

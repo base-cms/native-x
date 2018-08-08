@@ -1,0 +1,87 @@
+{{#nav-breadcrumbs as |crumbs|}}
+  {{#crumbs.item active=true}}{{entypo-icon "cog"}} Account Settings{{/crumbs.item}}
+{{/nav-breadcrumbs}}
+
+{{#model-form
+  model=model
+  shouldAutosave=true
+  onSubmit=(action "update") as |form|
+}}
+
+  <div class="card model-form">
+    <div class="card-header d-flex justify-content-between">
+      <span>Key: <code>{{model.key}}</code></span>
+      <span>ID: <code>{{model.id}}</code></span>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col">
+
+          <div class="form-group">
+            <label for="account-name">Name {{required-field-label}}</label>
+            {{input
+              type="text"
+              required=true
+              value=form.model.name
+              class="form-control"
+              id="account-name"
+              placeholder="Name"
+              focusOut=(action form.actions.autosave)
+              keyUp=(action form.actions.autosave 750)
+            }}
+            <div class="invalid-feedback">
+              Please provide an account name.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+
+          <div class="form-group mb-0">
+            <label for="account-cname">Custom CNAME</label>
+            {{input
+              type="text"
+              disabled=true
+              value=form.model.settings.cname
+              class="form-control"
+              id="account-cname"
+              focusOut=(action form.actions.autosave)
+              keyUp=(action form.actions.autosave 750)
+            }}
+          </div>
+          <small class="form-text text-muted">A custom CNAME for your account, configured by NativeX support.</small>
+
+        </div>
+        <div class="col-md-6">
+
+          <div class="form-group mb-0">
+            <label for="account-reserve-pct">Impression Reserve</label>
+
+            <div class="input-group">
+              {{input
+                type="number"
+                min=0
+                max=100
+                value=form.model.settings.reservePct
+                class="form-control"
+                id="account-reserve-pct"
+                focusOut=(action form.actions.autosave)
+                keyUp=(action form.actions.autosave 750)
+              }}
+              <div class="input-group-append">
+                <span class="input-group-text">%</span>
+              </div>
+            </div>
+            <small class="form-text text-muted">The share of impressions dedicated to serving content, rather than a campaign.</small>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+    <div class="card-footer"></div>
+  </div>
+
+{{/model-form}}

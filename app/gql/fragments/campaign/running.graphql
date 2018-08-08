@@ -1,0 +1,19 @@
+fragment RunningCampaignFragment on Campaign {
+  id
+  name
+  status
+  criteria {
+    id
+    start
+    end
+  }
+  advertiser {
+    id
+    name
+  }
+  metrics {
+    views
+    clicks
+    ctr
+  }
+}

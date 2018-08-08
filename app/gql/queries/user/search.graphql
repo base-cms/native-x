@@ -1,0 +1,17 @@
+#import 'fortnight/gql/fragments/user/list'
+
+query SearchUsers($pagination: PaginationInput, $phrase: String!) {
+  searchUsers(pagination: $pagination, phrase: $phrase) {
+    totalCount
+    edges {
+      node {
+        ...UserListFragment
+      }
+      cursor
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}

@@ -1,8 +1,9 @@
+#import 'fortnight/gql/fragments/user-attribution'
+#import 'fortnight/gql/fragments/timestampable'
+
 fragment PlacementListFragment on Placement {
   id
   name
-  createdAt
-  updatedAt
   publisher {
     id
     name
@@ -16,4 +17,6 @@ fragment PlacementListFragment on Placement {
     id
     name
   }
+  ...TimestampableFragment
+  ...UserAttributionFragment
 }

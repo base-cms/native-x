@@ -1,7 +1,13 @@
-#import 'fortnight/gql/fragments/advertiser/edit'
-
 query EditAdvertiser($input: ModelIdInput!) {
   advertiser(input: $input) {
-    ...AdvertiserEditFragment
+    id
+    name
+    deleted
+    campaigns(pagination: { first: 1 }, sort: { field: "createdAt", order: 1 }) {
+      totalCount
+    }
+    stories(pagination: { first: 1 }, sort: { field: createdAt, order: 1}) {
+      totalCount
+    }
   }
 }

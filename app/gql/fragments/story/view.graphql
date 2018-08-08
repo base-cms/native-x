@@ -6,6 +6,12 @@ fragment StoryFragment on Story {
   slug
   teaser
   body
+  previewUrl
+  hash
+  advertiser {
+    id
+    hash
+  }
   primaryImage {
     ...ImageViewFragment
   }

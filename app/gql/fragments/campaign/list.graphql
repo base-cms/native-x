@@ -1,10 +1,10 @@
 #import 'fortnight/gql/fragments/image/src'
+#import 'fortnight/gql/fragments/user-attribution'
+#import 'fortnight/gql/fragments/timestampable'
 
 fragment CampaignListFragment on Campaign {
   id
   name
-  updatedAt
-  createdAt
   status
   requires
   primaryImage {
@@ -24,14 +24,6 @@ fragment CampaignListFragment on Campaign {
     id
     name
   }
-  createdBy {
-    id
-    givenName
-    familyName
-  }
-  updatedBy {
-    id
-    givenName
-    familyName
-  }
+  ...TimestampableFragment
+  ...UserAttributionFragment
 }

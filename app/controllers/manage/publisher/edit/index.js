@@ -6,6 +6,7 @@ import ActionMixin from 'fortnight/mixins/action-mixin';
 
 import updatePublisher from 'fortnight/gql/mutations/publisher/update';
 import publisherLogo from 'fortnight/gql/mutations/publisher/logo';
+import deletePublisher from 'fortnight/gql/mutations/publisher/delete';
 
 export default Controller.extend(ActionMixin, {
   apollo: inject(),
@@ -58,9 +59,9 @@ export default Controller.extend(ActionMixin, {
      *
      * @param {object} fields
      */
-    async update({ id, name, domainName }) {
+    async update({ id, name }) {
       this.startAction();
-      const payload = { name, domainName };
+      const payload = { name };
       const variables = { input: { id, payload } };
       try {
         await this.get('apollo').mutate({ mutation: updatePublisher, variables }, 'updatePublisher');
@@ -72,10 +73,22 @@ export default Controller.extend(ActionMixin, {
     },
 
     /**
+     * Deletes the publisher
      *
      */
     async delete() {
-      this.get('notify').warning('Deleting objects is not yet supported.');
+      this.startAction();
+      const id = this.get('model.id');
+      const variables = { input: { id } };
+      const mutation = deletePublisher;
+      try {
+        await this.get('apollo').mutate({ mutation, variables }, 'deletePublisher');
+        await this.transitionToRoute('manage.publisher.index');
+      } catch (e) {
+        this.get('graphErrors').show(e);
+      } finally {
+        this.endAction();
+      }
     },
   },
 });

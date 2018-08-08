@@ -1684,6 +1684,12 @@ broccoli-funnel@^1.0.0, broccoli-funnel@^1.0.1, broccoli-funnel@^1.1.0, broccoli
     symlink-or-copy "^1.0.0"
     walk-sync "^0.3.1"
 
+broccoli-json-module@0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/broccoli-json-module/-/broccoli-json-module-0.0.2.tgz#459c02fd26b53d7322fffa13dc6e812c166305fc"
+  dependencies:
+    broccoli-filter "^1.2.3"
+
 broccoli-kitchen-sink-helpers@^0.2.5, broccoli-kitchen-sink-helpers@^0.2.6, broccoli-kitchen-sink-helpers@~0.2.0:
   version "0.2.9"
   resolved "https://registry.yarnpkg.com/broccoli-kitchen-sink-helpers/-/broccoli-kitchen-sink-helpers-0.2.9.tgz#a5e0986ed8d76fb5984b68c3f0450d3a96e36ecc"
@@ -3070,6 +3076,12 @@ ember-cli-inject-live-reload@^1.4.1:
 ember-cli-is-package-missing@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/ember-cli-is-package-missing/-/ember-cli-is-package-missing-1.0.0.tgz#6e6184cafb92635dd93ca6c946b104292d4e3390"
+
+ember-cli-json-module@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/ember-cli-json-module/-/ember-cli-json-module-0.0.3.tgz#46e015a8c537f44e1604f57e346ea1576a6143e0"
+  dependencies:
+    broccoli-json-module "0.0.2"
 
 ember-cli-lodash-subset@^1.0.7:
   version "1.0.12"

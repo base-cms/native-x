@@ -1,0 +1,30 @@
+<div class="card-body">
+  {{#materials/section-header class="text-warning mb-0"}}Contacts{{/materials/section-header}}
+  <div class="text-muted">Assign people to receive notifications for this campaign.</div>
+</div>
+
+<ul class="list-group list-group-flush">
+  {{#each campaign.notify.external as |contact|}}
+    <li class="list-group-item flex-column align-items-start">
+      <div class="d-flex flex-row justify-content-between">
+        <div class="d-flex flex-column">
+          <h5 class="mb-1">{{contact.name}}</h5>
+          <p class="mb-0">{{contact.email}}</p>
+        </div>
+        <div class="d-flex flex-column">
+          {{confirm-button
+            icon="cross"
+            label="Remove"
+            class="btn-warning btn-sm my-auto"
+            onConfirm=(action "removeContact" contact.id)
+          }}
+        </div>
+      </div>
+    </li>
+  {{/each}}
+  <a class="list-group-item list-group-item-action text-success" {{action "openModal"}}>
+    <span class="font-weight-bold">{{entypo-icon "circle-with-plus"}} Add Contact</span>
+  </a>
+</ul>
+
+{{materials/contacts-builder/modal isOpen=isModalOpen campaignId=campaign.id}}

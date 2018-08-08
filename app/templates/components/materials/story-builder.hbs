@@ -1,0 +1,93 @@
+<div class="card-body">
+  {{#materials/section-header class="text-success mb-0"}}Story{{/materials/section-header}}
+  <div class="text-muted mb-3">Create your sponsored content.</div>
+
+  {{#auto-save/form as |form|}}
+
+    <div class="form-group">
+      {{#materials/field-label for="story-title"}}Title / Headline {{required-field-label}}{{/materials/field-label}}
+      {{#form.elements.input
+        id="story-title"
+        class="form-control form-control-lg"
+        type="text"
+        value=(if story.placeholder "" story.title)
+        required=true
+        on-change=(action "setTitle") as |input|
+      }}
+        {{input.element}}
+        {{input.elements.invalid-feedback}}
+      {{/form.elements.input}}
+    </div>
+
+    <div class="form-group">
+      {{#materials/field-label for="story-teaser"}}Teaser / Deck{{/materials/field-label}}
+      {{#form.elements.textarea
+        id="story-teaser"
+        class="form-control"
+        value=story.teaser
+        on-change=(action "setTeaser" ) as |textarea|
+      }}
+        {{textarea.element}}
+        {{textarea.elements.invalid-feedback}}
+      {{/form.elements.textarea}}
+    </div>
+
+  {{/auto-save/form}}
+
+  <div class="form-group">
+    {{#materials/field-label for="story-body"}}Body {{required-field-label}}{{/materials/field-label}}
+    {{story-editor class="mb-3" value=story.body storyId=story.id update=(action "setBody")}}
+  </div>
+
+  <hr>
+
+  {{#materials/field-label for="story-primary-image"}}Featured Image {{required-field-label}}{{/materials/field-label}}
+  <div class="row">
+    <div class="col-12 col-lg-6">
+      {{#if story.primaryImage.id}}
+        {{#with story.primaryImage as |image|}}
+          <a {{action "openImageModal"}}>
+            {{image-crop
+              imgClass="img-fluid img-thumbnail"
+              aspectRatio="16:9"
+              originalSrc=image.src
+              fpX=image.focalPoint.x
+              fpY=image.focalPoint.y
+              alt="Image Preview"
+            }}
+          </a>
+        {{/with}}
+      {{else}}
+        <a class="card text-success border-success no-underline" {{action "openImageModal"}}>
+          <div class="card-body text-center d-flex flex-column justify-content-center">
+            <span class="h1">{{entypo-icon "image"}}</span>
+            <span class="h4">Upload Image</span>
+          </div>
+        </a>
+      {{/if}}
+    </div>
+  </div>
+
+  <hr>
+
+  <p class="form-text">Once your story is complete, click the toggle below to publish it. You <em>must</em> publish your story or it will not display when visited.</p>
+  {{#x-toggle
+    class="justify-content-start"
+    size="medium"
+    theme="material"
+    value=isPublished
+    onLabel="Published"
+    offLabel="Draft"
+    showLabels=true
+    onToggle=(action "togglePublished") as |toggle|
+  }}
+    {{toggle.switch class="w-auto px-0"}}
+    {{toggle.onLabel class="font-weight-bold text-muted"}}
+  {{/x-toggle}}
+
+</div>
+<div class="card-footer text-right">
+  <a href={{story.previewUrl}} class="btn btn-info" role="button" target="_blank">{{entypo-icon "eye"}} Preview</a>
+</div>
+
+{{materials/story-builder/image-modal isOpen=isImageModalOpen storyId=story.id image=story.primaryImage}}

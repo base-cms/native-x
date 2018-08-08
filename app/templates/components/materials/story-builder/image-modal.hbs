@@ -1,0 +1,12 @@
+{{#bs-modal show=isOpen size="large" as |modal|}}
+  {{#modal.header}}
+    <h5 class="modal-title">Featured Image</h5>
+    <button {{action modal.actions.hide}} type="button" class="close" aria-label="Close">
+      {{entypo-icon "cross"}}
+    </button>
+  {{/modal.header}}
+
+  {{#modal.body}}
+    {{story/primary-image storyId=storyId image=image}}
+  {{/modal.body}}
+{{/bs-modal}}

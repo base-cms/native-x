@@ -8,9 +8,14 @@ const Router = EmberRouter.extend({
 
 Router.map(function() {
   this.route('manage', { path: '' }, function() {
+    this.route('account');
+
     this.route('advertiser', function() {
       this.route('create');
-      this.route('edit', { path: ':id' });
+      this.route('edit', { path: ':id' }, function() {
+        this.route('campaigns');
+        this.route('stories');
+      });
     });
 
     this.route('campaign', function() {
@@ -57,6 +62,7 @@ Router.map(function() {
       this.route('create');
       this.route('edit', { path: ':id' }, function() {
         this.route('primary-image');
+        this.route('campaigns');
       });
     });
 
@@ -74,6 +80,12 @@ Router.map(function() {
         });
       });
     });
+
+    this.route('user', function() {
+      this.route('create');
+      this.route('edit', { path: ':id' });
+    });
+
   });
 
   this.route('portal', { path: ':hash' }, function() {
@@ -93,6 +105,13 @@ Router.map(function() {
         this.route('report', function() {
           this.route('summary');
           this.route('creative-breakdown');
+        });
+      });
+    });
+    this.route('stories', function() {
+      this.route('manage', { path: ':story_hash' }, function() {
+        this.route('materials', function() {
+
         });
       });
     });
