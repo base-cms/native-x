@@ -1,7 +1,7 @@
-#import 'fortnight/gql/fragments/campaign/materials'
+#import 'fortnight/gql/fragments/campaign/portal'
 
-query CampaignHash($input: CampaignHashInput!) {
+query CampaignPortal($input: CampaignHashInput!) {
   campaignHash(input: $input) {
-    ...CampaignMaterialsFragment
+    ...CampaignPortalFragment
   }
 }
