@@ -1,26 +1,34 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import Image from './StoryView/Header/Image';
 import Contents from './StoryView/Header/Contents';
 import Body from './StoryView/Body';
 import Style from './StoryView/Header/Style';
+import Navbar from './StoryView/Navbar';
 
 const StoryView = ({
   title,
   teaser,
   body,
   primaryImage,
-}) => (
-  <div className="story-wrapper">
-    <Style />
-    <div className="story-header">
-      <Image src={primaryImage.src} {...primaryImage.focalPoint}>
-        <Contents title={title} />
-      </Image>
-    </div>
-    <Body teaser={teaser} body={body} />
-  </div>
-);
+  advertiser,
+}) => {
+  const logoSrc = advertiser.logo ? advertiser.logo.src : '';
+  return (
+    <Fragment>
+      <Navbar title={advertiser.name} logoSrc={logoSrc} />
+      <div className="story-wrapper">
+        <Style />
+        <div className="story-header">
+          <Image src={primaryImage.src} {...primaryImage.focalPoint}>
+            <Contents title={title} />
+          </Image>
+        </div>
+        <Body teaser={teaser} body={body} />
+      </div>
+    </Fragment>
+  );
+};
 
 StoryView.defaultProps = {
   teaser: '',
@@ -38,6 +46,12 @@ StoryView.propTypes = {
       y: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     }),
   }),
+  advertiser: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    logo: PropTypes.shape({
+      src: PropTypes.string,
+    }),
+  }).isRequired,
 };
 
 export default StoryView;

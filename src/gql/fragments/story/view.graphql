@@ -8,6 +8,9 @@ fragment StoryViewFragment on Story {
   advertiser {
     id
     name
+    logo {
+      ...ImageDisplayFragment
+    }
   }
   body
   primaryImage {
