@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ImgixURL from '../../ImgixURL';
 
-
 const StoryListItemPrimaryImage = ({ src, focalPoint }) => {
   if (!src) return null;
   const { x, y } = focalPoint;
