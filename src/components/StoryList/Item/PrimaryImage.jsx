@@ -17,7 +17,7 @@ const StoryListItemPrimaryImage = ({ src, focalPoint }) => {
           crop: 'focalpoint',
           'fp-x': x,
           'fp-y': y,
-          dpr: 2,
+          dpr: 2, // @todo Determine how to use hints so this can render on server
         }}
       >
         {url => <img src={url} alt="" width="150" height="150" /> }
