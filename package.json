@@ -38,6 +38,7 @@
     "react": "^16.4.2",
     "react-apollo": "^2.1.9",
     "react-dom": "^16.4.2",
+    "react-moment": "^0.7.9",
     "reactstrap": "^6.3.1"
   },
   "devDependencies": {
