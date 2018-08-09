@@ -43,7 +43,7 @@ StoryListItemDetails.propTypes = {
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
   }).isRequired,
-  publishedAt: PropTypes.instanceOf(Date),
+  publishedAt: PropTypes.number,
 };
 
 export default StoryListItemDetails;

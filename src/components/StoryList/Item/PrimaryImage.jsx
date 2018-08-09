@@ -2,9 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ImgixURL from '../../ImgixURL';
 
-const StoryListItemPrimaryImage = ({ src, focalPoint }) => {
+const StoryListItemPrimaryImage = ({ src, x, y }) => {
   if (!src) return null;
-  const { x, y } = focalPoint;
   return (
     <div className="d-flex flex-column my-auto mr-3">
       <ImgixURL
@@ -27,18 +26,14 @@ const StoryListItemPrimaryImage = ({ src, focalPoint }) => {
 
 StoryListItemPrimaryImage.defaultProps = {
   src: '',
-  focalPoint: {
-    x: 0.5,
-    y: 0.5,
-  },
+  x: 0.5,
+  y: 0.5,
 };
 
 StoryListItemPrimaryImage.propTypes = {
   src: PropTypes.string,
-  focalPoint: PropTypes.shape({
-    x: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    y: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  }),
+  x: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  y: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 export default StoryListItemPrimaryImage;
