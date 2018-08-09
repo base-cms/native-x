@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Moment from 'react-moment';
 
 const StoryListItemDetails = ({
   title,
@@ -23,11 +24,18 @@ const StoryListItemDetails = ({
         </p>
       )
     }
-    <small className="mt-auto">
-      Published:
-      {' '}
-      {publishedAt}
-    </small>
+    {publishedAt
+      && (
+        <small className="mt-auto">
+          Published:
+          {' '}
+          <Moment format="MMM Do, YYYY">
+            {publishedAt}
+          </Moment>
+        </small>
+      )
+    }
+
   </div>
 );
 
