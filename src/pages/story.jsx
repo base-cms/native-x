@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Query } from 'react-apollo';
-import Link from 'next/link';
+import Head from 'next/head';
 import Title from '../components/Title';
 import TrackPageView from '../components/TrackPageView';
 
@@ -29,22 +29,15 @@ const Story = ({ id }) => {
               </p>
             );
           }
-          // page_path
-          // { trackPageView({ story_id: story.id, page_title: title, page_path: 'foo' }); }}
           const { story } = data;
-          const { title } = story;
+          const { title, teaser } = story;
           return (
             <Fragment>
               <TrackPageView params={{ story_id: id, page_title: title }} />
-              <Title value={story.title} />
-              <h1>
-                {story.title}
-              </h1>
-              <Link href="/">
-                <a>
-                  Home
-                </a>
-              </Link>
+              <Title value={title} />
+              <Head>
+                <meta name="description" content={teaser} />
+              </Head>
             </Fragment>
           );
         }}
