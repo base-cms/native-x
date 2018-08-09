@@ -4,6 +4,7 @@ import { Query } from 'react-apollo';
 import Head from 'next/head';
 import Title from '../components/Title';
 import TrackPageView from '../components/TrackPageView';
+import StoryView from '../components/StoryView';
 
 import pageQuery from '../gql/queries/pages/story.graphql';
 
@@ -38,6 +39,7 @@ const Story = ({ id }) => {
               <Head>
                 <meta name="description" content={teaser} />
               </Head>
+              <StoryView {...story} />
             </Fragment>
           );
         }}
