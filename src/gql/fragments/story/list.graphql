@@ -4,6 +4,7 @@ fragment StoryListFragment on Story {
   id
   title
   teaser
+  path
   publishedAt
   advertiser {
     id

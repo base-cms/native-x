@@ -7,13 +7,14 @@ import Details from './Item/Details';
 
 const StoryListItem = ({
   id,
+  path,
   title,
   teaser,
   primaryImage,
   advertiser,
   publishedAt,
 }) => (
-  <Link as={`/story/${id}`} href={`/story?id=${id}`} passHref>
+  <Link as={`/story/${path}`} href={`/story?id=${id}`} passHref>
     <ListGroupItem tag="a" href="#" className="flex-column align-items-start" action>
       <div className="d-flex flex-row justify-content-between">
         <div className="d-flex flex-row">
@@ -41,6 +42,7 @@ StoryListItem.defaultProps = {
 StoryListItem.propTypes = {
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
+  path: PropTypes.string.isRequired,
   teaser: PropTypes.string,
   publishedAt: PropTypes.number,
   advertiser: PropTypes.shape({
