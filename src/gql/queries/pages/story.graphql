@@ -1,0 +1,7 @@
+#import '../../fragments/story/view.graphql'
+
+query StoryPage($input: PublishedStoryInput!) {
+  publishedStory(input: $input) {
+    ...StoryViewFragment
+  }
+}

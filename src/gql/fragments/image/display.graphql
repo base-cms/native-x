@@ -1,0 +1,8 @@
+fragment ImageDisplayFragment on Image {
+  id
+  src
+  focalPoint {
+    x
+    y
+  }
+}

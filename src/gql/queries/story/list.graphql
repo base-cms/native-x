@@ -1,0 +1,17 @@
+#import '../../fragments/story/list.graphql'
+
+query StoryList($pagination: PaginationInput, $sort: StorySortInput) {
+  publishedStories(pagination: $pagination, sort: $sort) {
+    totalCount
+    edges {
+      node {
+        ...StoryListFragment
+      }
+      cursor
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}

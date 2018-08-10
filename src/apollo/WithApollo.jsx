@@ -1,82 +1,89 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Head from 'next/head';
-import { ApolloProvider, getDataFromTree } from 'react-apollo';
+import { getDataFromTree } from 'react-apollo';
+import PropTypes from 'prop-types';
 import initApollo from './init';
+import apolloConfig from './config';
 
-const getDisplayName = Component => Component.displayName || Component.name || 'Unknown';
 
-export default function withApollo(apolloConfig) {
-  return (ComposedComponent) => {
-    class WithData extends React.Component {
-      static async getInitialProps(context) {
-        let serverState = { apollo: {} };
-        const {
-          req,
-          query,
-          pathname,
-          asPath,
-        } = context;
-
-        // Await the composed components initial props.
-        let composedProps = {};
-        if (ComposedComponent.getInitialProps) {
-          composedProps = await ComposedComponent.getInitialProps(context);
-        }
-
-        // Run all GraphQL queries in tree and extract their data.
-        if (!process.browser) {
-          const apollo = initApollo(apolloConfig, null, req);
-          const url = { query, pathname };
-
-          try {
-            // Run queries in the tree.
-            await getDataFromTree(
-              <ApolloProvider client={apollo}>
-                <ComposedComponent
-                  url={url}
-                  context={context}
-                  {...composedProps}
-                />
-              </ApolloProvider>,
-              { router: { asPath, pathname, query } },
-            );
-          } catch (e) {
-            // Prevent errors from crashing SSR.
-            // Handle the error in components via data.error prop.
-            // eslint-disable-next-line no-console
-            console.error('SERVER ERROR', e);
-          }
-          // Clear the head state so duplicate head data is prevented.
-          Head.rewind();
-          serverState = {
-            apollo: { data: apollo.cache.extract() },
-          };
-        }
-        return { serverState, ...composedProps };
-      }
-
-      constructor(props) {
-        super(props);
-        const { serverState } = this.props;
-        this.apollo = initApollo(apolloConfig, serverState.apollo.data);
-      }
-
-      render() {
-        return (
-          <ApolloProvider client={this.apollo}>
-            <ComposedComponent {...this.props} />
-          </ApolloProvider>
-        );
-      }
+export default (App) => {
+  class WithApollo extends React.Component {
+    /**
+     *
+     * @param {*} props
+     */
+    constructor(props) {
+      super(props);
+      const { apolloState } = this.props;
+      this.apollo = initApollo(apolloConfig, apolloState);
     }
 
-    WithData.displayName = `WithData(${getDisplayName(ComposedComponent)})`;
+    /**
+     *
+     * @param {*} ctx
+     */
+    static async getInitialProps({
+      Component,
+      router,
+      ctx,
+      rest,
+    }) {
+      const { req } = ctx;
 
-    WithData.propTypes = {
-      // eslint-disable-next-line react/forbid-prop-types
-      serverState: PropTypes.object.isRequired,
-    };
-    return WithData;
+      // Await the App's initial props.
+      let appProps = {};
+      if (App.getInitialProps) {
+        appProps = await App.getInitialProps({
+          Component,
+          router,
+          ctx,
+          ...rest,
+        });
+      }
+
+      const apollo = initApollo(apolloConfig, {}, req);
+      // Run all GraphQL queries in tree and extract the data.
+      if (!process.browser) {
+        try {
+          // Run queries in the tree.
+          await getDataFromTree(<App
+            {...appProps}
+            Component={Component}
+            router={router}
+            apollo={apollo}
+          />);
+        } catch (e) {
+          // Prevent errors from crashing SSR.
+          // Handle the error in components via data.error prop.
+          // @see http://dev.apollodata.com/react/api-queries.html#graphql-query-data-error
+          // eslint-disable-next-line no-console
+          console.error('SERVER ERROR in getDataFromTree', e);
+        }
+        // Clear the head state so duplicate head data is prevented.
+        Head.rewind();
+      }
+
+      // Extract the Apollo query data.
+      const apolloState = apollo.cache.extract();
+
+      return {
+        ...appProps,
+        apolloState,
+      };
+    }
+
+    /**
+     *
+     */
+    render() {
+      return <App {...this.props} apollo={this.apollo} />;
+    }
+  }
+
+  WithApollo.displayName = 'WithApollo(App)';
+  WithApollo.propTypes = {
+    // eslint-disable-next-line react/forbid-prop-types
+    apolloState: PropTypes.object.isRequired,
   };
-}
+  return WithApollo;
+};

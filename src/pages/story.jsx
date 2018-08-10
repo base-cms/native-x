@@ -1,42 +1,61 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import Analytics from '../components/Analytics';
-import PageWrapper from '../components/PageWrapper';
-import Header from '../components/Story/Header';
-import Body from '../components/Story/Body';
-import withApollo from '../apollo/client';
-import { AccountContext } from '../components/AccountProvider';
-import { StoryContext, StoryProvider } from '../components/StoryProvider';
+import { Query } from 'react-apollo';
+import Head from 'next/head';
+import Title from '../components/Title';
+import TrackPageView from '../components/TrackPageView';
+import StoryView from '../components/StoryView';
+import LoadingBar from '../components/LoadingBar';
+import ErrorAlert from '../components/ErrorAlert';
 
-const Story = ({ id }) => (
-  <StoryProvider id={id}>
-    <PageWrapper>
-      <StoryContext.Consumer>
-        {({ story }) => (
-          <div className="story-wrapper">
-            <AccountContext.Consumer>
-              {({ account }) => <Analytics accountKey={account.key} storyId={story.id} /> }
-            </AccountContext.Consumer>
-            <Header
-              title={story.title}
-              primaryImgSrc={story.primaryImage.src}
-              primaryImgCaption={story.primaryImage.caption}
-            />
-            <Body teaser={story.teaser} body={story.body} />
-          </div>
-        )}
-      </StoryContext.Consumer>
-    </PageWrapper>
-  </StoryProvider>
-);
+import pageQuery from '../gql/queries/pages/story.graphql';
 
-Story.getInitialProps = async ({ query }) => {
+const Story = ({ id, preview }) => {
+  const input = { id, preview };
+  return (
+    <Fragment>
+      <Query query={pageQuery} variables={{ input }}>
+        {({ loading, error, data }) => {
+          if (loading) {
+            return <LoadingBar />;
+          }
+          if (error) {
+            return <ErrorAlert message={error.message} />;
+          }
+          const { publishedStory } = data;
+          const { title, teaser } = publishedStory;
+          return (
+            <Fragment>
+              <TrackPageView params={{ story_id: id, page_title: title }} />
+              <Title value={title} />
+              <Head>
+                <meta name="description" content={teaser} />
+              </Head>
+              <StoryView {...publishedStory} />
+            </Fragment>
+          );
+        }}
+      </Query>
+    </Fragment>
+  );
+};
+
+Story.getInitialProps = async ({ req, query }) => {
+  let preview = false;
+  if (req) {
+    preview = Boolean(req.query);
+  }
   const { id } = query;
-  return { id };
+  return { id, preview };
+};
+
+Story.defaultProps = {
+  preview: false,
 };
 
 Story.propTypes = {
   id: PropTypes.string.isRequired,
+  preview: PropTypes.bool,
 };
 
-export default withApollo(Story);
+export default Story;

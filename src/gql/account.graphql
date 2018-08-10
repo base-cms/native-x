@@ -1,5 +1,0 @@
-query AccountBranding {
-    account {
-      key
-    }
-}

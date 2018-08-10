@@ -1,0 +1,10 @@
+query Account {
+  account {
+    id
+    name
+    key
+    settings {
+      googleAnalyticsId
+    }
+  }
+}
