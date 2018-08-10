@@ -22,24 +22,6 @@ const Story = ({ id }) => {
           if (error) {
             return <ErrorAlert message={error.message} />;
           }
-          if (loading) {
-            return (
-              <p>
-                Loading...
-              </p>
-            );
-          }
-          if (error) {
-            return (
-              <p>
-                <strong>
-                  {error.message}
-                </strong>
-              </p>
-            );
-          }
-          const { story } = data;
-          const { title, teaser } = story;
           return (
             <Fragment>
               <TrackPageView params={{ story_id: id, page_title: title }} />
