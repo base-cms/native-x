@@ -24,7 +24,7 @@
         <div class="d-flex flex-column">
           <h4 class="mb-1">{{item.title}}</h4>
           <p class="mb-1">{{story-status status=item.status}}</p>
-          <p class="mb-0">Advertiser: {{item.advertiser.name}}</p>
+          <p class="mb-0">{{item.advertiser.name}} (via {{item.publisher.name}})</p>
           <p class="mb-1">Campaigns: {{if item.campaigns.totalCount item.campaigns.totalCount 0}}</p>
           <small>ID: {{item.id}}</small>
         </div>
