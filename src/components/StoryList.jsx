@@ -43,10 +43,11 @@ const StoryList = ({ first, sort }) => {
               </CardBody>
             );
           }
-          const { allStories } = data;
+          const { publishedStories } = data;
+          const { edges } = publishedStories;
           return (
             <ListGroup flush>
-              {allStories.edges.map(edge => <StoryListItem key={edge.node.id} {...edge.node} />)}
+              {edges.map(edge => <StoryListItem key={edge.node.id} {...edge.node} />)}
             </ListGroup>
           );
         }}

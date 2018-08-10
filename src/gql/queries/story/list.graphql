@@ -1,7 +1,7 @@
 #import '../../fragments/story/list.graphql'
 
-query IndexPage($pagination: PaginationInput, $sort: StorySortInput) {
-  allStories(pagination: $pagination, sort: $sort) {
+query StoryList($pagination: PaginationInput, $sort: StorySortInput) {
+  publishedStories(pagination: $pagination, sort: $sort) {
     totalCount
     edges {
       node {
