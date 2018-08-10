@@ -9,12 +9,6 @@
     {{partial "manage/story/fields/advertiser"}}
   </div>
   <div class="col-lg-6">
-    <div class="form-group">
-      <label for="start">Published Date</label>
-      {{story-published-at
-        publishedAt=form.model.publishedAt
-        onSelect=(action form.actions.setAndAutosave "publishedAt")
-      }}
-    </div>
+    {{partial "manage/story/fields/publisher"}}
   </div>
 </div>
