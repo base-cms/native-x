@@ -10,8 +10,8 @@ import ErrorAlert from '../components/ErrorAlert';
 
 import pageQuery from '../gql/queries/pages/story.graphql';
 
-const Story = ({ id }) => {
-  const input = { id };
+const Story = ({ id, preview }) => {
+  const input = { id, preview };
   return (
     <Fragment>
       <Query query={pageQuery} variables={{ input }}>
@@ -40,13 +40,19 @@ const Story = ({ id }) => {
   );
 };
 
-Story.getInitialProps = async ({ query }) => {
+Story.getInitialProps = async ({ req, query }) => {
+  const { preview } = req.query;
   const { id } = query;
-  return { id };
+  return { id, preview: Boolean(preview) };
+};
+
+Story.defaultProps = {
+  preview: false,
 };
 
 Story.propTypes = {
   id: PropTypes.string.isRequired,
+  preview: PropTypes.bool,
 };
 
 export default Story;
