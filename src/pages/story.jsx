@@ -5,6 +5,8 @@ import Head from 'next/head';
 import Title from '../components/Title';
 import TrackPageView from '../components/TrackPageView';
 import StoryView from '../components/StoryView';
+import LoadingBar from '../components/LoadingBar';
+import ErrorAlert from '../components/ErrorAlert';
 
 import pageQuery from '../gql/queries/pages/story.graphql';
 
@@ -14,6 +16,12 @@ const Story = ({ id }) => {
     <Fragment>
       <Query query={pageQuery} variables={{ input }}>
         {({ loading, error, data }) => {
+          if (loading) {
+            return <LoadingBar />;
+          }
+          if (error) {
+            return <ErrorAlert message={error.message} />;
+          }
           if (loading) {
             return (
               <p>
