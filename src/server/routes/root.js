@@ -13,7 +13,8 @@ module.exports = (client) => {
   router.get('/robots.txt', (req, res) => {
     const { protocol, host } = req;
     const uri = `${protocol}://${host}`;
-    const txt = renderTemplate('robots.hbs', { uri });
+    const txt = renderTemplate('robots.txt.hbs', { uri });
+    res.set('Content-Type', 'text/plain; charset=UTF-8');
     res.send(txt);
   });
 
