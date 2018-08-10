@@ -41,9 +41,12 @@ const Story = ({ id, preview }) => {
 };
 
 Story.getInitialProps = async ({ req, query }) => {
-  const { preview } = req.query;
+  let preview = false;
+  if (req) {
+    preview = Boolean(req.query);
+  }
   const { id } = query;
-  return { id, preview: Boolean(preview) };
+  return { id, preview };
 };
 
 Story.defaultProps = {
