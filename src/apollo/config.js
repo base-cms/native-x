@@ -4,7 +4,6 @@ import { onError } from 'apollo-link-error';
 import fetch from 'isomorphic-unfetch';
 
 export default (req) => {
-  // console.info('config', req);
   const headers = req ? req.headers : {};
   const host = (req) ? req.ROOT_URI : '';
   if (headers.host) {
