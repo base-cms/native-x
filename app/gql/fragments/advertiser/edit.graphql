@@ -4,6 +4,7 @@
 fragment AdvertiserEditFragment on Advertiser {
   id
   name
+  website
   hash
   logo {
     ...ImageSrcFragment

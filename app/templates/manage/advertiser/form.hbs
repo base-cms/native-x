@@ -22,6 +22,25 @@
 <div class="row">
   <div class="col">
     <div class="form-group">
+      <label for="website">Website</label>
+      {{input
+        type="url"
+        value=form.model.website
+        class="form-control"
+        id="website"
+        focusOut=(action form.actions.autosave)
+        keyUp=(action form.actions.autosave 750)
+      }}
+      <div class="invalid-feedback">
+        Please provide a valid website.
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <div class="form-group">
       <label>Internal Contacts</label>
       {{#type-ahead
         multiple=true
