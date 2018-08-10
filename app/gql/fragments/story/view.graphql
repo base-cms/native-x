@@ -12,6 +12,10 @@ fragment StoryFragment on Story {
     id
     hash
   }
+  publisher {
+    id
+    name
+  }
   primaryImage {
     ...ImageViewFragment
   }

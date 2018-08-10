@@ -5,8 +5,9 @@
       {{#if publishedAt}}
         {{moment-format publishedAt displayFormat}}
       {{else}}
-        Not Published (Draft)
+        Not Published
       {{/if}}
+      ({{story-status status=status}})
     </a>
     <div class="input-group-append">
       <button class="btn btn-light" {{action 'removeDate'}}>

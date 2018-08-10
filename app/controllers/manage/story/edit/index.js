@@ -15,13 +15,14 @@ export default Controller.extend(ActionMixin, {
      *
      * @param {object} fields
      */
-    async update({ id, advertiser, title, teaser, body, publishedAt }) {
+    async update({ id, advertiser, publisher, title, teaser, body, publishedAt }) {
       this.startAction();
       const payload = {
         title,
         teaser,
         body,
         advertiserId: get(advertiser || {}, 'id'),
+        publisherId: get(publisher || {}, 'id'),
         publishedAt: publishedAt ? publishedAt.valueOf() : null,
       };
       const variables = { input: { id, payload } };
