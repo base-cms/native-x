@@ -19,10 +19,31 @@
   </div>
 </div>
 
+<div class="row">
+  <div class="col">
+    <div class="form-group mb-0">
+      <label for="publisher-website">Website {{required-field-label}}</label>
+      {{input
+        type="url"
+        required=true
+        value=form.model.website
+        class="form-control"
+        id="publisher-website"
+        placeholder="https://www.publisher-website.com"
+        focusOut=(action form.actions.autosave)
+        keyUp=(action form.actions.autosave 750)
+      }}
+      <div class="invalid-feedback">
+        Please provide a publisher website.
+      </div>
+    </div>
+  </div>
+</div>
+
 {{#if model.id}}
   <div class="row">
     <div class="col">
-      <div class="form-group">
+      <div class="form-group mt-3">
         <label for="publisher-domain-name">Custom Domain Name</label>
         {{input
           type="text"
