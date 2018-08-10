@@ -18,5 +18,11 @@ module.exports = (client) => {
     res.send(txt);
   });
 
+  router.get('/sitemap.xml', (req, res) => {
+    const xml = renderTemplate('sitemap.xml.hbs', {});
+    res.set('Content-Type', 'text/xml; charset=UTF-8');
+    res.send(xml);
+  });
+
   return router;
 };
