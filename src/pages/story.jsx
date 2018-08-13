@@ -23,13 +23,14 @@ const Story = ({ id, preview }) => {
             return <ErrorAlert message={error.message} />;
           }
           const { publishedStory } = data;
-          const { title, teaser } = publishedStory;
+          const { title, teaser, url } = publishedStory;
           return (
             <Fragment>
               <TrackPageView params={{ story_id: id, page_title: title }} />
               <Title value={title} />
               <Head>
                 <meta name="description" content={teaser} />
+                <link rel="canonical" href={url} />
               </Head>
               <StoryView {...publishedStory} />
             </Fragment>
