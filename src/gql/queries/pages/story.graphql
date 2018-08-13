@@ -1,7 +1,11 @@
 #import '../../fragments/story/view.graphql'
 
-query StoryPage($input: PublishedStoryInput!) {
+query StoryPage($input: PublishedStoryInput!, $publisherId: String) {
   publishedStory(input: $input) {
     ...StoryViewFragment
+    publisher(contextId: $publisherId) {
+      id
+      name
+    }
   }
 }

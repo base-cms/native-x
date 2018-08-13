@@ -11,7 +11,8 @@ module.exports = (client) => {
       client.render(req, res, '_error');
     } else {
       const actualPage = '/story';
-      const props = { id };
+      const publisherId = req.query.pubid || null;
+      const props = { id, publisherId };
       client.render(req, res, actualPage, props);
     }
   });
