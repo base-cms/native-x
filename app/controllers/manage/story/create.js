@@ -21,8 +21,6 @@ export default Controller.extend(ActionMixin, {
         publisher,
       } = this.get('model');
 
-      console.info(this.get('model'));
-
       const payload = {
         title,
         advertiserId: get(advertiser || {}, 'id'),
