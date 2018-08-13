@@ -4,11 +4,12 @@ const {
   makeRemoteExecutableSchema,
   introspectSchema,
 } = require('graphql-tools');
+const env = require('../env');
 
-const { ROOT_URI } = process.env;
+const { GRAPHQL_URI } = env;
 
 const link = new HttpLink({
-  uri: `${ROOT_URI}/graph`,
+  uri: `${GRAPHQL_URI}/graph`,
   fetch,
 });
 
