@@ -28,11 +28,23 @@ module.exports = (client) => {
     res.send(txt);
   }));
 
-  router.get('/sitemap.xml', (req, res) => {
-    const xml = renderTemplate('sitemap.xml.hbs', {});
+  router.get('/sitemap.xml', asyncRoute(async (req, res) => {
+    const source = `
+      query Sitemap {
+        storySitemap {
+          id
+          loc
+          lastmod
+          changefreq
+          priority
+        }
+      }
+    `;
+    const items = await graphql({ source }, 'storySitemap');
+    const xml = renderTemplate('sitemap.xml.hbs', { items });
     res.set('Content-Type', 'text/xml; charset=UTF-8');
     res.send(xml);
-  });
+  }));
 
   return router;
 };
