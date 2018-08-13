@@ -13,10 +13,20 @@ const link = new HttpLink({
   fetch,
 });
 
+let promise;
 module.exports = async () => {
-  const schema = await introspectSchema(link);
-  return makeRemoteExecutableSchema({
-    schema,
-    link,
-  });
+  const build = async () => {
+    const schema = await introspectSchema(link);
+    return makeRemoteExecutableSchema({
+      schema,
+      link,
+    });
+  };
+  if (!promise) {
+    // Prevents the introspection from happening more than once.
+    // What happens, though, when the remote schema updates?
+    // This would cache the schema and would require a reload of the app.
+    promise = build();
+  }
+  return promise;
 };
