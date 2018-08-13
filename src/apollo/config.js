@@ -5,7 +5,7 @@ import fetch from 'isomorphic-unfetch';
 
 export default (req) => {
   const headers = req ? req.headers : {};
-  const host = (req) ? req.ROOT_URI : '';
+  const uri = (req) ? `${req.protocol}://${req.get('host')}` : '';
   if (headers.host) {
     headers['x-forwarded-host'] = headers.host;
     delete headers.host;
@@ -21,7 +21,7 @@ export default (req) => {
         if (networkError) console.error(`[Network error]: ${networkError}`);
       }),
       new HttpLink({
-        uri: `${host}/graph`,
+        uri: `${uri}/graph`,
         headers,
         fetch,
       }),
