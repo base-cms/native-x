@@ -3,6 +3,7 @@
 fragment PublisherEditFragment on Publisher {
   id
   name
+  website
   createdAt
   updatedAt
   domainName

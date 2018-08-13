@@ -11,6 +11,7 @@
       type=(component "-forms/campaign/-fields/type" form=form value=campaignType on-change=(action "setCampaignType"))
       name=(component "-forms/campaign/-fields/name" form=form value=model.name on-change=(action "setFieldValue"))
       advertiser=(component "-forms/campaign/-fields/advertiser" form=form disabled=isActionRunning value=model.advertiser on-change=(action "setFieldValue"))
+      publisher=(component "-forms/story/-fields/publisher" form=form disabled=isActionRunning value=model.publisher on-change=(action "setFieldValue"))
       story=(component "-forms/campaign/-fields/story" form=form disabled=isActionRunning value=model.story on-change=(action "setFieldValue"))
     )
     buttons=(hash

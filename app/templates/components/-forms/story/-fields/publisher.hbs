@@ -1,0 +1,22 @@
+<label for="story-publisher">Primary Publisher {{required-field-label}}</label>
+{{#form.elements.typeahead
+  id="story-publisher"
+  placeholder="Begin typing to search..."
+  autocomplete="off"
+  class="form-control"
+  name="publisher"
+  label="Primary Publisher"
+  value=model.publisher
+  disabled=disabled
+  required=true
+  aria-labeledby="story-publisher-help"
+  allowClear=false
+  on-search=(action "search")
+  on-change=on-change as |typeahead|
+}}
+  {{#typeahead.element as |publisher|}}
+    {{publisher.name}}
+  {{/typeahead.element}}
+  {{typeahead.elements.invalid-feedback}}
+{{/form.elements.typeahead}}
+<small id="story-publisher-help" class="form-text text-muted">The primary publisher running the story.</small>

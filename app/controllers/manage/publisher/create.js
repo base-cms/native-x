@@ -12,9 +12,9 @@ export default Controller.extend(ActionMixin, {
      *
      * @param {object} fields
      */
-    async create({ name }) {
+    async create({ name, website }) {
       this.startAction();
-      const payload = { name };
+      const payload = { name, website };
       const variables = { input: { payload } };
       try {
         const response = await this.get('apollo').mutate({ mutation, variables }, 'createPublisher');

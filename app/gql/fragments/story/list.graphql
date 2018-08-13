@@ -9,6 +9,10 @@ fragment StoryListFragment on Story {
     id
     name
   }
+  publisher {
+    id
+    name
+  }
   status
   publishedAt
   primaryImage {

@@ -25,13 +25,16 @@ export default Component.extend(ActionMixin, ComponentQueryManager, {
 
       const key = `create${classify(type)}Campaign`;
 
-      const { advertiser, name, story } = this.get('model');
+      const { advertiser, publisher, name, story } = this.get('model');
       const input = { name };
       if (['new-story', 'external-url'].includes(type)) {
         input.advertiserId = get(advertiser, 'id');
       }
       if (type === 'existing-story') {
         input.storyId = get(story, 'id');
+      }
+      if (type === 'new-story') {
+        input.publisherId = get(publisher, 'id');
       }
 
       const mutation = this.get(key);
