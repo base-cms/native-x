@@ -37,6 +37,11 @@ module.exports = (client) => {
           lastmod
           changefreq
           priority
+          image {
+            id
+            loc
+            caption
+          }
         }
       }
     `;
