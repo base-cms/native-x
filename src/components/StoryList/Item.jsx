@@ -14,7 +14,7 @@ const StoryListItem = ({
   advertiser,
   publishedAt,
 }) => (
-  <Link as={`/story/${path}`} href={`/story?id=${id}`} passHref>
+  <Link as={`/${path}`} href={`/story?id=${id}`} passHref>
     <ListGroupItem tag="a" href="#" className="flex-column align-items-start" action>
       <div className="d-flex flex-row justify-content-between">
         <div className="d-flex flex-row">
