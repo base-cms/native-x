@@ -1,6 +1,6 @@
 {
   "name": "fortnight-web",
-  "version": "1.0.0-rc.2",
+  "version": "1.0.0-rc.2.1",
   "main": "index.js",
   "author": "Jacob Bare <jacob@limit0.io>",
   "license": "MIT",
