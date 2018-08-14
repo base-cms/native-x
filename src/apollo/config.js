@@ -5,11 +5,12 @@ import fetch from 'isomorphic-unfetch';
 
 export default (req) => {
   const headers = req ? req.headers : {};
-  const uri = (req) ? `${req.protocol}://${req.get('host')}` : '';
-  if (headers.host) {
-    headers['x-forwarded-host'] = headers.host;
-    delete headers.host;
-  }
+  const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http';
+  const uri = (req) ? `${protocol}://${req.get('host')}` : '';
+  // if (headers.host) {
+  //   headers['x-forwarded-host'] = headers.host;
+  //   delete headers.host;
+  // }
   return {
     link: ApolloLink.from([
       onError(({ graphQLErrors, networkError }) => {
