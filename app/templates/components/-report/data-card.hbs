@@ -7,7 +7,13 @@
 
   <div class="d-flex flex-column text-right">
     <span class="text-uppercase">{{title}}</span>
-    <span class="h4 mb-0 {{color}}" title="{{value}}">{{number-format value format}}</span>
+    <span class="h4 mb-0 {{color}}" title={{value}}>
+      {{#if isLoading}}
+        {{entypo-icon "hour-glass" class="d-inline-block spin"}}
+      {{else}}
+        {{number-format value format}}
+      {{/if}}
+    </span>
     {{#if percentage}}
       <small class="text-muted">({{number-format percentage "0%"}})</small>
     {{/if}}
