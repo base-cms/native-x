@@ -28,7 +28,8 @@ const GoogleAnalytics = ({ trackingId, accountKey }) => {
               send_page_view: false,
               custom_map: {
                 dimension1: 'account_key',
-                dimension2: 'story_id'
+                dimension2: 'story_id',
+                metric1: 'social_shares',
               },
               account_key: '${accountKey}'
             });
