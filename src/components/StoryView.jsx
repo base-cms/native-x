@@ -26,7 +26,14 @@ const StoryView = ({
             <Contents title={title} />
           </Image>
         </div>
-        <Body storyId={id} url={url} title={title} teaser={teaser} body={body} />
+        <Body
+          storyId={id}
+          imageSrc={primaryImage.src}
+          url={url}
+          title={title}
+          teaser={teaser}
+          body={body}
+        />
       </div>
     </Fragment>
   );

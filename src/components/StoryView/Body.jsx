@@ -9,6 +9,7 @@ const StoryViewBody = ({
   title,
   body,
   teaser,
+  imageSrc,
 }) => {
   const createMarkup = html => ({ __html: html });
   return (
@@ -70,7 +71,7 @@ const StoryViewBody = ({
           {teaser}
         </h2>
         <hr className="mt-4 mb-4" />
-        <SocialShare storyId={storyId} title={title} teaser={teaser} url={url} className="mb-4" />
+        <SocialShare storyId={storyId} title={title} teaser={teaser} url={url} imageSrc={imageSrc} className="mb-4" />
         {/* eslint-disable-next-line react/no-danger */}
         <div className="fr-view" dangerouslySetInnerHTML={createMarkup(body)} />
       </Container>
@@ -80,6 +81,7 @@ const StoryViewBody = ({
 
 StoryViewBody.defaultProps = {
   teaser: '',
+  imageSrc: '',
 };
 
 StoryViewBody.propTypes = {
@@ -87,6 +89,7 @@ StoryViewBody.propTypes = {
   url: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   teaser: PropTypes.string,
+  imageSrc: PropTypes.string,
   body: PropTypes.string.isRequired,
 };
 

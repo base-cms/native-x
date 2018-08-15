@@ -20,6 +20,7 @@ const StoryViewSocialShare = ({
   size,
   title,
   teaser,
+  imageSrc,
 }) => (
   <div className={`share-button-container ${className}`}>
     <style jsx global>
@@ -45,9 +46,11 @@ const StoryViewSocialShare = ({
       <LinkedinIcon size={size} round />
     </LinkedinShareButton>
 
-    <PinterestShareButton description={teaser} url={url} className="d-inline-block mr-2 share-button">
-      <PinterestIcon size={size} round />
-    </PinterestShareButton>
+    {imageSrc.length > 0 && (
+      <PinterestShareButton media={imageSrc} url={url} className="d-inline-block mr-2 share-button">
+        <PinterestIcon size={size} round />
+      </PinterestShareButton>
+    )}
 
     <EmailShareButton url={url} className="d-inline-block mr-2 share-button">
       <EmailIcon size={size} round />
@@ -59,12 +62,14 @@ const StoryViewSocialShare = ({
 
 StoryViewSocialShare.defaultProps = {
   className: '',
+  imageSrc: '',
   size: 50,
   teaser: '',
 };
 
 StoryViewSocialShare.propTypes = {
   className: PropTypes.string,
+  imageSrc: PropTypes.string,
   size: PropTypes.number,
   storyId: PropTypes.string.isRequired,
   teaser: PropTypes.string,
