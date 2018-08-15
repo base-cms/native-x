@@ -74,6 +74,8 @@ const StoryViewBody = ({
         <SocialShare storyId={storyId} title={title} teaser={teaser} url={url} imageSrc={imageSrc} className="mb-4" />
         {/* eslint-disable-next-line react/no-danger */}
         <div className="fr-view" dangerouslySetInnerHTML={createMarkup(body)} />
+        <hr className="mt-4 mb-4" />
+        <SocialShare storyId={storyId} title={title} teaser={teaser} url={url} imageSrc={imageSrc} />
       </Container>
     </div>
   );
