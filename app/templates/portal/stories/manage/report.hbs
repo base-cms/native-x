@@ -2,9 +2,48 @@
   <div class="row">
     <div class="col main">
 
-      <div class="row">
+      <div class="row mb-3">
         <div class="col">
           {{-report/title title="Story Summary Report" subtitle="A real-time summary of your story's most important metrics"}}
+        </div>
+      </div>
+
+      <div class="card border-0 z-depth-half">
+        <div class="card-body">
+          <div class="d-flex flex-row justify-content-between">
+
+            <div class="d-flex flex-column">
+              <div class="d-flex flex-row">
+                {{#if model.primaryImage.src}}
+                  <div class="d-flex flex-column my-auto mr-3">
+                    {{imgix-img
+                      originalSrc=model.primaryImage.src
+                      width=192
+                      height=108
+                      w="192"
+                      h="108"
+                      fit="crop"
+                      crop="focalpoint"
+                      fp-x=model.primaryImage.focalPoint.x
+                      fp-y=model.primaryImage.focalPoint.y
+                    }}
+                  </div>
+                {{/if}}
+                <div class="d-flex flex-column">
+                  <h4 class="mb-1">{{model.title}}</h4>
+                  <p class="mb-1">{{model.teaser}}</p>
+                  <p class="mt-auto mb-0">{{story-status status=model.status}}</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          {{-report/story/metrics storyId=model.id}}
         </div>
       </div>
 
