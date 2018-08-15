@@ -1,46 +1,46 @@
-<div class="row">
-  <div class="col-sm-6 col-lg-3 mb-4">
-    {{-report/data-card
-      icon="users"
-      title="Unique Users"
-      format="0.[00]a"
-      value=metrics.users
-      color="text-primary"
-      subtitle="Total people who visited"
-      isLoading=isActionRunning
-    }}
-  </div>
-  <div class="col-sm-6 col-lg-3 mb-4">
-    {{-report/data-card
-      icon="eye"
-      title="Page Views"
-      format="0.[00]a"
-      value=metrics.pageviews
-      color="text-info"
-      subtitle="Total times viewed"
-      isLoading=isActionRunning
-    }}
-  </div>
-  <div class="col-sm-6 col-lg-3 mb-4">
-    {{-report/data-card
-      icon="share"
-      title="Shares"
-      format="0.[00]a"
-      value=metrics.shares
-      color="text-warning"
-      subtitle="Social share interactions"
-      isLoading=isActionRunning
-    }}
-  </div>
-  <div class="col-sm-6 col-lg-3 mb-4">
-    {{-report/data-card
-      icon="area-graph"
-      title="Time Spent"
-      format="0:00:00"
-      value=metrics.avgTimeOnPage
-      color="text-success"
-      subtitle="Average time per person"
-      isLoading=isActionRunning
-    }}
-  </div>
+
+<div class="col-sm-6 col-lg-3 mb-4">
+  {{-report/data-card
+    icon="users"
+    title="Unique Users"
+    format="0.[00]a"
+    value=metrics.users
+    color="text-primary"
+    subtitle="Total people who visited"
+    isLoading=isActionRunning
+  }}
 </div>
+<div class="col-sm-6 col-lg-3 mb-4">
+  {{-report/data-card
+    icon="eye"
+    title="Page Views"
+    format="0.[00]a"
+    value=metrics.pageviews
+    color="text-info"
+    subtitle="Total times viewed"
+    isLoading=isActionRunning
+  }}
+</div>
+<div class="col-sm-6 col-lg-3 mb-4">
+  {{-report/data-card
+    icon="share"
+    title="Shares"
+    format="0.[00]a"
+    value=metrics.shares
+    color="text-warning"
+    subtitle="Social share interactions"
+    isLoading=isActionRunning
+  }}
+</div>
+<div class="col-sm-6 col-lg-3 mb-4">
+  {{-report/data-card
+    icon="area-graph"
+    title="Time Spent"
+    format="0:00:00"
+    value=metrics.avgTimeOnPage
+    color="text-success"
+    subtitle="Average time per person"
+    isLoading=isActionRunning
+  }}
+</div>
+
