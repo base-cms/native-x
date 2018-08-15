@@ -6,6 +6,7 @@ import SocialShare from './SocialShare';
 const StoryViewBody = ({
   storyId,
   url,
+  title,
   body,
   teaser,
 }) => {
@@ -69,7 +70,7 @@ const StoryViewBody = ({
           {teaser}
         </h2>
         <hr className="mt-4 mb-4" />
-        <SocialShare storyId={storyId} url={url} className="mb-4" />
+        <SocialShare storyId={storyId} title={title} teaser={teaser} url={url} className="mb-4" />
         {/* eslint-disable-next-line react/no-danger */}
         <div className="fr-view" dangerouslySetInnerHTML={createMarkup(body)} />
       </Container>
@@ -84,6 +85,7 @@ StoryViewBody.defaultProps = {
 StoryViewBody.propTypes = {
   storyId: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
   teaser: PropTypes.string,
   body: PropTypes.string.isRequired,
 };

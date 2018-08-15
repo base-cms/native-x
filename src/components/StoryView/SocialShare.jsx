@@ -18,6 +18,8 @@ const StoryViewSocialShare = ({
   url,
   className,
   size,
+  title,
+  teaser,
 }) => (
   <div className={`share-button-container ${className}`}>
     <style jsx global>
@@ -35,15 +37,15 @@ const StoryViewSocialShare = ({
       <FacebookIcon size={size} round />
     </FacebookShareButton>
 
-    <TwitterShareButton url={url} className="d-inline-block mr-2 share-button">
+    <TwitterShareButton title={title} url={url} className="d-inline-block mr-2 share-button">
       <TwitterIcon size={size} round />
     </TwitterShareButton>
 
-    <LinkedinShareButton url={url} className="d-inline-block mr-2 share-button">
+    <LinkedinShareButton title={title} description={teaser} url={url} className="d-inline-block mr-2 share-button">
       <LinkedinIcon size={size} round />
     </LinkedinShareButton>
 
-    <PinterestShareButton url={url} className="d-inline-block mr-2 share-button">
+    <PinterestShareButton description={teaser} url={url} className="d-inline-block mr-2 share-button">
       <PinterestIcon size={size} round />
     </PinterestShareButton>
 
@@ -58,13 +60,16 @@ const StoryViewSocialShare = ({
 StoryViewSocialShare.defaultProps = {
   className: '',
   size: 50,
+  teaser: '',
 };
 
 StoryViewSocialShare.propTypes = {
-  storyId: PropTypes.string.isRequired,
-  url: PropTypes.string.isRequired,
   className: PropTypes.string,
   size: PropTypes.number,
+  storyId: PropTypes.string.isRequired,
+  teaser: PropTypes.string,
+  title: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
 };
 
 export default StoryViewSocialShare;
