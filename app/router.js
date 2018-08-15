@@ -113,6 +113,7 @@ Router.map(function() {
         this.route('materials', function() {
 
         });
+        this.route('report');
       });
     });
   });
