@@ -7,3 +7,11 @@ export const trackEvent = (action, props) => {
 export const trackPageView = (props) => {
   trackEvent('page_view', props);
 };
+
+export const trackSocialShare = (provider, props) => {
+  trackEvent('share', {
+    ...props,
+    event_label: provider,
+    social_shares: 1,
+  });
+};
