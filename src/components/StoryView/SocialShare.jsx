@@ -17,15 +17,6 @@ import { trackSocialShare } from '../../lib/gtag';
 class StoryViewSocialShare extends React.Component {
   /**
    *
-   * @param {object} props
-   */
-  constructor(props) {
-    super(props);
-    this.track = this.track.bind(this);
-  }
-
-  /**
-   *
    * @param {string} provider The social provider name.
    */
   track(provider) {
@@ -38,7 +29,6 @@ class StoryViewSocialShare extends React.Component {
    */
   render() {
     const {
-      storyId,
       url,
       className,
       size,
@@ -104,8 +94,6 @@ class StoryViewSocialShare extends React.Component {
         >
           <EmailIcon size={size} round />
         </EmailShareButton>
-
-        {console.info(storyId)}
       </div>
     );
   }
