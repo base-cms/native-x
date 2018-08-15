@@ -7,6 +7,8 @@ import Style from './StoryView/Header/Style';
 import Navbar from './StoryView/Navbar';
 
 const StoryView = ({
+  id,
+  url,
   title,
   teaser,
   body,
@@ -24,7 +26,7 @@ const StoryView = ({
             <Contents title={title} />
           </Image>
         </div>
-        <Body teaser={teaser} body={body} />
+        <Body storyId={id} url={url} teaser={teaser} body={body} />
       </div>
     </Fragment>
   );
@@ -36,6 +38,8 @@ StoryView.defaultProps = {
 };
 
 StoryView.propTypes = {
+  id: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   teaser: PropTypes.string,
   body: PropTypes.string.isRequired,

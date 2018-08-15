@@ -1,8 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Container } from 'reactstrap';
+import SocialShare from './SocialShare';
 
-const StoryViewBody = ({ body, teaser }) => {
+const StoryViewBody = ({
+  storyId,
+  url,
+  body,
+  teaser,
+}) => {
   const createMarkup = html => ({ __html: html });
   return (
     <div id="story-body" className="position-relative mx-3">
@@ -63,6 +69,7 @@ const StoryViewBody = ({ body, teaser }) => {
           {teaser}
         </h2>
         <hr className="mt-4 mb-4" />
+        <SocialShare storyId={storyId} url={url} className="mb-4" />
         {/* eslint-disable-next-line react/no-danger */}
         <div className="fr-view" dangerouslySetInnerHTML={createMarkup(body)} />
       </Container>
@@ -75,6 +82,8 @@ StoryViewBody.defaultProps = {
 };
 
 StoryViewBody.propTypes = {
+  storyId: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
   teaser: PropTypes.string,
   body: PropTypes.string.isRequired,
 };
