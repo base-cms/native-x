@@ -12,53 +12,104 @@ import {
   PinterestShareButton,
   PinterestIcon,
 } from 'react-share';
+import { trackSocialShare } from '../../lib/gtag';
 
-const StoryViewSocialShare = ({
-  storyId,
-  url,
-  className,
-  size,
-  title,
-  teaser,
-  imageSrc,
-}) => (
-  <div className={`share-button-container ${className}`}>
-    <style jsx global>
-      {`
-        .share-button {
-          cursor: pointer;
-        }
-        .share-button:hover:not(:active) {
-          opacity: 0.75;
-        }
-      `}
-    </style>
+class StoryViewSocialShare extends React.Component {
+  /**
+   *
+   * @param {object} props
+   */
+  constructor(props) {
+    super(props);
+    this.track = this.track.bind(this);
+  }
 
-    <FacebookShareButton url={url} className="d-inline-block mr-2 share-button">
-      <FacebookIcon size={size} round />
-    </FacebookShareButton>
+  /**
+   *
+   * @param {string} provider The social provider name.
+   */
+  track(provider) {
+    const { storyId, title } = this.props;
+    trackSocialShare(provider, { story_id: storyId, page_title: title });
+  }
 
-    <TwitterShareButton title={title} url={url} className="d-inline-block mr-2 share-button">
-      <TwitterIcon size={size} round />
-    </TwitterShareButton>
+  /**
+   *
+   */
+  render() {
+    const {
+      storyId,
+      url,
+      className,
+      size,
+      title,
+      teaser,
+      imageSrc,
+    } = this.props;
+    return (
+      <div className={`share-button-container ${className}`}>
+        <style jsx global>
+          {`
+            .share-button {
+              cursor: pointer;
+            }
+            .share-button:hover:not(:active) {
+              opacity: 0.75;
+            }
+          `}
+        </style>
 
-    <LinkedinShareButton title={title} description={teaser} url={url} className="d-inline-block mr-2 share-button">
-      <LinkedinIcon size={size} round />
-    </LinkedinShareButton>
+        <FacebookShareButton
+          url={url}
+          beforeOnClick={() => this.track('Facebook')}
+          className="d-inline-block mr-2 share-button"
+        >
+          <FacebookIcon size={size} round />
+        </FacebookShareButton>
 
-    {imageSrc.length > 0 && (
-      <PinterestShareButton media={imageSrc} url={url} className="d-inline-block mr-2 share-button">
-        <PinterestIcon size={size} round />
-      </PinterestShareButton>
-    )}
+        <TwitterShareButton
+          title={title}
+          url={url}
+          beforeOnClick={() => this.track('Twitter')}
+          className="d-inline-block mr-2 share-button"
+        >
+          <TwitterIcon size={size} round />
+        </TwitterShareButton>
 
-    <EmailShareButton url={url} className="d-inline-block mr-2 share-button">
-      <EmailIcon size={size} round />
-    </EmailShareButton>
+        <LinkedinShareButton
+          title={title}
+          description={teaser}
+          url={url}
+          beforeOnClick={() => this.track('LinkedIn')}
+          className="d-inline-block mr-2 share-button"
+        >
+          <LinkedinIcon size={size} round />
+        </LinkedinShareButton>
 
-    {console.info(storyId)}
-  </div>
-);
+        {imageSrc.length > 0 && (
+          <PinterestShareButton
+            media={imageSrc}
+            url={url}
+            beforeOnClick={() => this.track('Pinterest')}
+            className="d-inline-block mr-2 share-button"
+          >
+            <PinterestIcon size={size} round />
+          </PinterestShareButton>
+        )}
+
+        <EmailShareButton
+          url={url}
+          beforeOnClick={() => this.track('Email')}
+          className="d-inline-block mr-2 share-button"
+        >
+          <EmailIcon size={size} round />
+        </EmailShareButton>
+
+        {console.info(storyId)}
+      </div>
+    );
+  }
+}
 
 StoryViewSocialShare.defaultProps = {
   className: '',
