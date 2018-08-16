@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Container } from 'reactstrap';
 import SocialShare from './SocialShare';
-import { trackOutboundLink } from '../../lib/gtag';
+import { GTAGTracker } from '../../lib/gtag';
 
 const createMarkup = html => ({ __html: html });
 
@@ -11,17 +11,13 @@ class StoryViewBody extends React.Component {
    *
    */
   componentDidMount() {
-    const { storyId, title, path } = this.props;
+    const { tracker, storyId } = this.props;
     const elements = document.querySelectorAll(`#body-${storyId} a[href]`);
     elements.forEach((element) => {
       const url = element.getAttribute('href');
       element.addEventListener('click', (e) => {
         e.preventDefault();
-        trackOutboundLink(url, {
-          story_id: storyId,
-          page_title: title,
-          page_path: `/${path}`,
-        });
+        tracker.outboundLink(url);
       });
     });
   }
@@ -33,10 +29,10 @@ class StoryViewBody extends React.Component {
     const {
       storyId,
       url,
-      path,
       title,
       body,
       teaser,
+      tracker,
       imageSrc,
     } = this.props;
     return (
@@ -99,24 +95,22 @@ class StoryViewBody extends React.Component {
           </h2>
           <hr className="mt-4 mb-4" />
           <SocialShare
-            storyId={storyId}
             title={title}
             teaser={teaser}
             url={url}
             imageSrc={imageSrc}
-            path={path}
+            tracker={tracker}
             className="mb-4"
           />
           {/* eslint-disable-next-line react/no-danger */}
           <div id={`body-${storyId}`} className="fr-view" dangerouslySetInnerHTML={createMarkup(body)} />
           <hr className="mt-4 mb-4" />
           <SocialShare
-            storyId={storyId}
             title={title}
             teaser={teaser}
             url={url}
             imageSrc={imageSrc}
-            path={path}
+            tracker={tracker}
           />
         </Container>
       </div>
@@ -125,18 +119,18 @@ class StoryViewBody extends React.Component {
 }
 
 StoryViewBody.defaultProps = {
-  teaser: '',
   imageSrc: '',
+  teaser: '',
 };
 
 StoryViewBody.propTypes = {
-  storyId: PropTypes.string.isRequired,
-  url: PropTypes.string.isRequired,
-  path: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  teaser: PropTypes.string,
-  imageSrc: PropTypes.string,
   body: PropTypes.string.isRequired,
+  imageSrc: PropTypes.string,
+  storyId: PropTypes.string.isRequired,
+  teaser: PropTypes.string,
+  title: PropTypes.string.isRequired,
+  tracker: PropTypes.instanceOf(GTAGTracker).isRequired,
+  url: PropTypes.string.isRequired,
 };
 
 export default StoryViewBody;

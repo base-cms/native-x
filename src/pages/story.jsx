@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { Query } from 'react-apollo';
 import Head from 'next/head';
 
+import { GTAGTracker } from '../lib/gtag';
+
 import Title from '../components/Title';
-import TrackPageView from '../components/TrackPageView';
 import StoryView from '../components/StoryView';
 import LoadingBar from '../components/LoadingBar';
 import ErrorAlert from '../components/ErrorAlert';
@@ -25,19 +26,29 @@ const Story = ({ id, preview, publisherId }) => {
           }
           const { publishedStory } = data;
           const {
-            title,
-            teaser,
-            url,
+            advertiser,
             path,
-            publisher,
-            publishedAt,
-            updatedAt,
             primaryImage,
+            publishedAt,
+            publisher,
+            teaser,
+            title,
+            updatedAt,
+            url,
           } = publishedStory;
+
+          const tracker = new GTAGTracker({
+            story_id: id,
+            page_path: `/${path}`,
+            page_title: title,
+            publisher_id: publisher.id,
+            advertiser_id: advertiser.id,
+          });
+          tracker.pageview();
+
           const { src } = primaryImage || {};
           return (
             <Fragment>
-              <TrackPageView params={{ story_id: id, page_path: `/${path}`, page_title: title }} />
               <Title value={title} />
               <Head>
                 {/* SEO */}
@@ -73,7 +84,7 @@ const Story = ({ id, preview, publisherId }) => {
                 {/* @todo Eventually use the publisher context. */}
                 <meta name="native-x:publisher" content={publisher.name} />
               </Head>
-              <StoryView {...publishedStory} />
+              <StoryView {...publishedStory} tracker={tracker} />
             </Fragment>
           );
         }}

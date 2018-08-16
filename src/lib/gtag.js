@@ -27,3 +27,25 @@ export const trackOutboundLink = (url, props) => {
     },
   });
 };
+
+export class GTAGTracker {
+  constructor(config = {}) {
+    this.config = config;
+  }
+
+  event(action) {
+    trackEvent(action, this.config);
+  }
+
+  pageview() {
+    trackPageView(this.config);
+  }
+
+  share(method) {
+    trackSocialShare(method, this.config);
+  }
+
+  outboundLink(url) {
+    trackOutboundLink(url, this.config);
+  }
+}

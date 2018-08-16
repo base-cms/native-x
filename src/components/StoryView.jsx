@@ -5,16 +5,17 @@ import Contents from './StoryView/Header/Contents';
 import Body from './StoryView/Body';
 import Style from './StoryView/Header/Style';
 import Navbar from './StoryView/Navbar';
+import { GTAGTracker } from '../lib/gtag';
 
 const StoryView = ({
-  id,
-  url,
-  path,
-  title,
-  teaser,
-  body,
-  primaryImage,
   advertiser,
+  body,
+  id,
+  primaryImage,
+  teaser,
+  title,
+  tracker,
+  url,
 }) => {
   const logoSrc = advertiser.logo ? advertiser.logo.src : '';
   return (
@@ -31,10 +32,10 @@ const StoryView = ({
           storyId={id}
           imageSrc={primaryImage.src}
           url={url}
-          path={path}
           title={title}
           teaser={teaser}
           body={body}
+          tracker={tracker}
         />
       </div>
     </Fragment>
@@ -47,12 +48,14 @@ StoryView.defaultProps = {
 };
 
 StoryView.propTypes = {
-  id: PropTypes.string.isRequired,
-  url: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  path: PropTypes.string.isRequired,
-  teaser: PropTypes.string,
+  advertiser: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    logo: PropTypes.shape({
+      src: PropTypes.string,
+    }),
+  }).isRequired,
   body: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
   primaryImage: PropTypes.shape({
     src: PropTypes.string,
     focalPoint: PropTypes.shape({
@@ -60,12 +63,10 @@ StoryView.propTypes = {
       y: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     }),
   }),
-  advertiser: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    logo: PropTypes.shape({
-      src: PropTypes.string,
-    }),
-  }).isRequired,
+  teaser: PropTypes.string,
+  tracker: PropTypes.instanceOf(GTAGTracker).isRequired,
+  title: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
 };
 
 export default StoryView;

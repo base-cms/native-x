@@ -12,7 +12,7 @@ import {
   PinterestShareButton,
   PinterestIcon,
 } from 'react-share';
-import { trackSocialShare } from '../../lib/gtag';
+import { GTAGTracker } from '../../lib/gtag';
 
 class StoryViewSocialShare extends React.Component {
   /**
@@ -20,14 +20,8 @@ class StoryViewSocialShare extends React.Component {
    * @param {string} provider The social provider name.
    */
   track(provider) {
-    const { storyId, title, path } = this.props;
-    trackSocialShare(provider, {
-      story_id: storyId,
-      page_title: title,
-      page_path: `/${path}`,
-      content_type: 'story',
-      content_id: storyId,
-    });
+    const { tracker } = this.props;
+    tracker.share(provider);
   }
 
   /**
@@ -115,11 +109,10 @@ StoryViewSocialShare.defaultProps = {
 StoryViewSocialShare.propTypes = {
   className: PropTypes.string,
   imageSrc: PropTypes.string,
-  path: PropTypes.string.isRequired,
   size: PropTypes.number,
-  storyId: PropTypes.string.isRequired,
   teaser: PropTypes.string,
   title: PropTypes.string.isRequired,
+  tracker: PropTypes.instanceOf(GTAGTracker).isRequired,
   url: PropTypes.string.isRequired,
 };
 

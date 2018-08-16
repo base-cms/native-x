@@ -29,6 +29,8 @@ const GoogleAnalytics = ({ trackingId, accountKey }) => {
               custom_map: {
                 dimension1: 'account_key',
                 dimension2: 'story_id',
+                dimension3: 'publisher_id',
+                dimension4: 'advertiser_id',
                 metric1: 'social_shares',
               },
               account_key: '${accountKey}'
