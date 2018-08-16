@@ -19,10 +19,10 @@ export default Component.extend(ActionMixin, ObjectQueryManager, {
 
   series: computed('rows.[]', function() {
     const rows = this.get('rows') || [];
-    return {
-      name: 'Pageviews',
+    return [{
+      name: null,
       data: rows.map(row => row.metrics.pageviews),
-    };
+    }];
   }),
 
   options: computed('series', 'rows.[]', function() {
@@ -32,7 +32,6 @@ export default Component.extend(ActionMixin, ObjectQueryManager, {
       title: { text: false },
       xAxis: {
         categories: rows.map(row => row.date),
-        type: 'datetime',
       },
       yAxis: {
         title: { text: 'Pageviews' },
