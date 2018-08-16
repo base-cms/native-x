@@ -6,6 +6,7 @@ fragment StoryViewFragment on Story {
   teaser
   url
   publishedAt
+  updatedAt
   advertiser {
     id
     name
