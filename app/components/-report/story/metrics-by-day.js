@@ -42,6 +42,15 @@ export default Component.extend(ActionMixin, ObjectQueryManager, {
         min: 0.5,
         max: length - 1.5,
       },
+      tooltip: {
+        formatter: function() {
+          const { index, color } = this.point;
+          const { longDate } = rows[index];
+          return `<strong>${longDate}</string><br/>
+            <span style="color:${color}">\u25CF</span> ${this.series.name}: <b>${this.y}</b>
+          `;
+        },
+      },
       yAxis: {
         title: { text: 'Pageviews' },
       },
