@@ -8,10 +8,10 @@ export const trackPageView = (props) => {
   trackEvent('page_view', props);
 };
 
-export const trackSocialShare = (provider, props) => {
+export const trackSocialShare = (method, props) => {
   trackEvent('share', {
     ...props,
-    event_label: provider,
+    method,
     social_shares: 1,
   });
 };

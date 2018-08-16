@@ -21,7 +21,13 @@ class StoryViewSocialShare extends React.Component {
    */
   track(provider) {
     const { storyId, title, path } = this.props;
-    trackSocialShare(provider, { story_id: storyId, page_title: title, page_path: `/${path}` });
+    trackSocialShare(provider, {
+      story_id: storyId,
+      page_title: title,
+      page_path: `/${path}`,
+      content_type: 'story',
+      content_id: storyId,
+    });
   }
 
   /**
