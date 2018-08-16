@@ -12,7 +12,7 @@ import { AccountConsumer } from '../providers/AccountProvider';
 export default () => (
   <Container fluid>
     <Title value="Home" />
-    <TrackPageView params={{ page_title: 'Home' }} />
+    <TrackPageView params={{ page_path: '/', page_title: 'Home' }} />
 
     <Row className="my-3">
       <Col className="mx-5">

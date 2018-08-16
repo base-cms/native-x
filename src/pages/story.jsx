@@ -28,6 +28,7 @@ const Story = ({ id, preview, publisherId }) => {
             title,
             teaser,
             url,
+            path,
             publisher,
             publishedAt,
             updatedAt,
@@ -36,7 +37,7 @@ const Story = ({ id, preview, publisherId }) => {
           const { src } = primaryImage || {};
           return (
             <Fragment>
-              <TrackPageView params={{ story_id: id, page_title: title }} />
+              <TrackPageView params={{ story_id: id, page_path: `/${path}`, page_title: title }} />
               <Title value={title} />
               <Head>
                 {/* SEO */}
