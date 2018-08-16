@@ -5,6 +5,7 @@ query Account {
     key
     settings {
       googleAnalyticsId
+      siteVerificationMeta
     }
   }
 }

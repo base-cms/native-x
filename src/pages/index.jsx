@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import {
   Container,
   Row,
   Col,
 } from 'reactstrap';
+import Head from 'next/head';
+
 import Title from '../components/Title';
 import StoryList from '../components/StoryList';
 import { AccountConsumer } from '../providers/AccountProvider';
@@ -22,9 +24,17 @@ export default () => {
         <Col className="mx-5">
           <AccountConsumer>
             {({ account }) => (
-              <h1 className="mb-0">
-                {account.name}
-              </h1>
+              <Fragment>
+                <h1 className="mb-0">
+                  {account.name}
+                </h1>
+
+                {account.settings.siteVerificationMeta.length > 0 && (
+                  <Head>
+                    <meta name="google-site-verification" content={account.settings.siteVerificationMeta} />
+                  </Head>
+                )}
+              </Fragment>
             )}
           </AccountConsumer>
           <hr className="mb-4" />
