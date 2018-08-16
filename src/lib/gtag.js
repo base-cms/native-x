@@ -15,3 +15,15 @@ export const trackSocialShare = (method, props) => {
     social_shares: 1,
   });
 };
+
+export const trackOutboundLink = (url, props) => {
+  trackEvent('click', {
+    ...props,
+    event_category: 'outbound',
+    event_label: url,
+    transport_type: 'beacon',
+    event_callback: () => {
+      document.location = url;
+    },
+  });
+};
