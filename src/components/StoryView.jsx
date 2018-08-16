@@ -9,6 +9,7 @@ import Navbar from './StoryView/Navbar';
 const StoryView = ({
   id,
   url,
+  path,
   title,
   teaser,
   body,
@@ -30,6 +31,7 @@ const StoryView = ({
           storyId={id}
           imageSrc={primaryImage.src}
           url={url}
+          path={path}
           title={title}
           teaser={teaser}
           body={body}
@@ -48,6 +50,7 @@ StoryView.propTypes = {
   id: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
+  path: PropTypes.string.isRequired,
   teaser: PropTypes.string,
   body: PropTypes.string.isRequired,
   primaryImage: PropTypes.shape({

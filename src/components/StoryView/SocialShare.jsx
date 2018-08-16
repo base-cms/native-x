@@ -20,8 +20,8 @@ class StoryViewSocialShare extends React.Component {
    * @param {string} provider The social provider name.
    */
   track(provider) {
-    const { storyId, title } = this.props;
-    trackSocialShare(provider, { story_id: storyId, page_title: title });
+    const { storyId, title, path } = this.props;
+    trackSocialShare(provider, { story_id: storyId, page_title: title, page_path: `/${path}` });
   }
 
   /**
@@ -109,6 +109,7 @@ StoryViewSocialShare.defaultProps = {
 StoryViewSocialShare.propTypes = {
   className: PropTypes.string,
   imageSrc: PropTypes.string,
+  path: PropTypes.string.isRequired,
   size: PropTypes.number,
   storyId: PropTypes.string.isRequired,
   teaser: PropTypes.string,

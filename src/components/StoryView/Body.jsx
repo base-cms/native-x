@@ -6,6 +6,7 @@ import SocialShare from './SocialShare';
 const StoryViewBody = ({
   storyId,
   url,
+  path,
   title,
   body,
   teaser,
@@ -77,6 +78,7 @@ const StoryViewBody = ({
           teaser={teaser}
           url={url}
           imageSrc={imageSrc}
+          path={path}
           className="mb-4"
         />
         {/* eslint-disable-next-line react/no-danger */}
@@ -88,6 +90,7 @@ const StoryViewBody = ({
           teaser={teaser}
           url={url}
           imageSrc={imageSrc}
+          path={path}
         />
       </Container>
     </div>
@@ -102,6 +105,7 @@ StoryViewBody.defaultProps = {
 StoryViewBody.propTypes = {
   storyId: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
+  path: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   teaser: PropTypes.string,
   imageSrc: PropTypes.string,
