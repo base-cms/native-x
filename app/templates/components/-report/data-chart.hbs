@@ -1,7 +1,7 @@
-<div class="card-header text-center">
-  {{ title }}
-</div>
 <div class="card-body">
+  {{#if title}}
+    <h5 class="card-title">{{title}}</h5>
+  {{/if}}
   {{#if isLoading}}
     <small class="text-muted">Loading data...</small>
     {{progress-bar show=true}}

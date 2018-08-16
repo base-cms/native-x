@@ -17,47 +17,38 @@ export default Component.extend(ActionMixin, ObjectQueryManager, {
     return moment();
   }),
 
-  series: computed('rows.[]', function() {
+  data: computed('rows.[]', function() {
     const rows = this.get('rows') || [];
+    return rows.map(row => row.metrics.pageviews);
+  }),
+
+  series: computed('data.length', function() {
+    const data = this.get('data');
     return [{
-      name: null,
-      data: rows.map(row => row.metrics.pageviews),
+      name: 'Pageviews',
+      data,
     }];
   }),
 
-  options: computed('series', 'rows.[]', function() {
+  options: computed('series', 'data.length', function() {
     const rows = this.get('rows') || [];
+    const { length } = this.get('data');
     return {
       chart: { type: 'areaspline' },
+      legend: { enabled: false },
       title: { text: false },
       xAxis: {
-        categories: rows.map(row => row.date),
+        categories: rows.map(row => row.shortDate),
+        min: 0.5,
+        max: length - 1.5,
       },
       yAxis: {
         title: { text: 'Pageviews' },
       },
-      tooltip: { valueSuffix: ' pageviews' },
       plotOptions: {
         areaspline: { fillOpacity: 0.5 },
       },
     };
-
-    // const data = this.get('timeSeries');
-    // console.info(data);
-    // const options = {
-    //   title: {
-    //     text: false,
-    //   },
-    //   yAxis: {
-    //     title: {
-    //       text: false,
-    //     }
-    //   },
-    //   xAxis: {
-    //     type: 'datetime',
-    //   }
-    // }
-    // return { data, options };
   }),
 
   init() {

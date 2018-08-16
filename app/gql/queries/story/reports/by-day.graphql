@@ -3,7 +3,8 @@ query StoryReportByDay($input: ModelIdInput!, $startDate: Date!, $endDate: Date!
     id
     reports {
       byDay(startDate: $startDate, endDate: $endDate) {
-        date
+        shortDate: date(format: "MMM D")
+        longDate: date(format: "dddd, MMMM Do, YYYY")
         metrics {
           users
           pageviews
