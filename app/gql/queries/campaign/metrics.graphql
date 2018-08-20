@@ -1,0 +1,10 @@
+query CampaignMetrics($input: ModelIdInput!) {
+  campaign(input: $input) {
+    id
+    metrics {
+      views
+      clicks
+      ctr
+    }
+  }
+}
