@@ -1,10 +1,10 @@
-{{#power-select
-  triggerClass="metric-selector"
-  options=options
-  selected=selected
-  searchField="label"
-  disabled=disabled
-  onchange=(action "setMetric") as |metric|
-}}
-  {{metric.label}}
-{{/power-select}}
+<div class="dropdown">
+  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    {{selected.label}}
+  </button>
+  <div class="dropdown-menu">
+    {{#each options as |option|}}
+      <a class="dropdown-item" {{action "setMetric" option}}>{{option.label}}</a>
+    {{/each}}
+  </div>
+</div>
