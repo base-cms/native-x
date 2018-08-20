@@ -1,0 +1,9 @@
+{{#power-calendar-range
+  center=center
+  selected=range
+  disabled=disabled
+  onCenterChange=(action (mut center) value="moment")
+  onSelect=(action "setRange" value="moment") as |calendar|}}
+  {{calendar.nav}}
+  {{calendar.days}}
+{{/power-calendar-range}}

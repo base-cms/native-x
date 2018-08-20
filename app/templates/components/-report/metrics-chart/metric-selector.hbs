@@ -1,9 +1,10 @@
 {{#power-select
+  triggerClass="metric-selector"
   options=options
   selected=selected
   searchField="label"
   disabled=disabled
-  onchange=onchange as |metric|
+  onchange=(action "setMetric") as |metric|
 }}
   {{metric.label}}
 {{/power-select}}

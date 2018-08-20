@@ -5,11 +5,16 @@
         selected=selectedMetric
         options=metricOptions
         disabled=isLoading
-        onchange=(action "setMetric")
+        onchange=(action "dispatchChange")
       }}
     </div>
-    <div class="col text-right">
-      Date Range
+    <div class="col">
+      {{-report/metrics-chart/date-selector
+        class="float-right"
+        disabled=isLoading
+        range=(hash start=startDate end=endDate)
+        onchange=(action "dispatchChange")
+      }}
     </div>
   </div>
 </div>
