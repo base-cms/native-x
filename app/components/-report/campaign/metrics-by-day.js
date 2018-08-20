@@ -3,11 +3,15 @@ import ObjectQueryManager from 'ember-apollo-client/mixins/object-query-manager'
 import ActionMixin from 'fortnight/mixins/action-mixin';
 import { computed } from '@ember/object';
 import moment from 'moment';
+import numeral from 'numeral';
 
 import query from 'fortnight/gql/queries/campaign/reports/by-day';
 
 export default Component.extend(ActionMixin, ObjectQueryManager, {
-  tagName: '',
+  metric: 'views',
+  label: 'Impressions',
+  format: null,
+  labelFormat: null,
 
   startDate: computed('endDate', function() {
     return moment(this.get('endDate')).subtract(14, 'days');
@@ -19,13 +23,15 @@ export default Component.extend(ActionMixin, ObjectQueryManager, {
 
   data: computed('rows.[]', function() {
     const rows = this.get('rows') || [];
-    return rows.map(row => row.metrics.views);
+    const key = this.get('metric');
+    return rows.map(row => row.metrics[key]);
   }),
 
   series: computed('data.length', function() {
     const data = this.get('data');
+    const name = this.get('label');
     return [{
-      name: 'Impressions',
+      name,
       data,
     }];
   }),
@@ -33,6 +39,8 @@ export default Component.extend(ActionMixin, ObjectQueryManager, {
   options: computed('series', 'data.length', function() {
     const rows = this.get('rows') || [];
     const { length } = this.get('data');
+    const format = this.get('format');
+    const labelFormat = this.get('labelFormat');
     return {
       chart: { type: 'areaspline' },
       legend: { enabled: false },
@@ -44,15 +52,22 @@ export default Component.extend(ActionMixin, ObjectQueryManager, {
       },
       tooltip: {
         formatter: function() {
+
+          const value = format ? numeral(this.y).format(format) : this.y;
           const { index, color } = this.point;
           const { longDate } = rows[index];
           return `<strong>${longDate}</string><br/>
-            <span style="color:${color}">\u25CF</span> ${this.series.name}: <b>${this.y}</b>
+            <span style="color:${color}">\u25CF</span> ${this.series.name}: <b>${value}</b>
           `;
         },
       },
       yAxis: {
-        title: { text: 'Impressions' },
+        title: { text: this.get('label') },
+        labels: {
+          formatter: function() {
+            return labelFormat ? numeral(this.value).format(labelFormat) : this.value;
+          },
+        },
       },
       plotOptions: {
         areaspline: { fillOpacity: 0.5 },

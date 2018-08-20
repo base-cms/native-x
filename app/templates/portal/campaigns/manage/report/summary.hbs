@@ -53,7 +53,8 @@
       {{-report/campaign/metrics campaignId=model.campaign.id}}
 
       <h4 class="text-muted px-3 mb-2">Metrics Over Time</h4>
-      {{-report/campaign/metrics-by-day campaignId=model.campaign.id}}
+      {{-report/campaign/metrics-by-day campaignId=model.campaign.id metric="views" label="Impressions" class="mb-4" labelFormat="0.[0]a" format="0,0"}}
+      {{-report/campaign/metrics-by-day campaignId=model.campaign.id metric="ctr" label="CTR" labelFormat="0.[000]%" format="0.[000]%"}}
 
     </div>
   </div>
