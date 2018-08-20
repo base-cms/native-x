@@ -1,4 +1,5 @@
 #import 'fortnight/gql/fragments/campaign-creative'
+#import 'fortnight/gql/fragments/image/src'
 
 fragment CampaignPortalFragment on Campaign {
   id
@@ -9,6 +10,10 @@ fragment CampaignPortalFragment on Campaign {
   url
   criteria {
     start
+    end
+  }
+  primaryImage {
+    ...ImageSrcFragment
   }
   story {
     id
