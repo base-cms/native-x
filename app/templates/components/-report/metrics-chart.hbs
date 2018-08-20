@@ -1,0 +1,16 @@
+<div class="card-body">
+  <div class="row">
+    <div class="col">
+      {{-report/metrics-chart/metric-selector
+        selected=selectedMetric
+        options=metricOptions
+        disabled=isLoading
+        onchange=(action "setMetric")
+      }}
+    </div>
+    <div class="col text-right">
+      Date Range
+    </div>
+  </div>
+</div>
+
