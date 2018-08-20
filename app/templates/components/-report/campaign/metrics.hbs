@@ -1,34 +1,6 @@
-<div class="col-md-4 mb-4">
-  {{-report/data-card
-    icon="eye"
-    title="Impressions"
-    format="0.[00]a"
-    value=metrics.views
-    color="text-info"
-    subtitle="Displayed viewable impressions"
-    isLoading=isActionRunning
-  }}
-</div>
-<div class="col-md-4 mb-4">
-  {{-report/data-card
-    icon="direction"
-    title="Clicks"
-    format="0.[0]a"
-    value=metrics.clicks
-    color="text-warning"
-    subtitle="Success of online ads"
-    isLoading=isActionRunning
-  }}
-</div>
-<div class="col-md-4 mb-4">
-  {{-report/data-card
-    icon="area-graph"
-    title="CTR"
-    format="0.[000]%"
-    value=metrics.ctr
-    color="text-success"
-    subtitle="Click-through rate"
-    isLoading=isActionRunning
-  }}
-</div>
-
+{{-report/campaign/metric-cards
+  isLoading=isActionRunning
+  views=metrics.views
+  clicks=metrics.clicks
+  ctr=metrics.ctr
+}}

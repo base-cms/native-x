@@ -5,8 +5,6 @@ import ActionMixin from 'fortnight/mixins/action-mixin';
 import query from 'fortnight/gql/queries/campaign/metrics';
 
 export default Component.extend(ActionMixin, ObjectQueryManager, {
-  classNames: ['row'],
-
   init() {
     this._super(...arguments);
     this.query();
