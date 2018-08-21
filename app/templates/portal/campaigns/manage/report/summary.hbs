@@ -50,12 +50,20 @@
       </div>
 
       <h4 class="text-muted px-3 mb-2">Total Metrics</h4>
-      {{-report/campaign/metrics campaignId=model.campaign.id}}
+      {{-report/campaign/metrics hash=model.campaign.hash advertiserId=model.advertiser.id}}
 
       <h4 class="text-muted px-3 mb-2">Metrics Over Time</h4>
-      {{-report/campaign/metrics-by-day campaignId=model.campaign.id metric="views" label="Impressions" class="mb-4" labelFormat="0.[0]a" format="0,0"}}
-      {{-report/campaign/metrics-by-day campaignId=model.campaign.id metric="ctr" label="CTR" labelFormat="0.[000]%" format="0.[000]%"}}
-
+      {{-report/metrics-chart
+        class="border-0 z-depth-half"
+        startDate=startDate
+        endDate=endDate
+        metricOptions=metricOptions
+        metricKey=metricKey
+        isLoading=isReportRunning
+        rows=rows
+        oninsert=(action "runByDayReport")
+        onchange=(action "runByDayReport")
+      }}
     </div>
   </div>
 </div>
