@@ -5,16 +5,16 @@ import ActionMixin from 'fortnight/mixins/action-mixin';
 import query from 'fortnight/gql/queries/campaign/metrics';
 
 export default Component.extend(ActionMixin, ObjectQueryManager, {
-  init() {
-    this._super(...arguments);
+  didInsertElement() {
     this.query();
   },
 
   async query() {
     this.startAction();
-    const variables = { input: { id: this.get('campaignId') } };
+    const input = { hash: this.get('hash'), advertiserId: this.get('advertiserId') };
+    const variables = { input };
     try {
-      const { metrics } = await this.get('apollo').query({ query, variables }, 'campaign');
+      const { metrics } = await this.get('apollo').query({ query, variables }, 'campaignHash');
       this.set('metrics', metrics);
     } catch (e) {
       this.get('graphErrors').show(e);

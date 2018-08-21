@@ -1,5 +1,5 @@
-query CampaignMetrics($input: ModelIdInput!) {
-  campaign(input: $input) {
+query CampaignMetrics($input: CampaignHashInput!) {
+  campaignHash(input: $input) {
     id
     metrics {
       views
