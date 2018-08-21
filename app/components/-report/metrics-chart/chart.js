@@ -77,6 +77,7 @@ export default Component.extend({
         categories: this.get('categories'),
         min: this.get('extremes.min'),
         max: this.get('extremes.max'),
+        minRange: 1,
       },
       tooltip: {
         formatter: function() {
