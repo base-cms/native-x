@@ -1,0 +1,16 @@
+{{-report/campaign/metrics
+  isLoading=areMetricsLoading
+  metrics=metrics
+  oninsert=(action "retrieveCreativeMetrics")
+}}
+
+<div class="row">
+  <div class="col">
+    {{-report/campaign/chart
+      isLoading=isReportRunning
+      rows=rows
+      oninsert=(action "runByDayReport")
+      onchange=(action "runByDayReport")
+    }}
+  </div>
+</div>

@@ -1,4 +1,59 @@
-<div class="container my-3">
+<div class="container-fluid mt-4">
+  <div class="row">
+    <div class="col main">
+
+      <div class="row mb-3">
+        <div class="col">
+          {{-report/title title="Campaign Creative Report" subtitle="A breakdown of how your individual creatives are performing"}}
+        </div>
+      </div>
+
+      {{#each model.campaign.creatives as |creative|}}
+        <hr>
+        <div class="row">
+
+          <div class="col-lg-4">
+            <div class="card z-depth-half bg-white mb-4">
+              <div class="card-body">
+                {{campaign-creative/preview-grid creative=creative campaign=model.campaign}}
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-8">
+            {{-report/campaign/creative
+              campaignId=model.campaign.id
+              creativeId=creative.id
+            }}
+          </div>
+
+        </div>
+        <hr>
+
+
+
+        {{!-- <div class="row">
+          <div class="col">
+            {{-report/creative-card
+              creative=creativeSummary.creative
+              campaign=model.campaignHash
+              clicks=creativeSummary.clicks
+              views=creativeSummary.views
+              ctr=creativeSummary.ctr
+              totalClicks=clicks
+              totalViews=impressions
+              totalCtr=ctr
+            }}
+          </div>
+        </div> --}}
+      {{/each}}
+
+    </div>
+  </div>
+</div>
+
+
+{{!-- <div class="container my-3">
 
   <div class="row mb-3">
     <div class="col">
@@ -57,4 +112,4 @@
     </div>
   </div>
 
-</div>
+</div> --}}
