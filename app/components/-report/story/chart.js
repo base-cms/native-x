@@ -8,10 +8,10 @@ export default Component.extend({
 
   isLoading: false,
 
-  metricKey: 'ctr',
-  metricOptions: computed.reads('metrics.campaign.array').readOnly(),
+  metricKey: 'pageviews',
+  metricOptions: computed.reads('metrics.story.array').readOnly(),
   selectedMetric: computed('metricKey', function() {
-    return this.get(`metrics.campaign.${this.get('metricKey')}`);
+    return this.get(`metrics.story.${this.get('metricKey')}`);
   }).readOnly(),
 
   startDate: computed('endDate', function() {
