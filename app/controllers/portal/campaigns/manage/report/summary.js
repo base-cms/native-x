@@ -7,13 +7,14 @@ import query from 'fortnight/gql/queries/campaign/reports/by-day';
 
 export default Controller.extend({
   apollo: inject(),
+  metrics: inject(),
 
   metricKey: 'ctr',
-  metricOptions: null,
+  metricOptions: computed.reads('metrics.campaign.array'),
   isReportRunning: false,
 
-  selectedMetric: computed('metricKey', 'metricOptions', function() {
-    return this.get('metricOptions').find(opt => opt.key === this.get('metricKey'));
+  selectedMetric: computed('metricKey', function() {
+    return this.get(`metrics.campaign.${this.get('metricKey')}`);
   }),
 
   startDate: computed('endDate', function() {
@@ -23,15 +24,6 @@ export default Controller.extend({
   endDate: computed(function() {
     return moment();
   }),
-
-  init() {
-    this._super(...arguments);
-    this.set('metricOptions', [
-      { key: 'views', label: 'Impressions', tooltipFormat: '0,0', labelFormat: '0.[0]a' },
-      { key: 'clicks', label: 'Clicks', tooltipFormat: '0,0', labelFormat: '0.[0]a' },
-      { key: 'ctr', label: 'CTR', tooltipFormat: '0.[000]%', labelFormat: '0.[000]%' },
-    ]);
-  },
 
   actions: {
     async runByDayReport({ startDate, endDate }) {
