@@ -111,15 +111,6 @@ export default Component.extend({
     return config;
   }),
 
-  showLoading: observer('isLoading', function() {
-    const chart = this.get('chart');
-    if (this.get('isLoading')) {
-      chart.showLoading();
-    } else {
-      chart.hideLoading();
-    }
-  }),
-
   updateChart: observer('data.[]', function() {
     const chart = this.get('chart');
     // Update the yAxis label.
