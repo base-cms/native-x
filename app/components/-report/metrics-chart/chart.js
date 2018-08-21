@@ -1,5 +1,6 @@
 import Component from '@ember/component';
 import { computed, observer } from '@ember/object';
+import numeral from 'numeral';
 
 export default Component.extend({
   /**
@@ -73,8 +74,8 @@ export default Component.extend({
       },
       tooltip: {
         formatter: function() {
-          const value = this.y;
-          // const value = format ? numeral(this.y).format(format) : this.y;
+          const format = component.get('tooltipFormat');
+          const value = format ? numeral(this.y).format(format) : this.y;
           const { index, color } = this.point;
           const longDate = component.get(`days.${index}.longDate`);
           return `<strong>${longDate}</string><br/>
@@ -84,11 +85,12 @@ export default Component.extend({
       },
       yAxis: {
         title: { text: this.get('label') },
-        // labels: {
-        //   formatter: function() {
-        //     return labelFormat ? numeral(this.value).format(labelFormat) : this.value;
-        //   },
-        // },
+        labels: {
+          formatter: function() {
+            const format = component.get('labelFormat');
+            return format ? numeral(this.value).format(format) : this.value;
+          },
+        },
       },
       plotOptions: {
         areaspline: { fillOpacity: 0.5 },

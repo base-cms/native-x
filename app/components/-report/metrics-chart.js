@@ -29,7 +29,7 @@ export default Component.extend(ActionMixin, {
   /**
    * An array of metric option objects.
    * For example:
-   * `[ { key: 'views', label: 'Impressions' } ]`
+   * `[ { key: 'views', label: 'Impressions', tooltipFormat: '0,0', labelFormat: '0.[0]a' } ]`
    *
    * @type {object[]}
    */
