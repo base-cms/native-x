@@ -75,6 +75,10 @@ export default Component.extend(ActionMixin, {
     return rows.map(row => row.metrics[key]);
   }),
 
+  didInsertElement() {
+    this.sendEventAction('oninsert', this);
+  },
+
   /**
    * Dispatches the change event.
    * Will send the `startDate`, `endDate`, and `selectedMetric` as an object
