@@ -1,25 +1,38 @@
 import Component from '@ember/component';
 import { computed, observer } from '@ember/object';
-import InitValueMixin from 'fortnight/mixins/init-value';
 
-export default Component.extend(InitValueMixin, {
+export default Component.extend({
 
   /**
    * The categories to display
+   *
+   * @type {array}
    */
   categories: null,
 
   /**
-   * The data to display
+   * The data to display.
+   *
+   * @type {array}
    */
   data: null,
 
+  /**
+   * The y-axis label/title and series name.
+   *
+   * @type {string}
+   */
   label: 'Metric Label',
 
+  /**
+   * Whether the chart is loading.
+   *
+   * @type {boolean}
+   */
   isLoading: false,
 
-  series: computed('data.length', 'label', function() {
-    const data = this.get('data');
+  series: computed(function() {
+    const data = this.get('data') || [];
     const name = this.get('label');
     return [{
       name,
@@ -27,8 +40,9 @@ export default Component.extend(InitValueMixin, {
     }];
   }),
 
-  options: computed('series', 'data.length', function() {
+  options: computed(function() {
     const { length } = this.get('data');
+    const tooltipFormatter = this.get('tooltipFormatter');
     return {
       chart: { type: 'areaspline' },
       legend: { enabled: false },
@@ -38,16 +52,16 @@ export default Component.extend(InitValueMixin, {
         min: 0.5,
         max: length - 1.5,
       },
-      // tooltip: {
-      //   formatter: function() {
-      //     const value = format ? numeral(this.y).format(format) : this.y;
-      //     const { index, color } = this.point;
-      //     const { longDate } = rows[index];
-      //     return `<strong>${longDate}</string><br/>
-      //       <span style="color:${color}">\u25CF</span> ${this.series.name}: <b>${value}</b>
-      //     `;
-      //   },
-      // },
+      tooltip: {
+        // formatter: function() {
+        //   const value = format ? numeral(this.y).format(format) : this.y;
+        //   const { index, color } = this.point;
+        //   const { longDate } = rows[index];
+        //   return `<strong>${longDate}</string><br/>
+        //     <span style="color:${color}">\u25CF</span> ${this.series.name}: <b>${value}</b>
+        //   `;
+        // },
+      },
       yAxis: {
         title: { text: this.get('label') },
         // labels: {
@@ -62,7 +76,7 @@ export default Component.extend(InitValueMixin, {
     };
   }),
 
-  config: computed('options', 'series', function() {
+  config: computed(function() {
     const config = this.get('options') || {};
     config.series = this.get('series') || [];
     return config;
@@ -77,11 +91,18 @@ export default Component.extend(InitValueMixin, {
     }
   }),
 
-  init() {
-    this._super(...arguments);
-    this.initValue('data', []);
-    this.initValue('categories', []);
-  },
+  updateChart: observer('data.[]', function() {
+    const chart = this.get('chart');
+    // Update the yAxis label.
+    chart.yAxis[0].setTitle({ text: this.get('label') }, false);
+    // Set the new xAxis categories and extremes.
+    chart.xAxis[0].setCategories(this.get('categories'), false);
+    chart.xAxis[0].setExtremes(0.5, this.get('data.length') - 1.5, false);
+    // Set the new series data and name.
+    chart.series[0].setData(this.get('data'), false);
+    chart.series[0].update({ name: this.get('label') }, false);
+    chart.redraw(true);
+  }),
 
   didInsertElement() {
     const config = this.get('config');

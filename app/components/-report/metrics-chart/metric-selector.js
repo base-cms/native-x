@@ -21,6 +21,7 @@ export default Component.extend(ActionMixin, InitValueMixin, {
 
   /**
    * Whether the control is disabled.
+   * Will not visibly change the control, but will not change the value if clicked.
    *
    * @type {boolean}
    */
@@ -33,7 +34,9 @@ export default Component.extend(ActionMixin, InitValueMixin, {
 
   actions: {
     setMetric(metric) {
-      this.sendEventAction('onchange', metric);
+      if (!this.get('disabled')) {
+        this.sendEventAction('onchange', metric);
+      }
     }
   },
 });

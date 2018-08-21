@@ -26,13 +26,15 @@ export default Component.extend(ActionMixin, InitValueMixin, {
 
   actions: {
     setRange(dropdown, value) {
-      const range = value.moment;
-      this.set('range', range);
-      const { start, end } = range;
-      if (start && end) {
-        this.setDropdownLabel();
-        dropdown.actions.close();
-        this.sendEventAction('onchange', range);
+      if (!this.get('disabled')) {
+        const range = value.moment;
+        this.set('range', range);
+        const { start, end } = range;
+        if (start && end) {
+          this.setDropdownLabel();
+          dropdown.actions.close();
+          this.sendEventAction('onchange', range);
+        }
       }
     }
   },

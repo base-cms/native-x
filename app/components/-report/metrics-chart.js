@@ -1,9 +1,8 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
-import InitValueMixin from 'fortnight/mixins/init-value';
 import ActionMixin from 'fortnight/mixins/action';
 
-export default Component.extend(InitValueMixin, ActionMixin, {
+export default Component.extend(ActionMixin, {
   classNames: ['card'],
 
   /**
@@ -53,6 +52,28 @@ export default Component.extend(InitValueMixin, ActionMixin, {
   isLoading: false,
 
   /**
+   * The report data rows.
+   *
+   * Expects an object with `shortDate`, `longDate`, and `metrics`.
+   * For example:
+   * ```
+   * [
+   *   { shortDate: 'Aug 14', longDate: 'Tuesday, August 14th, 2018', metrics: { views: 24 } },
+   *   { shortDate: 'Aug 15', longDate: 'Wednesday, August 15th, 2018', metrics: { views: 12 } },
+   * ]
+   * ```
+   */
+  rows: null,
+
+  categories: computed.mapBy('rows', 'shortDate'),
+
+  data: computed('rows.[]', function() {
+    const key = this.get('metricKey');
+    const rows = this.get('rows') || [];
+    return rows.map(row => row.metrics[key]);
+  }),
+
+  /**
    * Dispatches the change event.
    * Will send the `startDate`, `endDate`, and `selectedMetric` as an object
    * as the first argument, and the component instance as the second.
@@ -63,7 +84,6 @@ export default Component.extend(InitValueMixin, ActionMixin, {
       endDate,
       selectedMetric,
     } = this.getProperties('startDate', 'endDate', 'selectedMetric');
-    console.info('dispatch', { startDate, endDate, selectedMetric });
     this.sendEventAction('onchange', { startDate, endDate, selectedMetric }, this);
   },
 
