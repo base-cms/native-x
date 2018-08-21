@@ -65,7 +65,9 @@ export default Component.extend(ActionMixin, {
    */
   rows: null,
 
-  categories: computed.mapBy('rows', 'shortDate'),
+  days: computed.map('rows.@each.{shortDate,longDate}', function({ shortDate, longDate }) {
+    return { shortDate, longDate }
+  }),
 
   data: computed('rows.[]', function() {
     const key = this.get('metricKey');

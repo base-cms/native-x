@@ -2,13 +2,23 @@ import Component from '@ember/component';
 import { computed, observer } from '@ember/object';
 
 export default Component.extend({
+  /**
+   * An array of day objects, with short and long date strings.
+   * The `shortDate` value will be used as the x-axis categories and
+   * the `longDate` value will be used for the point tooltip.
+   *
+   * For example:
+   * `[{ shortDate: 'Jan 1, 2018', longDate: 'Wednesday, Janaury 1st, 2018 }]`
+   */
+  days: null,
 
   /**
-   * The categories to display
+   * The categories to display.
+   * Will be computed from the `days.[].shortDate` value.
    *
    * @type {array}
    */
-  categories: null,
+  categories: computed.mapBy('days', 'shortDate'),
 
   /**
    * The data to display.
@@ -31,6 +41,16 @@ export default Component.extend({
    */
   isLoading: false,
 
+  /**
+   * The numeral tooltip format, e.g. 0,0
+   */
+  tooltipFormat: null,
+
+  /**
+   * The numeral y-axis label format, e.g. 0.[0]a
+   */
+  labelFormat: null,
+
   series: computed(function() {
     const data = this.get('data') || [];
     const name = this.get('label');
@@ -41,8 +61,7 @@ export default Component.extend({
   }),
 
   options: computed(function() {
-    const { length } = this.get('data');
-    const tooltipFormatter = this.get('tooltipFormatter');
+    const component = this;
     return {
       chart: { type: 'areaspline' },
       legend: { enabled: false },
@@ -50,17 +69,18 @@ export default Component.extend({
       xAxis: {
         categories: this.get('categories'),
         min: 0.5,
-        max: length - 1.5,
+        max: this.get('data.length') - 1.5,
       },
       tooltip: {
-        // formatter: function() {
-        //   const value = format ? numeral(this.y).format(format) : this.y;
-        //   const { index, color } = this.point;
-        //   const { longDate } = rows[index];
-        //   return `<strong>${longDate}</string><br/>
-        //     <span style="color:${color}">\u25CF</span> ${this.series.name}: <b>${value}</b>
-        //   `;
-        // },
+        formatter: function() {
+          const value = this.y;
+          // const value = format ? numeral(this.y).format(format) : this.y;
+          const { index, color } = this.point;
+          const longDate = component.get(`days.${index}.longDate`);
+          return `<strong>${longDate}</string><br/>
+            <span style="color:${color}">\u25CF</span> ${this.series.name}: <b>${value}</b>
+          `;
+        },
       },
       yAxis: {
         title: { text: this.get('label') },
