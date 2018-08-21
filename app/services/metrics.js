@@ -20,6 +20,7 @@ const storyMetrics = EmberObject.extend({
       { key: 'pageviews', label: 'Pageviews', tooltipFormat: '0,0', labelFormat: '0.[0]a' },
       { key: 'sessions', label: 'Sessions', tooltipFormat: '0,0', labelFormat: '0.[0]a' },
       { key: 'users', label: 'Users', tooltipFormat: '0,0', labelFormat: '0.[0]a' },
+      { key: 'shares', label: 'Shares', tooltipFormat: '0,0', labelFormat: '0.[0]a' },
     ]);
     this.get('array').forEach((metric) => {
       this.set(metric.key, metric);

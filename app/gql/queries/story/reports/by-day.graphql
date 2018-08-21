@@ -7,6 +7,7 @@ query StoryReportByDay($input: ModelIdInput!, $startDate: Date!, $endDate: Date!
         longDate: date(format: "dddd, MMMM Do, YYYY")
         metrics {
           users
+          sessions
           pageviews
           shares
         }
