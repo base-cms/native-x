@@ -1,29 +1,10 @@
 import Controller from '@ember/controller';
-import { computed } from '@ember/object';
 import { inject } from '@ember/service';
-import moment from 'moment'
 
 import query from 'fortnight/gql/queries/campaign/reports/by-day';
 
 export default Controller.extend({
   apollo: inject(),
-  metrics: inject(),
-
-  metricKey: 'ctr',
-  metricOptions: computed.reads('metrics.campaign.array'),
-  isReportRunning: false,
-
-  selectedMetric: computed('metricKey', function() {
-    return this.get(`metrics.campaign.${this.get('metricKey')}`);
-  }),
-
-  startDate: computed('endDate', function() {
-    return moment(this.get('endDate')).subtract(7, 'days');
-  }),
-
-  endDate: computed(function() {
-    return moment();
-  }),
 
   actions: {
     async runByDayReport({ startDate, endDate }) {

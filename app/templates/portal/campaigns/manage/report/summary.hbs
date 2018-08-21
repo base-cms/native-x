@@ -53,12 +53,7 @@
       {{-report/campaign/metrics hash=model.campaign.hash advertiserId=model.advertiser.id}}
 
       <h4 class="text-muted px-3 mb-2">Metrics Over Time</h4>
-      {{-report/metrics-chart
-        class="border-0 z-depth-half"
-        startDate=startDate
-        endDate=endDate
-        metricOptions=metricOptions
-        metricKey=metricKey
+      {{-report/campaign/chart
         isLoading=isReportRunning
         rows=rows
         oninsert=(action "runByDayReport")
