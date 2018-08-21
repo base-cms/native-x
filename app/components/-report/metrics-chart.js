@@ -64,7 +64,7 @@ export default Component.extend(InitValueMixin, ActionMixin, {
       selectedMetric,
     } = this.getProperties('startDate', 'endDate', 'selectedMetric');
     console.info('dispatch', { startDate, endDate, selectedMetric });
-    this.sendEventAction('onchange', { startDate, endDate, selectedMetric });
+    this.sendEventAction('onchange', { startDate, endDate, selectedMetric }, this);
   },
 
   actions: {
