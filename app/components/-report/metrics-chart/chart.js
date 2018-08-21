@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import { computed } from '@ember/object';
+import { computed, observer } from '@ember/object';
 import InitValueMixin from 'fortnight/mixins/init-value';
 
 export default Component.extend(InitValueMixin, {
@@ -62,9 +62,30 @@ export default Component.extend(InitValueMixin, {
     };
   }),
 
+  config: computed('options', 'series', function() {
+    const config = this.get('options') || {};
+    config.series = this.get('series') || [];
+    return config;
+  }),
+
+  showLoading: observer('isLoading', function() {
+    const chart = this.get('chart');
+    if (this.get('isLoading')) {
+      chart.showLoading();
+    } else {
+      chart.hideLoading();
+    }
+  }),
+
   init() {
     this._super(...arguments);
     this.initValue('data', []);
     this.initValue('categories', []);
+  },
+
+  didInsertElement() {
+    const config = this.get('config');
+    const chart = Highcharts.chart(this.$('.chart')[0], config);
+    this.set('chart', chart);
   },
 });
