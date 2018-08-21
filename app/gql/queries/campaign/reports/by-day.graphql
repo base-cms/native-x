@@ -1,5 +1,5 @@
-query CampaignReportByDay($input: ModelIdInput!, $startDate: Date!, $endDate: Date!) {
-  campaign(input: $input) {
+query CampaignReportByDay($input: CampaignHashInput!, $startDate: Date!, $endDate: Date!) {
+  campaignHash(input: $input) {
     id
     reports {
       byDay(startDate: $startDate, endDate: $endDate) {
