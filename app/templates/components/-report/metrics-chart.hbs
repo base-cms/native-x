@@ -2,10 +2,10 @@
   <div class="row">
     <div class="col">
       {{-report/metrics-chart/metric-selector
-        selectedKey=selectedMetric
+        selected=selectedMetric
         options=metricOptions
         disabled=isLoading
-        onchange=(action "dispatchChange")
+        onchange=(action "setMetric")
       }}
     </div>
     <div class="col">
@@ -13,11 +13,11 @@
         class="float-right"
         disabled=isLoading
         range=(hash start=startDate end=endDate)
-        onchange=(action "dispatchChange")
+        onchange=(action "setDates")
       }}
     </div>
   </div>
-  <div class="row">
+  <div class="row mt-1">
     <div class="col">
       {{-report/metrics-chart/chart}}
     </div>

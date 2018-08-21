@@ -1,16 +1,29 @@
 import Component from '@ember/component';
-import { computed } from '@ember/object';
 import InitValueMixin from 'fortnight/mixins/init-value';
 import ActionMixin from 'fortnight/mixins/action';
 
 export default Component.extend(ActionMixin, InitValueMixin, {
-  selectedKey: null,
+  /**
+   * The metric options, as an array of metric objects.
+   * For example:
+   * `[ { key: 'views', label: 'Impressions' } ]`
+   *
+   * @type {object[]}
+   */
   options: null,
 
-  selected: computed('selectedKey', 'options.@each.key', function() {
-    return this.get('options').find(option => option.key === this.get('selectedKey'));
-  }),
+  /**
+   * The selected metric object, e.g. `{ key: 'views', label: 'Impressions' }`
+   *
+   * @type {object}
+   */
+  selected: null,
 
+  /**
+   * Whether the control is disabled.
+   *
+   * @type {boolean}
+   */
   disabled: false,
 
   init() {
@@ -20,7 +33,6 @@ export default Component.extend(ActionMixin, InitValueMixin, {
 
   actions: {
     setMetric(metric) {
-      this.set('selectedKey', metric.key);
       this.sendEventAction('onchange', metric);
     }
   },
