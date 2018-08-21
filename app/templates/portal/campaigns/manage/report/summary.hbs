@@ -50,7 +50,11 @@
       </div>
 
       <h4 class="text-muted px-3 mb-2">Total Metrics</h4>
-      {{-report/campaign/metrics hash=model.campaign.hash advertiserId=model.advertiser.id}}
+      {{-report/campaign/metrics
+        isLoading=areMetricsLoading
+        metrics=metrics
+        oninsert=(action "retrieveCampaignMetrics")
+      }}
 
       <h4 class="text-muted px-3 mb-2">Metrics Over Time</h4>
       {{-report/campaign/chart
