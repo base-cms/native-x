@@ -61,6 +61,12 @@ export default Component.extend({
     }];
   }),
 
+  extremes: computed('data.length', function() {
+    const length = this.get('data.length');
+    if (length > 1) return { min: 0.5, max: length - 1.5 };
+    return {};
+  }),
+
   options: computed(function() {
     const component = this;
     return {
@@ -69,8 +75,8 @@ export default Component.extend({
       title: { text: false },
       xAxis: {
         categories: this.get('categories'),
-        min: 0.5,
-        max: this.get('data.length') - 1.5,
+        min: this.get('extremes.min'),
+        max: this.get('extremes.max'),
       },
       tooltip: {
         formatter: function() {
@@ -119,7 +125,7 @@ export default Component.extend({
     chart.yAxis[0].setTitle({ text: this.get('label') }, false);
     // Set the new xAxis categories and extremes.
     chart.xAxis[0].setCategories(this.get('categories'), false);
-    chart.xAxis[0].setExtremes(0.5, this.get('data.length') - 1.5, false);
+    chart.xAxis[0].setExtremes(this.get('extremes.min'), this.get('extremes.max'), false);
     // Set the new series data and name.
     chart.series[0].setData(this.get('data'), false);
     chart.series[0].update({ name: this.get('label') }, false);
