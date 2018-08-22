@@ -1,0 +1,34 @@
+query DashboardPublisherBreakouts($input: PublisherMetricsInput!) {
+  publisherMetricBreakouts(input: $input) {
+    publisher {
+      id
+      name
+    }
+    placement {
+      id
+      publisher {
+        id
+        name
+      }
+      template {
+        id
+        name
+      }
+      topic {
+        id
+        name
+      }
+    }
+    topic {
+      id
+      name
+      publisher {
+        id
+        name
+      }
+    }
+    views
+    clicks
+    ctr
+  }
+}

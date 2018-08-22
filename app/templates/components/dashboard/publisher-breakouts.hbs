@@ -9,17 +9,17 @@
       }}
 
       <div class="form-inline mt-3">
-        <div class="custom-control custom-checkbox">
-          <input type="checkbox" checked={{breakouts.publisher}} class="custom-control-input" id="breakout-publisher" onchange={{action "setBreakout" "publisher"}}>
+        <div class="custom-control custom-radio">
+          {{radio-button radioId="breakout-publisher" radioClass="custom-control-input" value="publisher" groupValue=breakout changed=(action "setBreakout")}}
           <label class="custom-control-label mr-3" for="breakout-publisher">Publisher</label>
         </div>
-        <div class="custom-control custom-checkbox">
-          <input type="checkbox" checked={{breakouts.placement}} class="custom-control-input" id="breakout-placement" onchange={{action "setBreakout" "placement"}}>
-          <label class="custom-control-label mr-3" for="breakout-placement">Placement</label>
-        </div>
-        <div class="custom-control custom-checkbox">
-          <input type="checkbox" checked={{breakouts.topic}} class="custom-control-input" id="breakout-topic" onchange={{action "setBreakout" "topic"}}>
+        <div class="custom-control custom-radio">
+          {{radio-button radioId="breakout-topic" radioClass="custom-control-input" value="topic" groupValue=breakout changed=(action "setBreakout")}}
           <label class="custom-control-label mr-3" for="breakout-topic">Topic</label>
+        </div>
+        <div class="custom-control custom-radio">
+          {{radio-button radioId="breakout-placement" radioClass="custom-control-input" value="placement" groupValue=breakout changed=(action "setBreakout")}}
+          <label class="custom-control-label" for="breakout-placement">Placement</label>
         </div>
       </div>
 
@@ -28,18 +28,50 @@
 </div>
 {{progress-bar show=isLoading}}
 <div class="card-body">
-  <div class="row mt-3">
-    {{!-- <div class="col">
-      {{-report/metrics-chart/chart
-        label=selectedMetric.label
-        isLoading=isLoading
-        days=days
-        data=data
-        tooltipFormat=selectedMetric.tooltipFormat
-        labelFormat=selectedMetric.labelFormat
-      }}
-    </div> --}}
-  </div>
+  {{#if rowsChanged}}
+    <table class="table table-sm table-hover mb-0">
+      <thead>
+        <tr>
+          {{#if (eq breakout "publisher")}}
+            <th>Publisher</th>
+          {{/if}}
+          {{#if (eq breakout "topic")}}
+            <th>Publisher</th>
+            <th>Topic</th>
+          {{/if}}
+          {{#if (eq breakout "placement")}}
+            <th>Publisher</th>
+            <th>Topic</th>
+            <th>Placement</th>
+          {{/if}}
+          <th>Views</th>
+          <th>Clicks</th>
+          <th>CTR</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each rows as |row|}}
+          <tr>
+            {{#if (eq breakout "publisher")}}
+              <td>{{row.publisher.name}}</td>
+            {{/if}}
+            {{#if (eq breakout "placement")}}
+              <td>{{row.placement.publisher.name}}</td>
+              <td>{{row.placement.topic.name}}</td>
+              <td>{{row.placement.template.name}}</td>
+            {{/if}}
+            {{#if (eq breakout "topic")}}
+              <td>{{row.topic.publisher.name}}</td>
+              <td>{{row.topic.name}}</td>
+            {{/if}}
+            <td>{{number-format row.views "0,0"}}</td>
+            <td>{{number-format row.clicks "0,0"}}</td>
+            <td>{{number-format row.ctr "0.[000]%"}}</td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  {{/if}}
 </div>
 
 

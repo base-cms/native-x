@@ -1,13 +1,19 @@
 import Component from '@ember/component';
 import ComponentQueryManager from 'ember-apollo-client/mixins/component-query-manager';
-import { getObservable } from 'ember-apollo-client';
+import { computed } from '@ember/object';
 import moment from 'moment';
 
-import query from 'fortnight/gql/queries/publisher/dashboard';
-
+import query from 'fortnight/gql/queries/dashboard/publisher-breakouts';
 
 export default Component.extend(ComponentQueryManager, {
   classNames: ['card', 'border-0', 'z-depth-half'],
+
+  /**
+   * The currently selected breakout.
+   *
+   * @type {string}
+   */
+  breakout: 'publisher',
 
   /**
    * The chart start date.
@@ -24,11 +30,16 @@ export default Component.extend(ComponentQueryManager, {
   endDate: null,
 
   /**
-   * Whether data for the chart is being loaded.
+   * Whether data for the table is being loaded.
    *
    * @type {boolean}
    */
   isLoading: false,
+
+  rowsChanged: computed('rows.[]', function() {
+    console.info('rows changed');
+    return true;
+  }),
 
   init() {
     this._super(...arguments);
@@ -37,54 +48,36 @@ export default Component.extend(ComponentQueryManager, {
     const now = moment().startOf('day');
     this.set('endDate', now);
     this.set('startDate', moment(now).subtract(14, 'days'));
+  },
 
-    // Set the initial breakouts
-    this.set('breakouts', {
-      publisher: true,
-      placement: false,
-      topic: false,
-    });
+  async query() {
+    this.set('isLoading', true);
+
+    const input = {
+      startDay: this.get('startDate').valueOf(),
+      endDay: this.get('endDate').valueOf(),
+      breakout: this.get('breakout'),
+    };
+    const variables = { input };
+    try {
+      const rows = await this.get('apollo').query({ query, variables }, 'publisherMetricBreakouts');
+      this.set('rows', rows);
+    } catch (e) {
+      this.get('graphErrors').show(e);
+    } finally {
+      this.set('isLoading', false);
+    }
   },
 
   actions: {
     setDates({ start, end }) {
       this.set('startDate', moment(start).startOf('day'));
       this.set('endDate', moment(end).startOf('day'));
+      this.query();
     },
-    setBreakout(property, event) {
-      const { checked } = event.target;
-      this.set(`breakouts.${property}`, checked);
+    setBreakout(breakout) {
+      this.set('breakout', breakout);
+      this.query();
     },
-  },
-
-
-  ////////////////
-
-
-  didInsertElement() {
-    // this.loadData();
-  },
-
-  async loadData() {
-    this.set('isLoading', true);
-
-    const pagination = { first: 25 };
-    const sort = { field: 'name', order: 1 };
-    const variables = {
-      pagination,
-      sort,
-      metricsStartDate: this.get('start').valueOf(),
-      metricsEndDate: this.get('end').valueOf(),
-    };
-
-    try {
-      const data = await this.get('apollo').watchQuery({ query, variables, fetchPolicy: 'network-only' }, 'allPublishers');
-      this.set('observable', getObservable(data));
-      this.set('data', data);
-    } catch (e) {
-      this.get('graphErrors').show(e);
-    } finally {
-      this.set('isLoading', false);
-    }
   },
 });
