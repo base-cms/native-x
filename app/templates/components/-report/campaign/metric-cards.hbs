@@ -1,0 +1,34 @@
+<div class="col-md-4 mb-4">
+  {{-report/data-card
+    icon="eye"
+    title="Impressions"
+    format="0.[00]a"
+    value=views
+    color="text-info"
+    subtitle="Displayed viewable impressions"
+    isLoading=isLoading
+  }}
+</div>
+<div class="col-md-4 mb-4">
+  {{-report/data-card
+    icon="direction"
+    title="Clicks"
+    format="0.[0]a"
+    value=clicks
+    color="text-warning"
+    subtitle="Success of online ads"
+    isLoading=isLoading
+  }}
+</div>
+<div class="col-md-4 mb-4">
+  {{-report/data-card
+    icon="area-graph"
+    title="CTR"
+    format="0.[000]%"
+    value=ctr
+    color="text-success"
+    subtitle="Click-through rate"
+    isLoading=isLoading
+  }}
+</div>
+

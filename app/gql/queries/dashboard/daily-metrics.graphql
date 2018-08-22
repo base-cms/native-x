@@ -5,7 +5,7 @@ query Dashboard($day: Date!) {
     clicks
     ctr
   }
-  dailyFallbackMetrics(day: $day) {
+  dailyTotalMetrics(day: $day) {
     placements
     views
     clicks

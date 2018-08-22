@@ -1,0 +1,15 @@
+query StoryAcquisitionReport($input: ModelIdInput!) {
+  story(input: $input) {
+    id
+    reports {
+      acquisition {
+        channelGrouping
+        metrics {
+          users
+          sessions
+          pageviews
+        }
+      }
+    }
+  }
+}

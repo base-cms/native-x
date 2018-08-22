@@ -1,0 +1,16 @@
+query CampaignCreativeReportByDay($input: CampaignCreativeInput!, $startDate: Date!, $endDate: Date!) {
+  campaignCreative(input: $input) {
+    id
+    reports {
+      byDay(startDate: $startDate, endDate: $endDate) {
+        shortDate: day(format: "MMM D")
+        longDate: day(format: "dddd, MMMM Do, YYYY")
+        metrics {
+          views
+          clicks
+          ctr
+        }
+      }
+    }
+  }
+}

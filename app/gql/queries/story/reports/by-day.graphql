@@ -1,0 +1,18 @@
+query StoryReportByDay($input: ModelIdInput!, $startDate: Date!, $endDate: Date!) {
+  story(input: $input) {
+    id
+    reports {
+      byDay(startDate: $startDate, endDate: $endDate) {
+        shortDate: date(format: "MMM D")
+        longDate: date(format: "dddd, MMMM Do, YYYY")
+        metrics {
+          users
+          sessions
+          pageviews
+          shares
+        }
+      }
+    }
+
+  }
+}

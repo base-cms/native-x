@@ -1,0 +1,12 @@
+query StoryMetrics($input: ModelIdInput!) {
+  story(input: $input) {
+    id
+    metrics {
+      users
+      pageviews
+      shares
+      avgTimeOnPage
+      timeOnPage
+    }
+  }
+}

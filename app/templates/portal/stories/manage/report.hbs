@@ -1,0 +1,62 @@
+<div class="container-fluid mt-4">
+  <div class="row">
+    <div class="col main">
+
+      <div class="row mb-3">
+        <div class="col">
+          {{-report/title title="Story Summary Report" subtitle="A real-time summary of your story's most important metrics"}}
+        </div>
+      </div>
+
+      <div class="card border-0 z-depth-half mb-4">
+        <div class="card-body">
+          <div class="d-flex flex-row justify-content-between">
+
+            <div class="d-flex flex-column">
+              <div class="d-flex flex-row">
+                {{#if model.primaryImage.src}}
+                  <div class="d-flex flex-column my-auto mr-3">
+                    {{imgix-img
+                      originalSrc=model.primaryImage.src
+                      width=192
+                      height=108
+                      w="192"
+                      h="108"
+                      fit="crop"
+                      crop="focalpoint"
+                      fp-x=model.primaryImage.focalPoint.x
+                      fp-y=model.primaryImage.focalPoint.y
+                    }}
+                  </div>
+                {{/if}}
+                <div class="d-flex flex-column">
+                  <h4 class="mb-1">{{model.title}}</h4>
+                  <p class="mb-1">{{model.teaser}}</p>
+                  <p class="mt-auto mb-0">{{story-status status=model.status}}</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <h4 class="text-muted px-3 mb-2">Total Metrics</h4>
+      {{-report/story/metrics storyId=model.id}}
+
+      <h4 class="text-muted px-3 mb-2">Metrics Over Time</h4>
+      {{-report/story/metrics-by-day storyId=model.id}}
+
+      <h4 class="text-muted px-3 mb-2 mt-4">Details</h4>
+      <div class="row">
+        <div class="col-md-6">
+          {{-report/story/acquisition storyId=model.id}}
+        </div>
+        <div class="col-md-6">
+          {{-report/story/devices storyId=model.id}}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
