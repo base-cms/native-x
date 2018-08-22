@@ -77,27 +77,15 @@
   </div>
 </div>
 
-{{!-- <div class="row mt-3">
-  <div class="col">
-    <h4 class="text-muted px-3 mb-2">Placement Metrics since {{moment-format startDate "MMMM Do, YYYY"}}</h4>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col">
-    {{dashboard/placement-metrics start=startDate end=endDate}}
-  </div>
-</div> --}}
-
 <div class="row mt-3">
   <div class="col">
-    <h4 class="text-muted px-3 mb-2">Publisher Metrics since {{moment-format startDate "MMMM Do, YYYY"}}</h4>
+    <h4 class="text-muted px-3 mb-2">Publisher Metrics</h4>
   </div>
 </div>
 
 <div class="row">
   <div class="col">
-    {{dashboard/publisher-metrics start=startDate end=endDate}}
+    {{dashboard/publisher-breakouts}}
   </div>
 </div>
 
