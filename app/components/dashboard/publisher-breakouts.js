@@ -37,7 +37,6 @@ export default Component.extend(ComponentQueryManager, {
   isLoading: false,
 
   rowsChanged: computed('rows.[]', function() {
-    console.info('rows changed');
     return true;
   }),
 
@@ -48,6 +47,10 @@ export default Component.extend(ComponentQueryManager, {
     const now = moment().startOf('day');
     this.set('endDate', now);
     this.set('startDate', moment(now).subtract(14, 'days'));
+  },
+
+  didInsertElement() {
+    this.query();
   },
 
   async query() {
