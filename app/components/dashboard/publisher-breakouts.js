@@ -32,17 +32,28 @@ export default Component.extend(ComponentQueryManager, {
 
   init() {
     this._super(...arguments);
+
     // Set initial dates.
     const now = moment().startOf('day');
     this.set('endDate', now);
     this.set('startDate', moment(now).subtract(14, 'days'));
+
+    // Set the initial breakouts
+    this.set('breakouts', {
+      publisher: true,
+      placement: false,
+      topic: false,
+    });
   },
 
   actions: {
     setDates({ start, end }) {
-      console.info('setDates', start, end);
       this.set('startDate', moment(start).startOf('day'));
       this.set('endDate', moment(end).startOf('day'));
+    },
+    setBreakout(property, event) {
+      const { checked } = event.target;
+      this.set(`breakouts.${property}`, checked);
     },
   },
 

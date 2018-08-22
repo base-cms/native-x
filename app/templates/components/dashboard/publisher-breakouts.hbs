@@ -1,11 +1,28 @@
 <div class="card-body">
   <div class="row">
-    <div class="col">
+    <div class="col form-inline">
       {{-report/metrics-chart/date-selector
         disabled=isLoading
+        class="mr-3"
         range=(hash start=startDate end=endDate)
         onchange=(action "setDates")
       }}
+
+      <div class="form-inline mt-3">
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" checked={{breakouts.publisher}} class="custom-control-input" id="breakout-publisher" onchange={{action "setBreakout" "publisher"}}>
+          <label class="custom-control-label mr-3" for="breakout-publisher">Publisher</label>
+        </div>
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" checked={{breakouts.placement}} class="custom-control-input" id="breakout-placement" onchange={{action "setBreakout" "placement"}}>
+          <label class="custom-control-label mr-3" for="breakout-placement">Placement</label>
+        </div>
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" checked={{breakouts.topic}} class="custom-control-input" id="breakout-topic" onchange={{action "setBreakout" "topic"}}>
+          <label class="custom-control-label mr-3" for="breakout-topic">Topic</label>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
