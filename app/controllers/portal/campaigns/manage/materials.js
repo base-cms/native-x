@@ -2,7 +2,7 @@ import Controller from '@ember/controller';
 import { computed } from '@ember/object';
 import { inject } from '@ember/service';
 import { isURL } from 'validator';
-import ActionMixin from 'fortnight/mixins/action-mixin';
+import ActionMixin from 'fortnight/mixins/action';
 
 import mutation from 'fortnight/gql/mutations/campaign/url';
 import assignCampaignValue from 'fortnight/gql/mutations/campaign/assign-value';
