@@ -35,7 +35,11 @@ class StoryViewSocialShare extends React.Component {
       title,
       teaser,
       imageSrc,
+      tracker,
     } = this.props;
+
+    const disabled = !tracker.enabled;
+
     return (
       <div className={`share-button-container ${className}`}>
         <style jsx global>
@@ -50,6 +54,7 @@ class StoryViewSocialShare extends React.Component {
         </style>
 
         <FacebookShareButton
+          disabled={disabled}
           url={url}
           beforeOnClick={() => this.track('Facebook')}
           className="d-inline-block mr-2 share-button"
@@ -58,6 +63,7 @@ class StoryViewSocialShare extends React.Component {
         </FacebookShareButton>
 
         <TwitterShareButton
+          disabled={disabled}
           title={title}
           url={url}
           beforeOnClick={() => this.track('Twitter')}
@@ -67,6 +73,7 @@ class StoryViewSocialShare extends React.Component {
         </TwitterShareButton>
 
         <LinkedinShareButton
+          disabled={disabled}
           title={title}
           description={teaser}
           url={url}
@@ -78,6 +85,7 @@ class StoryViewSocialShare extends React.Component {
 
         {imageSrc.length > 0 && (
           <PinterestShareButton
+            disabled={disabled}
             media={imageSrc}
             url={url}
             beforeOnClick={() => this.track('Pinterest')}
@@ -88,6 +96,7 @@ class StoryViewSocialShare extends React.Component {
         )}
 
         <EmailShareButton
+          disabled={disabled}
           url={url}
           beforeOnClick={() => this.track('Email')}
           className="d-inline-block mr-2 share-button"
