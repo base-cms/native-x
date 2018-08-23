@@ -43,7 +43,7 @@ const Story = ({ id, preview, publisherId }) => {
             page_title: title,
             publisher_id: publisher.id,
             advertiser_id: advertiser.id,
-          });
+          }, !preview);
           tracker.pageview();
 
           const { src } = primaryImage || {};
@@ -84,7 +84,7 @@ const Story = ({ id, preview, publisherId }) => {
                 {/* @todo Eventually use the publisher context. */}
                 <meta name="native-x:publisher" content={publisher.name} />
               </Head>
-              <StoryView {...publishedStory} tracker={tracker} />
+              <StoryView {...publishedStory} tracker={tracker} preview={preview} />
             </Fragment>
           );
         }}
