@@ -29,23 +29,28 @@ export const trackOutboundLink = (url, props) => {
 };
 
 export class GTAGTracker {
-  constructor(config = {}) {
+  constructor(config = {}, enabled = true) {
     this.config = config;
+    this.enable(enabled);
+  }
+
+  enable(bit = true) {
+    this.enabled = Boolean(bit);
   }
 
   event(action) {
-    trackEvent(action, this.config);
+    if (this.enabled) trackEvent(action, this.config);
   }
 
   pageview() {
-    trackPageView(this.config);
+    if (this.enabled) trackPageView(this.config);
   }
 
   share(method) {
-    trackSocialShare(method, this.config);
+    if (this.enabled) trackSocialShare(method, this.config);
   }
 
   outboundLink(url) {
-    trackOutboundLink(url, this.config);
+    if (this.enabled) trackOutboundLink(url, this.config);
   }
 }
