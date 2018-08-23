@@ -63,7 +63,7 @@ export default Component.extend(ComponentQueryManager, {
     };
     const variables = { input };
     try {
-      const rows = await this.get('apollo').query({ query, variables }, 'publisherMetricBreakouts');
+      const rows = await this.get('apollo').watchQuery({ query, variables }, 'publisherMetricBreakouts');
       this.set('rows', rows);
     } catch (e) {
       this.get('graphErrors').show(e);

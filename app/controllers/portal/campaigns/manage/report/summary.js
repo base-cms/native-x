@@ -19,7 +19,7 @@ export default Controller.extend({
         endDate: endDate.startOf('day').valueOf(),
       };
       try {
-        const { reports } = await this.get('apollo').query({ query: reportByDay, variables }, 'campaignHash');
+        const { reports } = await this.get('apollo').watchQuery({ query: reportByDay, variables }, 'campaignHash');
         this.set('rows', reports.byDay);
       } catch (e) {
         this.get('graphErrors').show(e);
@@ -34,7 +34,7 @@ export default Controller.extend({
         input: { hash: this.get('model.campaign.hash'), advertiserId: this.get('model.advertiser.id') },
       };
       try {
-        const { metrics } = await this.get('apollo').query({ query: campaignMetrics, variables }, 'campaignHash');
+        const { metrics } = await this.get('apollo').watchQuery({ query: campaignMetrics, variables }, 'campaignHash');
         this.set('metrics', metrics);
       } catch (e) {
         this.get('graphErrors').show(e);

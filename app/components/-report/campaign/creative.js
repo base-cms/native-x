@@ -1,10 +1,10 @@
 import Component from '@ember/component';
-import ObjectQueryManager from 'ember-apollo-client/mixins/object-query-manager';
+import ComponentQueryManager from 'ember-apollo-client/mixins/component-query-manager';
 
 import reportByDay from 'fortnight/gql/queries/campaign/reports/creative-by-day';
 import creativeMetrics from 'fortnight/gql/queries/campaign/creative-metrics';
 
-export default Component.extend(ObjectQueryManager, {
+export default Component.extend(ComponentQueryManager, {
   isReportRunning: false,
   areMetricsLoading: false,
 
@@ -20,7 +20,7 @@ export default Component.extend(ObjectQueryManager, {
         endDate: endDate.startOf('day').valueOf(),
       };
       try {
-        const { reports } = await this.get('apollo').query({ query: reportByDay, variables }, 'campaignCreative');
+        const { reports } = await this.get('apollo').watchQuery({ query: reportByDay, variables }, 'campaignCreative');
         this.set('rows', reports.byDay);
       } catch (e) {
         this.get('graphErrors').show(e);
@@ -35,7 +35,7 @@ export default Component.extend(ObjectQueryManager, {
         input: { campaignId: this.get('campaignId'), creativeId: this.get('creativeId') },
       };
       try {
-        const { metrics } = await this.get('apollo').query({ query: creativeMetrics, variables }, 'campaignCreative');
+        const { metrics } = await this.get('apollo').watchQuery({ query: creativeMetrics, variables }, 'campaignCreative');
         this.set('metrics', metrics);
       } catch (e) {
         this.get('graphErrors').show(e);

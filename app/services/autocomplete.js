@@ -55,7 +55,7 @@ export default Service.extend({
     };
     const { query, resultKey } = this.getQueryFor(type);
     try {
-      const results = await this.get('apollo').query({ query, variables, fetchPolicy: 'network-only' }, resultKey);
+      const results = await this.get('apollo').watchQuery({ query, variables, fetchPolicy: 'network-only' }, resultKey);
       return results.edges.map(edge => edge.node);
     } catch (e) {
       this.get('graphErrors').show(e);

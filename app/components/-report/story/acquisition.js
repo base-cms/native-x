@@ -1,12 +1,12 @@
 import Component from '@ember/component';
-import ObjectQueryManager from 'ember-apollo-client/mixins/object-query-manager';
+import ComponentQueryManager from 'ember-apollo-client/mixins/component-query-manager';
 import ActionMixin from 'fortnight/mixins/action-mixin';
 import { computed } from '@ember/object';
 import numeral from 'numeral';
 
 import query from 'fortnight/gql/queries/story/reports/acquisition';
 
-export default Component.extend(ActionMixin, ObjectQueryManager, {
+export default Component.extend(ActionMixin, ComponentQueryManager, {
 
   init() {
     this._super(...arguments);
@@ -52,7 +52,7 @@ export default Component.extend(ActionMixin, ObjectQueryManager, {
     this.startAction();
     const variables = { input: { id: this.get('storyId') } };
     try {
-      const { reports } = await this.get('apollo').query({ query, variables }, 'story');
+      const { reports } = await this.get('apollo').watchQuery({ query, variables }, 'story');
       this.set('rows', reports.acquisition);
     } catch (e) {
       this.get('graphErrors').show(e);
