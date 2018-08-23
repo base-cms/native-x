@@ -20,8 +20,8 @@ export default Controller.extend(ActionMixin, {
     async handleCreativeImage({ id }) {
       this.startAction();
 
-      const creativeId = this.get('model.creative.id');
-      const campaignId = this.get('model.campaign.id');
+      const creativeId = this.get('model.id');
+      const campaignId = this.get('campaign.id');
 
       const mutation = campaignCreativeImage;
       const input = { campaignId, creativeId, imageId: id };
@@ -61,7 +61,7 @@ export default Controller.extend(ActionMixin, {
     async updateDetails({ id, title, teaser }) {
       this.startAction();
 
-      const campaignId = this.get('model.campaign.id');
+      const campaignId = this.get('campaign.id');
       const payload = { title, teaser, active: true };
 
       const mutation = campaignCreativeDetails;
