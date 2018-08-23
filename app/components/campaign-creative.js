@@ -34,7 +34,7 @@ export default Component.extend(ActionMixin, {
 
       const mutation = removeCreative;
       const variables = { input: { campaignId, creativeId } };
-      const refetchQueries = ['CampaignCreatives', 'CampaignHash'];
+      const refetchQueries = ['CampaignCreatives', 'PortalCampaignsManageMaterials'];
       try {
         await this.get('apollo').mutate({ mutation, variables, refetchQueries }, 'removeCampaignCreative');
       } catch (e) {
