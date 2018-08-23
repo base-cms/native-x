@@ -1,6 +1,6 @@
 import Controller from '@ember/controller';
 import { inject } from '@ember/service';
-import ActionMixin from 'fortnight/mixins/action-mixin';
+import ActionMixin from 'fortnight/mixins/action';
 
 import campaignCreativeDetails from 'fortnight/gql/mutations/campaign/creative-details';
 import campaignCreativeImage from 'fortnight/gql/mutations/campaign/creative-image';
