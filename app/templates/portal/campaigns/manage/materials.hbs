@@ -7,8 +7,8 @@
         <span class="text-uppercase">Materials Builder</span>
       </h3>
 
-      {{#if model.campaign.story.id}}
-        {{materials/story-builder class="mb-4" story=model.campaign.story}}
+      {{#if model.story.id}}
+        {{materials/story-builder class="mb-4" story=model.story}}
       {{else}}
         <div class="card mb-4 border-0 z-depth-half">
           {{partial "portal/campaigns/manage/materials/campaign"}}
@@ -25,7 +25,7 @@
           </div>
 
           <div class="row">
-            {{#each model.campaign.creatives as |creative|}}
+            {{#each model.creatives as |creative|}}
               <div class="mb-3 col-12 col-lg-6">
                 {{campaign-creative
                   canRemove=canRemoveCreatives
@@ -34,7 +34,7 @@
                   displayPreviewButton=true
                   previewRouteName="portal.campaigns.manage.materials.creatives.edit.preview"
                   creativeId=creative.id
-                  campaignId=model.campaign.id
+                  campaignId=model.id
                   title=creative.title
                   teaser=creative.teaser
                   active=creative.active
@@ -57,7 +57,7 @@
         </div>
       </div>
 
-      {{materials/contacts-builder campaign=model.campaign}}
+      {{materials/contacts-builder campaign=model}}
 
     </div>
   </div>

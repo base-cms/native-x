@@ -24,7 +24,7 @@ export default Component.extend(ActionMixin, ComponentQueryManager, {
         payload,
       };
       const variables = { input };
-      const refetchQueries = ['CampaignHash'];
+      const refetchQueries = ['PortalCampaignsManageMaterials'];
       try {
         await this.get('apollo').mutate({ mutation: campaignExternalContact, variables, refetchQueries }, 'campaignExternalContact');
         this.get('modal').send('hide');

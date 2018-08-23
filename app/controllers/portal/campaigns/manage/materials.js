@@ -10,8 +10,8 @@ import assignCampaignValue from 'fortnight/gql/mutations/campaign/assign-value';
 export default Controller.extend(ActionMixin, {
   apollo: inject(),
 
-  canRemoveCreatives: computed('model.campaign.creatives.length', function() {
-    return this.get('model.campaign.creatives.length') > 1;
+  canRemoveCreatives: computed('model.creatives.length', function() {
+    return this.get('model.creatives.length') > 1;
   }),
 
 
@@ -19,7 +19,7 @@ export default Controller.extend(ActionMixin, {
     async saveField(field, label, { value }) {
       this.startAction();
       const input = {
-        id: this.get('model.campaign.id'),
+        id: this.get('model.id'),
         field,
         value,
       };
@@ -46,7 +46,7 @@ export default Controller.extend(ActionMixin, {
 
     async updateUrl({ url }) {
       this.startAction();
-      const campaignId = this.get('model.campaign.id');
+      const campaignId = this.get('model.id');
       const variables = { input: { campaignId, url } };
 
       try {
