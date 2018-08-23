@@ -12,14 +12,13 @@ export default Controller.extend(ActionMixin, {
   actions: {
     /**
      * Handles the image once uploaded.
-     * In this case, sets it to the `creative` model.
      *
      * @param {object} image
      * @param {string} image.id
      * @param {string} image.link
      */
     async handleCreativeImage({ id, link }) {
-      set(this.get('model'), 'creative.image', { id, src: link });
+      set(this.get('model'), 'image', { id, src: link });
     },
 
     /**
@@ -34,7 +33,7 @@ export default Controller.extend(ActionMixin, {
       this.startAction();
       try {
         await this.get('imageLoader').setImageFocalPoint(imageId, { x, y });
-        set(this.get('model.creative'), 'image.focalPoint', { x, y });
+        set(this.get('model'), 'image.focalPoint', { x, y });
       } catch (e) {
         this.get('graphErrors').show(e);
       } finally {
@@ -49,12 +48,12 @@ export default Controller.extend(ActionMixin, {
     async create({ title, teaser, image }) {
       this.startAction();
       const active = true;
-      const campaignId = this.get('model.campaign.id');
+      const campaignId = this.get('campaign.id');
       const imageId = get(image, 'id');
 
       const payload = { title, teaser, active, imageId };
       const variables = { input: { campaignId, payload } };
-      const refetchQueries = ['CampaignHash'];
+      const refetchQueries = ['PortalCampaignsManageMaterials'];
 
       try {
         await this.get('apollo').mutate({ mutation, variables, refetchQueries }, 'addCampaignCreative');
