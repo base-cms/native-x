@@ -28,7 +28,7 @@ export default (App) => {
       ctx,
       rest,
     }) {
-      const { req } = ctx;
+      const { req, res } = ctx;
 
       // Await the App's initial props.
       let appProps = {};
@@ -56,8 +56,16 @@ export default (App) => {
           // Prevent errors from crashing SSR.
           // Handle the error in components via data.error prop.
           // @see http://dev.apollodata.com/react/api-queries.html#graphql-query-data-error
-          // eslint-disable-next-line no-console
-          console.error('SERVER ERROR in getDataFromTree', e);
+          if (e.graphQLErrors && e.graphQLErrors[0].message && /^No story found/i.test(e.graphQLErrors[0].message)) {
+            // @todo This should use better error detection via ApolloError.
+            // This requires Apollo Server 2.0, however.
+            e.code = 'ENOENT';
+            res.statusCode = 404;
+            throw e;
+          } else {
+            // eslint-disable-next-line no-console
+            console.error('SERVER ERROR in getDataFromTree', e);
+          }
         }
         // Clear the head state so duplicate head data is prevented.
         Head.rewind();
