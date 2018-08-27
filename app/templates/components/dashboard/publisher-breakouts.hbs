@@ -56,12 +56,12 @@
               <td>{{row.publisher.name}}</td>
             {{/if}}
             {{#if (eq breakout "placement")}}
-              <td>{{row.placement.publisher.name}}</td>
-              <td>{{row.placement.topic.name}}</td>
+              <td>{{row.publisher.name}}</td>
+              <td>{{row.topic.name}}</td>
               <td>{{row.placement.template.name}}</td>
             {{/if}}
             {{#if (eq breakout "topic")}}
-              <td>{{row.topic.publisher.name}}</td>
+              <td>{{row.publisher.name}}</td>
               <td>{{row.topic.name}}</td>
             {{/if}}
             <td>{{number-format row.views "0,0"}}</td>
