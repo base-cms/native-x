@@ -4,7 +4,7 @@ import { getDataFromTree } from 'react-apollo';
 import PropTypes from 'prop-types';
 import initApollo from './init';
 import apolloConfig from './config';
-
+import isNotFound from '../lib/not-found';
 
 export default (App) => {
   class WithApollo extends React.Component {
@@ -56,9 +56,7 @@ export default (App) => {
           // Prevent errors from crashing SSR.
           // Handle the error in components via data.error prop.
           // @see http://dev.apollodata.com/react/api-queries.html#graphql-query-data-error
-          if (e.graphQLErrors && e.graphQLErrors[0].message && /^No story found/i.test(e.graphQLErrors[0].message)) {
-            // @todo This should use better error detection via ApolloError.
-            // This requires Apollo Server 2.0, however.
+          if (isNotFound(e)) {
             e.code = 'ENOENT';
             res.statusCode = 404;
             throw e;
