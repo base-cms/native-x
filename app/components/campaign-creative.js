@@ -39,6 +39,7 @@ export default Component.extend(ActionMixin, {
         await this.get('apollo').mutate({ mutation, variables, refetchQueries }, 'removeCampaignCreative');
       } catch (e) {
         this.get('graphErrors').show(e);
+      } finally {
         this.endAction();
       }
     },
@@ -53,6 +54,7 @@ export default Component.extend(ActionMixin, {
         await this.get('apollo').mutate({ mutation, variables }, 'campaignCreativeStatus');
       } catch (e) {
         this.get('graphErrors').show(e);
+      } finally {
         this.endAction();
       }
     },
