@@ -11,8 +11,3 @@ export default Component.extend({
     }
   }
 });
-
-
-
-
-
