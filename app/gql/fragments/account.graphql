@@ -6,5 +6,6 @@ fragment AccountFragment on Account {
     id
     reservePct
     cname
+    requiredCreatives
   }
 }

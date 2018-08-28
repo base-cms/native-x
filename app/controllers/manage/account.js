@@ -22,7 +22,10 @@ export default Controller.extend(ActionMixin, {
 
       const payload = {
         name,
-        settings: { reservePct: settings.reservePct || 0 },
+        settings: {
+          reservePct: settings.reservePct || 0,
+          requiredCreatives: settings.requiredCreatives || 1,
+        },
       };
       const variables = { input: { id, payload } };
       try {
