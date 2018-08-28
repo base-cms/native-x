@@ -27,6 +27,7 @@ fragment CampaignPortalManageMaterialsFragment on Campaign {
       ...ImageViewFragment
     }
   }
+  requiredCreatives
   creatives {
     ...CampaignCreativeFragment
   }

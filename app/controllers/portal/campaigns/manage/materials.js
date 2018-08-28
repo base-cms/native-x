@@ -10,6 +10,17 @@ import assignCampaignValue from 'fortnight/gql/mutations/campaign/assign-value';
 export default Controller.extend(ActionMixin, {
   apollo: inject(),
 
+  activeCreatives: computed.filterBy('model.creatives', 'active', true),
+
+  remainingCreatives: computed('model.requiredCreatives', 'activeCreatives.length', function() {
+    return this.get('model.requiredCreatives') - this.get('activeCreatives.length');
+  }),
+
+  remainingCreativesLabel: computed('remainingCreatives', function() {
+    if (this.get('remainingCreatives') > 1) return 'creatives';
+    return 'creative';
+  }),
+
   actions: {
     async saveField(field, label, { value }) {
       this.startAction();

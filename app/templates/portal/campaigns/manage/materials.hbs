@@ -18,10 +18,10 @@
       <div class="card mb-4 border-0 z-depth-half">
         <div class="card-body pb-1">
           <h5 class="card-title font-weight-bold text-uppercase text-info mb-0">
-            Creatives
+            Ad Campaign Creatives
           </h5>
           <div class="text-muted mb-3">
-            Build your native ad unit.
+            Build your native ad unit. These creatives will link to the {{#if model.story.id}}story{{else}}URL{{/if}} above.
           </div>
 
           <div class="row">
@@ -49,11 +49,26 @@
                 <div class="card-body text-center d-flex flex-column justify-content-center">
                   {{entypo-icon "circle-with-plus" class="h1"}}
                   <span class="h4">Add Creative</span>
+                  <span class="h6">{{#if remainingCreatives}}({{remainingCreatives}} more required){{/if}}</span>
                 </div>
               {{/link-to}}
 
             </div>
           </div>
+
+          {{#if remainingCreatives}}
+            <p class="card-text mb-3">
+              <span class="font-weight-bold">Note:</span>
+              You must provide <span class="font-italic">at least</span> <span class="font-weight-bold text-info">{{remainingCreatives}}</span> more active {{remainingCreativesLabel}} in order for your campaign to start. Additional creatives beyond this requirement are encouraged.
+            </p>
+          {{/if}}
+
+          {{#if model.creatives.length}}
+            <p class="card-text mb-3">
+              If you no longer wish to display a creative, change it from
+              <span class="text-success">{{entypo-icon "flag"}} Active</span> to <span class="text-warning">{{entypo-icon "flag"}} Draft</span>.
+            </p>
+          {{/if}}
 
         </div>
       </div>
