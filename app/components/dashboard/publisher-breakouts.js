@@ -1,12 +1,16 @@
 import Component from '@ember/component';
 import ComponentQueryManager from 'ember-apollo-client/mixins/component-query-manager';
-import { computed } from '@ember/object';
+import { computed, observer } from '@ember/object';
 import moment from 'moment';
 
-import query from 'fortnight/gql/queries/dashboard/publisher-breakouts';
+import publisherMetricBreakouts from 'fortnight/gql/queries/dashboard/publisher-breakouts';
+import topicMetricBreakouts from 'fortnight/gql/queries/dashboard/topic-breakouts';
 
 export default Component.extend(ComponentQueryManager, {
   classNames: ['card', 'border-0', 'z-depth-half'],
+
+  sortBy: 'publisherName',
+  ascending: true,
 
   /**
    * The currently selected breakout.
@@ -40,6 +44,10 @@ export default Component.extend(ComponentQueryManager, {
     return true;
   }),
 
+  refreshReport: observer('sortBy', 'ascending', function() {
+    this.query();
+  }),
+
   init() {
     this._super(...arguments);
 
@@ -59,11 +67,27 @@ export default Component.extend(ComponentQueryManager, {
     const input = {
       startDay: this.get('startDate').valueOf(),
       endDay: this.get('endDate').valueOf(),
-      breakout: this.get('breakout'),
     };
-    const variables = { input };
+
+    const sort = {
+      field: this.get('sortBy'),
+      order: this.get('ascending') ? 1 : -1,
+    };
+
+    let query;
+    let resultKey;
+    const breakout = this.get('breakout');
+    if (breakout === 'publisher') {
+      query = publisherMetricBreakouts;
+      resultKey = 'publisherMetricBreakouts';
+    } else if (breakout === 'topic') {
+      query = topicMetricBreakouts;
+      resultKey = 'topicMetricBreakouts';
+    }
+
+    const variables = { input, sort };
     try {
-      const rows = await this.get('apollo').watchQuery({ query, variables }, 'publisherMetricBreakouts');
+      const rows = await this.get('apollo').watchQuery({ query, variables, fetchPolicy: 'network-only' }, resultKey);
       this.set('rows', rows);
     } catch (e) {
       this.get('graphErrors').show(e);
