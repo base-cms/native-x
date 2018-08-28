@@ -62,7 +62,7 @@
         {{story-published-at
           publishedAt=form.model.publishedAt
           status=form.model.status
-          onSelect=(action form.actions.setAndAutosave "publishedAt")
+          onSelect=(action "setPublishedAt" form.model.id)
         }}
       </div>
     </div>

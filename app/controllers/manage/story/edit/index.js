@@ -5,11 +5,28 @@ import ActionMixin from 'fortnight/mixins/action-mixin';
 
 import updateStory from 'fortnight/gql/mutations/story/update';
 import deleteStory from 'fortnight/gql/mutations/story/delete';
+import storyPublishedAt from 'fortnight/gql/mutations/story/published-at';
 
 export default Controller.extend(ActionMixin, {
   apollo: inject(),
 
   actions: {
+    async setPublishedAt(id, publishedAt) {
+      this.startAction();
+      const variables = {
+        id,
+        value: publishedAt ? publishedAt.valueOf() : null,
+      }
+      const mutation = storyPublishedAt;
+      try {
+        await this.get('apollo').mutate({ mutation, variables }, 'storyPublishedAt');
+      } catch (e) {
+        this.get('graphErrors').show(e);
+      } finally {
+        this.endAction();
+      }
+    },
+
     /**
      * Updates the story.
      *
