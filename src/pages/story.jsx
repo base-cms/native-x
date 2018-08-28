@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Query } from 'react-apollo';
 import Head from 'next/head';
+import Error from 'next/error';
 
 import { GTAGTracker } from '../lib/gtag';
 
@@ -9,6 +10,7 @@ import Title from '../components/Title';
 import StoryView from '../components/StoryView';
 import LoadingBar from '../components/LoadingBar';
 import ErrorAlert from '../components/ErrorAlert';
+import isNotFound from '../lib/not-found';
 
 import pageQuery from '../gql/queries/pages/story.graphql';
 
@@ -22,6 +24,9 @@ const Story = ({ id, preview, publisherId }) => {
             return <LoadingBar />;
           }
           if (error) {
+            if (isNotFound(error)) {
+              return <Error statusCode={404} />;
+            }
             return <ErrorAlert message={error.message} />;
           }
           const { publishedStory } = data;
@@ -43,7 +48,7 @@ const Story = ({ id, preview, publisherId }) => {
             page_title: title,
             publisher_id: publisher.id,
             advertiser_id: advertiser.id,
-          });
+          }, !preview);
           tracker.pageview();
 
           const { src } = primaryImage || {};
@@ -84,7 +89,7 @@ const Story = ({ id, preview, publisherId }) => {
                 {/* @todo Eventually use the publisher context. */}
                 <meta name="native-x:publisher" content={publisher.name} />
               </Head>
-              <StoryView {...publishedStory} tracker={tracker} />
+              <StoryView {...publishedStory} tracker={tracker} preview={preview} />
             </Fragment>
           );
         }}

@@ -4,7 +4,7 @@ import { getDataFromTree } from 'react-apollo';
 import PropTypes from 'prop-types';
 import initApollo from './init';
 import apolloConfig from './config';
-
+import isNotFound from '../lib/not-found';
 
 export default (App) => {
   class WithApollo extends React.Component {
@@ -28,7 +28,7 @@ export default (App) => {
       ctx,
       rest,
     }) {
-      const { req } = ctx;
+      const { req, res } = ctx;
 
       // Await the App's initial props.
       let appProps = {};
@@ -56,8 +56,14 @@ export default (App) => {
           // Prevent errors from crashing SSR.
           // Handle the error in components via data.error prop.
           // @see http://dev.apollodata.com/react/api-queries.html#graphql-query-data-error
-          // eslint-disable-next-line no-console
-          console.error('SERVER ERROR in getDataFromTree', e);
+          if (isNotFound(e)) {
+            e.code = 'ENOENT';
+            res.statusCode = 404;
+            throw e;
+          } else {
+            // eslint-disable-next-line no-console
+            console.error('SERVER ERROR in getDataFromTree', e);
+          }
         }
         // Clear the head state so duplicate head data is prevented.
         Head.rewind();

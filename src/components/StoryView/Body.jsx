@@ -1,12 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Container } from 'reactstrap';
+import VisibilitySensor from 'react-visibility-sensor';
 import SocialShare from './SocialShare';
 import { GTAGTracker } from '../../lib/gtag';
 
 const createMarkup = html => ({ __html: html });
 
 class StoryViewBody extends React.Component {
+  constructor(props) {
+    super(props);
+    this.trackEndOfContent = this.trackEndOfContent.bind(this);
+  }
+
   /**
    *
    */
@@ -20,6 +26,11 @@ class StoryViewBody extends React.Component {
         tracker.outboundLink(url);
       });
     });
+  }
+
+  trackEndOfContent(isVisible) {
+    const { tracker } = this.props;
+    if (isVisible) tracker.trackEndOfContent();
   }
 
   /**
@@ -104,6 +115,7 @@ class StoryViewBody extends React.Component {
           />
           {/* eslint-disable-next-line react/no-danger */}
           <div id={`body-${storyId}`} className="fr-view" dangerouslySetInnerHTML={createMarkup(body)} />
+          <VisibilitySensor onChange={this.trackEndOfContent} />
           <hr className="mt-4 mb-4" />
           <SocialShare
             title={title}
