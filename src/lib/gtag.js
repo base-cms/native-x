@@ -28,6 +28,14 @@ export const trackOutboundLink = (url, props) => {
   });
 };
 
+export const trackEndOfContent = (props) => {
+  trackEvent('scroll_to_bottom', {
+    ...props,
+    event_category: 'engagement',
+    value: 1,
+  });
+};
+
 export class GTAGTracker {
   constructor(config = {}, enabled = true) {
     this.config = config;
@@ -52,5 +60,9 @@ export class GTAGTracker {
 
   outboundLink(url) {
     if (this.enabled) trackOutboundLink(url, this.config);
+  }
+
+  trackEndOfContent() {
+    if (this.enabled) trackEndOfContent(this.config);
   }
 }
