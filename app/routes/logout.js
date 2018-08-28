@@ -6,7 +6,6 @@ export default Route.extend(UnauthenticatedRouteMixin, {
   session: inject(),
 
   beforeModel() {
-    // this.showLoading();
-    this.get('session').invalidate().finally(() => this.hideLoading());
+    return this.get('session').invalidate();
   }
 });

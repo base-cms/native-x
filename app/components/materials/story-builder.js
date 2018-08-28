@@ -1,6 +1,6 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
-import ActionMixin from 'fortnight/mixins/action-mixin';
+import ActionMixin from 'fortnight/mixins/action';
 import ComponentQueryManager from 'ember-apollo-client/mixins/component-query-manager';
 
 import storyTitle from 'fortnight/gql/mutations/story/title';

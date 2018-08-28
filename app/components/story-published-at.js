@@ -23,16 +23,19 @@ export default Component.extend({
     return moment().startOf('day');
   }),
 
+  onSelect(value) {
+    const fn = this.get('onSelect');
+    if (typeof fn === 'function') {
+      fn(value);
+    }
+  },
+
   actions: {
     removeDate() {
-      this.set('selected', null);
-      // eslint-disable-next-line
-      this.sendAction('onSelect', null);
+      this.onSelect(null);
     },
     setPublishedAt(selected) {
-      this.set('selected', moment(selected).startOf('day'));
-      // eslint-disable-next-line
-      this.sendAction('onSelect', selected);
+      this.onSelect(moment(selected).startOf('day'));
     },
   },
 });

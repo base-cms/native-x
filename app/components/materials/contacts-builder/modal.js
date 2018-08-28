@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import ActionMixin from 'fortnight/mixins/action-mixin';
+import ActionMixin from 'fortnight/mixins/action';
 import ComponentQueryManager from 'ember-apollo-client/mixins/component-query-manager';
 
 import campaignExternalContact from 'fortnight/gql/mutations/campaign/external-contact';
@@ -24,7 +24,7 @@ export default Component.extend(ActionMixin, ComponentQueryManager, {
         payload,
       };
       const variables = { input };
-      const refetchQueries = ['CampaignHash'];
+      const refetchQueries = ['PortalCampaignsManageMaterials'];
       try {
         await this.get('apollo').mutate({ mutation: campaignExternalContact, variables, refetchQueries }, 'campaignExternalContact');
         this.get('modal').send('hide');

@@ -1,5 +1,5 @@
 <div class="card-body">
-  {{-report/campaign-title campaign=model.campaign}}
+  {{-report/campaign-title campaign=model}}
 
   {{#auto-save/form as |form|}}
     <div class="form-group mb-0">
@@ -9,7 +9,7 @@
         id="campaign-url"
         class="form-control"
         type="url"
-        value=model.campaign.url
+        value=model.url
         placeholder="https://www.yourlink.com"
         required=true
         on-change=(action "saveField" "url" "Click URL")

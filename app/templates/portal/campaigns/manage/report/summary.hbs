@@ -14,32 +14,32 @@
 
             <div class="d-flex flex-column">
               <div class="d-flex flex-row">
-                {{#if model.campaign.primaryImage.src}}
+                {{#if model.primaryImage.src}}
                   <div class="d-flex flex-column my-auto mr-3">
                     {{imgix-img
-                      originalSrc=model.campaign.primaryImage.src
+                      originalSrc=model.primaryImage.src
                       width=192
                       height=108
                       w="192"
                       h="108"
                       fit="crop"
                       crop="focalpoint"
-                      fp-x=model.campaign.primaryImage.focalPoint.x
-                      fp-y=model.campaign.primaryImage.focalPoint.y
+                      fp-x=model.primaryImage.focalPoint.x
+                      fp-y=model.primaryImage.focalPoint.y
                     }}
                   </div>
                 {{/if}}
                 <div class="d-flex flex-column">
-                  <h4 class="mb-1">{{model.campaign.name}}</h4>
-                  {{#if model.campaign.description}}
-                    <h5 class="mb-1">{{model.campaign.description}}</h5>
+                  <h4 class="mb-1">{{model.name}}</h4>
+                  {{#if model.description}}
+                    <h5 class="mb-1">{{model.description}}</h5>
                   {{/if}}
-                  {{#if model.campaign.story.id}}
-                    <p class="mb-1">Story: {{model.campaign.story.title}}</p>
+                  {{#if model.story.id}}
+                    <p class="mb-1">Story: {{model.story.title}}</p>
                   {{/if}}
                   <div class="mt-auto">
-                    {{campaign-date futureLabel="Starts" pastLabel="Started" date=model.campaign.criteria.start}}
-                    {{campaign-date futureLabel="Ends" pastLabel="Ended" date=model.campaign.criteria.end}}
+                    {{campaign-date futureLabel="Starts" pastLabel="Started" date=model.criteria.start}}
+                    {{campaign-date futureLabel="Ends" pastLabel="Ended" date=model.criteria.end}}
                   </div>
                 </div>
               </div>

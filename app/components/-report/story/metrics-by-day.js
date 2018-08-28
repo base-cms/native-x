@@ -1,9 +1,9 @@
 import Component from '@ember/component';
-import ObjectQueryManager from 'ember-apollo-client/mixins/object-query-manager';
+import ComponentQueryManager from 'ember-apollo-client/mixins/component-query-manager';
 
 import query from 'fortnight/gql/queries/story/reports/by-day';
 
-export default Component.extend( ObjectQueryManager, {
+export default Component.extend(ComponentQueryManager, {
   isReportRunning: false,
 
   actions: {
@@ -15,7 +15,7 @@ export default Component.extend( ObjectQueryManager, {
         endDate: endDate.valueOf(),
       };
       try {
-        const { reports } = await this.get('apollo').query({ query, variables }, 'story');
+        const { reports } = await this.get('apollo').watchQuery({ query, variables }, 'story');
         this.set('rows', reports.byDay);
       } catch (e) {
         this.get('graphErrors').show(e);

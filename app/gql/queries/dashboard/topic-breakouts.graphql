@@ -1,0 +1,9 @@
+query DashboardTopicBreakouts($input: BreakoutMetricsInput!, $sort: TopicMetricsSortInput!) {
+  topicMetricBreakouts(input: $input, sort: $sort) {
+    publisherName
+    topicName
+    views
+    clicks
+    ctr
+  }
+}

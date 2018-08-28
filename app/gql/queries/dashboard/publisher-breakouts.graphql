@@ -1,32 +1,6 @@
-query DashboardPublisherBreakouts($input: PublisherMetricsInput!) {
-  publisherMetricBreakouts(input: $input) {
-    publisher {
-      id
-      name
-    }
-    placement {
-      id
-      publisher {
-        id
-        name
-      }
-      template {
-        id
-        name
-      }
-      topic {
-        id
-        name
-      }
-    }
-    topic {
-      id
-      name
-      publisher {
-        id
-        name
-      }
-    }
+query DashboardPublisherBreakouts($input: BreakoutMetricsInput!, $sort: PublisherMetricsSortInput!) {
+  publisherMetricBreakouts(input: $input, sort: $sort) {
+    publisherName
     views
     clicks
     ctr

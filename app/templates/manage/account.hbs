@@ -37,7 +37,7 @@
       </div>
 
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
 
           <div class="form-group mb-0">
             <label for="account-cname">Custom CNAME</label>
@@ -54,7 +54,7 @@
           <small class="form-text text-muted">A custom CNAME for your account, configured by NativeX support.</small>
 
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
 
           <div class="form-group mb-0">
             <label for="account-reserve-pct">Impression Reserve</label>
@@ -75,6 +75,25 @@
               </div>
             </div>
             <small class="form-text text-muted">The share of impressions dedicated to serving content, rather than a campaign.</small>
+          </div>
+
+        </div>
+
+        <div class="col-md-4">
+
+          <div class="form-group mb-0">
+            <label for="account-required-creatives">Required Creatives</label>
+            {{input
+              type="number"
+              min=0
+              max=10
+              value=form.model.settings.requiredCreatives
+              class="form-control"
+              id="account-required-creatives"
+              focusOut=(action form.actions.autosave)
+              keyUp=(action form.actions.autosave 750)
+            }}
+            <small class="form-text text-muted">The number of creatives required on a campaign. Changing this only affects go-foward campaigns.</small>
           </div>
 
         </div>

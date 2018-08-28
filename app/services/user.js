@@ -4,6 +4,7 @@ import ObjectQueryManager from 'ember-apollo-client/mixins/object-query-manager'
 
 export default Service.extend(ObjectQueryManager, {
   loadingDisplay: inject(),
+  graphErrors: inject(),
   session: inject(),
   auth: inject(),
 
@@ -22,11 +23,15 @@ export default Service.extend(ObjectQueryManager, {
     return roles.includes(role);
   },
 
-  logout() {
+  async logout() {
     const loader = this.get('loadingDisplay');
     loader.show();
-    return this.get('session').invalidate()
-      .finally(loader.hide())
-    ;
+    try {
+      await this.get('session').invalidate();
+    } catch (e) {
+      this.get('graphErrors').show(e);
+    } finally {
+      loader.hide();
+    }
   }
 });

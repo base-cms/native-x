@@ -70,7 +70,7 @@
 
   <hr>
 
-  <p class="form-text">Once your story is complete, click the toggle below to publish it. You <em>must</em> publish your story or it will not display when visited.</p>
+  <p class="form-text"><strong>Note:</strong> Once your story is complete, you <em>must</em> click the toggle below to publish it. If it remains unpublished, it will not display when visited.</p>
   {{#x-toggle
     class="justify-content-start"
     size="medium"
@@ -82,7 +82,15 @@
     onToggle=(action "togglePublished") as |toggle|
   }}
     {{toggle.switch class="w-auto px-0"}}
-    {{toggle.onLabel class="font-weight-bold text-muted"}}
+    {{#toggle.label value=isPublished}}
+      <span class="font-weight-bold text-muted">
+        {{#if isPublished}}
+          {{entypo-icon "check" class="text-success"}} Published
+        {{else}}
+          {{entypo-icon "warning" class="text-warning"}} Unpublished
+        {{/if}}
+      </span>
+    {{/toggle.label}}
   {{/x-toggle}}
 
 </div>

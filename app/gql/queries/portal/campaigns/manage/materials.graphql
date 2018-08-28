@@ -1,0 +1,7 @@
+#import 'fortnight/gql/fragments/campaign/portal/manage/materials'
+
+query PortalCampaignsManageMaterials($input: CampaignHashInput!) {
+  campaignHash(input: $input) {
+    ...CampaignPortalManageMaterialsFragment
+  }
+}

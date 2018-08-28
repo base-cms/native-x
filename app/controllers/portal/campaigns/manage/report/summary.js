@@ -14,12 +14,12 @@ export default Controller.extend({
     async runByDayReport({ startDate, endDate }) {
       this.set('isReportRunning', true);
       const variables = {
-        input: { hash: this.get('model.campaign.hash'), advertiserId: this.get('model.advertiser.id') },
+        input: { hash: this.get('model.hash'), advertiserId: this.get('model.advertiser.id') },
         startDate: startDate.startOf('day').valueOf(),
         endDate: endDate.startOf('day').valueOf(),
       };
       try {
-        const { reports } = await this.get('apollo').query({ query: reportByDay, variables }, 'campaignHash');
+        const { reports } = await this.get('apollo').watchQuery({ query: reportByDay, variables }, 'campaignHash');
         this.set('rows', reports.byDay);
       } catch (e) {
         this.get('graphErrors').show(e);
@@ -31,10 +31,10 @@ export default Controller.extend({
     async retrieveCampaignMetrics() {
       this.set('areMetricsLoading', true);
       const variables = {
-        input: { hash: this.get('model.campaign.hash'), advertiserId: this.get('model.advertiser.id') },
+        input: { hash: this.get('model.hash'), advertiserId: this.get('model.advertiser.id') },
       };
       try {
-        const { metrics } = await this.get('apollo').query({ query: campaignMetrics, variables }, 'campaignHash');
+        const { metrics } = await this.get('apollo').watchQuery({ query: campaignMetrics, variables }, 'campaignHash');
         this.set('metrics', metrics);
       } catch (e) {
         this.get('graphErrors').show(e);

@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import ActionMixin from 'fortnight/mixins/action-mixin';
+import ActionMixin from 'fortnight/mixins/action';
 import ComponentQueryManager from 'ember-apollo-client/mixins/component-query-manager';
 
 import removeCampaignExternalContact from 'fortnight/gql/mutations/campaign/remove-external-contact';

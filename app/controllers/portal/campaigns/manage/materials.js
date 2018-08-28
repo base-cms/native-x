@@ -2,7 +2,7 @@ import Controller from '@ember/controller';
 import { computed } from '@ember/object';
 import { inject } from '@ember/service';
 import { isURL } from 'validator';
-import ActionMixin from 'fortnight/mixins/action-mixin';
+import ActionMixin from 'fortnight/mixins/action';
 
 import mutation from 'fortnight/gql/mutations/campaign/url';
 import assignCampaignValue from 'fortnight/gql/mutations/campaign/assign-value';
@@ -10,16 +10,22 @@ import assignCampaignValue from 'fortnight/gql/mutations/campaign/assign-value';
 export default Controller.extend(ActionMixin, {
   apollo: inject(),
 
-  canRemoveCreatives: computed('model.campaign.creatives.length', function() {
-    return this.get('model.campaign.creatives.length') > 1;
+  activeCreatives: computed.filterBy('model.creatives', 'active', true),
+
+  remainingCreatives: computed('model.requiredCreatives', 'activeCreatives.length', function() {
+    return this.get('model.requiredCreatives') - this.get('activeCreatives.length');
   }),
 
+  remainingCreativesLabel: computed('remainingCreatives', function() {
+    if (this.get('remainingCreatives') > 1) return 'creatives';
+    return 'creative';
+  }),
 
   actions: {
     async saveField(field, label, { value }) {
       this.startAction();
       const input = {
-        id: this.get('model.campaign.id'),
+        id: this.get('model.id'),
         field,
         value,
       };
@@ -46,7 +52,7 @@ export default Controller.extend(ActionMixin, {
 
     async updateUrl({ url }) {
       this.startAction();
-      const campaignId = this.get('model.campaign.id');
+      const campaignId = this.get('model.id');
       const variables = { input: { campaignId, url } };
 
       try {

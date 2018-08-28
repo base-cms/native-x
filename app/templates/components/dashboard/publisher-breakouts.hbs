@@ -17,10 +17,6 @@
           {{radio-button radioId="breakout-topic" radioClass="custom-control-input" value="topic" groupValue=breakout changed=(action "setBreakout")}}
           <label class="custom-control-label mr-3" for="breakout-topic">Topic</label>
         </div>
-        <div class="custom-control custom-radio">
-          {{radio-button radioId="breakout-placement" radioClass="custom-control-input" value="placement" groupValue=breakout changed=(action "setBreakout")}}
-          <label class="custom-control-label" for="breakout-placement">Placement</label>
-        </div>
       </div>
 
     </div>
@@ -32,37 +28,41 @@
     <table class="table table-sm table-hover mb-0">
       <thead>
         <tr>
-          {{#if (eq breakout "publisher")}}
-            <th>Publisher</th>
-          {{/if}}
+          <th>
+            Publisher
+            {{-report/sort-field key="publisherName" sortBy=sortBy ascending=ascending reset=false}}
+          </th>
           {{#if (eq breakout "topic")}}
-            <th>Publisher</th>
-            <th>Topic</th>
+            <th>
+              Topic
+              {{-report/sort-field key="topicName" sortBy=sortBy ascending=ascending reset=false}}
+            </th>
           {{/if}}
-          {{#if (eq breakout "placement")}}
-            <th>Publisher</th>
-            <th>Topic</th>
-            <th>Placement</th>
-          {{/if}}
-          <th>Views</th>
-          <th>Clicks</th>
-          <th>CTR</th>
+          <th>
+            Views
+            {{-report/sort-field key="views" sortBy=sortBy ascending=ascending reset=false}}
+          </th>
+          <th>
+            Clicks
+            {{-report/sort-field key="clicks" sortBy=sortBy ascending=ascending reset=false}}
+          </th>
+          <th>
+            CTR
+            {{-report/sort-field key="ctr" sortBy=sortBy ascending=ascending reset=false}}
+          </th>
         </tr>
       </thead>
       <tbody>
         {{#each rows as |row|}}
           <tr>
             {{#if (eq breakout "publisher")}}
-              <td>{{row.publisher.name}}</td>
-            {{/if}}
-            {{#if (eq breakout "placement")}}
-              <td>{{row.placement.publisher.name}}</td>
-              <td>{{row.placement.topic.name}}</td>
-              <td>{{row.placement.template.name}}</td>
+              <td>
+                {{row.publisherName}}
+              </td>
             {{/if}}
             {{#if (eq breakout "topic")}}
-              <td>{{row.topic.publisher.name}}</td>
-              <td>{{row.topic.name}}</td>
+              <td>{{row.publisherName}}</td>
+              <td>{{row.topicName}}</td>
             {{/if}}
             <td>{{number-format row.views "0,0"}}</td>
             <td>{{number-format row.clicks "0,0"}}</td>
@@ -73,62 +73,3 @@
     </table>
   {{/if}}
 </div>
-
-
-{{!-- <div class="card-body">
-  {{#if isLoading}}
-    <small class="text-muted">Loading data...</small>
-    {{progress-bar show=true}}
-  {{else}}
-    <h5 class="text-muted card-title">Total Results: {{data.totalCount}}</h5>
-    {{#fetch-more
-      class="table-responsive"
-      query=observable
-      edges=data.edges
-      hasNextPage=data.pageInfo.hasNextPage
-      endCursor=data.pageInfo.endCursor
-      on-fetch-start=(route-action "showLoading")
-      on-fetch-end=(route-action "hideLoading")
-      resultKey="allPublishers" as |fetch|
-    }}
-      <table class="table table-sm table-hover mb-0">
-        <thead>
-          <tr>
-            <th>Publisher</th>
-            <th>Views</th>
-            <th>Clicks</th>
-            <th>CTR</th>
-          </tr>
-        </thead>
-        <tbody>
-
-          {{#each fetch.nodes as |item|}}
-            <tr>
-              <td>{{#link-to "manage.publisher.edit" item.id}}{{item.name}}{{/link-to}}</td>
-              {{#with item.metrics as |metrics|}}
-                <td>{{number-format metrics.views "0,0"}}</td>
-                <td>{{number-format metrics.clicks "0,0"}}</td>
-                <td>{{number-format metrics.ctr "0.[000]%"}}</td>
-              {{/with}}
-            </tr>
-          {{else}}
-            <tr>
-              <td colspan="4" class="text-center text-muted">No publishers found.</td>
-            </tr>
-          {{/each}}
-
-        </tbody>
-
-        {{#if fetch.hasNextPage}}
-          <tfoot>
-            <tr colspan="4">
-              <button class="btn btn-primary btn-sm mt-2" disabled={{fetch.isFetching}} {{action fetch.actions.loadMore}}>
-                {{entypo-icon "download"}} {{#if fetch.isFetching}}Loading...{{else}}Load More{{/if}}
-              </button>
-            </tr>
-          </tfoot>
-        {{/if}}
-      </table>
-    {{/fetch-more}}
-  {{/if}}
-</div> --}}
