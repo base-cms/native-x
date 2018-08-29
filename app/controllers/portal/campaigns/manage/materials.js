@@ -13,7 +13,8 @@ export default Controller.extend(ActionMixin, {
   activeCreatives: computed.filterBy('model.creatives', 'active', true),
 
   remainingCreatives: computed('model.requiredCreatives', 'activeCreatives.length', function() {
-    return this.get('model.requiredCreatives') - this.get('activeCreatives.length');
+    const value = this.get('model.requiredCreatives') - this.get('activeCreatives.length');
+    return value < 0 ? 0 : value;
   }),
 
   remainingCreativesLabel: computed('remainingCreatives', function() {
