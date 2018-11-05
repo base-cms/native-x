@@ -21,6 +21,7 @@ export default Controller.extend(ActionMixin, {
         confirmPassword,
         givenName,
         familyName,
+        role,
       } = this.get('model');
 
       const payload = {
@@ -29,6 +30,7 @@ export default Controller.extend(ActionMixin, {
         confirmPassword,
         givenName,
         familyName,
+        role,
       };
       const variables = { input: { payload } };
       try {
