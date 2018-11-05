@@ -30,9 +30,10 @@ export default Controller.extend(ActionMixin, {
         email,
         givenName,
         familyName,
+        role,
       } = this.get('model');
 
-      const payload = { email, givenName, familyName };
+      const payload = { email, givenName, familyName, role };
       const variables = { input: { id, payload } };
       try {
         await this.get('apollo').mutate({ mutation: updateUser, variables }, 'updateUser');
