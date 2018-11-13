@@ -17,8 +17,7 @@ const StoryListItemDetails = ({
       {' '}
       {advertiser.name}
     </h6>
-    {teaser.length > 0
-      && (
+    {teaser && teaser.length > 0 && (
         <p className="mt-1 mb-0 text-muted">
           {teaser}
         </p>
