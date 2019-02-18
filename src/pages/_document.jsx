@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import Document, { Head, Main, NextScript } from 'next/document';
 import GoogleAnalytics from '../components/GoogleAnalytics';
+import GoogleTagManager from '../components/GoogleTagManager';
 import { AccountConsumer } from '../providers/AccountProvider';
 
 export default class MyDocument extends Document {
@@ -18,7 +19,12 @@ export default class MyDocument extends Document {
           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.8.4/css/froala_style.css" type="text/css" />
           <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,700|Raleway:300,400,500" rel="stylesheet" type="text/css" />
           <AccountConsumer>
-            {({ account }) => <GoogleAnalytics accountKey={account.key} trackingId={account.settings.googleAnalyticsId} />}
+            {({ account }) => {(
+              <Fragment>
+                <GoogleAnalytics accountKey={account.key} trackingId={account.settings.googleAnalyticsId} />
+                <GoogleTagManager accountKey={account.key} trackingId={account.settings.googleTagManagerId} />
+              </Fragment>
+            )}}
           </AccountConsumer>
         </Head>
         <body>
