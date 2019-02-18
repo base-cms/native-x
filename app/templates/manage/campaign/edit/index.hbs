@@ -32,8 +32,16 @@
       {{/x-toggle}}
     </div>
 
-
-    <div class="d-flex flex-column">
+    <div class="d-flex align-items-end">
+      {{confirm-button
+        icon="copy"
+        label="Clone"
+        runningLabel="Cloning..."
+        class="btn-info mr-1"
+        disabled=isActionRunning
+        isRunning=isCloning
+        onConfirm=(action "clone")
+      }}
       {{confirm-button
         icon="trash"
         label="Delete"

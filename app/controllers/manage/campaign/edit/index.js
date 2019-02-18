@@ -6,6 +6,7 @@ import ActionMixin from 'fortnight/mixins/action-mixin';
 import mutation from 'fortnight/gql/mutations/campaign/update';
 import pauseCampaign from 'fortnight/gql/mutations/campaign/pause';
 import deleteCampaign from 'fortnight/gql/mutations/campaign/delete';
+import cloneCampaign from 'fortnight/gql/mutations/campaign/clone';
 
 export default Controller.extend(ActionMixin, {
   apollo: inject(),
@@ -53,6 +54,27 @@ export default Controller.extend(ActionMixin, {
         this.get('graphErrors').show(e);
       } finally {
         this.endAction();
+      }
+    },
+
+    /**
+     * Clones the campaign
+     */
+    async clone() {
+      this.startAction();
+      this.set('isCloning', true);
+      const id = this.get('model.id');
+      const variables = { input: { id } };
+      const mutation = cloneCampaign;
+      try {
+        const refetchQueries = ['AllCampaigns'];
+        const campaign = await this.get('apollo').mutate({ mutation, variables, refetchQueries }, 'cloneCampaign');
+        await this.transitionToRoute('manage.campaign.edit.index', get(campaign, 'id'));
+      } catch (e) {
+        this.get('graphErrors').show(e);
+      } finally {
+        this.endAction();
+        this.set('isCloning', false);
       }
     },
 
