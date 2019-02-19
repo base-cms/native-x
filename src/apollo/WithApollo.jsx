@@ -3,10 +3,9 @@ import Head from 'next/head';
 import { ApolloProvider, getDataFromTree } from 'react-apollo';
 import initApollo from './init';
 import apolloConfig from './config';
+import getDisplayName from '../lib/display-name';
 
 const { log } = console;
-
-const getDisplayName = Component => Component.displayName || Component.name || 'Unknown';
 
 export default (ComposedComponent) => {
   class WithApollo extends React.Component {
