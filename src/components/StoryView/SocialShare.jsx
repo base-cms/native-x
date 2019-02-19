@@ -12,7 +12,7 @@ import {
   PinterestShareButton,
   PinterestIcon,
 } from 'react-share';
-import { GTAGTracker } from '../../lib/gtag';
+import { GTMTracker } from '../../lib/gtm';
 
 class StoryViewSocialShare extends React.Component {
   /**
@@ -121,7 +121,7 @@ StoryViewSocialShare.propTypes = {
   size: PropTypes.number,
   teaser: PropTypes.string,
   title: PropTypes.string.isRequired,
-  tracker: PropTypes.instanceOf(GTAGTracker).isRequired,
+  tracker: PropTypes.instanceOf(GTMTracker).isRequired,
   url: PropTypes.string.isRequired,
 };
 

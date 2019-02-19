@@ -9,37 +9,33 @@ import PropTypes from 'prop-types';
  *
  * @see https://github.com/zeit/next.js/blob/master/examples/with-google-analytics
  */
-const GoogleTagManager = ({ settings, accountKey }) => {
-  if (!settings.googleAnalyticsId) return null;
-  if (!settings.googleTagManagerId) return null;
+const GoogleTagManager = ({ accountKey, googleTagManagerId }) => {
+  let html = '';
+  if (googleTagManagerId) {
+    html = `${html}
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','${googleTagManagerId}');
 
-  const { googleAnalyticsId, googleTagManagerId } = settings;
+      // Set global GTM variables.
+      // Values set here will be sent with _all_ GTM events.
+      window.dataLayer.push({
+        account_key: '${accountKey}'
+      });
+    `;
+  }
+
   /**
    * Global Site Tag (gtag.js) - Google Analytics
    *
    */
   return (
     <Fragment>
-      <script async src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`} />
-      <script async src={`https://www.googletagmanager.com/gtag/js?id=${googleTagManagerId}`} />
       <script
         dangerouslySetInnerHTML={{ // eslint-disable-line react/no-danger
-          __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            window.gtag('config', '${googleAnalyticsId}', {
-              send_page_view: false,
-              custom_map: {
-                dimension1: 'account_key',
-                dimension2: 'story_id',
-                dimension3: 'publisher_id',
-                dimension4: 'advertiser_id',
-                metric1: 'social_shares',
-              },
-              account_key: '${accountKey}'
-            });
-          `,
+          __html: html,
         }}
       />
     </Fragment>
@@ -47,11 +43,11 @@ const GoogleTagManager = ({ settings, accountKey }) => {
 };
 
 GoogleTagManager.defaultProps = {
-  trackingId: '',
+  googleTagManagerId: '',
 };
 
 GoogleTagManager.propTypes = {
-  trackingId: PropTypes.string,
+  googleTagManagerId: PropTypes.string,
   accountKey: PropTypes.string.isRequired,
 };
 

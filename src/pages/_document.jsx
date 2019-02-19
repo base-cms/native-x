@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import Document, { Head, Main, NextScript } from 'next/document';
 import GoogleTagManager from '../components/GoogleTagManager';
 import { AccountConsumer } from '../providers/AccountProvider';
@@ -18,7 +18,15 @@ export default class MyDocument extends Document {
           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/2.8.4/css/froala_style.css" type="text/css" />
           <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,700|Raleway:300,400,500" rel="stylesheet" type="text/css" />
           <AccountConsumer>
-            {({ account }) => (<GoogleTagManager accountKey={account.key} settings={account.settings} />)}
+            {({ account }) => {
+              const { googleTagManagerId } = account.settings || {};
+              return (
+                <GoogleTagManager
+                  accountKey={account.key}
+                  googleTagManagerId={googleTagManagerId}
+                />
+              );
+            }}
           </AccountConsumer>
         </Head>
         <body>
