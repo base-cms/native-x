@@ -8,8 +8,8 @@ services:
     working_dir: /app
     volumes:
       - .:/app:cached
-      - node_modules:/app/node_modules
-      - next:/app/.next
+      - ./node_modules:/app/node_modules:delegated
+      - yarn-cache:/.yarn-cache
     restart: on-failure
     entrypoint: ./node_modules/.bin/nodemon server.js --exec "./node_modules/.bin/eslint src/server/**/*.js && node"
     environment:
@@ -18,7 +18,4 @@ services:
       GRAPHQL_URI: ${GRAPHQL_URI-http://host.docker.internal:8100}
 volumes:
   node_modules: {}
-  next:
-    driver_opts:
-      type: tmpfs
-      device: tmpfs
+  yarn-cache: {}
