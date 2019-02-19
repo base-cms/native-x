@@ -1,12 +1,14 @@
 import React from 'react';
 import Head from 'next/head';
-import { getDataFromTree } from 'react-apollo';
-import PropTypes from 'prop-types';
+import { ApolloProvider, getDataFromTree } from 'react-apollo';
 import initApollo from './init';
 import apolloConfig from './config';
-import isNotFound from '../lib/not-found';
 
-export default (App) => {
+const { log } = console;
+
+const getDisplayName = Component => Component.displayName || Component.name || 'Unknown';
+
+export default (ComposedComponent) => {
   class WithApollo extends React.Component {
     /**
      *
@@ -14,56 +16,47 @@ export default (App) => {
      */
     constructor(props) {
       super(props);
+      // eslint-disable-next-line react/prop-types
       const { apolloState } = this.props;
       this.apollo = initApollo(apolloConfig, apolloState);
     }
 
     /**
+     * The _app page's getInitialProps hook.
+     * This provides slightly different args than a "regular" page.
      *
-     * @param {*} ctx
+     * @param {object} args
      */
-    static async getInitialProps({
-      Component,
-      router,
-      ctx,
-      rest,
-    }) {
+    static async getInitialProps(args) {
+      const { Component, router, ctx } = args;
       const { req, res } = ctx;
 
+      // Create the apollo client and expose it within the context.
+      // This allows the "raw" client to be accessed within page `getInitialProps`
+      const apollo = initApollo(apolloConfig, {}, req);
+      ctx.apollo = apollo;
+
       // Await the App's initial props.
-      let appProps = {};
-      if (App.getInitialProps) {
-        appProps = await App.getInitialProps({
-          Component,
-          router,
-          ctx,
-          ...rest,
-        });
+      let composedInitialProps = {};
+      if (ComposedComponent.getInitialProps) {
+        composedInitialProps = await ComposedComponent.getInitialProps(args);
       }
 
-      const apollo = initApollo(apolloConfig, {}, req);
       // Run all GraphQL queries in tree and extract the data.
-      if (!process.browser) {
+      // Only run on the server and if headers have not been sent.
+      if (!process.browser && !res.headersSent) {
         try {
           // Run queries in the tree.
-          await getDataFromTree(<App
-            {...appProps}
-            Component={Component}
-            router={router}
-            apollo={apollo}
-          />);
+          await getDataFromTree(
+            <ApolloProvider client={apollo}>
+              <ComposedComponent router={router} Component={Component} {...composedInitialProps} />
+            </ApolloProvider>,
+          );
         } catch (e) {
           // Prevent errors from crashing SSR.
           // Handle the error in components via data.error prop.
           // @see http://dev.apollodata.com/react/api-queries.html#graphql-query-data-error
-          if (isNotFound(e)) {
-            e.code = 'ENOENT';
-            res.statusCode = 404;
-            throw e;
-          } else {
-            // eslint-disable-next-line no-console
-            console.error('SERVER ERROR in getDataFromTree', e);
-          }
+          log('SERVER ERROR in getDataFromTree', e);
         }
         // Clear the head state so duplicate head data is prevented.
         Head.rewind();
@@ -73,7 +66,7 @@ export default (App) => {
       const apolloState = apollo.cache.extract();
 
       return {
-        ...appProps,
+        ...composedInitialProps,
         apolloState,
       };
     }
@@ -82,14 +75,14 @@ export default (App) => {
      *
      */
     render() {
-      return <App {...this.props} apollo={this.apollo} />;
+      return (
+        <ApolloProvider client={this.apollo}>
+          <ComposedComponent {...this.props} />
+        </ApolloProvider>
+      );
     }
   }
 
-  WithApollo.displayName = 'WithApollo(App)';
-  WithApollo.propTypes = {
-    // eslint-disable-next-line react/forbid-prop-types
-    apolloState: PropTypes.object.isRequired,
-  };
+  WithApollo.displayName = `WithApollo(${getDisplayName(ComposedComponent)})`;
   return WithApollo;
 };
