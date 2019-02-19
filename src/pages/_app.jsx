@@ -1,19 +1,17 @@
 import App, { Container } from 'next/app';
 import React from 'react';
 import withApollo from '../apollo/WithApollo';
-import { AccountProvider } from '../providers/AccountProvider';
+import withAccount from '../hoc/withAccount';
 
 class NativeX extends App {
   render() {
     const { Component, pageProps } = this.props;
     return (
       <Container>
-        <AccountProvider>
-          <Component {...pageProps} />
-        </AccountProvider>
+        <Component {...pageProps} />
       </Container>
     );
   }
 }
 
-export default withApollo(NativeX);
+export default withApollo(withAccount(NativeX));
