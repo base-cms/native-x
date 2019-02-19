@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
  *
  * @see https://github.com/zeit/next.js/blob/master/examples/with-google-analytics
  */
-const GoogleTagManager = ({ accountKey, googleTagManagerId }) => {
+const GoogleTagManager = ({ googleTagManagerId }) => {
   let html = '';
   if (googleTagManagerId) {
     html = `${html}
@@ -18,12 +18,6 @@ const GoogleTagManager = ({ accountKey, googleTagManagerId }) => {
       j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
       })(window,document,'script','dataLayer','${googleTagManagerId}');
-
-      // Set global GTM variables.
-      // Values set here will be sent with _all_ GTM events.
-      window.dataLayer.push({
-        account_key: '${accountKey}'
-      });
     `;
   }
 
@@ -48,7 +42,6 @@ GoogleTagManager.defaultProps = {
 
 GoogleTagManager.propTypes = {
   googleTagManagerId: PropTypes.string,
-  accountKey: PropTypes.string.isRequired,
 };
 
 export default GoogleTagManager;

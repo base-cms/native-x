@@ -22,7 +22,6 @@ export default class MyDocument extends Document {
               const { googleTagManagerId } = account.settings || {};
               return (
                 <GoogleTagManager
-                  accountKey={account.key}
                   googleTagManagerId={googleTagManagerId}
                 />
               );
