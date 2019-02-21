@@ -16,6 +16,7 @@ const StoryView = ({
   title,
   tracker,
   url,
+  preview,
 }) => {
   const logoSrc = advertiser.logo ? advertiser.logo.src : '';
   return (
@@ -36,6 +37,7 @@ const StoryView = ({
           teaser={teaser}
           body={body}
           tracker={tracker}
+          preview={preview}
         />
       </div>
     </Fragment>
@@ -67,6 +69,7 @@ StoryView.propTypes = {
   tracker: PropTypes.instanceOf(GTMTracker).isRequired,
   title: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
+  preview: PropTypes.bool.isRequired,
 };
 
 export default StoryView;
