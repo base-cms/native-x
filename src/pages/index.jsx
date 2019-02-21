@@ -10,20 +10,22 @@ import Head from 'next/head';
 import Title from '../components/Title';
 import StoryList from '../components/StoryList';
 import { AccountConsumer } from '../providers/AccountProvider';
-import { GTMTracker } from '../lib/gtm';
+import GTM from '../lib/gtm';
+import withGTMConsumer from '../hoc/withGTMConsumer';
 
 class IndexPage extends React.Component {
-  componentDidMount() {
-    const { accountKey } = this.props;
-    const tracker = new GTMTracker(accountKey, {
+  constructor(props) {
+    super(props);
+
+    const { gtm } = props;
+    this.tracker = gtm.createTracker({
       page_path: '/',
       page_title: 'Home',
     });
-    tracker.pageview();
   }
 
-  static async getInitialProps({ account }) {
-    return { accountKey: account.key };
+  componentDidMount() {
+    this.tracker.pageLoad();
   }
 
   render() {
@@ -56,7 +58,7 @@ class IndexPage extends React.Component {
 }
 
 IndexPage.propTypes = {
-  accountKey: PropTypes.string.isRequired,
+  gtm: PropTypes.instanceOf(GTM).isRequired,
 };
 
-export default IndexPage;
+export default withGTMConsumer(IndexPage);

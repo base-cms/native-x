@@ -1,47 +1,40 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
+import GTM from '../lib/gtm';
 
 /**
- * Renders the global site script tag for gtag.js with Google Analytics.
+ * Renders the script tag for Google Tag Manager
  *
- * If no tracking ID is present, no script will be inserted.
- * Also sets the accountKey globally.
+ * Adds the global, application GTM container as well as the account container (if set).
  *
  * @see https://github.com/zeit/next.js/blob/master/examples/with-google-analytics
  */
-const GoogleTagManager = ({ googleTagManagerId }) => {
-  let html = '';
-  if (googleTagManagerId) {
-    html = `${html}
-      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-      })(window,document,'script','dataLayer','${googleTagManagerId}');
-    `;
-  }
+const GoogleTagManager = ({ containerIds = [] }) => {
+  const script = GTM.buildScriptFor(containerIds);
 
   /**
-   * Global Site Tag (gtag.js) - Google Analytics
+   * Global GTM Tag
    *
    */
   return (
     <Fragment>
-      <script
-        dangerouslySetInnerHTML={{ // eslint-disable-line react/no-danger
-          __html: html,
-        }}
-      />
+      {script && (
+        <script
+          dangerouslySetInnerHTML={{ // eslint-disable-line react/no-danger
+            __html: script,
+          }}
+        />
+      )}
     </Fragment>
   );
 };
 
 GoogleTagManager.defaultProps = {
-  googleTagManagerId: '',
+  containerIds: [],
 };
 
 GoogleTagManager.propTypes = {
-  googleTagManagerId: PropTypes.string,
+  containerIds: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default GoogleTagManager;

@@ -1,7 +1,8 @@
 import App, { Container } from 'next/app';
 import React from 'react';
 import withApollo from '../apollo/WithApollo';
-import withAccount from '../hoc/withAccount';
+import withAccountProvider from '../hoc/withAccountProvider';
+import withGTMProvider from '../hoc/withGTMProvider';
 
 class NativeX extends App {
   render() {
@@ -14,4 +15,10 @@ class NativeX extends App {
   }
 }
 
-export default withApollo(withAccount(NativeX));
+export default withApollo(
+  withAccountProvider(
+    withGTMProvider(
+      NativeX,
+    ),
+  ),
+);

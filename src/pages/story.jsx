@@ -2,7 +2,8 @@ import React, { Fragment, Component } from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
 
-import { GTMTracker } from '../lib/gtm';
+import GTM from '../lib/gtm';
+import withGTMConsumer from '../hoc/withGTMConsumer';
 import httpErrors from '../lib/http-errors';
 
 import Title from '../components/Title';
@@ -13,9 +14,7 @@ import pageQuery from '../gql/queries/pages/story.graphql';
 class Story extends Component {
   constructor(props) {
     super(props);
-    const { publishedStory, preview, accountKey } = props;
-
-    // Setup the tracker instance for this page (and it's child components).
+    const { publishedStory, preview, gtm } = props;
     const {
       id,
       advertiser,
@@ -24,18 +23,39 @@ class Story extends Component {
       title,
     } = publishedStory;
 
-    this.tracker = new GTMTracker(accountKey, {
+    this.tracker = gtm.createTracker({
       story_id: id,
       page_path: path,
       page_title: title,
       publisher_id: publisher.id,
       advertiser_id: advertiser.id,
       preview_mode: preview,
-    }, !preview);
+    });
   }
 
   componentDidMount() {
-    this.tracker.pageview();
+    this.tracker.pageLoad();
+  }
+
+  static async getInitialProps({
+    req,
+    query,
+    apollo,
+  }) {
+    let preview = false;
+    if (req) preview = Boolean(req.query.preview);
+
+    const { id, publisherId } = query;
+    const input = { id, preview };
+    const variables = { input, publisherId };
+
+    const { data } = await apollo.query({ query: pageQuery, variables });
+    const { publishedStory } = data || {};
+    if (!publishedStory) {
+      // No story was found for this id. Return a 404.
+      throw httpErrors.notFound(`No story was found for id '${id}'`);
+    }
+    return { publishedStory, preview };
   }
 
   render() {
@@ -93,41 +113,16 @@ class Story extends Component {
   }
 }
 
-Story.getInitialProps = async ({
-  req,
-  query,
-  apollo,
-  account,
-}) => {
-  let preview = false;
-
-  if (req) {
-    preview = Boolean(req.query.preview);
-  }
-  const { id, publisherId } = query;
-
-  const input = { id, preview };
-  const variables = { input, publisherId };
-
-  const { data } = await apollo.query({ query: pageQuery, variables });
-  const { publishedStory } = data || {};
-  if (!publishedStory) {
-    // No story was found for this id. Return a 404.
-    throw httpErrors.notFound(`No story was found for id '${id}'`);
-  }
-  return { publishedStory, preview, accountKey: account.key };
-};
-
 Story.defaultProps = {
   preview: false,
 };
 
 Story.propTypes = {
-  accountKey: PropTypes.string.isRequired,
+  gtm: PropTypes.instanceOf(GTM).isRequired,
   preview: PropTypes.bool,
   publishedStory: PropTypes.shape({
     id: PropTypes.string,
   }).isRequired,
 };
 
-export default Story;
+export default withGTMConsumer(Story);

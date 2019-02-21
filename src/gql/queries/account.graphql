@@ -4,9 +4,11 @@ query Account {
     name
     key
     settings {
-      googleAnalyticsId
-      googleTagManagerId
       siteVerificationMeta
+    }
+    globals {
+      GTM_CONTAINER_ID
+      GA_TRACKING_ID
     }
   }
 }
