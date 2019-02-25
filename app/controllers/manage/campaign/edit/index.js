@@ -67,8 +67,7 @@ export default Controller.extend(ActionMixin, {
       const variables = { input: { id } };
       const mutation = cloneCampaign;
       try {
-        const refetchQueries = ['AllCampaigns'];
-        const campaign = await this.get('apollo').mutate({ mutation, variables, refetchQueries }, 'cloneCampaign');
+        const campaign = await this.get('apollo').mutate({ mutation, variables }, 'cloneCampaign');
         await this.transitionToRoute('manage.campaign.edit.index', get(campaign, 'id'));
       } catch (e) {
         this.get('graphErrors').show(e);

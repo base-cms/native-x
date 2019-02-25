@@ -84,8 +84,7 @@ export default Controller.extend(ActionMixin, {
       const variables = { input: { id } };
       const mutation = cloneStory;
       try {
-        const refetchQueries = ['AllStories'];
-        const story = await this.get('apollo').mutate({ mutation, variables, refetchQueries }, 'cloneStory');
+        const story = await this.get('apollo').mutate({ mutation, variables }, 'cloneStory');
         await this.transitionToRoute('manage.story.edit.index', get(story, 'id'));
       } catch (e) {
         this.get('graphErrors').show(e);
