@@ -8,13 +8,24 @@
   </div>
 
   <div class="card-footer d-flex justify-content-between">
-    <a href={{model.previewUrl}} class="btn btn-info" role="button" target="_blank">{{entypo-icon "eye"}} Preview</a>
-    {{confirm-button
-      icon="trash"
-      label="Delete"
-      class="btn-danger"
-      disabled=isActionRunning
-      onConfirm=(action "delete" model.id "story.index")
-    }}
+    <a href={{model.previewUrl}} class="btn btn-primary" role="button" target="_blank">{{entypo-icon "eye"}} Preview</a>
+    <div class="d-flex align-items-end">
+      {{confirm-button
+        icon="copy"
+        label="Clone"
+        runningLabel="Cloning..."
+        class="btn-info mr-1"
+        disabled=isActionRunning
+        isRunning=isCloning
+        onConfirm=(action "clone")
+      }}
+      {{confirm-button
+        icon="trash"
+        label="Delete"
+        class="btn-danger"
+        disabled=isActionRunning
+        onConfirm=(action "delete" model.id "story.index")
+      }}
+    </div>
   </div>
 {{/model-form}}

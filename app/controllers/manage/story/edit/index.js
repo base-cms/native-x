@@ -3,6 +3,7 @@ import { inject } from '@ember/service';
 import { get } from '@ember/object';
 import ActionMixin from 'fortnight/mixins/action-mixin';
 
+import cloneStory from 'fortnight/gql/mutations/story/clone';
 import updateStory from 'fortnight/gql/mutations/story/update';
 import deleteStory from 'fortnight/gql/mutations/story/delete';
 import storyPublishedAt from 'fortnight/gql/mutations/story/published-at';
@@ -70,6 +71,26 @@ export default Controller.extend(ActionMixin, {
         this.get('graphErrors').show(e);
       } finally {
         this.endAction();
+      }
+    },
+
+    /**
+     * Clones the story
+     */
+    async clone() {
+      this.startAction();
+      this.set('isCloning', true);
+      const id = this.get('model.id');
+      const variables = { input: { id } };
+      const mutation = cloneStory;
+      try {
+        const story = await this.get('apollo').mutate({ mutation, variables }, 'cloneStory');
+        await this.transitionToRoute('manage.story.edit.index', get(story, 'id'));
+      } catch (e) {
+        this.get('graphErrors').show(e);
+      } finally {
+        this.endAction();
+        this.set('isCloning', false);
       }
     },
   },
