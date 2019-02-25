@@ -2,11 +2,5 @@
 mutation CloneCampaign($input: ModelIdInput!) {
   cloneCampaign(input: $input) {
     id
-    advertiser {
-      id
-    }
-    story {
-      id
-    }
   }
 }
