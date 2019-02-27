@@ -37,7 +37,7 @@
       </div>
 
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-6">
 
           <div class="form-group mb-0">
             <label for="account-cname">Custom CNAME</label>
@@ -54,7 +54,27 @@
           <small class="form-text text-muted">A custom CNAME for your account, configured by NativeX support.</small>
 
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
+
+          <div class="form-group mb-0">
+            <label for="account-gtm-id">Google Tag Manager ID</label>
+            {{input
+              type="text"
+              disabled=false
+              value=form.model.settings.googleTagManagerId
+              class="form-control"
+              id="account-googleTagManagerId"
+              focusOut=(action form.actions.autosave)
+              keyUp=(action form.actions.autosave 750)
+            }}
+          </div>
+          <small class="form-text text-muted">A google tag manager ID to be loaded on your story pages.</small>
+
+        </div>
+      </div>
+      <div class="row">
+
+        <div class="col-md-6">
 
           <div class="form-group mb-0">
             <label for="account-reserve-pct">Impression Reserve</label>
@@ -79,7 +99,7 @@
 
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-6">
 
           <div class="form-group mb-0">
             <label for="account-required-creatives">Required Creatives</label>

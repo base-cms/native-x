@@ -25,6 +25,7 @@ export default Controller.extend(ActionMixin, {
         settings: {
           reservePct: settings.reservePct || 0,
           requiredCreatives: settings.requiredCreatives || 1,
+          googleTagManagerId: settings.googleTagManagerId || null,
         },
       };
       const variables = { input: { id, payload } };
