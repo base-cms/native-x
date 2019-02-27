@@ -5,7 +5,7 @@ import Contents from './StoryView/Header/Contents';
 import Body from './StoryView/Body';
 import Style from './StoryView/Header/Style';
 import Navbar from './StoryView/Navbar';
-import { GTAGTracker } from '../lib/gtag';
+import { GTMTracker } from '../lib/gtm';
 
 const StoryView = ({
   advertiser,
@@ -16,6 +16,7 @@ const StoryView = ({
   title,
   tracker,
   url,
+  preview,
 }) => {
   const logoSrc = advertiser.logo ? advertiser.logo.src : '';
   return (
@@ -36,6 +37,7 @@ const StoryView = ({
           teaser={teaser}
           body={body}
           tracker={tracker}
+          preview={preview}
         />
       </div>
     </Fragment>
@@ -64,9 +66,10 @@ StoryView.propTypes = {
     }),
   }),
   teaser: PropTypes.string,
-  tracker: PropTypes.instanceOf(GTAGTracker).isRequired,
+  tracker: PropTypes.instanceOf(GTMTracker).isRequired,
   title: PropTypes.string.isRequired,
   url: PropTypes.string.isRequired,
+  preview: PropTypes.bool.isRequired,
 };
 
 export default StoryView;

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Container } from 'reactstrap';
 import VisibilitySensor from 'react-visibility-sensor';
 import SocialShare from './SocialShare';
-import { GTAGTracker } from '../../lib/gtag';
+import { GTMTracker } from '../../lib/gtm';
 
 const createMarkup = html => ({ __html: html });
 
@@ -30,7 +30,7 @@ class StoryViewBody extends React.Component {
 
   trackEndOfContent(isVisible) {
     const { tracker } = this.props;
-    if (isVisible) tracker.trackEndOfContent();
+    if (isVisible) tracker.endOfContent();
   }
 
   /**
@@ -45,6 +45,7 @@ class StoryViewBody extends React.Component {
       teaser,
       tracker,
       imageSrc,
+      preview,
     } = this.props;
     return (
       <div id="story-body" className="position-relative mx-3">
@@ -111,6 +112,7 @@ class StoryViewBody extends React.Component {
             url={url}
             imageSrc={imageSrc}
             tracker={tracker}
+            preview={preview}
             className="mb-4"
           />
           {/* eslint-disable-next-line react/no-danger */}
@@ -123,6 +125,7 @@ class StoryViewBody extends React.Component {
             url={url}
             imageSrc={imageSrc}
             tracker={tracker}
+            preview={preview}
           />
         </Container>
       </div>
@@ -141,8 +144,9 @@ StoryViewBody.propTypes = {
   storyId: PropTypes.string.isRequired,
   teaser: PropTypes.string,
   title: PropTypes.string.isRequired,
-  tracker: PropTypes.instanceOf(GTAGTracker).isRequired,
+  tracker: PropTypes.instanceOf(GTMTracker).isRequired,
   url: PropTypes.string.isRequired,
+  preview: PropTypes.bool.isRequired,
 };
 
 export default StoryViewBody;
