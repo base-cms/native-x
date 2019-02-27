@@ -5,6 +5,7 @@ query Account {
     key
     settings {
       siteVerificationMeta
+      googleTagManagerId
     }
     globals {
       GTM_CONTAINER_ID
