@@ -8,6 +8,8 @@
   <div class="col">
     {{-report/campaign/chart
       isLoading=isReportRunning
+      startDate=startDate
+      endDate=endDate
       rows=rows
       oninsert=(action "runByDayReport")
       onchange=(action "runByDayReport")
