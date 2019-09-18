@@ -1,7 +1,7 @@
 import Controller from '@ember/controller';
 import { computed } from '@ember/object';
 import ImpressionDataMixin from 'fortnight/mixins/impression-data-mixin';
-import moment from 'moment'
+import moment from 'moment';
 
 export default Controller.extend(ImpressionDataMixin, {
 
