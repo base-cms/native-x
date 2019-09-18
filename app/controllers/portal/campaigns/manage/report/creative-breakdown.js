@@ -14,6 +14,7 @@ export default Controller.extend(ImpressionDataMixin, {
   endDate: computed('model.criteria.end', function() {
     const end = this.get('model.criteria.end');
     const now = moment();
+    if (!end) return now;
     return end > now ? now : moment(end);
   }),
 
