@@ -4,6 +4,10 @@ query PortalCampaignsManageReportCreativeBreakdown($input: CampaignHashInput!) {
   campaignHash(input: $input) {
     id
     hash
+    criteria {
+      start
+      end
+    }
     creatives {
       ...CampaignCreativeFragment
     }

@@ -24,3 +24,4 @@ package.json.ember-try
 .DS_Store
 coverage
 .nyc_output
+.env

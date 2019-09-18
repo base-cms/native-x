@@ -1,8 +1,22 @@
 import Controller from '@ember/controller';
 import { computed } from '@ember/object';
 import ImpressionDataMixin from 'fortnight/mixins/impression-data-mixin';
+import moment from 'moment';
 
 export default Controller.extend(ImpressionDataMixin, {
+
+  startDate: computed('model.criteria.start', function() {
+    const start = this.get('model.criteria.start');
+    if (start) return moment(start);
+    return moment().subtract(14, 'days');
+  }),
+
+  endDate: computed('model.criteria.end', function() {
+    const end = this.get('model.criteria.end');
+    const now = moment();
+    if (!end) return now;
+    return end > now ? now : moment(end);
+  }),
 
   impressionSummaryTimeSeries: computed('model.creatives.@each', function() {
     return this.get('model.creatives').map(item => {

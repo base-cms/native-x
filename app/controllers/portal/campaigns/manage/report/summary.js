@@ -1,11 +1,26 @@
 import Controller from '@ember/controller';
 import { inject } from '@ember/service';
+import { computed } from '@ember/object';
+import moment from 'moment';
 
 import reportByDay from 'fortnight/gql/queries/campaign/reports/by-day';
 import campaignMetrics from 'fortnight/gql/queries/campaign/metrics';
 
 export default Controller.extend({
   apollo: inject(),
+
+  startDate: computed('model.criteria.start', function() {
+    const start = this.get('model.criteria.start');
+    if (start) return moment(start);
+    return moment().subtract(14, 'days');
+  }),
+
+  endDate: computed('model.criteria.end', function() {
+    const end = this.get('model.criteria.end');
+    const now = moment();
+    if (!end) return now;
+    return end > now ? now : moment(end);
+  }),
 
   isReportRunning: false,
   areMetricsLoading: false,
