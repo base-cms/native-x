@@ -1,0 +1,19 @@
+version: '3'
+services:
+  test:
+    image: node:8
+    working_dir: /app
+    volumes:
+      - ../:/app:cached
+      - node_modules:/app/node_modules
+    environment:
+      NODE_ENV: test
+    entrypoint: yarn run test:run
+volumes:
+  node_modules: {}
+
+volumes:
+  node_modules:
+    labels:
+      io.as3.appname: "fortnight-js"
+      io.as3.env: "test"
