@@ -1,0 +1,26 @@
+#import 'fortnight/gql/fragments/image/src'
+#import 'fortnight/gql/fragments/user-attribution'
+#import 'fortnight/gql/fragments/timestampable'
+
+fragment StoryListFragment on Story {
+  id
+  title
+  advertiser {
+    id
+    name
+  }
+  publisher {
+    id
+    name
+  }
+  status
+  publishedAt
+  primaryImage {
+    ...ImageSrcFragment
+  }
+  campaigns(pagination: { first: 1 }, sort: { field: "createdAt", order: 1 }) {
+    totalCount
+  }
+  ...TimestampableFragment
+  ...UserAttributionFragment
+}

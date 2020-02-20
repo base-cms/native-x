@@ -1,0 +1,58 @@
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group">
+      <label for="start">Starts On</label>
+      {{-calendar
+        currentDay=form.model.criteria.start
+        maxDate=startMax
+        minDate=startMin
+        truncDay="start"
+        onSelect=(action form.actions.setAndAutosave "criteria.start")
+      }}
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group">
+      <label for="end">Ends On</label>
+      {{-calendar
+        currentDay=form.model.criteria.end
+        maxDate=endMax
+        minDate=endMin
+        truncDay="end"
+        onSelect=(action form.actions.setAndAutosave "criteria.end")
+        canRemove=true
+      }}
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <div class="form-group mb-0">
+      <label>Placements</label>
+      {{#type-ahead
+        multiple=true
+        wasFormValidated=form.wasValidated
+        triggerClass="form-control"
+        placeholder="Begin typing to search..."
+        type="placement"
+        closeOnSelect=false
+        onChange=(action form.actions.autosave)
+        selected=form.model.criteria.placements as |item|
+      }}
+        {{placement/-name placement=item}}
+      {{/type-ahead}}
+    </div>
+  </div>
+</div>
+{{!-- <hr>
+<div class="row">
+  <div class="col">
+    <div class="card">
+      <div class="card-header">Custom Variables</div>
+      <div class="card-body">
+        {{campaign-key-values kvs=form.model.criteria.kvs onChange=(action form.actions.setAndAutosave "criteria.kvs")}}
+      </div>
+    </div>
+  </div>
+</div> --}}

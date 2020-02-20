@@ -1,0 +1,7 @@
+#import 'fortnight/gql/fragments/template/view'
+
+mutation UpdateTemplate($input: UpdateTemplateInput!) {
+  updateTemplate(input: $input) {
+    ...TemplateFragment
+  }
+}

@@ -1,0 +1,7 @@
+#import 'fortnight/gql/fragments/authentication'
+
+query checkSession($input: SessionTokenInput!) {
+  checkSession(input: $input) {
+    ...AuthenticationFragment
+  }
+}

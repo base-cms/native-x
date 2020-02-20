@@ -1,0 +1,45 @@
+{{#nav-breadcrumbs as |crumbs|}}
+  {{#crumbs.item}}{{#link-to "manage.user.index"}}{{entypo-icon "users"}} Users{{/link-to}}{{/crumbs.item}}
+  {{#crumbs.item active=true}}Create New{{/crumbs.item}}
+{{/nav-breadcrumbs}}
+
+{{#model-form
+  model=model
+  shouldAutosave=false
+  onSubmit=(action "create") as |form|
+}}
+  <div class="card model-form">
+    <div class="card-header"></div>
+    <div class="card-body">
+      {{ partial "manage/user/form" }}
+
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group mb-3 mb-sm-0">
+            <label for="user-password">Password {{required-field-label}}</label>
+            {{input type="password" required=true minlength="6" autocomplete="new-password" value=model.password class="form-control" id="user-password"}}
+            <div class="invalid-feedback">
+              Please provide a valid password.
+            </div>
+            <small class="form-text text-muted">Must be at least six characters long.</small>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group mb-0">
+            <label for="user-confirm-password">Confirm Password {{required-field-label}}</label>
+            {{input type="password" required=true minlength="6" autocomplete="new-password" value=model.confirmPassword class="form-control" id="user-confirm-password"}}
+            <div class="invalid-feedback">
+              Please provide a valid matching password.
+            </div>
+            <small class="form-text text-muted">Must match the inputted password.</small>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+    <div class="card-footer">
+      {{model-save-button disabled=isActionRunning}}
+    </div>
+  </div>
+{{/model-form}}

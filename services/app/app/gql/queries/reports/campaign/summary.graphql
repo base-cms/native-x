@@ -1,0 +1,12 @@
+query ReportCampaignSummary($input: CampaignHashInput!) {
+	reportCampaignSummary(input: $input) {
+		views
+		clicks
+		days {
+			date
+			views
+			clicks
+      ctr
+		}
+	}
+}

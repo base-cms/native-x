@@ -1,0 +1,25 @@
+{{#nav-breadcrumbs as |crumbs|}}
+  {{#crumbs.item}}{{#link-to "manage.template.index"}}{{entypo-icon "news"}} Templates{{/link-to}}{{/crumbs.item}}
+  {{#crumbs.item active=true}}{{ model.name }}{{/crumbs.item}}
+{{/nav-breadcrumbs}}
+
+<form {{action (route-action "update" model) on="submit"}}>
+  <div class="card model-form">
+    <div class="card-header"></div>
+    <div class="card-body">
+      {{ partial "manage/template/form" }}
+    </div>
+    <div class="card-footer">
+      {{model-save-button disabled=isActionRunning}}
+      <div class="btn-group float-right">
+        {{confirm-button
+          icon="trash"
+          label="Delete"
+          class="btn-danger"
+          disabled=isActionRunning
+          onConfirm=(action "delete")
+        }}
+      </div>
+    </div>
+  </div>
+</form>

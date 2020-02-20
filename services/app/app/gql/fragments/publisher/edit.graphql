@@ -1,0 +1,13 @@
+#import 'fortnight/gql/fragments/image/src'
+
+fragment PublisherEditFragment on Publisher {
+  id
+  name
+  website
+  createdAt
+  updatedAt
+  domainName
+  logo {
+    ...ImageSrcFragment
+  }
+}

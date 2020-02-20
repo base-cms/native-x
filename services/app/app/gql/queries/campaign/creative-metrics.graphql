@@ -1,0 +1,10 @@
+query CampaignCreativeMetrics($input: CampaignCreativeInput!) {
+  campaignCreative(input: $input) {
+    id
+    metrics {
+      views
+      clicks
+      ctr
+    }
+  }
+}

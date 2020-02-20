@@ -1,0 +1,17 @@
+#import 'fortnight/gql/fragments/advertiser/list'
+
+query SearchAdvertisers($pagination: PaginationInput, $phrase: String!) {
+  searchAdvertisers(pagination: $pagination, phrase: $phrase) {
+    totalCount
+    edges {
+      node {
+        ...AdvertiserListFragment
+      }
+      cursor
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}

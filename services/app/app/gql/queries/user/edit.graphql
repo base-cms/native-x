@@ -1,0 +1,7 @@
+#import 'fortnight/gql/fragments/user/edit'
+
+query EditUser($input: ModelIdInput!) {
+  user(input: $input) {
+    ...UserEditFragment
+  }
+}

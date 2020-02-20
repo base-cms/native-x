@@ -1,0 +1,3 @@
+mutation DeleteContact($input: ModelIdInput!) {
+  deleteContact(input: $input)
+}

@@ -1,0 +1,22 @@
+#import 'fortnight/gql/fragments/story/list'
+#import 'fortnight/gql/fragments/image/view'
+
+fragment StoryFragment on Story {
+  ...StoryListFragment
+  slug
+  teaser
+  body
+  previewUrl
+  hash
+  advertiser {
+    id
+    hash
+  }
+  publisher {
+    id
+    name
+  }
+  primaryImage {
+    ...ImageViewFragment
+  }
+}

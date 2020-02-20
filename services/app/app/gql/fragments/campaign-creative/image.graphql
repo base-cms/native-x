@@ -1,0 +1,8 @@
+#import 'fortnight/gql/fragments/image/view'
+
+fragment CampaignCreativeImageFragment on CampaignCreative {
+  id
+  image {
+    ...ImageViewFragment
+  }
+}

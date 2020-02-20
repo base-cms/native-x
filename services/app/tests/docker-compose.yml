@@ -1,0 +1,30 @@
+version: '3'
+services:
+  test:
+    image: danlynn/ember-cli:3.1.2
+    ports:
+      - "${EMBER_SERVE_PORT-8105}:${EMBER_SERVE_PORT-8105}"
+      - "${EMBER_LIVER_PORT-8106}:${EMBER_LIVER_PORT-8106}"
+      - "${EMBER_TESTS_PORT-8107}:${EMBER_TESTS_PORT-8107}"
+    volumes:
+      - ../:/myapp:cached
+      - node_modules:/myapp/node_modules
+      - tmp:/myapp/tmp
+    entrypoint: yarn run test:run
+volumes:
+  node_modules: {}
+  tmp:
+    driver_opts:
+      type: tmpfs
+      device: tmpfs
+
+
+volumes:
+  node_modules:
+    labels:
+      io.as3.appname: "fortnight-app"
+      io.as3.env: "test"
+  tmp:
+    labels:
+      io.as3.appname: "fortnight-app"
+      io.as3.env: "test"

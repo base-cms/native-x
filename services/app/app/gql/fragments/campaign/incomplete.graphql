@@ -1,0 +1,15 @@
+fragment IncompleteCampaignFragment on Campaign {
+  id
+  name
+  status
+  requires
+  criteria {
+    id
+    start
+    end
+  }
+  advertiser {
+    id
+    name
+  }
+}

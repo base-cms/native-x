@@ -1,0 +1,7 @@
+#import 'fortnight/gql/fragments/contact/view'
+
+query contact($input: ModelIdInput!) {
+  contact(input: $input) {
+    ...ContactFragment
+  }
+}

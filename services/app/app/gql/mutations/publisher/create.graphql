@@ -1,0 +1,5 @@
+mutation CreatePublisher($input: CreatePublisherInput!) {
+  createPublisher(input: $input) {
+	id
+  }
+}

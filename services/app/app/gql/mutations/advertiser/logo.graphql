@@ -1,0 +1,7 @@
+#import 'fortnight/gql/fragments/advertiser/logo'
+
+mutation AdvertiserLogo($input: AdvertiserLogoInput!) {
+  advertiserLogo(input: $input) {
+    ...AdvertiserLogoFragment
+  }
+}

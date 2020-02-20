@@ -1,0 +1,10 @@
+query CampaignMetrics($input: CampaignHashInput!) {
+  campaignHash(input: $input) {
+    id
+    metrics {
+      views
+      clicks
+      ctr
+    }
+  }
+}

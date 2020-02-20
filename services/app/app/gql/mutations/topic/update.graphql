@@ -1,0 +1,7 @@
+#import 'fortnight/gql/fragments/topic/edit'
+
+mutation UpdateTopic($input: UpdateTopicInput!) {
+  updateTopic(input: $input) {
+    ...TopicEditFragment
+  }
+}

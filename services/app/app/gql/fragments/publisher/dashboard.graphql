@@ -1,0 +1,9 @@
+fragment PublisherDashboardFragment on Publisher {
+  id
+  name
+  metrics(start: $metricsStartDate, end: $metricsEndDate) {
+    views
+    clicks
+    ctr
+  }
+}

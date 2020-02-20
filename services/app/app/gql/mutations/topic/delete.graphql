@@ -1,0 +1,3 @@
+mutation DeleteTopic($input: ModelIdInput!) {
+  deleteTopic(input: $input)
+}

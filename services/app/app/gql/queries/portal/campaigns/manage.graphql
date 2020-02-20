@@ -1,0 +1,6 @@
+query PortalCampaignsManage($input: CampaignHashInput!) {
+  campaignHash(input: $input) {
+    id
+    hash
+  }
+}

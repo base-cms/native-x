@@ -1,0 +1,17 @@
+fragment PlacementAutocompleteFragment on Placement {
+  id
+  name
+  publisher {
+    id
+    name
+  }
+  template {
+    id
+    name
+    description
+  }
+  topic {
+    id
+    name
+  }
+}

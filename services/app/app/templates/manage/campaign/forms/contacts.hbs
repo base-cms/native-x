@@ -1,0 +1,39 @@
+<div class="row">
+  <div class="col">
+    <div class="form-group">
+      <label>Internal Notifications</label>
+      {{#type-ahead
+        multiple=true
+        wasFormValidated=form.wasValidated
+        triggerClass="form-control"
+        placeholder="Begin typing to search..."
+        type="contact"
+        closeOnSelect=true
+        onChange=(action form.actions.autosave)
+        selected=form.model.notify.internal as |item|
+      }}
+        {{item.name}} <span class="text-muted">[{{item.email}}]</span>
+      {{/type-ahead}}
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <div class="form-group">
+      <label>External Notifications</label>
+      {{#type-ahead
+        multiple=true
+        wasFormValidated=form.wasValidated
+        triggerClass="form-control"
+        placeholder="Begin typing to search..."
+        type="contact"
+        closeOnSelect=true
+        onChange=(action form.actions.autosave)
+        selected=form.model.notify.external as |item|
+      }}
+        {{item.name}} <span class="text-muted">[{{item.email}}]</span>
+      {{/type-ahead}}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+#import 'fortnight/gql/fragments/placement/list'
+
+query SearchPlacements($pagination: PaginationInput, $phrase: String!) {
+  searchPlacements(pagination: $pagination, phrase: $phrase) {
+    totalCount
+    edges {
+      node {
+        ...PlacementListFragment
+      }
+      cursor
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}

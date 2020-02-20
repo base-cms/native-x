@@ -1,0 +1,13 @@
+#import 'fortnight/gql/fragments/advertiser/contacts'
+#import 'fortnight/gql/fragments/image/src'
+
+fragment AdvertiserEditFragment on Advertiser {
+  id
+  name
+  website
+  hash
+  logo {
+    ...ImageSrcFragment
+  }
+  ...AdvertiserContactsFragment
+}

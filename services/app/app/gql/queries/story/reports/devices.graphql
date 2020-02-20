@@ -1,0 +1,15 @@
+query StoryDeviceReport($input: ModelIdInput!) {
+  story(input: $input) {
+    id
+    reports {
+      devices {
+        deviceCategory
+        metrics {
+          users
+          sessions
+          pageviews
+        }
+      }
+    }
+  }
+}

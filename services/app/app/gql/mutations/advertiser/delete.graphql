@@ -1,0 +1,3 @@
+mutation DeleteAdvertiser($input: ModelIdInput!) {
+  deleteAdvertiser(input: $input)
+}

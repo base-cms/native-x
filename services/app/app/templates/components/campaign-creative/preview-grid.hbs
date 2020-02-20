@@ -1,0 +1,13 @@
+{{#if creative.image}}
+  {{imgix-image image=creative.image}}
+{{/if}}
+<h3 class="mt-3 font-weight-bold">{{ creative.title }}</h3>
+{{#if creative.teaser}}
+<p>{{ creative.teaser }}</p>
+{{/if}}
+{{#if campaign.criteria.start}}
+  <p class="mb-0">
+    <strong>Sponsored</strong> - {{moment-format campaign.criteria.start "MMM DD, YYYY"}}
+  </p>
+{{/if}}
+<hr>

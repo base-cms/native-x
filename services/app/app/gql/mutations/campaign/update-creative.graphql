@@ -1,0 +1,7 @@
+#import 'fortnight/gql/fragments/campaign-creative'
+
+mutation UpdateCampaignCreative($input: UpdateCampaignCreativeInput!) {
+	updateCampaignCreative(input: $input) {
+		...CampaignCreativeFragment
+	}
+}

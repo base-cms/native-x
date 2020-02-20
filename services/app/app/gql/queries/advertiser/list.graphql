@@ -1,0 +1,17 @@
+#import 'fortnight/gql/fragments/advertiser/list'
+
+query ListAdvertisers($pagination: PaginationInput, $sort: AdvertiserSortInput) {
+  allAdvertisers(pagination: $pagination, sort: $sort) {
+    totalCount
+    edges {
+      node {
+        ...AdvertiserListFragment
+      }
+      cursor
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}

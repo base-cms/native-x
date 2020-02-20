@@ -1,0 +1,52 @@
+{{#if image.src}}
+  {{#link-to editRouteName creativeId}}
+    {{image-crop
+      imgClass="card-img-top border-bottom"
+      aspectRatio="16:9"
+      originalSrc=image.src
+      fpX=image.focalPoint.x
+      fpY=image.focalPoint.y
+      alt="Image Preview"
+    }}
+  {{/link-to}}
+{{/if}}
+
+<div class="card-body">
+  {{#if title}}
+    <h5 class="card-title">{{#link-to editRouteName creativeId}}{{title}}{{/link-to}}</h5>
+  {{/if}}
+
+  {{#if teaser}}
+    <p class="card-text">{{teaser}}</p>
+  {{/if}}
+
+</div>
+<div class="card-footer d-flex justify-content-between">
+  {{#if displayEditButton}}
+    {{#link-to editRouteName creativeId class="btn btn-sm btn-success"}}
+      {{entypo-icon "pencil"}} Edit
+    {{/link-to}}
+  {{/if}}
+
+  {{#if displayPreviewButton}}
+    {{#link-to previewRouteName creativeId class="btn btn-sm btn-info"}}
+      {{entypo-icon "eye"}} Preview
+    {{/link-to}}
+  {{/if}}
+
+  {{#if canModifyStatus}}
+    {{campaign-creative/status-selector active=active disabled=isActionRunning onChange=(action "updateStatus")}}
+  {{/if}}
+
+  {{#if canRemove}}
+    {{confirm-button
+      icon="trash"
+      confirmIcon="warning"
+      label=""
+      confirmLabel="You Sure?"
+      class="btn-sm btn-danger"
+      disabled=isActionRunning
+      onConfirm=(action "remove")
+    }}
+  {{/if}}
+</div>

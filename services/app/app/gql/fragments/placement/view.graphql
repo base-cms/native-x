@@ -1,0 +1,19 @@
+fragment PlacementFragment on Placement {
+  id
+  name
+  updatedAt
+  reservePct
+  publisher {
+    id
+    name
+  }
+  template {
+    id
+    name
+    description
+  }
+  topic {
+    id
+    name
+  }
+}

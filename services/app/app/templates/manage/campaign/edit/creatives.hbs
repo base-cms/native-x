@@ -1,0 +1,25 @@
+<div class="card-body pb-0">
+  <div class="row">
+    {{#each model.creatives as |creative|}}
+      <div class="mb-3 col-12 col-md-6 col-lg-4">
+        {{campaign-creative
+          canModifyStatus=true
+          canRemove=true
+          creativeId=creative.id
+          campaignId=model.id
+          title=creative.title
+          teaser=creative.teaser
+          active=creative.active
+          image=creative.image
+        }}
+      </div>
+    {{/each}}
+  </div>
+</div>
+
+<div class="card-footer">
+</div>
+
+{{model-create-button class="left" icon="images" title="Add Creative" click=(route-action "transitionTo" "manage.campaign.edit.creatives.create")}}
+
+{{outlet}}

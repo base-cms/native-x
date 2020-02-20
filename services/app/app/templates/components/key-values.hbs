@@ -1,0 +1,40 @@
+{{#each values as |kv|}}
+<div class="row align-items-end">
+  <div class="form-group col">
+    {{input
+      type="text"
+      placeholder="key"
+      class="form-control form-control-sm"
+      value=kv.key
+      focusOut=(action "update")
+    }}
+  </div>
+  <div class="form-group col">
+    {{input
+      type="text"
+      placeholder="value"
+      class="form-control form-control-sm"
+      value=kv.value
+      focusOut=(action "update")
+    }}
+  </div>
+  <div class="form-group col-2">
+    <button type="submit" class="btn btn-sm btn-danger btn-block" {{action "remove" kv}}>
+      {{-ion "android-close"}} Remove
+    </button>
+  </div>
+</div>
+{{/each}}
+<div class="row align-items-end">
+  <div class="form-group col">
+    {{input type="text" placeholder="key" class="form-control form-control-sm key" value=key}}
+  </div>
+  <div class="form-group col">
+    {{input type="text" placeholder="value" class="form-control form-control-sm value" value=value}}
+  </div>
+  <div class="form-group col-2 text-right">
+    <button type="submit" class="btn btn-sm btn-primary btn-block" {{action "add"}}>
+      {{-ion "android-add"}} Add
+    </button>
+  </div>
+</div>

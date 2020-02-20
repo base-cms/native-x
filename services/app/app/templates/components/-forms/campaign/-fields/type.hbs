@@ -1,0 +1,21 @@
+<div class="form-group">
+  <label for="campaign-type">Campaign Type</label>
+  {{#form.elements.select
+    id="campaign-type"
+    class="custom-select"
+    autocomplete="off"
+    name="type"
+    label="Type"
+    value=value
+    aria-labeledby="campaign-type-help"
+    on-change=on-change
+    required=true as |control|
+  }}
+    {{#control.element as |select|}}
+      {{#each types as |type|}}
+        {{#select.option value=type.value}}{{type.label}}{{/select.option}}
+      {{/each}}
+    {{/control.element}}
+    {{control.elements.invalid-feedback}}
+  {{/form.elements.select}}
+</div>

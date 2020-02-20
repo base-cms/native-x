@@ -1,0 +1,10 @@
+#import 'fortnight/gql/fragments/campaign-criteria'
+
+fragment CriteriaForCampaignFragment on Campaign {
+  id
+  criteria {
+    ...CampaignCriteriaFragment
+  }
+}
+
+

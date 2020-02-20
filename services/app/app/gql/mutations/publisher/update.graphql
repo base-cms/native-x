@@ -1,0 +1,7 @@
+#import 'fortnight/gql/fragments/publisher/edit'
+
+mutation UpdatePublisher($input: UpdatePublisherInput!) {
+  updatePublisher(input: $input) {
+    ...PublisherEditFragment
+  }
+}

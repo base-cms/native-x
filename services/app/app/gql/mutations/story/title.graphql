@@ -1,0 +1,6 @@
+mutation SetStoryTitle($id: String!, $value: String!) {
+  storyTitle(id: $id, value: $value) {
+    id
+    title
+  }
+}

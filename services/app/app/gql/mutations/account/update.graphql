@@ -1,0 +1,7 @@
+#import 'fortnight/gql/fragments/account'
+
+mutation UpdateAccount($input: UpdateAccountInput!) {
+  updateAccount(input: $input) {
+    ...AccountFragment
+  }
+}

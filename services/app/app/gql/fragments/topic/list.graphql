@@ -1,0 +1,16 @@
+#import 'fortnight/gql/fragments/user-attribution'
+#import 'fortnight/gql/fragments/timestampable'
+
+fragment TopicListFragment on Topic {
+  id
+  name
+  publisher {
+    id
+    name
+  }
+  placements(pagination: { first: 1 }, sort: { field: createdAt, order: 1 }) {
+    totalCount
+  }
+  ...TimestampableFragment
+  ...UserAttributionFragment
+}

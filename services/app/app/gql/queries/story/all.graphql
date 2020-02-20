@@ -1,0 +1,17 @@
+#import 'fortnight/gql/fragments/story/list'
+
+query AllStories($pagination: PaginationInput, $sort: StorySortInput) {
+  allStories(pagination: $pagination, sort: $sort) {
+    totalCount
+    edges {
+      node {
+        ...StoryListFragment
+      }
+      cursor
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}

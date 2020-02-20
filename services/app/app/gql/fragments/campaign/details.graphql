@@ -1,0 +1,37 @@
+#import 'fortnight/gql/fragments/campaign/list'
+#import 'fortnight/gql/fragments/story/autocomplete'
+#import 'fortnight/gql/fragments/campaign-criteria'
+
+fragment CampaignDetailsFragment on Campaign {
+  ...CampaignListFragment
+  description
+  url
+  hash
+  advertiser {
+    id
+    hash
+  }
+  story {
+    ...StoryAutocompleteFragment
+  }
+  criteria {
+    ...CampaignCriteriaFragment
+  }
+  externalLinks {
+    label
+    url
+  }
+  paused
+  notify {
+    internal {
+      id
+      name
+      email
+    }
+    external {
+      id
+      name
+      email
+    }
+  }
+}

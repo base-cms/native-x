@@ -1,0 +1,24 @@
+#import 'fortnight/gql/fragments/image/src'
+
+query PortalCampaignsManageReportSummary($input: CampaignHashInput!) {
+  campaignHash(input: $input) {
+    id
+    hash
+    name
+    description
+    criteria {
+      start
+      end
+    }
+    advertiser {
+      id
+    }
+    story {
+      id
+      title
+    }
+    primaryImage {
+      ...ImageSrcFragment
+    }
+  }
+}

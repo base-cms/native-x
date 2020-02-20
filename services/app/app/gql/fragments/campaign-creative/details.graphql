@@ -1,0 +1,6 @@
+fragment CampaignCreativeDetailsFragment on CampaignCreative {
+  id
+  title
+  teaser
+  active
+}

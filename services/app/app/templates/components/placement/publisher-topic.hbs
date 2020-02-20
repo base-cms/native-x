@@ -1,0 +1,67 @@
+{{#if showPublisher}}
+  <div class="col-md-6">
+
+    <div class="form-group">
+      <label>Publisher {{required-field-label}}</label>
+      {{#type-ahead
+        required=true
+        placeholder="Begin typing to search..."
+        triggerClass="form-control"
+        dropdownClass=dropdownClass
+        wasFormValidated=wasValidated
+        invalidFeedback="Please select a publisher."
+        type="publisher"
+        closeOnSelect=true
+        allowClear=false
+        onChange=(action "setPublisher")
+        selected=publisher as |item|
+      }}
+        {{item.name}}
+      {{/type-ahead}}
+    </div>
+
+  </div>
+  <div class="col-md-6">
+
+    <div class="form-group">
+      <label>Topic</label>
+      {{#type-ahead
+        placeholder=topicsPlaceholder
+        triggerClass="form-control"
+        dropdownClass=dropdownClass
+        wasFormValidated=wasValidated
+        search=searchPublisherTopics
+        closeOnSelect=true
+        allowClear=true
+        disabled=topicsDisabled
+        onChange=(action "setTopic")
+        selected=topic as |item|
+      }}
+        {{item.name}}
+      {{/type-ahead}}
+    </div>
+
+  </div>
+{{else}}
+  <div class="col">
+
+    <div class="form-group">
+      <label>Topic</label>
+      {{#type-ahead
+        dropdownClass=dropdownClass
+        placeholder=topicsPlaceholder
+        triggerClass="form-control"
+        wasFormValidated=wasValidated
+        search=searchPublisherTopics
+        closeOnSelect=true
+        allowClear=true
+        disabled=topicsDisabled
+        onChange=(action "setTopic")
+        selected=topic as |item|
+      }}
+        {{item.name}}
+      {{/type-ahead}}
+    </div>
+
+  </div>
+{{/if}}

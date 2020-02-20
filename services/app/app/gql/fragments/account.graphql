@@ -1,0 +1,12 @@
+fragment AccountFragment on Account {
+  id
+  key
+  name
+  settings {
+    id
+    reservePct
+    cname
+    requiredCreatives
+    googleTagManagerId
+  }
+}

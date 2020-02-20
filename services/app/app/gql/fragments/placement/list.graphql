@@ -1,0 +1,22 @@
+#import 'fortnight/gql/fragments/user-attribution'
+#import 'fortnight/gql/fragments/timestampable'
+
+fragment PlacementListFragment on Placement {
+  id
+  name
+  publisher {
+    id
+    name
+  }
+  template {
+    id
+    name
+    description
+  }
+  topic {
+    id
+    name
+  }
+  ...TimestampableFragment
+  ...UserAttributionFragment
+}

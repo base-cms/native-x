@@ -1,0 +1,13 @@
+fragment ImageViewFragment on Image {
+  id
+  src
+  size
+  filename
+  height
+  width
+  mimeType
+  focalPoint {
+    x
+    y
+  }
+}

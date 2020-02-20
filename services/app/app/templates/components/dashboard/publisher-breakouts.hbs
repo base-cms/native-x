@@ -1,0 +1,75 @@
+<div class="card-body">
+  <div class="row">
+    <div class="col form-inline">
+      {{-report/metrics-chart/date-selector
+        disabled=isLoading
+        class="mr-3"
+        range=(hash start=startDate end=endDate)
+        onchange=(action "setDates")
+      }}
+
+      <div class="form-inline mt-3">
+        <div class="custom-control custom-radio">
+          {{radio-button radioId="breakout-publisher" radioClass="custom-control-input" value="publisher" groupValue=breakout changed=(action "setBreakout")}}
+          <label class="custom-control-label mr-3" for="breakout-publisher">Publisher</label>
+        </div>
+        <div class="custom-control custom-radio">
+          {{radio-button radioId="breakout-topic" radioClass="custom-control-input" value="topic" groupValue=breakout changed=(action "setBreakout")}}
+          <label class="custom-control-label mr-3" for="breakout-topic">Topic</label>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+{{progress-bar show=isLoading}}
+<div class="card-body">
+  {{#if rowsChanged}}
+    <table class="table table-sm table-hover mb-0">
+      <thead>
+        <tr>
+          <th>
+            Publisher
+            {{-report/sort-field key="publisherName" sortBy=sortBy ascending=ascending reset=false}}
+          </th>
+          {{#if (eq breakout "topic")}}
+            <th>
+              Topic
+              {{-report/sort-field key="topicName" sortBy=sortBy ascending=ascending reset=false}}
+            </th>
+          {{/if}}
+          <th>
+            Views
+            {{-report/sort-field key="views" sortBy=sortBy ascending=ascending reset=false}}
+          </th>
+          <th>
+            Clicks
+            {{-report/sort-field key="clicks" sortBy=sortBy ascending=ascending reset=false}}
+          </th>
+          <th>
+            CTR
+            {{-report/sort-field key="ctr" sortBy=sortBy ascending=ascending reset=false}}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each rows as |row|}}
+          <tr>
+            {{#if (eq breakout "publisher")}}
+              <td>
+                {{row.publisherName}}
+              </td>
+            {{/if}}
+            {{#if (eq breakout "topic")}}
+              <td>{{row.publisherName}}</td>
+              <td>{{row.topicName}}</td>
+            {{/if}}
+            <td>{{number-format row.views "0,0"}}</td>
+            <td>{{number-format row.clicks "0,0"}}</td>
+            <td>{{number-format row.ctr "0.[000]%"}}</td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  {{/if}}
+</div>

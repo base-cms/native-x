@@ -1,0 +1,17 @@
+#import 'fortnight/gql/fragments/publisher/autocomplete'
+
+query AutocompletePublishers($pagination: PaginationInput, $phrase: String!) {
+  autocompletePublishers(pagination: $pagination, phrase: $phrase) {
+    totalCount
+    edges {
+      node {
+        ...PublisherAutocompleteFragment
+      }
+      cursor
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}

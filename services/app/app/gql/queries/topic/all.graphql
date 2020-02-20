@@ -1,0 +1,17 @@
+#import 'fortnight/gql/fragments/topic/list'
+
+query AllTopics($pagination: PaginationInput, $sort: TopicSortInput) {
+  allTopics(pagination: $pagination, sort: $sort) {
+    totalCount
+    edges {
+      node {
+        ...TopicListFragment
+      }
+      cursor
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}

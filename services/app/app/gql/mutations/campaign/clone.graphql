@@ -1,0 +1,6 @@
+
+mutation CloneCampaign($input: ModelIdInput!) {
+  cloneCampaign(input: $input) {
+    id
+  }
+}

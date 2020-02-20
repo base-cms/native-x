@@ -1,0 +1,96 @@
+<div class="row">
+  <div class="col-12 col-lg-8">
+
+    <div class="row">
+      <div class="col">
+        {{partial "manage/story/fields/title"}}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-6">
+        {{partial "manage/story/fields/advertiser"}}
+      </div>
+      <div class="col-lg-6">
+        {{partial "manage/story/fields/publisher"}}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <div class="form-group">
+          <label for="teaser">Teaser</label>
+          {{textarea
+            value=form.model.teaser
+            class="form-control"
+            id="teaser"
+            placeholder="Teaser"
+            focusOut=(action form.actions.autosave)
+            keyUp=(action form.actions.autosave 750)
+          }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-lg-4">
+
+    <label>Primary Image</label>
+    {{#if model.primaryImage.id}}
+      {{#with model.primaryImage as |image|}}
+        {{#link-to "manage.story.edit.primary-image"}}
+          {{image-crop
+            imgClass="img-fluid img-thumbnail"
+            aspectRatio="16:9"
+            originalSrc=image.src
+            fpX=image.focalPoint.x
+            fpY=image.focalPoint.y
+            alt="Image Preview"
+          }}
+        {{/link-to}}
+      {{/with}}
+    {{else}}
+      {{#link-to "manage.story.edit.primary-image" class="card text-muted border-muted no-underline"}}
+        <div class="card-body text-center d-flex flex-column justify-content-center">
+          <span class="h1">{{entypo-icon "image"}}</span>
+          <span class="h4">Upload Image</span>
+        </div>
+      {{/link-to}}
+    {{/if}}
+
+    <div class="row my-4">
+      <div class="col">
+        {{story-published-at
+          publishedAt=form.model.publishedAt
+          status=form.model.status
+          onSelect=(action "setPublishedAt" form.model.id)
+        }}
+      </div>
+    </div>
+
+    <h6>Links</h6>
+    <div class="row">
+      <div class="col">
+        {{entypo-icon "link"}}
+        {{#link-to "portal.stories.manage.materials" model.advertiser.hash model.hash target="_blank" rel="noopener noreferrer"}}Material Collection Link{{/link-to}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        {{entypo-icon "link"}}
+        {{#link-to "portal.stories.manage.report" model.advertiser.hash model.hash target="_blank" rel="noopener noreferrer"}}Report{{/link-to}}
+      </div>
+    </div>
+
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col">
+    <div class="form-group">
+      <label for="body">Body</label>
+      {{story-editor value=form.model.body storyId=form.model.id update=(action form.actions.setAndAutosave "body")}}
+    </div>
+  </div>
+</div>
+
+

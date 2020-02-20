@@ -1,0 +1,37 @@
+<div class="card-body">
+  <div class="row">
+    <div class="col">
+      {{-report/metrics-chart/metric-selector
+        selected=selectedMetric
+        options=metricOptions
+        disabled=isLoading
+        onchange=(action "setMetric")
+      }}
+    </div>
+    <div class="col">
+      {{-report/metrics-chart/date-selector
+        class="float-right"
+        disabled=isLoading
+        range=(hash start=startDate end=endDate)
+        onchange=(action "setDates")
+      }}
+    </div>
+  </div>
+</div>
+{{progress-bar show=isLoading}}
+<div class="card-body">
+  <div class="row mt-3">
+    <div class="col">
+      {{-report/metrics-chart/chart
+        label=selectedMetric.label
+        isLoading=isLoading
+        days=days
+        data=data
+        tooltipFormat=selectedMetric.tooltipFormat
+        labelFormat=selectedMetric.labelFormat
+      }}
+    </div>
+  </div>
+</div>
+
+

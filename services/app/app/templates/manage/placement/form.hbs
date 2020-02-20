@@ -1,0 +1,79 @@
+{{placement/publisher-topic
+  wasValidated=form.wasValidated
+  publisher=form.model.publisher
+  topic=form.model.topic
+  onChange=(action form.actions.autosave)
+}}
+
+<div class="row">
+  <div class="col">
+    <div class="form-group">
+      <label>Template {{required-field-label}}</label>
+      {{#type-ahead
+        required=true
+        placeholder="Begin typing to search..."
+        triggerClass="form-control"
+        wasFormValidated=form.wasValidated
+        invalidFeedback="Please select a template."
+        type="template"
+        closeOnSelect=true
+        allowClear=false
+        onChange=(action form.actions.autosave)
+        selected=form.model.template as |item|
+      }}
+        {{item.name}}
+        {{#if item.description}}
+          <span class="text-muted">[{{item.description}}]</span>
+        {{/if}}
+      {{/type-ahead}}
+
+      <small class="form-text text-muted">The template this placement should use to dictate the display of the ad.</small>
+
+    </div>
+  </div>
+</div>
+
+
+<div class="row">
+
+  <div class="col-sm-6 col-md-9 col-lg-10">
+    <div class="form-group mb-3 mb-sm-0">
+      <label for="placement-name">Label</label>
+      {{input
+        type="text"
+        value=form.model.name
+        class="form-control"
+        id="placement-name"
+        focusOut=(action form.actions.autosave)
+        keyUp=(action form.actions.autosave 750)
+      }}
+      <small class="form-text text-muted">Optional label text to append to the placement name.</small>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-md-3 col-lg-2">
+    <div class="form-group mb-0">
+      <label for="placement-reserve-pct">Impression Reserve</label>
+
+      <div class="input-group">
+        {{input
+          type="number"
+          min=0
+          max=100
+          value=form.model.reservePct
+          class="form-control"
+          id="placement-reserve-pct"
+          focusOut=(action form.actions.autosave)
+          keyUp=(action form.actions.autosave 750)
+        }}
+        <div class="input-group-append">
+          <span class="input-group-text">%</span>
+        </div>
+      </div>
+
+      <small class="form-text text-muted">The share of impressions dedicated to serving content, rather than a campaign.</small>
+
+    </div>
+  </div>
+
+</div>

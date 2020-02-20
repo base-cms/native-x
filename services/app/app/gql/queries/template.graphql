@@ -1,0 +1,7 @@
+#import 'fortnight/gql/fragments/template/view'
+
+query Template($input: ModelIdInput!) {
+  template(input: $input) {
+    ...TemplateFragment
+  }
+}

@@ -1,0 +1,7 @@
+<h5 class="card-title font-weight-bold text-uppercase text-danger mb-0">
+  Campaign
+</h5>
+<div class="text-muted mb-3">
+  {{#if campaign.criteria.start}}{{moment-format campaign.criteria.start "MM/DD/YYYY"}}{{/if}}{{#if campaign.criteria.end}} - {{moment-format
+  campaign.criteria.end "MM/DD/YYYY"}}{{/if}} {{#if campaign.description}} | {{ campaign.description }} {{/if}}
+</div>

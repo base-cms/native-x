@@ -1,0 +1,31 @@
+{{#link-to
+  "manage.publisher.edit.placements.edit" item.id
+  class="list-group-item list-group-item-action flex-column align-items-start"
+}}
+  <div class="d-flex w-100 justify-content-between">
+
+    <div class="d-flex flex-column">
+      {{#if item.topic.name}}
+        <h5 class="mb-1">{{item.topic.name}}</h5>
+      {{/if}}
+      <p class="mb-1">
+        {{item.template.name}}
+        {{#if item.template.description}}
+          <span class="text-muted">[{{item.template.description}}]</span>
+        {{/if}}
+      </p>
+      {{#if item.name}}
+        <p class="mb-1">{{item.name}}</p>
+      {{/if}}
+      <small>ID: {{item.id}}</small>
+    </div>
+
+    <div class="d-none d-md-flex flex-column align-items-end text-right">
+      <div class="mt-auto">
+        {{user-attribution label="Updated" user=item.updatedBy date=item.updatedAt}}
+        {{user-attribution label="Created" user=item.createdBy date=item.createdAt}}
+      </div>
+    </div>
+
+  </div>
+{{/link-to}}

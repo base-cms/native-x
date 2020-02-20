@@ -1,0 +1,17 @@
+#import 'fortnight/gql/fragments/contact/list'
+
+query AllContacts($pagination: PaginationInput, $sort: ContactSortInput) {
+  allContacts(pagination: $pagination, sort: $sort) {
+    totalCount
+    edges {
+      node {
+        ...ContactListFragment
+      }
+      cursor
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}

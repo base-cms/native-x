@@ -1,0 +1,15 @@
+#import 'fortnight/gql/fragments/campaign-creative'
+
+query PortalCampaignsManageReportCreativeBreakdown($input: CampaignHashInput!) {
+  campaignHash(input: $input) {
+    id
+    hash
+    criteria {
+      start
+      end
+    }
+    creatives {
+      ...CampaignCreativeFragment
+    }
+  }
+}

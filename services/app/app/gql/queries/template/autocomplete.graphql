@@ -1,0 +1,11 @@
+#import 'fortnight/gql/fragments/template/autocomplete'
+
+query AutocompleteTemplates($pagination: PaginationInput, $phrase: String!) {
+  autocompleteTemplates(pagination: $pagination, phrase: $phrase) {
+    edges {
+      node {
+        ...TemplateAutocompleteFragment
+      }
+    }
+  }
+}

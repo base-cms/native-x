@@ -1,0 +1,17 @@
+#import 'fortnight/gql/fragments/template/list'
+
+query SearchTemplates($pagination: PaginationInput, $phrase: String!) {
+  searchTemplates(pagination: $pagination, phrase: $phrase) {
+    totalCount
+    edges {
+      node {
+        ...TemplateListFragment
+      }
+      cursor
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}

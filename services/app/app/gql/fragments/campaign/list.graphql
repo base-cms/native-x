@@ -1,0 +1,29 @@
+#import 'fortnight/gql/fragments/image/src'
+#import 'fortnight/gql/fragments/user-attribution'
+#import 'fortnight/gql/fragments/timestampable'
+
+fragment CampaignListFragment on Campaign {
+  id
+  name
+  status
+  requires
+  primaryImage {
+    ...ImageSrcFragment
+  }
+  criteria {
+    id
+    start
+    end
+  }
+  story {
+    id
+    title
+    status
+  }
+  advertiser {
+    id
+    name
+  }
+  ...TimestampableFragment
+  ...UserAttributionFragment
+}

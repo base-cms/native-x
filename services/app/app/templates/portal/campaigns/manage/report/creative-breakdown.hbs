@@ -1,0 +1,39 @@
+<div class="container-fluid mt-4">
+  <div class="row">
+    <div class="col main">
+
+      <div class="row mb-3">
+        <div class="col">
+          {{-report/title title="Campaign Creative Report" subtitle="A breakdown of how your individual creatives are performing"}}
+        </div>
+      </div>
+
+      {{#each model.creatives as |creative|}}
+        <hr>
+        <div class="row">
+
+          <div class="col-lg-4">
+            <div class="card z-depth-half bg-white mb-4">
+              <div class="card-body">
+                {{campaign-creative/preview-grid creative=creative campaign=model}}
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-8">
+            {{-report/campaign/creative
+              startDate=startDate
+              endDate=endDate
+              campaignId=model.id
+              creativeId=creative.id
+            }}
+          </div>
+
+        </div>
+        <hr>
+
+      {{/each}}
+
+    </div>
+  </div>
+</div>

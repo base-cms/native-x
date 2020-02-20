@@ -1,0 +1,6 @@
+
+mutation CloneStory($input: ModelIdInput!) {
+  cloneStory(input: $input) {
+    id
+  }
+}

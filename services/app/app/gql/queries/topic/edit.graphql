@@ -1,0 +1,7 @@
+#import 'fortnight/gql/fragments/topic/edit'
+
+query EditTopic($input: ModelIdInput!) {
+  topic(input: $input) {
+    ...TopicEditFragment
+  }
+}

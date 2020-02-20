@@ -1,0 +1,20 @@
+#import 'fortnight/gql/fragments/story/list'
+
+query EditAdvertiserStories($input: ModelIdInput!, $pagination: PaginationInput, $sort: StorySortInput) {
+  advertiser(input: $input) {
+    id
+    stories(pagination: $pagination, sort: $sort) {
+      totalCount
+      edges {
+        node {
+          ...StoryListFragment
+        }
+        cursor
+      }
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+    }
+  }
+}

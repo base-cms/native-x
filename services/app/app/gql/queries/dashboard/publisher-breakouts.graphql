@@ -1,0 +1,8 @@
+query DashboardPublisherBreakouts($input: BreakoutMetricsInput!, $sort: PublisherMetricsSortInput!) {
+  publisherMetricBreakouts(input: $input, sort: $sort) {
+    publisherName
+    views
+    clicks
+    ctr
+  }
+}

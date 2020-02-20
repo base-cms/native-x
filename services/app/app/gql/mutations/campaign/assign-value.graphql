@@ -1,0 +1,7 @@
+#import 'fortnight/gql/fragments/campaign/details'
+
+mutation AssignCampaignValue($input: AssignCampaignValueInput!) {
+	assignCampaignValue(input: $input) {
+    ...CampaignDetailsFragment
+  }
+}

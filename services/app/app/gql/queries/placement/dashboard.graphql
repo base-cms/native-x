@@ -1,0 +1,17 @@
+#import 'fortnight/gql/fragments/placement/dashboard'
+
+query PlacementsDashboard($pagination: PaginationInput, $sort: PlacementSortInput, $metricsStartDate: Date!, $metricsEndDate: Date!) {
+  allPlacements(pagination: $pagination, sort: $sort) {
+    totalCount
+    edges {
+      node {
+        ...PlacementDashboardFragment
+      }
+      cursor
+    }
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+  }
+}

@@ -1,0 +1,12 @@
+mutation AssignCampaignExternalContact($input: CampaignExternalContactInput!) {
+  campaignExternalContact(input: $input) {
+    id
+    notify {
+      external {
+        id
+        name
+        email
+      }
+    }
+  }
+}
