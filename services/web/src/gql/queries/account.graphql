@@ -1,0 +1,15 @@
+query Account {
+  account {
+    id
+    name
+    key
+    settings {
+      siteVerificationMeta
+      googleTagManagerId
+    }
+    globals {
+      GTM_CONTAINER_ID
+      GA_TRACKING_ID
+    }
+  }
+}

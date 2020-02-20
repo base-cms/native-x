@@ -1,0 +1,21 @@
+version: '3'
+services:
+  app:
+    tty: true
+    image: node:8.11.2
+    ports:
+      - "${APP_PORT-3005}:${APP_PORT-3005}"
+    working_dir: /app
+    volumes:
+      - .:/app:cached
+      - ./node_modules:/app/node_modules:delegated
+      - yarn-cache:/.yarn-cache
+    restart: on-failure
+    entrypoint: ./node_modules/.bin/nodemon server.js --exec "./node_modules/.bin/eslint src/server/**/*.js && node"
+    environment:
+      NODE_ENV: development
+      PORT: ${APP_PORT-3005}
+      GRAPHQL_URI: ${GRAPHQL_URI-http://host.docker.internal:8100}
+volumes:
+  node_modules: {}
+  yarn-cache: {}

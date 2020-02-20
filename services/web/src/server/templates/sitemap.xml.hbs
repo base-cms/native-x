@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  {{#each items as |item|}}
+    <url>
+      <loc>{{item.loc}}</loc>
+      {{#if item.lastmod}}<lastmod>{{item.lastmod}}</lastmod>{{/if}}
+      <changefreq>{{item.changefreq}}</changefreq>
+      <priority>{{item.priority}}</priority>
+
+      {{#if item.image.loc}}
+        <image:image>
+          <image:loc>{{item.image.loc}}
+            {{#if item.image.caption}}<image:caption>{{item.image.caption}}</image:caption>{{/if}}
+          </image:loc>
+        </image:image>
+      {{/if}}
+
+    </url>
+  {{/each}}
+</urlset>
