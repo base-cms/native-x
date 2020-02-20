@@ -1,0 +1,49 @@
+type Query {
+  account: Account!
+}
+
+type Mutation {
+  updateAccount(input: UpdateAccountInput!): Account!
+}
+
+type Account {
+  id: String!
+  key: String!
+  name: String!
+  uri: String!
+  storyUri: String!
+  settings: AccountSettings!
+  globals: AccountGlobals!
+  createdAt: Date
+  updatedAt: Date
+}
+
+type AccountSettings {
+  id: String!
+  cname: String
+  reservePct: Int!
+  requiredCreatives: Int!
+  googleTagManagerId: String
+  siteVerificationMeta: String
+}
+
+type AccountGlobals {
+  GTM_CONTAINER_ID: String!
+  GA_TRACKING_ID: String!
+}
+
+input UpdateAccountInput {
+  id: String!
+  payload: AccountUpdatePayloadInput!
+}
+
+input AccountUpdatePayloadInput {
+  name: String!
+  settings: AccountUpdateSettingsInput!
+}
+
+input AccountUpdateSettingsInput {
+  reservePct: Int!
+  requiredCreatives: Int!
+  googleTagManagerId: String
+}

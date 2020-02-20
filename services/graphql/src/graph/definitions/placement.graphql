@@ -1,0 +1,86 @@
+type Query {
+  allPlacements(pagination: PaginationInput = {}, sort: PlacementSortInput = {}): PlacementConnection!
+  searchPlacements(pagination: PaginationInput = {}, phrase: String!): PlacementConnection!
+  autocompletePlacements(pagination: PaginationInput = {}, phrase: String!): PlacementConnection!
+  placement(input: ModelIdInput!): Placement!
+}
+
+type Mutation {
+  createPlacement(input: CreatePlacementInput!): Placement!
+  updatePlacement(input: UpdatePlacementInput!): Placement!
+  deletePlacement(input: ModelIdInput!): String!
+}
+
+enum PlacementSortField {
+  name
+  createdAt
+  updatedAt
+}
+
+type Placement implements UserAttribution & Timestampable {
+  id: String!
+  name: String
+  publisher: Publisher!
+  template: Template!
+  topic: Topic
+  reservePct: Int!
+  updatedAt: Date
+  createdAt: Date
+  createdBy: User!
+  updatedBy: User!
+  metrics(start: Date!, end: Date!): PlacementMetrics!
+}
+
+type PlacementMetrics {
+  views: Int!
+  clicks: Int!
+  ctr: Float!
+}
+
+type PlacementConnection {
+  totalCount: Int!
+  edges: [PlacementEdge]!
+  pageInfo: PageInfo!
+}
+
+type PlacementEdge {
+  node: Placement!
+  cursor: Cursor!
+}
+
+input PlacementSearchInput {
+  typeahead: PlacementTypeaheadInput!
+}
+
+input PlacementTypeaheadInput {
+  field: PlacementTypeAheadField!
+  term: String!
+}
+
+enum PlacementTypeAheadField {
+  name
+}
+
+input PlacementSortInput {
+  field: PlacementSortField! = createdAt
+  order: Int! = -1
+}
+
+input PlacementPayloadInput {
+  name: String
+  publisherId: String!
+  templateId: String!
+  topicId: String
+  reservePct: Int
+}
+
+input CreatePlacementInput {
+  payload: PlacementPayloadInput!
+}
+
+input UpdatePlacementInput {
+  id: String!
+  payload: PlacementPayloadInput!
+}
+
+

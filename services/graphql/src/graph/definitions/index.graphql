@@ -1,0 +1,81 @@
+# import * from 'account.graphql'
+# import * from 'advertiser.graphql'
+# import * from 'campaign.graphql'
+# import * from 'contact.graphql'
+# import * from 'dashboard.graphql'
+# import * from 'image.graphql'
+# import * from 'placement.graphql'
+# import * from 'publisher.graphql'
+# import * from 'report.graphql'
+# import * from 'story.graphql'
+# import * from 'template.graphql'
+# import * from 'topic.graphql'
+# import * from 'user.graphql'
+
+scalar Date
+scalar Cursor
+scalar Mixed
+scalar JSON
+
+enum ContactTypes {
+  internal
+  external
+}
+
+type Query {
+  ping: String!
+}
+
+interface UserAttribution {
+  createdBy: User!
+  updatedBy: User!
+}
+
+interface Timestampable {
+  createdAt: Date
+  updatedAt: Date
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  endCursor: Cursor
+  # hasPreviousPage: Boolean!
+  # startCursor: Cursor
+}
+
+input PaginationInput {
+  first: Int! = 25
+  after: Cursor
+}
+
+input ModelIdInput {
+  id: String!
+}
+
+type NotificationLists {
+  internal: [Contact]
+  external: [Contact]
+}
+
+input NotificationListsInput {
+  internal: [String]
+  external: [String]
+}
+
+input AddContactInput {
+  id: String!
+  type: ContactTypes!
+  contactId: String!
+}
+
+input RemoveContactInput {
+  id: String!
+  type: ContactTypes!
+  contactId: String!
+}
+
+input SetContactsInput {
+  id: String!
+  type: ContactTypes!
+  contactIds: [String!]
+}

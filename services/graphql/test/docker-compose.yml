@@ -1,0 +1,91 @@
+version: '3.7'
+services:
+  test:
+    init: true
+    tty: true
+    image: node:8
+    working_dir: /app
+    entrypoint: yarn run test:run
+    volumes:
+      - ../:/app:cached
+      - ../node_modules:/app/node_modules:delegated
+      - yarn-cache:/.yarn-cache
+    depends_on:
+      - redis
+      - mongo
+      - elasticsearch
+    environment:
+      YARN_CACHE_FOLDER: /.yarn-cache
+      ACCOUNT_KEY: dev-tenant
+      AWS_ACCESS_KEY_ID: 1234
+      AWS_SECRET_ACCESS_KEY: notarealkey
+      APP_HOST: localhost:8100
+      STORY_HOST: localhost:8100
+      ELASTIC_HOST: http://elasticsearch:9200
+      IMGIX_URL: https://imgix.net
+      MONGO_DSN: mongodb://mongo:27017/fortnight
+      NODE_ENV: test
+      PORT: 8100
+      REDIS_DSN: redis://redis:6379/0
+      SENDGRID_API_KEY: 1234
+      SENDGRID_FROM: Test Testerson <test@test.io>
+      GOOGLE_APPLICATION_CREDENTIALS: /app/.google-cloud.json
+      GA_TRACKING_ID: UA-00000000-1
+      GA_VIEW_ID: 1234
+  redis:
+    image: redis:alpine
+    volumes:
+      - redis:/data
+  mongo:
+    image: mongo:3.6
+    volumes:
+      - mongodb:/data/db
+
+  elasticsearch-plugins:
+    image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.2.3
+    entrypoint: sh -c 'test -d "plugins/analysis-phonetic" || bin/elasticsearch-plugin install -s analysis-phonetic'
+    volumes:
+      - esplug:/usr/share/elasticsearch/plugins
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.2.3
+    environment:
+      - cluster.name=docker-cluster-test
+      - bootstrap.memory_lock=true
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "plugin.mandatory: analysis-phonetic"
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+      - esplug:/usr/share/elasticsearch/plugins
+    depends_on:
+      - elasticsearch-plugins
+volumes:
+  node_modules:
+    labels:
+      io.as3.appname: "fortnight-graph"
+      io.as3.env: "test"
+  yarn-cache:
+    labels:
+      io.as3.appname: "fortnight-graph"
+      io.as3.env: "test"
+  mongodb:
+    labels:
+      io.as3.appname: "fortnight-graph"
+      io.as3.discard: "true"
+      io.as3.env: "test"
+  redis:
+    labels:
+      io.as3.appname: "fortnight-graph"
+      io.as3.discard: "true"
+      io.as3.env: "test"
+  esdata:
+    labels:
+      io.as3.appname: "fortnight-graph"
+      io.as3.discard: "true"
+      io.as3.env: "test"
+  esplug:
+    labels:
+      io.as3.appname: "fortnight-graph"
+      io.as3.discard: "true"
+      io.as3.env: "test"

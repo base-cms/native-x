@@ -1,0 +1,98 @@
+type Query {
+  allAdvertisers(pagination: PaginationInput = {}, sort: AdvertiserSortInput = {}): AdvertiserConnection!
+  searchAdvertisers(pagination: PaginationInput = {}, phrase: String!): AdvertiserConnection!
+  autocompleteAdvertisers(pagination: PaginationInput = {}, phrase: String!): AdvertiserConnection!
+  advertiser(input: ModelIdInput!): Advertiser!
+  advertiserHash(input: AdvertiserHashInput!): Advertiser!
+}
+
+type Mutation {
+  createAdvertiser(input: CreateAdvertiserInput!): Advertiser!
+  updateAdvertiser(input: UpdateAdvertiserInput!): Advertiser!
+  deleteAdvertiser(input: ModelIdInput!): String!
+  undeleteAdvertiser(input: ModelIdInput!): Advertiser!
+
+  advertiserLogo(input: AdvertiserLogoInput!): Advertiser!
+
+  setAdvertiserContacts(input: SetContactsInput!): Advertiser!
+}
+
+enum AdvertiserSortField {
+  name
+  createdAt
+  updatedAt
+}
+
+type Advertiser implements UserAttribution & Timestampable {
+  id: String!
+  hash: String!
+  name: String!
+  logo: Image
+  website: String
+  deleted: Boolean!
+  createdAt: Date
+  updatedAt: Date
+  campaigns(pagination: PaginationInput = {}, sort: CampaignSortInput = {}): CampaignConnection!
+  stories(pagination: PaginationInput = {}, sort: StorySortInput = {}): StoryConnection!
+  notify: NotificationLists
+  createdBy: User!
+  updatedBy: User!
+}
+
+type AdvertiserConnection {
+  totalCount: Int!
+  edges: [AdvertiserEdge]!
+  pageInfo: PageInfo!
+}
+
+type AdvertiserEdge {
+  node: Advertiser!
+  cursor: Cursor!
+}
+
+input AdvertiserSearchInput {
+  typeahead: AdvertiserTypeaheadInput!
+}
+
+input AdvertiserTypeaheadInput {
+  field: AdvertiserTypeAheadField!
+  term: String!
+}
+
+enum AdvertiserTypeAheadField {
+  name
+}
+
+input AdvertiserSortInput {
+  field: AdvertiserSortField! = createdAt
+  order: Int! = -1
+}
+
+input AdvertiserPayloadInput {
+  name: String!
+  website: String
+  notify: AdvertiserContactsInput
+}
+
+input AdvertiserContactsInput {
+  internal: [String!]!
+  external: [String!]!
+}
+
+input CreateAdvertiserInput {
+  payload: AdvertiserPayloadInput!
+}
+
+input UpdateAdvertiserInput {
+  id: String!
+  payload: AdvertiserPayloadInput!
+}
+
+input AdvertiserLogoInput {
+  id: String!
+  imageId: String
+}
+
+input AdvertiserHashInput {
+  hash: String!
+}

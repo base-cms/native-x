@@ -1,0 +1,66 @@
+type Query {
+  dailyCampaignMetrics(day: Date!): DailyCampaignMetrics!
+  dailyTotalMetrics(day: Date!): DailyTotalMetrics!
+  publisherMetricBreakouts(input: BreakoutMetricsInput!, sort: PublisherMetricsSortInput = {}): [PublisherBreakoutMetrics!]!
+  topicMetricBreakouts(input: BreakoutMetricsInput!, sort: TopicMetricsSortInput = {}): [TopicBreakoutMetrics!]!
+}
+
+type DailyCampaignMetrics {
+  campaigns: Int!
+  views: Int!
+  clicks: Int!
+  ctr: Float!
+}
+
+type DailyTotalMetrics {
+  placements: Int!
+  views: Int!
+  clicks: Int!
+  ctr: Float!
+}
+
+type PublisherBreakoutMetrics {
+  publisherName: String!
+  views: Int!
+  clicks: Int!
+  ctr: Float!
+}
+
+type TopicBreakoutMetrics {
+  topicName: String!
+  publisherName: String!
+  views: Int!
+  clicks: Int!
+  ctr: Float!
+}
+
+input BreakoutMetricsInput {
+  startDay: Date!
+  endDay: Date!
+}
+
+input PublisherMetricsSortInput {
+  field: PublisherMetricsSortField!
+  order: Int! = -1
+}
+
+enum PublisherMetricsSortField {
+  publisherName
+  views
+  clicks
+  ctr
+}
+
+
+input TopicMetricsSortInput {
+  field: TopicMetricsSortField!
+  order: Int! = -1
+}
+
+enum TopicMetricsSortField {
+  topicName
+  publisherName
+  views
+  clicks
+  ctr
+}

@@ -1,0 +1,269 @@
+type Query {
+  allCampaigns(pagination: PaginationInput = {}, sort: CampaignSortInput = {}): CampaignConnection!
+  runningCampaigns(pagination: PaginationInput = {}, sort: CampaignSortInput = {}): CampaignConnection!
+  incompleteCampaigns(pagination: PaginationInput = {}, sort: CampaignSortInput = {}): CampaignConnection!
+  campaignsStartingSoon(pagination: PaginationInput = {}, sort: CampaignSortInput = {}): CampaignConnection!
+  campaignsEndingSoon(pagination: PaginationInput = {}, sort: CampaignSortInput = {}): CampaignConnection!
+  campaign(input: ModelIdInput!): Campaign!
+  searchCampaigns(pagination: PaginationInput = {}, phrase: String!): CampaignConnection!
+  campaignHash(input: CampaignHashInput!): Campaign!
+  campaignCreative(input: CampaignCreativeInput): CampaignCreative!
+}
+
+type Mutation {
+  createExternalUrlCampaign(input: CreateExternalUrlCampaignInput!): Campaign!
+  createNewStoryCampaign(input: CreateNewStoryCampaignInput!): Campaign!
+  createExistingStoryCampaign(input: CreateExistingStoryCampaignInput!): Campaign!
+
+  updateCampaign(input: UpdateCampaignInput!): Campaign!
+  cloneCampaign(input: ModelIdInput!): Campaign!
+  deleteCampaign(input: ModelIdInput!): String!
+
+  assignCampaignValue(input: AssignCampaignValueInput!): Campaign!
+
+  pauseCampaign(id: String!, paused: Boolean!): Campaign!
+
+  campaignUrl(input: CampaignUrlInput!): Campaign!
+  campaignCriteria(input: CampaignCriteriaInput!): CampaignCriteria!
+
+  addCampaignCreative(input: AddCampaignCreativeInput!): CampaignCreative!
+  removeCampaignCreative(input: RemoveCampaignCreativeInput!): String!
+
+  campaignCreativeStatus(input: CampaignCreativeStatusInput!): CampaignCreative!
+  campaignCreativeDetails(input: CampaignCreativeDetailsInput!): CampaignCreative!
+  campaignCreativeImage(input: CampaignCreativeImageInput!): CampaignCreative!
+
+  campaignContacts(input: SetContactsInput!): Campaign!
+
+  campaignExternalContact(input: CampaignExternalContactInput!): Campaign!
+  removeCampaignExternalContact(input: RemoveCampaignExternalContactInput!): Campaign!
+}
+
+enum CampaignStatus {
+  Deleted
+  Incomplete
+  Finished
+  Paused
+  Running
+  Scheduled
+}
+
+type Campaign implements UserAttribution & Timestampable {
+  id: String!
+  name: String!
+  description: String
+  hash: String!
+  createdAt: Date
+  updatedAt: Date
+  advertiser: Advertiser!
+  story: Story
+  status: CampaignStatus!
+  requires: String
+  deleted: Boolean!
+  paused: Boolean!
+  requiredCreatives: Int!
+  publishers(pagination: PaginationInput = {}, sort: PublisherSortInput = {}): PublisherConnection!
+  url: String
+  primaryImage: Image
+  creatives: [CampaignCreative]
+  criteria: CampaignCriteria
+  externalLinks: [ExternalLink]
+  notify: NotificationLists
+  createdBy: User!
+  updatedBy: User!
+  metrics: CampaignMetrics!
+  reports: CampaignReports!
+}
+
+type CampaignReports {
+  byDay(startDate: Date!, endDate: Date!): [CampaignReportByDay]!
+}
+
+type CampaignCreativeReports {
+  byDay(startDate: Date!, endDate: Date!): [CampaignReportByDay]!
+}
+
+type CampaignReportByDay {
+  day(format: String!): String!
+  metrics: CampaignMetrics!
+}
+
+type CampaignMetrics {
+  views: Int!
+  clicks: Int!
+  ctr: Float!
+}
+
+type CampaignCreative {
+  id: String!
+  title: String
+  teaser: String
+  active: Boolean!
+  image: Image
+  metrics: CampaignMetrics!
+  reports: CampaignCreativeReports!
+}
+
+type CampaignCriteria {
+  id: String!
+  start: Date
+  end: Date
+  placements: [Placement]
+  kvs: [KeyValues]
+}
+
+type KeyValues {
+  key: String!
+  value: String!
+}
+
+type ExternalLink {
+  label: String
+  url: String!
+}
+
+type CampaignConnection {
+  totalCount: Int!
+  edges: [CampaignEdge]!
+  pageInfo: PageInfo!
+}
+
+type CampaignEdge {
+  node: Campaign!
+  cursor: Cursor!
+}
+
+input RemoveCampaignExternalContactInput {
+  campaignId: String!
+  contactId: String!
+}
+
+input CampaignExternalContactInput {
+  campaignId: String!
+  payload: CampaignExternalContactPayloadInput!
+}
+
+input CampaignExternalContactPayloadInput {
+  email: String!
+  givenName: String!
+  familyName: String!
+}
+
+input AssignCampaignValueInput {
+  id: String!
+  field: String!
+  value: Mixed
+}
+
+input CampaignCreativeInput {
+  campaignId: String!
+  creativeId: String!
+}
+
+input CampaignHashInput {
+  advertiserId: String!
+  hash: String!
+}
+
+input CampaignSortInput {
+  field: String! = "createdAt"
+  order: Int! = -1
+}
+
+input CreateExternalUrlCampaignInput {
+  name: String!
+  advertiserId: String!
+}
+
+input CreateNewStoryCampaignInput {
+  name: String!
+  advertiserId: String!
+  publisherId: String!
+}
+
+input CreateExistingStoryCampaignInput {
+  name: String!
+  storyId: String!
+}
+
+input UpdateCampaignInput {
+  id: String!
+  payload: UpdateCampaignPayloadInput!
+}
+
+input UpdateCampaignPayloadInput {
+  name: String
+  description: String
+  url: String
+  advertiserId: String!
+  storyId: String
+  externalLinks: [ExternalLinkInput]
+}
+
+input CampaignUrlInput {
+  campaignId: String!
+  url: String!
+}
+
+input ExternalLinkInput {
+  label: String
+  url: String!
+}
+
+input AddCampaignCreativeInput {
+  campaignId: String!
+  payload: AddCampaignCreativePayloadInput
+}
+
+input CampaignCreativeImageInput {
+  campaignId: String!
+  creativeId: String!
+  imageId: String
+}
+
+input AddCampaignCreativePayloadInput {
+  title: String!
+  teaser: String!
+  active: Boolean!
+  imageId: String!
+}
+
+input RemoveCampaignCreativeInput {
+  campaignId: String!
+  creativeId: String!
+}
+
+input CampaignCreativeDetailsInput {
+  campaignId: String!
+  creativeId: String!
+  payload: CampaignCreativeDetailsPayloadInput
+}
+
+input CampaignCreativeDetailsPayloadInput {
+  title: String!
+  teaser: String!
+  active: Boolean!
+}
+
+input CampaignCreativeStatusInput {
+  campaignId: String!
+  creativeId: String!
+  active: Boolean!
+}
+
+input KeyValuesPayloadInput {
+  key: String!
+  value: String!
+}
+
+input CampaignCriteriaInput {
+  campaignId: String!
+  payload: CampaignCriteriaPayloadInput
+}
+
+input CampaignCriteriaPayloadInput {
+  start: Date!
+  end: Date
+  placementIds: [String!]
+  kvs: [KeyValuesPayloadInput]
+}

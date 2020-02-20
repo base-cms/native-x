@@ -1,0 +1,64 @@
+type Query {
+  allTemplates(pagination: PaginationInput = {}, sort: TemplateSortInput = {}): TemplateConnection!
+  searchTemplates(pagination: PaginationInput = {}, phrase: String!): TemplateConnection!
+  autocompleteTemplates(pagination: PaginationInput = {}, phrase: String!): TemplateConnection!
+  template(input: ModelIdInput!): Template!
+}
+
+type Mutation {
+  createTemplate(input: CreateTemplateInput!): Template!
+  updateTemplate(input: UpdateTemplateInput!): Template!
+  deleteTemplate(input: ModelIdInput!): String!
+}
+
+enum TemplateSortField {
+  name
+  createdAt
+  updatedAt
+}
+
+type Template implements UserAttribution & Timestampable {
+  id: String!
+  name: String!
+  description: String
+  html: String!
+  fallback: String
+  updatedAt: Date
+  createdAt: Date
+  createdBy: User!
+  updatedBy: User!
+}
+
+type TemplateConnection {
+  totalCount: Int!
+  edges: [TemplateEdge]!
+  pageInfo: PageInfo!
+}
+
+type TemplateEdge {
+  node: Template!
+  cursor: Cursor!
+}
+
+input TemplateSortInput {
+  field: TemplateSortField! = createdAt
+  order: Int! = -1
+}
+
+input TemplatePayloadInput {
+  name: String!
+  description: String
+  html: String!
+  fallback: String
+}
+
+input CreateTemplateInput {
+  payload: TemplatePayloadInput!
+}
+
+input UpdateTemplateInput {
+  id: String!
+  payload: TemplatePayloadInput!
+}
+
+

@@ -1,0 +1,83 @@
+version: '3.7'
+services:
+  app:
+    init: true
+    tty: true
+    image: node:8
+    working_dir: /app
+    entrypoint: node_modules/.bin/gulp
+    ports:
+      - "${GRAPH_APP_PORT-8100}:8100"
+    volumes:
+      - .:/app:cached
+      - ./node_modules:/app/node_modules:delegated
+      - yarn-cache:/.yarn-cache
+    depends_on:
+      - redis
+      - mongo
+      - elasticsearch
+    restart: on-failure
+    environment:
+      YARN_CACHE_FOLDER: /.yarn-cache
+      ACCOUNT_KEY: ${ACCOUNT_KEY-dev-tenant}
+      BASE_URI: localhost:8100
+      DEBUG: ${DEBUG}
+      ELASTIC_HOST: http://elasticsearch:9200
+      ELASTIC_INDEX_RECREATE: ${ELASTIC_INDEX_RECREATE-false}
+      MONGOOSE_DEBUG: ${MONGOOSE_DEBUG-false}
+      MONGO_DSN: ${MONGO_DSN-mongodb://mongo:27017/fortnight}
+      NODE_ENV: development
+      PORT: 8100
+      REDIS_DSN: redis://redis:6379/0
+      SENDGRID_API_KEY: ${SENDGRID_API_KEY}
+      SENDGRID_FROM: ${SENDGRID_FROM}
+      GOOGLE_APPLICATION_CREDENTIALS: /app/.google-cloud.json
+  redis:
+    image: redis:alpine
+  mongo:
+    image: mongo:3.6
+    command: --quiet
+    volumes:
+      - mongodb:/data/db
+    ports:
+      - "${GRAPH_DB_PORT-8101}:27017"
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.2.3
+    environment:
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "plugin.mandatory:analysis-phonetic"
+      - "logger.level=WARN"
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+      - esplug:/usr/share/elasticsearch/plugins
+    ports:
+      - "${GRAPH_ES_NODE_PORT-8102}:9200"
+      - "${GRAPH_ES_TRANSPORT_PORT-8103}:9300"
+    depends_on:
+      - elasticsearch-plugins
+
+  elasticsearch-plugins:
+    image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.2.3
+    entrypoint: sh -c 'test -d "plugins/analysis-phonetic" || bin/elasticsearch-plugin install -s analysis-phonetic'
+    tty: true
+    volumes:
+      - esplug:/usr/share/elasticsearch/plugins
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana-oss:6.2.3
+    environment:
+      - server.name=kibana
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
+      - LOGGING_QUIET=true
+    ports:
+      - "${GRAPH_ES_KIBANA_PORT-8104}:5601"
+    depends_on:
+      - elasticsearch
+volumes:
+  mongodb: {}
+  esdata: {}
+  esplug: {}
+  yarn-cache: {}

@@ -1,0 +1,89 @@
+type Query {
+  allPublishers(pagination: PaginationInput = {}, sort: PublisherSortInput = {}): PublisherConnection!
+  searchPublishers(pagination: PaginationInput = {}, phrase: String!): PublisherConnection!
+  autocompletePublishers(pagination: PaginationInput = {}, phrase: String!): PublisherConnection!
+  publisher(input: ModelIdInput!): Publisher!
+}
+
+type Mutation {
+  createPublisher(input: CreatePublisherInput!): Publisher!
+  updatePublisher(input: UpdatePublisherInput!): Publisher!
+  publisherLogo(input: PublisherLogoInput!): Publisher!
+  deletePublisher(input: ModelIdInput!): String!
+}
+
+enum PublisherSortField {
+  name
+  createdAt
+  updatedAt
+}
+
+type Publisher implements UserAttribution & Timestampable {
+  id: String!
+  name: String!
+  domainName: String
+  website: String!
+  logo: Image
+  topics(pagination: PaginationInput = {}, sort: TopicSortInput = {}): TopicConnection!
+  placements(pagination: PaginationInput = {}, sort: PlacementSortInput = {}): PlacementConnection!
+  campaigns(pagination: PaginationInput = {}, sort: CampaignSortInput = {}): CampaignConnection!
+  updatedAt: Date
+  createdAt: Date
+  createdBy: User!
+  updatedBy: User!
+  metrics(start: Date!, end: Date!): PublisherMetrics!
+}
+
+type PublisherMetrics {
+  views: Int!
+  clicks: Int!
+  ctr: Float!
+}
+
+type PublisherConnection {
+  totalCount: Int!
+  edges: [PublisherEdge]!
+  pageInfo: PageInfo!
+}
+
+type PublisherEdge {
+  node: Publisher!
+  cursor: Cursor!
+}
+
+input PublisherSearchInput {
+  typeahead: PublisherTypeAheadInput!
+}
+
+input PublisherTypeAheadInput {
+  field: PublisherTypeAheadField!
+  term: String!
+}
+
+enum PublisherTypeAheadField {
+  name
+}
+
+input PublisherSortInput {
+  field: PublisherSortField! = createdAt
+  order: Int! = -1
+}
+
+input PublisherPayloadInput {
+  name: String!
+  website: String!
+}
+
+input CreatePublisherInput {
+  payload: PublisherPayloadInput!
+}
+
+input UpdatePublisherInput {
+  id: String!
+  payload: PublisherPayloadInput!
+}
+
+input PublisherLogoInput {
+  id: String!
+  imageId: String
+}

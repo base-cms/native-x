@@ -1,0 +1,33 @@
+type Mutation {
+  imageDimensions(input: ImageDimensionsInput!): Image!
+  imageFocalPoint(input: ImageFocalPointInput!): Image!
+}
+
+type Image {
+  id: String!
+  src: String!
+  filename: String!
+  mimeType: String
+  size: Int
+  width: Int
+  height: Int
+  uploadedAt: Date
+  focalPoint: ImageFocalPoint
+}
+
+type ImageFocalPoint {
+  x: Float!
+  y: Float!
+}
+
+input ImageFocalPointInput {
+  id: String!
+  x: Float!
+  y: Float!
+}
+
+input ImageDimensionsInput {
+  id: String!
+  width: Int
+  height: Int
+}

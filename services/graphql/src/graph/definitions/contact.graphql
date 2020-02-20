@@ -1,0 +1,75 @@
+type Query {
+  allContacts(pagination: PaginationInput = {}, sort: ContactSortInput = {}): ContactConnection!
+  searchContacts(pagination: PaginationInput = {}, phrase: String!): ContactConnection!
+  autocompleteContacts(pagination: PaginationInput = {}, phrase: String!): ContactConnection!
+  contact(input: ModelIdInput!): Contact!
+}
+
+type Mutation {
+  createContact(input: CreateContactInput!): Contact!
+  updateContact(input: UpdateContactInput!): Contact!
+  deleteContact(input: ModelIdInput!): String!
+}
+
+enum ContactSortField {
+  name
+  createdAt
+  updatedAt
+}
+
+type Contact implements UserAttribution & Timestampable {
+  id: String!
+  name: String!
+  email: String!
+  givenName: String
+  familyName: String
+  createdAt: Date
+  updatedAt: Date
+  createdBy: User!
+  updatedBy: User!
+}
+
+type ContactConnection {
+  totalCount: Int!
+  edges: [ContactEdge]!
+  pageInfo: PageInfo!
+}
+
+type ContactEdge {
+  node: Contact!
+  cursor: Cursor!
+}
+
+input ContactSearchInput {
+  typeahead: ContactTypeAheadInput!
+}
+
+input ContactTypeAheadInput {
+  field: ContactTypeAheadField!
+  term: String!
+}
+
+enum ContactTypeAheadField {
+  name
+  email
+}
+
+input ContactSortInput {
+  field: ContactSortField! = createdAt
+  order: Int! = -1
+}
+
+input ContactPayloadInput {
+  email: String!
+  givenName: String
+  familyName: String
+}
+
+input CreateContactInput {
+  payload: ContactPayloadInput!
+}
+
+input UpdateContactInput {
+  id: String!
+  payload: ContactPayloadInput!
+}
