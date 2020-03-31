@@ -37,7 +37,7 @@
     "helmet": "^3.13.0",
     "isomorphic-unfetch": "^2.1.1",
     "moment": "^2.19.1",
-    "next": "6.1.1-canary.4",
+    "next": "9.3.2",
     "prop-types": "^15.6.2",
     "react": "^16.4.2",
     "react-apollo": "^2.1.9",
