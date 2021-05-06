@@ -118,6 +118,6 @@
     "bootswatch": "4.1.2",
     "filesize": "^3.6.0",
     "fraction.js": "^4.0.4",
-    "highcharts": "^6.1.1"
+    "highcharts": "^9.0.0"
   }
 }
